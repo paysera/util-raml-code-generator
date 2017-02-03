@@ -1,0 +1,15 @@
+{
+    "name": "paysera/lib-{{ api.name }}-client",
+    "description": "{{ api.name|capitalize ~ ' Client' }}",
+    "autoload": {
+        "psr-4": {
+            "{{ (api.namespace ~ '\\')|replace({'\\':'\\\\'}) }}": "src"
+        }
+    },
+    "require": {
+        "php": ">=5.5",
+        "paysera/lib-rest-client-common": "{{ rest_client_common_version|default('^1.0') }}",
+        "fig/http-message-util": "^1.0"
+    },
+    "minimum-stability": "stable"
+}

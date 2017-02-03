@@ -1,0 +1,15 @@
+{
+    "name": "paysera/lib-transfer-client",
+    "description": "Transfer Client",
+    "autoload": {
+        "psr-4": {
+            "Paysera\\Test\\TestClient\\": "src"
+        }
+    },
+    "require": {
+        "php": ">=5.5",
+        "paysera/lib-rest-client-common": "^1.0",
+        "fig/http-message-util": "^1.0"
+    },
+    "minimum-stability": "stable"
+}

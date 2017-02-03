@@ -1,0 +1,15 @@
+parameters:
+    raml_directory: raml
+    generated_directory: generated
+    template_directories:
+        - src/Templates
+        - src/Templates/Client
+        - src/Templates/Client/Client
+        - src/Templates/Client/Entity
+
+twig:
+    options:
+        debug: true
+        strict_variables: true
+    global_variables:
+        oauth_base_url: https://example.com/oauth/v1/

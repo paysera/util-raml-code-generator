@@ -1,0 +1,13 @@
+<?php
+
+namespace {{ api.namespace }}\Entity;
+
+use Paysera\Component\RestClientCommon\Entity\Result;
+
+class {{ type.name }} extends Result
+{
+    protected function createItem(array $data)
+    {
+        return new {{ type.itemsType }}($data);
+    }
+}

@@ -1,0 +1,34 @@
+{% import _self as macros %}
+{% macro render_methods(resource, api) %}
+{% for subResource in resource.resources %}
+{{ _self.render_methods(subResource, api) }}
+{% endfor %}
+{% for method in resource.methods %}
+{% include 'Method/api_method.php.twig' with {
+    'resource': resource,
+    'method': method,
+    'api': api
+} only %}
+{% endfor %}
+{% endmacro %}
+<?php
+
+namespace {{ api.namespace }};
+
+use {{ api.namespace }}\Entity as Entities;
+use Fig\Http\Message\RequestMethodInterface;
+use Paysera\Component\RestClientCommon\Client\ApiClient;
+
+class {{ api.name|capitalize }}Client
+{
+    private $apiClient;
+
+    public function __construct(ApiClient $apiClient)
+    {
+        $this->apiClient = $apiClient;
+    }
+
+{% for resource in api.ramlDefinition.resources -%}
+    {{ macros.render_methods(resource, api) }}
+{% endfor %}
+}
