@@ -1,0 +1,15 @@
+{
+    "name": "paysera/util-raml-code-generator",
+    "description": "Generate PHP Code from RAML specification",
+    "autoload": {
+        "psr-4": {
+            "Paysera\\Util\\RamlCodeGenerator\\": "src"
+        }
+    },
+    "require": {
+        "php": ">=5.5",
+        "paysera/lib-rest-client-common": "*@dev",
+        "alecsammon/php-raml-parser": "^2.2"
+    },
+    "minimum-stability": "stable"
+}
