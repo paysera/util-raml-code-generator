@@ -7,8 +7,7 @@ use Paysera\Component\RestClientCommon\Util\ClientFactoryAbstract;
 
 class ClientFactory extends ClientFactoryAbstract
 {
-    protected static $baseUrl = '{{ base_url }}';
-    protected static $oauthBaseUrl = '{{ oauth_base_url }}';
+    const DEFAULT_BASE_URL = '{{ base_url }}';
 
     private $apiClient;
 
