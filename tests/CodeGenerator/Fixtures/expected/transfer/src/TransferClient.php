@@ -27,7 +27,7 @@ class TransferClient
     {
         $request = $this->apiClient->createRequest(
             RequestMethodInterface::METHOD_PUT,
-            sprintf('/transfer/%s/sign', urlencode($id)),
+            sprintf('transfer/%s/sign', urlencode($id)),
             $transferRegistrationParameters
         );
         $data = $this->apiClient->makeRequest($request);
@@ -47,7 +47,7 @@ class TransferClient
     {
         $request = $this->apiClient->createRequest(
             RequestMethodInterface::METHOD_PUT,
-            sprintf('/transfer/%s/reserve', urlencode($id)),
+            sprintf('transfer/%s/reserve', urlencode($id)),
             $transferRegistrationParameters
         );
         $data = $this->apiClient->makeRequest($request);
@@ -67,7 +67,7 @@ class TransferClient
     {
         $request = $this->apiClient->createRequest(
             RequestMethodInterface::METHOD_PUT,
-            sprintf('/transfer/%s/provide-password', urlencode($id)),
+            sprintf('transfer/%s/provide-password', urlencode($id)),
             $transferPassword
         );
         $data = $this->apiClient->makeRequest($request);
@@ -86,7 +86,7 @@ class TransferClient
     {
         $request = $this->apiClient->createRequest(
             RequestMethodInterface::METHOD_PUT,
-            sprintf('/transfer/%s/freeze', urlencode($id)),
+            sprintf('transfer/%s/freeze', urlencode($id)),
             null
         );
         $data = $this->apiClient->makeRequest($request);
@@ -105,7 +105,7 @@ class TransferClient
     {
         $request = $this->apiClient->createRequest(
             RequestMethodInterface::METHOD_PUT,
-            sprintf('/transfer/%s/complete', urlencode($id)),
+            sprintf('transfer/%s/complete', urlencode($id)),
             null
         );
         $data = $this->apiClient->makeRequest($request);
@@ -125,7 +125,7 @@ class TransferClient
     {
         $request = $this->apiClient->createRequest(
             RequestMethodInterface::METHOD_PUT,
-            sprintf('/transfer/%s/register', urlencode($id)),
+            sprintf('transfer/%s/register', urlencode($id)),
             $transferRegistrationParameters
         );
         $data = $this->apiClient->makeRequest($request);
@@ -144,7 +144,7 @@ class TransferClient
     {
         $request = $this->apiClient->createRequest(
             RequestMethodInterface::METHOD_GET,
-            sprintf('/transfer/%s', urlencode($id)),
+            sprintf('transfer/%s', urlencode($id)),
             null
         );
         $data = $this->apiClient->makeRequest($request);
@@ -162,7 +162,7 @@ class TransferClient
     {
         $request = $this->apiClient->createRequest(
             RequestMethodInterface::METHOD_DELETE,
-            sprintf('/transfer/%s', urlencode($id)),
+            sprintf('transfer/%s', urlencode($id)),
             null
         );
         $data = $this->apiClient->makeRequest($request);
@@ -182,7 +182,7 @@ class TransferClient
     {
         $request = $this->apiClient->createRequest(
             RequestMethodInterface::METHOD_POST,
-            '/transfer',
+            'transfer',
             $transferInput
         );
         $data = $this->apiClient->makeRequest($request);
@@ -201,7 +201,7 @@ class TransferClient
     {
         $request = $this->apiClient->createRequest(
             RequestMethodInterface::METHOD_PUT,
-            '/transfers/reserve',
+            'transfers/reserve',
             $transfersBatch
         );
         $data = $this->apiClient->makeRequest($request);
@@ -220,7 +220,7 @@ class TransferClient
     {
         $request = $this->apiClient->createRequest(
             RequestMethodInterface::METHOD_GET,
-            '/transfers',
+            'transfers',
             $transfersFilter
         );
         $data = $this->apiClient->makeRequest($request);

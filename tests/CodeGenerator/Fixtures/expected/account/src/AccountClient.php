@@ -26,7 +26,7 @@ class AccountClient
     {
         $request = $this->apiClient->createRequest(
             RequestMethodInterface::METHOD_GET,
-            '/accounts',
+            'accounts',
             $accountFilter
         );
         $data = $this->apiClient->makeRequest($request);

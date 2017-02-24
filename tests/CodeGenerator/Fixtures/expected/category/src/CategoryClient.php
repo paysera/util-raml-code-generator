@@ -26,7 +26,7 @@ class CategoryClient
     {
         $request = $this->apiClient->createRequest(
             RequestMethodInterface::METHOD_PUT,
-            sprintf('/categories/%s/enable', urlencode($id)),
+            sprintf('categories/%s/enable', urlencode($id)),
             null
         );
         $data = $this->apiClient->makeRequest($request);
@@ -45,7 +45,7 @@ class CategoryClient
     {
         $request = $this->apiClient->createRequest(
             RequestMethodInterface::METHOD_PUT,
-            sprintf('/categories/%s/disable', urlencode($id)),
+            sprintf('categories/%s/disable', urlencode($id)),
             null
         );
         $data = $this->apiClient->makeRequest($request);
@@ -64,7 +64,7 @@ class CategoryClient
     {
         $request = $this->apiClient->createRequest(
             RequestMethodInterface::METHOD_PUT,
-            sprintf('/categories/%s', urlencode($id)),
+            sprintf('categories/%s', urlencode($id)),
             null
         );
         $data = $this->apiClient->makeRequest($request);
@@ -82,7 +82,7 @@ class CategoryClient
     {
         $request = $this->apiClient->createRequest(
             RequestMethodInterface::METHOD_DELETE,
-            sprintf('/categories/%s', urlencode($id)),
+            sprintf('categories/%s', urlencode($id)),
             null
         );
         $data = $this->apiClient->makeRequest($request);
@@ -101,7 +101,7 @@ class CategoryClient
     {
         $request = $this->apiClient->createRequest(
             RequestMethodInterface::METHOD_GET,
-            '/categories',
+            'categories',
             $categoryFilter
         );
         $data = $this->apiClient->makeRequest($request);
@@ -119,7 +119,7 @@ class CategoryClient
     {
         $request = $this->apiClient->createRequest(
             RequestMethodInterface::METHOD_POST,
-            '/categories',
+            'categories',
             $category
         );
         $data = $this->apiClient->makeRequest($request);

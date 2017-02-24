@@ -102,7 +102,7 @@ class ApiMethodExtension extends Twig_Extension
 
     public function generateUri(Resource $resource)
     {
-        $replaced = preg_replace(self::IDENTIFIER_RESOURCE, '%s', $resource->getUri());
+        $replaced = preg_replace(self::IDENTIFIER_RESOURCE, '%s', ltrim($resource->getUri(), '/'));
         $arguments = $this->extractUriArguments($resource->getUri());
 
         foreach ($arguments as $key => $argument) {
