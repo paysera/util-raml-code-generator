@@ -6,6 +6,7 @@ parameters:
         - src/Templates/Client
         - src/Templates/Client/Client
         - src/Templates/Client/Entity
+    vendor_prefix: vendor
 
 twig:
     options:

@@ -7,8 +7,7 @@ use Paysera\Component\RestClientCommon\Util\ClientFactoryAbstract;
 
 class ClientFactory extends ClientFactoryAbstract
 {
-    protected static $baseUrl = 'https://gateway.paysera.com/rest/account/v1/';
-    protected static $oauthBaseUrl = 'https://wallet.paysera.com/oauth/v1/';
+    const DEFAULT_BASE_URL = 'https://gateway.paysera.com/rest/account/v1/';
 
     private $apiClient;
 

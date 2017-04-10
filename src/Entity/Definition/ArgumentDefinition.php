@@ -5,6 +5,7 @@ namespace Paysera\Util\RamlCodeGenerator\Entity\Definition;
 class ArgumentDefinition
 {
     const TYPE_DEFAULT = 'string';
+    const NAMESPACE_PREFIX = 'Entities\\';
 
     /**
      * @var string
@@ -50,5 +51,17 @@ class ArgumentDefinition
     {
         $this->type = $type;
         return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getNamespacedType()
+    {
+        if ($this->type === self::TYPE_DEFAULT) {
+            return self::TYPE_DEFAULT;
+        }
+
+        return self::NAMESPACE_PREFIX . $this->type;
     }
 }

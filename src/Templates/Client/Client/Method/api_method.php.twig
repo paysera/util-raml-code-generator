@@ -4,7 +4,7 @@
      *
 {% set arguments = generate_method_arguments(method, resource, api) %}
 {% for argument in arguments %}
-     * @param {{ argument.type }} {{ argument.name }}
+     * @param {{ argument.namespacedType }} {{ argument.name }}
 {% endfor %}
      * @return {{ get_return_type(method, api) }}
      */

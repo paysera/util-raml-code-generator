@@ -1,0 +1,43 @@
+{{ method.description }}
+
+{% spaceless %}
+
+{% set arguments = generate_method_arguments(method, resource, api) %}
+
+{% if get_return_type(method, api) == 'null' %}
+    {% set return_value = '' %}
+{% else %}
+    {% set return_value = '$result = ' %}
+{% endif %}
+
+{% set namespace = null %}
+
+{% for argument in arguments %}
+    {% if argument.type != constant('TYPE_DEFAULT', argument) %}
+       {% set namespace = 'use '~ api.namespace ~ '\Entity as Entities;' %}
+    {% endif %}
+{% endfor %}
+
+{% endspaceless %}
+
+```php
+{% if namespace is not null -%}
+    {{ namespace }}
+
+{% endif -%}
+{% for argument in arguments %}
+{% if argument.type != constant('TYPE_DEFAULT', argument) %}
+{{ argument.name }} = new {{ argument.namespacedType }}();
+
+{% set type_definition = get_type_definition(argument, api) %}
+{% if type_definition is not null -%}
+{% for propertyDefinition in type_definition.getProperties %}
+{{ argument.name }}->{{ generate_setter_name(propertyDefinition) }}(${{ propertyDefinition.name|to_variable_name }});
+{% endfor %}
+{% endif %}
+    {% endif %}
+{% endfor %}
+
+{{ return_value }}${{ api.name }}Client->{{ generate_method_name(method, resource) }}({{ inline_argument_names(arguments) }});
+```
+---

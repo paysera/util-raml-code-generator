@@ -6,7 +6,7 @@ use Paysera\Util\RamlCodeGenerator\Entity\Definition\ApiDefinition;
 use Paysera\Util\RamlCodeGenerator\Entity\SourceCode;
 use Twig_Environment;
 
-class ComposerJsonGenerator implements GeneratorInterface
+class ReadmeGenerator implements GeneratorInterface
 {
     private $twig;
     private $vendorPrefix;
@@ -25,15 +25,15 @@ class ComposerJsonGenerator implements GeneratorInterface
 
     public function generate(ApiDefinition $definition)
     {
-        $code = $this->twig->render('Client/composer.json.twig', [
+        $contents = $this->twig->render('Client/readme.md.twig', [
             'api' => $definition,
             'vendor_prefix' => $this->vendorPrefix,
         ]);
 
         $item = new SourceCode();
         $item
-            ->setFilepath('composer.json')
-            ->setContents($code)
+            ->setFilepath('README.md')
+            ->setContents($contents)
         ;
 
         return [$item];

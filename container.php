@@ -25,6 +25,7 @@ $container['twig'] = function ($c) {
 
     $twig->addExtension(new \Paysera\Util\RamlCodeGenerator\Twig\FieldDefinitionExtension());
     $twig->addExtension(new \Paysera\Util\RamlCodeGenerator\Twig\ApiMethodExtension());
+    $twig->addExtension(new \Paysera\Util\RamlCodeGenerator\Twig\TypeDefinitionExtension());
 
     if (isset($c['parameters.twig']['options']) && $c['parameters.twig']['options']) {
         $twig->addExtension(new \Twig_Extension_Debug());
@@ -65,13 +66,22 @@ $container['code_generator.client_factory'] = function ($c) {
 
 $container['code_generator.composer_json'] = function ($c) {
     return new \Paysera\Util\RamlCodeGenerator\Generator\ComposerJsonGenerator(
-        $c['twig']
+        $c['twig'],
+        $c['parameters.vendor_prefix']
+
     );
 };
 
 $container['code_generator.client'] = function ($c) {
     return new \Paysera\Util\RamlCodeGenerator\Generator\ClientGenerator(
         $c['twig']
+    );
+};
+
+$container['code_generator.readme'] = function ($c) {
+    return new \Paysera\Util\RamlCodeGenerator\Generator\ReadmeGenerator(
+        $c['twig'],
+        $c['parameters.vendor_prefix']
     );
 };
 
@@ -88,6 +98,7 @@ $container['code_generator'] = function ($c) {
     $generator->addGenerator($c['code_generator.client_factory']);
     $generator->addGenerator($c['code_generator.client']);
     $generator->addGenerator($c['code_generator.composer_json']);
+    $generator->addGenerator($c['code_generator.readme']);
 
     return $generator;
 };

@@ -37,6 +37,7 @@ class ApiMethodExtension extends Twig_Extension
             new Twig_SimpleFunction('generate_body', [$this, 'generateBody']),
             new Twig_SimpleFunction('generate_result_populator', [$this, 'generateResultPopulator'], ['is_safe' => ['html']]),
             new Twig_SimpleFunction('inline_arguments', [$this, 'inlineArguments']),
+            new Twig_SimpleFunction('inline_argument_names', [$this, 'inlineArgumentNames']),
             new Twig_SimpleFunction('get_return_type', [$this, 'getReturnType']),
         ];
     }
@@ -75,11 +76,25 @@ class ApiMethodExtension extends Twig_Extension
             if ($argument->getType() === ArgumentDefinition::TYPE_DEFAULT) {
                 $parts[] = $argument->getName();
             } else {
-                $parts[] = sprintf('%s %s', $argument->getType(), $argument->getName());
+                $parts[] = sprintf('%s %s', $argument->getNamespacedType(), $argument->getName());
             }
         }
 
         return trim(implode(', ', $parts));
+    }
+
+    /**
+     * @param ArgumentDefinition[] $arguments
+     * @return string
+     */
+    public function inlineArgumentNames(array $arguments)
+    {
+        $names = [];
+        foreach ($arguments as $argument) {
+            $names[] = $argument->getName();
+        }
+
+        return implode(', ', $names);
     }
 
     /**
@@ -177,7 +192,7 @@ class ApiMethodExtension extends Twig_Extension
             if ($body->getType() !== null && $api->getType($body->getType()) !== null) {
                 $arguments[] = (
                 new ArgumentDefinition(sprintf('$%s', lcfirst($body->getType())))
-                )->setType(sprintf('Entities\%s', $body->getType()));
+                )->setType($body->getType());
             }
         }
 
@@ -197,7 +212,7 @@ class ApiMethodExtension extends Twig_Extension
             if ($api->getType($trait) !== null) {
                 $arguments[] = (
                     new ArgumentDefinition(sprintf('$%s', lcfirst($trait)))
-                )->setType(sprintf('Entities\%s', $trait));
+                )->setType($trait);
             }
         }
 
