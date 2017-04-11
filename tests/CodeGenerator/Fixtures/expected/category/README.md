@@ -31,9 +31,11 @@ $categoryClient = $clientFactory->getCategoryClient();
 
 Please use only one authentication mechanism, provided by `Paysera`.
 
-Now, that you have instance of `CategoryClient`, you can use it:
+Now, that you have instance of `CategoryClient`, you can use following methods
+### Methods
 
-    Enable category
+    
+Enable category
 
 
 ```php
@@ -41,6 +43,7 @@ Now, that you have instance of `CategoryClient`, you can use it:
 $result = $categoryClient->enableCategory($id);
 ```
 ---
+
 
 Disable category
 
@@ -51,6 +54,7 @@ $result = $categoryClient->disableCategory($id);
 ```
 ---
 
+
 Update category
 
 
@@ -59,6 +63,7 @@ Update category
 $result = $categoryClient->updateCategory($id);
 ```
 ---
+
 Delete category
 
 
@@ -67,6 +72,7 @@ Delete category
 $categoryClient->deleteCategory($id);
 ```
 ---
+
 
 Standard SQL-style Result filtering
 
@@ -81,6 +87,7 @@ $categoryFilter->setParentId($parentId);
 $categoryClient->getCategories($categoryFilter);
 ```
 ---
+
 Create category
 
 

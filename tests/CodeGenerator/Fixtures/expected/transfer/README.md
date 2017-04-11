@@ -31,9 +31,11 @@ $transferClient = $clientFactory->getTransferClient();
 
 Please use only one authentication mechanism, provided by `Paysera`.
 
-Now, that you have instance of `TransferClient`, you can use it:
+Now, that you have instance of `TransferClient`, you can use following methods
+### Methods
 
-    Sign the transfer, even if no funds available.
+    
+Sign the transfer, even if no funds available.
 
 
 ```php
@@ -46,6 +48,7 @@ $transferRegistrationParameters->setConvertCurrency($convertCurrency);
 $result = $transferClient->signTransfer($id, $transferRegistrationParameters);
 ```
 ---
+
 
 Sign and reserve money for transfer. Returns error if no funds available.
 
@@ -61,6 +64,7 @@ $result = $transferClient->reserveTransfer($id, $transferRegistrationParameters)
 ```
 ---
 
+
 Provide password for Transfer. Available only for internal transfers.
 
 
@@ -75,6 +79,7 @@ $result = $transferClient->provideTransferPassword($id, $transferPassword);
 ```
 ---
 
+
 Freeze transfer. Available only for `reserved` transfers. Same as completing transfer but beneficiary cannot spend funds - they are reserved. Revoking transfer is possible after freezing.
 
 
@@ -84,6 +89,7 @@ $result = $transferClient->freezeTransfer($id);
 ```
 ---
 
+
 Complete transfer. Available for `reserved` and `freezed` transfers.
 
 
@@ -92,6 +98,7 @@ Complete transfer. Available for `reserved` and `freezed` transfers.
 $result = $transferClient->completeTransfer($id);
 ```
 ---
+
 
 Make transfer visible in frontend for signing. If currency convert operations are related to transfer, they are done when transfer becomes `reserved`. If there are expectations in currency convert requests, transfer becomes `failed` together with related conversion request(s) if those expectations fails.
 
@@ -107,6 +114,7 @@ $result = $transferClient->registerTransfer($id, $transferRegistrationParameters
 ```
 ---
 
+
 Get transfer.
 
 
@@ -115,6 +123,7 @@ Get transfer.
 $result = $transferClient->getTransfer($id);
 ```
 ---
+
 Revoke transfer.
 
 
@@ -123,6 +132,7 @@ Revoke transfer.
 $result = $transferClient->deleteTransfer($id);
 ```
 ---
+
 
 Create transfer in the system. Created transfer is invisible and will be deleted if no more actions are performed.
 
@@ -152,7 +162,8 @@ $result = $transferClient->createTransfer($transferInput);
 ```
 ---
 
-    Reserve all transfers in a transaction. Possibly revoke other given transfers in same transaction. Possibly make currency convertions in in same transaction.
+    
+Reserve all transfers in a transaction. Possibly revoke other given transfers in same transaction. Possibly make currency convertions in in same transaction.
 
 
 ```php
@@ -167,6 +178,7 @@ $transfersBatch->setConvertCurrency($convertCurrency);
 $result = $transferClient->updateTransfer($transfersBatch);
 ```
 ---
+
 
 Get list of transfers by filter
 

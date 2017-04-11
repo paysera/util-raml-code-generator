@@ -3,7 +3,7 @@
 {% for subResource in resource.resources %}
 {{ _self.render_methods(subResource, api) }}
 {% endfor %}
-{% for method in resource.methods %}
+{%- for method in resource.methods %}
 {% include 'Readme/example_method.md.twig' with {
     'resource': resource,
     'method': method,
@@ -44,7 +44,8 @@ ${{ api.name }}Client = $clientFactory->get{{ api.name|capitalize }}Client();
 
 Please use only one authentication mechanism, provided by `{{ vendor_prefix|capitalize }}`.
 
-Now, that you have instance of `{{ api.name|capitalize }}Client`, you can use it:
+Now, that you have instance of `{{ api.name|capitalize }}Client`, you can use following methods
+### Methods
 
 {% for resource in api.ramlDefinition.resources %}
     {{ macros.render_methods(resource, api) }}

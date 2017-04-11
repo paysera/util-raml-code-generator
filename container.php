@@ -41,7 +41,9 @@ $container['twig'] = function ($c) {
 };
 
 $container['raml_parser'] = function ($c) {
-    return new \Raml\Parser();
+    $parser = new \Raml\Parser();
+    $parser->configuration->enableDirectoryTraversal();
+    return $parser;
 };
 
 $container['filesystem'] = function ($c) {

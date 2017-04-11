@@ -31,9 +31,11 @@ $accountClient = $clientFactory->getAccountClient();
 
 Please use only one authentication mechanism, provided by `Paysera`.
 
-Now, that you have instance of `AccountClient`, you can use it:
+Now, that you have instance of `AccountClient`, you can use following methods
+### Methods
 
-    Standard SQL-style Result filtering
+    
+Standard SQL-style Result filtering
 
 
 ```php
