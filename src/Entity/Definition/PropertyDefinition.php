@@ -9,6 +9,7 @@ class PropertyDefinition
     const TYPE_STRING = 'string';
     const TYPE_OBJECT = 'object';
     const TYPE_ARRAY = 'array';
+    const TYPE_NUMBER = 'number';
     const TYPE_REFERENCE = 'reference';
 
     private static $simpleTypes = [
@@ -17,6 +18,11 @@ class PropertyDefinition
         self::TYPE_OBJECT,
         self::TYPE_ARRAY,
         self::TYPE_STRING,
+        self::TYPE_NUMBER,
+    ];
+
+    private $ramlPrimitiveTypesMap = [
+        PropertyDefinition::TYPE_NUMBER => PropertyDefinition::TYPE_STRING,
     ];
 
     /**
@@ -91,6 +97,10 @@ class PropertyDefinition
      */
     public function setType($type)
     {
+        if (isset($this->ramlPrimitiveTypesMap[$type])) {
+            $type = $this->ramlPrimitiveTypesMap[$type];
+        }
+
         $this->type = $type;
         return $this;
     }

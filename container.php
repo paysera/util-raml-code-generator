@@ -51,7 +51,11 @@ $container['filesystem'] = function ($c) {
 };
 
 $container['definition_decorator'] = function ($c) {
-    return new \Paysera\Util\RamlCodeGenerator\DefinitionDecorator();
+    return new \Paysera\Util\RamlCodeGenerator\DefinitionDecorator($c['definition_validator']);
+};
+
+$container['definition_validator'] = function ($c) {
+    return new \Paysera\Util\RamlCodeGenerator\DefinitionValidator();
 };
 
 $container['code_generator.entity'] = function ($c) {

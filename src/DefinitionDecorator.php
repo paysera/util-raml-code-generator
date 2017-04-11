@@ -16,6 +16,13 @@ class DefinitionDecorator
 {
     const ANNOTATION_ENTITY = '(entity_type)';
 
+    private $definitionValidator;
+
+    public function __construct(DefinitionValidator $definitionValidator)
+    {
+        $this->definitionValidator = $definitionValidator;
+    }
+
     /**
      * @param ApiDefinition $original
      * @param string $apiName
@@ -38,6 +45,8 @@ class DefinitionDecorator
             ->setName($apiName)
             ->setNamespace($namespace)
         ;
+
+        $this->definitionValidator->validateDefinition($apiDefinition);
 
         return $apiDefinition;
     }
