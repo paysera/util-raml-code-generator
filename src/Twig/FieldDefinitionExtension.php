@@ -2,9 +2,9 @@
 
 namespace Paysera\Util\RamlCodeGenerator\Twig;
 
-use Doctrine\Common\Inflector\Inflector;
 use Paysera\Util\RamlCodeGenerator\Entity\Definition\ArrayPropertyDefinition;
 use Paysera\Util\RamlCodeGenerator\Entity\Definition\PropertyDefinition;
+use Paysera\Util\RamlCodeGenerator\Service\StringConverter;
 use Twig_Extension;
 use Twig_SimpleFilter;
 use Twig_SimpleFunction;
@@ -15,10 +15,18 @@ class FieldDefinitionExtension extends Twig_Extension
     const DATETIME_INSTANCE = '\\DateTimeImmutable';
     const DATETIME_INTERFACE = '\\DateTimeInterface';
 
+    private $stringConverter;
+
+    public function __construct(StringConverter $stringConverter)
+    {
+        $this->stringConverter = $stringConverter;
+    }
+
     public function getFilters()
     {
         return [
-            new Twig_SimpleFilter('to_variable_name', [$this, 'toVariableName']),
+            new Twig_SimpleFilter('to_variable_name', [$this->stringConverter, 'convertSlugToVariableName']),
+            new Twig_SimpleFilter('to_class_name', [$this->stringConverter, 'convertSlugToClassName']),
         ];
     }
 
@@ -34,11 +42,6 @@ class FieldDefinitionExtension extends Twig_Extension
         ];
     }
 
-    public function toVariableName($string)
-    {
-        return lcfirst(Inflector::classify($string));
-    }
-
     public function generateGetterName(PropertyDefinition $definition)
     {
         $prefix = 'get';
@@ -46,12 +49,12 @@ class FieldDefinitionExtension extends Twig_Extension
             $prefix = 'is';
         }
 
-        return $prefix . ucfirst($this->toVariableName($definition->getName()));
+        return $prefix . ucfirst($this->stringConverter->convertSlugToVariableName($definition->getName()));
     }
 
     public function generateSetterName(PropertyDefinition $definition)
     {
-        return 'set' . ucfirst($this->toVariableName($definition->getName()));
+        return 'set' . ucfirst($this->stringConverter->convertSlugToVariableName($definition->getName()));
     }
 
     /**
@@ -83,7 +86,7 @@ class FieldDefinitionExtension extends Twig_Extension
             return $typehint;
         }
 
-        return sprintf('%s $%s', $typehint, $this->toVariableName($definition->getName()));
+        return sprintf('%s $%s', $typehint, $this->stringConverter->convertSlugToVariableName($definition->getName()));
     }
 
     public function generateTypehint(PropertyDefinition $definition, $forGetter = false)
@@ -102,7 +105,7 @@ class FieldDefinitionExtension extends Twig_Extension
             }
         }
 
-        return trim(sprintf('%s $%s', $typehint, $this->toVariableName($definition->getName())));
+        return trim(sprintf('%s $%s', $typehint, $this->stringConverter->convertSlugToVariableName($definition->getName())));
     }
 
     public function generateReturnType(PropertyDefinition $definition)
@@ -122,7 +125,7 @@ class FieldDefinitionExtension extends Twig_Extension
 
     public function generateValueExtractor(PropertyDefinition $definition)
     {
-        $extractor = '$' . $this->toVariableName($definition->getName());
+        $extractor = '$' . $this->stringConverter->convertSlugToVariableName($definition->getName());
 
         if ($this->isDateTimeInstance($definition)) {
             $extractor .= '->getTimestamp()';

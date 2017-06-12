@@ -1,5 +1,5 @@
 
-## paysera-transfer-client
+## vendor-transfer-client
 
 Provides methods to manipulate `Transfer` API.
 It automatically authenticates all requests and maps required data structure for you.
@@ -29,7 +29,7 @@ $clientFactory = ClientFactory::create([
 $transferClient = $clientFactory->getTransferClient();
 ```
 
-Please use only one authentication mechanism, provided by `Paysera`.
+Please use only one authentication mechanism, provided by `Vendor`.
 
 Now, that you have instance of `TransferClient`, you can use following methods
 ### Methods

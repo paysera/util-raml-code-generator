@@ -1,5 +1,5 @@
 {
-    "name": "paysera/lib-transfer-client",
+    "name": "vendor/lib-transfer-client",
     "description": "Transfer Client",
     "autoload": {
         "psr-4": {

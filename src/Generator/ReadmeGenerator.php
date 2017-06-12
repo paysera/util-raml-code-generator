@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Paysera\Util\RamlCodeGenerator\Generator;
 
@@ -11,31 +12,24 @@ class ReadmeGenerator implements GeneratorInterface
     private $twig;
     private $vendorPrefix;
 
-    /**
-     * @param Twig_Environment $twig
-     * @param string $vendorPrefix
-     */
     public function __construct(
         Twig_Environment $twig,
-        $vendorPrefix
+        string $vendorPrefix
     ) {
         $this->twig = $twig;
         $this->vendorPrefix = $vendorPrefix;
     }
 
-    public function generate(ApiDefinition $definition)
+    public function generate(ApiDefinition $definition) : array
     {
-        $contents = $this->twig->render('Client/readme.md.twig', [
-            'api' => $definition,
-            'vendor_prefix' => $this->vendorPrefix,
-        ]);
+        $contents = $this->twig->render(
+            'Client/readme.md.twig',
+            [
+                'api' => $definition,
+                'vendor_prefix' => $this->vendorPrefix,
+            ]
+        );
 
-        $item = new SourceCode();
-        $item
-            ->setFilepath('README.md')
-            ->setContents($contents)
-        ;
-
-        return [$item];
+        return [(new SourceCode())->setFilepath('README.md')->setContents($contents)];
     }
 }

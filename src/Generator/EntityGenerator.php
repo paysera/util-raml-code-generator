@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Paysera\Util\RamlCodeGenerator\Generator;
 
@@ -18,7 +19,7 @@ class EntityGenerator implements GeneratorInterface
         $this->twig = $twig;
     }
 
-    public function generate(ApiDefinition $definition)
+    public function generate(ApiDefinition $definition) : array
     {
         $items = [];
         foreach ($definition->getTypes() as $type) {

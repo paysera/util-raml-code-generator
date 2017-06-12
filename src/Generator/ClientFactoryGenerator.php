@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Paysera\Util\RamlCodeGenerator\Generator;
 
@@ -16,17 +17,19 @@ class ClientFactoryGenerator implements GeneratorInterface
         $this->twig = $twig;
     }
 
-    public function generate(ApiDefinition $definition)
+    public function generate(ApiDefinition $definition) : array
     {
         $baseUrl = $definition->getRamlDefinition()->getBaseUrl();
 
-        $code = $this->twig->render('Client/Client/ClientFactory.php.twig', [
-            'base_url' => rtrim($baseUrl, '/') . '/',
-            'api' => $definition,
-        ]);
+        $code = $this->twig->render(
+            'Client/Client/ClientFactory.php.twig',
+            [
+                'base_url' => rtrim($baseUrl, '/') . '/',
+                'api' => $definition,
+            ]
+        );
 
-        $item = new SourceCode();
-        $item
+        $item = (new SourceCode())
             ->setFilepath('src/ClientFactory.php')
             ->setContents($code)
         ;

@@ -14,7 +14,7 @@
 
 ## {{ vendor_prefix }}-{{ api.name }}-client
 
-Provides methods to manipulate `{{ api.name|capitalize }}` API.
+Provides methods to manipulate `{{ api.name|to_class_name }}` API.
 It automatically authenticates all requests and maps required data structure for you.
 
 #### Usage
@@ -25,7 +25,7 @@ This library provides `ClientFactory` class, which you should use to get the API
 use {{ api.namespace }}\ClientFactory;
 
 $clientFactory = ClientFactory::create([
-    'base_url' => 'https://my-api.example.com/rest/v1', // optional, in case you need a custom one.
+    'base_url' => '{{ api.ramlDefinition.baseUrl }}', // optional, in case you need a custom one.
     'basic' => [                                        // use this, it API requires Basic authentication.
         'username' => 'username',
         'password' => 'password',
@@ -39,12 +39,12 @@ $clientFactory = ClientFactory::create([
     // other configuration options, if needed
 ]);
 
-${{ api.name }}Client = $clientFactory->get{{ api.name|capitalize }}Client();
+${{ api.name|to_variable_name }}Client = $clientFactory->get{{ api.name|to_class_name }}Client();
 ```
 
 Please use only one authentication mechanism, provided by `{{ vendor_prefix|capitalize }}`.
 
-Now, that you have instance of `{{ api.name|capitalize }}Client`, you can use following methods
+Now, that you have instance of `{{ api.name|to_class_name }}Client`, you can use following methods
 ### Methods
 
 {% for resource in api.ramlDefinition.resources %}

@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Paysera\Util\RamlCodeGenerator;
 
@@ -55,7 +56,7 @@ class CodeGenerator
      *
      * @throws InvalidApiNameException
      */
-    public function generateCode($apiName, $namespace)
+    public function generateCode(string $apiName, string $namespace)
     {
         $ramlFile = sprintf('%s/%s/api.raml', $this->ramlDir, $apiName);
         if (!$this->filesystem->exists($ramlFile)) {

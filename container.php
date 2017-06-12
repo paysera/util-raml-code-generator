@@ -23,8 +23,10 @@ $container['twig'] = function ($c) {
 
     $twig = new \Twig_Environment($loader, $c['parameters.twig']['options']);
 
-    $twig->addExtension(new \Paysera\Util\RamlCodeGenerator\Twig\FieldDefinitionExtension());
-    $twig->addExtension(new \Paysera\Util\RamlCodeGenerator\Twig\ApiMethodExtension());
+    $twig->addExtension(new \Paysera\Util\RamlCodeGenerator\Twig\FieldDefinitionExtension(
+        $c['service.string_converter']
+    ));
+    $twig->addExtension(new \Paysera\Util\RamlCodeGenerator\Twig\ApiMethodExtension($c['service.string_converter']));
     $twig->addExtension(new \Paysera\Util\RamlCodeGenerator\Twig\TypeDefinitionExtension());
 
     if (isset($c['parameters.twig']['options']) && $c['parameters.twig']['options']) {
@@ -80,6 +82,7 @@ $container['code_generator.composer_json'] = function ($c) {
 
 $container['code_generator.client'] = function ($c) {
     return new \Paysera\Util\RamlCodeGenerator\Generator\ClientGenerator(
+        $c['service.string_converter'],
         $c['twig']
     );
 };
@@ -107,4 +110,8 @@ $container['code_generator'] = function ($c) {
     $generator->addGenerator($c['code_generator.readme']);
 
     return $generator;
+};
+
+$container['service.string_converter'] = function ($c) {
+    return new \Paysera\Util\RamlCodeGenerator\Service\StringConverter();
 };

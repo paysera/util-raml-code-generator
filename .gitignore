@@ -1,8 +1,10 @@
 composer.lock
 vendor/
+bin/
+!bin/generate-client
 .arcconfig
 /config/parameters.yml
 generated/
 !generated/.gitkeep
 /raml/
-!/raml/.gitkeep
+!raml/.gitkeep
