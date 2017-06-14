@@ -9,6 +9,7 @@ use Paysera\Util\RamlCodeGenerator\Entity\Definition\ApiDefinition;
 use Paysera\Util\RamlCodeGenerator\Entity\Definition\ArgumentDefinition;
 use Paysera\Util\RamlCodeGenerator\Entity\Definition\ResultTypeDefinition;
 use Paysera\Util\RamlCodeGenerator\Exception\InvalidDefinitionException;
+use Paysera\Util\RamlCodeGenerator\Service\StringConverter;
 use Raml\Body;
 use Raml\Method;
 use Raml\Resource;
@@ -27,6 +28,13 @@ class ApiMethodExtension extends Twig_Extension
     const IDENTIFIER_RESOURCE = '#{(\w+)}#';
 
     const DEFAULT_VARIABLE_TYPE = 'string';
+
+    private $stringConverter;
+
+    public function __construct(StringConverter $stringConverter)
+    {
+        $this->stringConverter = $stringConverter;
+    }
 
     public function getFunctions()
     {
@@ -174,15 +182,6 @@ class ApiMethodExtension extends Twig_Extension
         return 'null;';
     }
 
-    /**
-     * @param string $string
-     * @return string
-     */
-    private function toVariableName($string)
-    {
-        return lcfirst(Inflector::classify($string));
-    }
-
     private function extractBodyTypeArguments(Method $method, ApiDefinition $api)
     {
         $arguments = [];
@@ -228,7 +227,10 @@ class ApiMethodExtension extends Twig_Extension
         $arguments = [];
         if (preg_match_all(self::IDENTIFIER_RESOURCE, $uri, $matches) === 1) {
             foreach ($matches[1] as $match) {
-                $arguments[] = new ArgumentDefinition(sprintf('$%s', $this->toVariableName($match)));
+                $arguments[] = new ArgumentDefinition(sprintf(
+                    '$%s',
+                    $this->stringConverter->convertSlugToVariableName($match)
+                ));
             }
         }
 

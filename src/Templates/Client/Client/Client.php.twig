@@ -19,7 +19,7 @@ use {{ api.namespace }}\Entity as Entities;
 use Fig\Http\Message\RequestMethodInterface;
 use Paysera\Component\RestClientCommon\Client\ApiClient;
 
-class {{ api.name|capitalize }}Client
+class {{ api.name|to_class_name }}Client
 {
     private $apiClient;
 

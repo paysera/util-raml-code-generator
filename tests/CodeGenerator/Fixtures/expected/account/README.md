@@ -1,5 +1,5 @@
 
-## paysera-account-client
+## vendor-account-client
 
 Provides methods to manipulate `Account` API.
 It automatically authenticates all requests and maps required data structure for you.
@@ -29,7 +29,7 @@ $clientFactory = ClientFactory::create([
 $accountClient = $clientFactory->getAccountClient();
 ```
 
-Please use only one authentication mechanism, provided by `Paysera`.
+Please use only one authentication mechanism, provided by `Vendor`.
 
 Now, that you have instance of `AccountClient`, you can use following methods
 ### Methods

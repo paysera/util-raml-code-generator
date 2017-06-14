@@ -1,6 +1,6 @@
 {
     "name": "{{ vendor_prefix }}/lib-{{ api.name }}-client",
-    "description": "{{ api.name|capitalize ~ ' Client' }}",
+    "description": "{{ api.name|to_class_name ~ ' Client' }}",
     "autoload": {
         "psr-4": {
             "{{ (api.namespace ~ '\\')|replace({'\\':'\\\\'}) }}": "src"

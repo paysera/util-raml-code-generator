@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Paysera\Util\RamlCodeGenerator\Generator;
 
@@ -12,5 +13,5 @@ interface GeneratorInterface
      *
      * @return SourceCode[]
      */
-    public function generate(ApiDefinition $definition);
+    public function generate(ApiDefinition $definition) : array;
 }

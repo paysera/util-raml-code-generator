@@ -1,5 +1,5 @@
 {
-    "name": "paysera/lib-account-client",
+    "name": "vendor/lib-account-client",
     "description": "Account Client",
     "autoload": {
         "psr-4": {

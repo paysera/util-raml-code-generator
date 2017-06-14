@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Paysera\Util\RamlCodeGenerator;
 
@@ -23,16 +24,10 @@ class DefinitionDecorator
         $this->definitionValidator = $definitionValidator;
     }
 
-    /**
-     * @param ApiDefinition $original
-     * @param string $apiName
-     * @param string $namespace
-     * @return DecoratedDefinition
-     */
     public function decorate(
         ApiDefinition $original,
-        $apiName,
-        $namespace
+        string $apiName,
+        string $namespace
     ) {
         $apiDefinition = new DecoratedDefinition($original);
         $types = array_merge(
@@ -104,7 +99,7 @@ class DefinitionDecorator
      * @return FilterTypeDefinition
      * @throws InvalidDefinitionException
      */
-    private function buildFilterTypeDefinition($name, array $definition, $extendsBaseFilter)
+    private function buildFilterTypeDefinition(string $name, array $definition, bool $extendsBaseFilter)
     {
         $type = new FilterTypeDefinition();
         $this->populateBasicTypeFields($type, $name, $definition);
@@ -213,12 +208,7 @@ class DefinitionDecorator
         return $property;
     }
 
-    /**
-     * @param TypeDefinition $type
-     * @param string $name
-     * @param array $definition
-     */
-    private function populateBasicTypeFields(TypeDefinition $type, $name, array $definition)
+    private function populateBasicTypeFields(TypeDefinition $type, string $name, array $definition)
     {
         $type
             ->setName($name)

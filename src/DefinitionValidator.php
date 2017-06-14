@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Paysera\Util\RamlCodeGenerator;
 
@@ -52,7 +53,7 @@ class DefinitionValidator
         }
     }
 
-    private function validateType($type, ApiDefinition $api)
+    private function validateType(string $type, ApiDefinition $api)
     {
         if (
             !in_array($type, PropertyDefinition::getSimpleTypes(), true)

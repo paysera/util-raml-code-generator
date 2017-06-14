@@ -1,5 +1,5 @@
 {
-    "name": "paysera/lib-category-client",
+    "name": "vendor/lib-category-client",
     "description": "Category Client",
     "autoload": {
         "psr-4": {

@@ -1,5 +1,5 @@
 
-## paysera-category-client
+## vendor-category-client
 
 Provides methods to manipulate `Category` API.
 It automatically authenticates all requests and maps required data structure for you.
@@ -29,7 +29,7 @@ $clientFactory = ClientFactory::create([
 $categoryClient = $clientFactory->getCategoryClient();
 ```
 
-Please use only one authentication mechanism, provided by `Paysera`.
+Please use only one authentication mechanism, provided by `Vendor`.
 
 Now, that you have instance of `CategoryClient`, you can use following methods
 ### Methods

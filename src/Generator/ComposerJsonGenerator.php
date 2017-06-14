@@ -11,31 +11,24 @@ class ComposerJsonGenerator implements GeneratorInterface
     private $twig;
     private $vendorPrefix;
 
-    /**
-     * @param Twig_Environment $twig
-     * @param string $vendorPrefix
-     */
     public function __construct(
         Twig_Environment $twig,
-        $vendorPrefix
+        string $vendorPrefix
     ) {
         $this->twig = $twig;
         $this->vendorPrefix = $vendorPrefix;
     }
 
-    public function generate(ApiDefinition $definition)
+    public function generate(ApiDefinition $definition) : array
     {
-        $code = $this->twig->render('Client/composer.json.twig', [
-            'api' => $definition,
-            'vendor_prefix' => $this->vendorPrefix,
-        ]);
+        $code = $this->twig->render(
+            'Client/composer.json.twig',
+            [
+                'api' => $definition,
+                'vendor_prefix' => $this->vendorPrefix,
+            ]
+        );
 
-        $item = new SourceCode();
-        $item
-            ->setFilepath('composer.json')
-            ->setContents($code)
-        ;
-
-        return [$item];
+        return [(new SourceCode())->setFilepath('composer.json')->setContents($code)];
     }
 }

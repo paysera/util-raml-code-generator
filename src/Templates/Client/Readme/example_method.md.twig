@@ -39,6 +39,6 @@
     {% endif %}
 {% endfor %}
 
-{{ return_value }}${{ api.name }}Client->{{ generate_method_name(method, resource) }}({{ inline_argument_names(arguments) }});
+{{ return_value }}${{ api.name|to_variable_name }}Client->{{ generate_method_name(method, resource) }}({{ inline_argument_names(arguments) }});
 ```
 ---
