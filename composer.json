@@ -1,28 +1,71 @@
 {
     "name": "paysera/util-raml-code-generator",
-    "description": "Generate PHP Code from RAML specification",
+    "description": "Generate Code from RAML specification",
+    "license": "proprietary",
+    "type": "project",
     "autoload": {
         "psr-4": {
-            "Paysera\\Util\\RamlCodeGenerator\\": "src",
-            "Paysera\\Util\\RamlCodeGenerator\\Tests\\": "tests"
-        }
+            "": "src/"
+        },
+        "classmap": [
+            "app/AppKernel.php",
+            "app/AppCache.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        },
+        "files": [
+            "vendor/symfony/symfony/src/Symfony/Component/VarDumper/Resources/functions/dump.php"
+        ]
     },
     "require": {
         "php": ">=7.0",
-        "paysera/alecsammon-php-raml-parser": "^2.5.1",
-        "twig/twig": "^1.30",
-        "pimple/pimple": "^3.0",
-        "symfony/filesystem": "^2.8",
         "doctrine/inflector": "^1.1",
         "fig/http-message-util": "^1.0",
-        "symfony/yaml": "^3.2"
+        "incenteev/composer-parameter-handler": "^2.0",
+        "paysera/alecsammon-php-raml-parser": "^2.5.1",
+        "paysera/lib-dependency-injection": "^1.0",
+        "sensio/distribution-bundle": "^5.0.19",
+        "sensio/framework-extra-bundle": "^3.0.2",
+        "symfony/monolog-bundle": "^3.1.0",
+        "symfony/polyfill-apcu": "^1.0",
+        "symfony/symfony": "3.3.*",
+        "twig/twig": "^1.30"
     },
-    "minimum-stability": "stable",
     "require-dev": {
+        "sensio/generator-bundle": "^3.0",
+        "symfony/phpunit-bridge": "^3.0",
         "phpunit/phpunit": "^6.0",
         "paysera/lib-rest-client-common": "@dev"
     },
+    "scripts": {
+        "symfony-scripts": [
+            "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile"
+        ],
+        "post-install-cmd": [
+            "@symfony-scripts"
+        ],
+        "post-update-cmd": [
+            "@symfony-scripts"
+        ]
+    },
     "config": {
-      "bin-dir": "bin"
+        "sort-packages": true
+    },
+    "extra": {
+        "symfony-app-dir": "app",
+        "symfony-bin-dir": "bin",
+        "symfony-var-dir": "var",
+        "symfony-web-dir": "web",
+        "symfony-tests-dir": "tests",
+        "incenteev-parameters": {
+            "file": "app/config/parameters.yml"
+        },
+        "branch-alias": null
     }
 }

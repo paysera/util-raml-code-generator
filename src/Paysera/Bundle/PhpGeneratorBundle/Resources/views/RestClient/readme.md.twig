@@ -1,0 +1,52 @@
+{% import _self as macros %}
+{% macro render_methods(resource, api) %}
+{% for subResource in resource.resources %}
+{{ _self.render_methods(subResource, api) }}
+{% endfor %}
+{%- for method in resource.methods %}
+{% include '@PayseraPhpGenerator/RestClient/Readme/example_method.md.twig' with {
+    'resource': resource,
+    'method': method,
+    'api': api
+} only %}
+{% endfor %}
+{% endmacro %}
+
+## {{ vendor_prefix }}-{{ api.name }}-client
+
+Provides methods to manipulate `{{ api.name|to_class_name }}` API.
+It automatically authenticates all requests and maps required data structure for you.
+
+#### Usage
+
+This library provides `ClientFactory` class, which you should use to get the API client itself:
+
+```php
+use {{ api.namespace }}\ClientFactory;
+
+$clientFactory = ClientFactory::create([
+    'base_url' => '{{ api.ramlDefinition.baseUrl }}', // optional, in case you need a custom one.
+    'basic' => [                                        // use this, it API requires Basic authentication.
+        'username' => 'username',
+        'password' => 'password',
+    ],
+    'oauth' => [                                        // use this, it API requires OAuth v2 authentication.
+        'token' => [
+            'access_token' => 'my-access-token',
+            'refresh_token' => 'my-refresh-token',
+        ],
+    ],
+    // other configuration options, if needed
+]);
+
+${{ api.name|to_variable_name }}Client = $clientFactory->get{{ api.name|to_class_name }}Client();
+```
+
+Please use only one authentication mechanism, provided by `{{ vendor_prefix|capitalize }}`.
+
+Now, that you have instance of `{{ api.name|to_class_name }}Client`, you can use following methods
+### Methods
+
+{% for resource in api.ramlDefinition.resources %}
+    {{ macros.render_methods(resource, api) }}
+{% endfor %}
