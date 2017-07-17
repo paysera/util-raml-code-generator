@@ -1,0 +1,8 @@
+parameters:
+    #parameter_name: value
+
+services:
+    _defaults:
+        autowire: false
+        autoconfigure: false
+        public: false

@@ -1,0 +1,38 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="paysera_code_generator.raml_parser"
+                 class="Raml\Parser">
+            <argument>null</argument>
+            <argument>null</argument>
+            <argument>null</argument>
+            <argument type="service">
+                <service class="Raml\ParseConfiguration">
+                    <call method="enableDirectoryTraversal"/>
+                </service>
+            </argument>
+        </service>
+
+        <service id="paysera_code_generator.definition_validator"
+                 class="Paysera\Bundle\CodeGeneratorBundle\Service\DefinitionValidator">
+        </service>
+
+        <service id="paysera_code_generator.definition_decorator"
+                 class="Paysera\Bundle\CodeGeneratorBundle\Service\DefinitionDecorator">
+            <argument type="service" id="paysera_code_generator.definition_validator"/>
+        </service>
+
+        <service id="paysera_code_generator.code_generator"
+                 class="Paysera\Bundle\CodeGeneratorBundle\Service\CodeGenerator">
+            <argument type="service" id="paysera_code_generator.raml_parser"/>
+            <argument type="service" id="filesystem"/>
+            <argument type="service" id="paysera_code_generator.definition_decorator"/>
+            <argument>%paysera_code_generator.raml_dir%</argument>
+            <argument>%paysera_code_generator.output_dir%</argument>
+        </service>
+    </services>
+</container>

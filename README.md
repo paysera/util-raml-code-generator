@@ -1,13 +1,15 @@
 # util-raml-code-generator
 
-Generates PHP `Client` library based on given `raml` specification.
+Generates PHP library based on given `raml` specification.
 
 ## How to:
-1. Copy `raml` specification to `raml/{api_name}` directory. 
+1. Run `composer install` and provide parameters, if needed.
+2. Copy `raml` specification to `raml/{api_name}` directory. 
 `api_name` acts as root directory for given raml and should match the name of API you're going to generate.
-2. Copy `config/parameters.dist.yml` to `config/parameters.yml` and change variables according to your needs.
-3. Run `./bin/generate-client {api_name}`. `api_name` is same name as in step 1.
-Output will be dumped tp `generated/{api_name}` directory.
+3. Run `bin/console paysera:php-generator:rest-client {api_name} {namespace}`.
+    * `api_name` is same name as in step 1.
+    * `namespace` is the namespace of your PHP library. 
+4. Check the dumped output to `generated/{api_name}` directory.
 
 ## Example:
 

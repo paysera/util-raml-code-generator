@@ -1,0 +1,3 @@
+parameters:
+    secret: ThisTokenIsNotSoSecretChangeIt
+    vendor_prefix: 'vendor'

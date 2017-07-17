@@ -1,0 +1,18 @@
+imports:
+    - { resource: parameters.yml }
+    - { resource: services.yml }
+
+parameters:
+    locale: en
+
+framework:
+    secret: '%secret%'
+    templating:
+        engines: ['twig']
+
+twig:
+    debug: '%kernel.debug%'
+    strict_variables: '%kernel.debug%'
+
+paysera_code_generator:
+    vendor_prefix: '%vendor_prefix%'
