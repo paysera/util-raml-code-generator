@@ -16,5 +16,12 @@ class PayseraCodeGeneratorBundle extends Bundle
             'addLanguageCodeGenerator',
             ['language']
         ));
+
+        $container->addCompilerPass(new AddTaggedCompilerPass(
+            'paysera_code_generator.type_definition_builder',
+            'paysera_code_generator.type_definition_builder',
+            'addTypeDefinitionBuilder',
+            ['position']
+        ));
     }
 }

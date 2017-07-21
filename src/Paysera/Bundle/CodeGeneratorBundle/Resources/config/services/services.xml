@@ -24,6 +24,7 @@
         <service id="paysera_code_generator.definition_decorator"
                  class="Paysera\Bundle\CodeGeneratorBundle\Service\DefinitionDecorator">
             <argument type="service" id="paysera_code_generator.definition_validator"/>
+            <argument type="service" id="paysera_code_generator.type_definition_builder"/>
         </service>
 
         <service id="paysera_code_generator.code_generator"
@@ -33,6 +34,14 @@
             <argument type="service" id="paysera_code_generator.definition_decorator"/>
             <argument>%paysera_code_generator.raml_dir%</argument>
             <argument>%paysera_code_generator.output_dir%</argument>
+        </service>
+
+        <service id="paysera_code_generator.property_definition_builder"
+                 class="Paysera\Bundle\CodeGeneratorBundle\Service\PropertyDefinitionBuilder">
+        </service>
+
+        <service id="paysera_code_generator.type_definition_builder"
+                 class="Paysera\Bundle\CodeGeneratorBundle\Service\TypeDefinitionBuilder">
         </service>
     </services>
 </container>

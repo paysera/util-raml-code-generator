@@ -7,12 +7,38 @@ class FilterTypeDefinition extends TypeDefinition
     /**
      * @var bool
      */
+    private $baseFilter;
+
+    /**
+     * @var bool
+     */
     private $extendsBaseFilter;
 
     public function __construct()
     {
         parent::__construct();
+
+        $this->baseFilter = false;
         $this->extendsBaseFilter = false;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isBaseFilter()
+    {
+        return $this->baseFilter;
+    }
+
+    /**
+     * @param bool $baseFilter
+     *
+     * @return $this
+     */
+    public function setBaseFilter($baseFilter)
+    {
+        $this->baseFilter = $baseFilter;
+        return $this;
     }
 
     /**
@@ -28,7 +54,7 @@ class FilterTypeDefinition extends TypeDefinition
      *
      * @return $this
      */
-    public function setExtendsBaseFilter($extendsBaseFilter)
+    public function setExtendsBaseFilter(bool $extendsBaseFilter)
     {
         $this->extendsBaseFilter = $extendsBaseFilter;
         return $this;

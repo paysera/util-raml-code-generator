@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="paysera_code_generator.type_definition_builder.metadata"
+                 class="Paysera\Bundle\CodeGeneratorBundle\Service\TypeDefinitionBuilder\MetadataTypeBuilder">
+            <tag name="paysera_code_generator.type_definition_builder" position="10"/>
+        </service>
+
+        <service id="paysera_code_generator.type_definition_builder.result"
+                 class="Paysera\Bundle\CodeGeneratorBundle\Service\TypeDefinitionBuilder\ResultTypeBuilder">
+            <tag name="paysera_code_generator.type_definition_builder" position="20"/>
+        </service>
+
+        <service id="paysera_code_generator.type_definition_builder.filter"
+                 class="Paysera\Bundle\CodeGeneratorBundle\Service\TypeDefinitionBuilder\FilterTypeDefinitionBuilder">
+            <argument type="service" id="paysera_code_generator.property_definition_builder"/>
+            <tag name="paysera_code_generator.type_definition_builder" position="30"/>
+        </service>
+
+        <service id="paysera_code_generator.type_definition_builder.simple"
+                 class="Paysera\Bundle\CodeGeneratorBundle\Service\TypeDefinitionBuilder\SimpleTypeBuilder">
+            <argument type="service" id="paysera_code_generator.property_definition_builder"/>
+            <tag name="paysera_code_generator.type_definition_builder" position="100"/>
+        </service>
+    </services>
+</container>

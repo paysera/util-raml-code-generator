@@ -7,6 +7,7 @@ use Fig\Http\Message\RequestMethodInterface;
 use Fig\Http\Message\StatusCodeInterface;
 use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\ApiDefinition;
 use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\ArgumentDefinition;
+use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\FilterTypeDefinition;
 use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\ResultTypeDefinition;
 use Paysera\Bundle\CodeGeneratorBundle\Exception\InvalidDefinitionException;
 use Paysera\Bundle\PhpGeneratorBundle\Service\StringConverter;
@@ -141,15 +142,20 @@ class ApiMethodExtension extends Twig_Extension
 
     public function generateBody(Method $method, ApiDefinition $api)
     {
+        /** @var ArgumentDefinition[] $arguments */
         $arguments = array_merge(
             $this->extractTraitArguments($method, $api),
             $this->extractBodyTypeArguments($method, $api)
         );
 
         if (count($arguments) > 1) {
+            $argumentNames = [];
+            foreach ($arguments as $argument) {
+                $argumentNames[] = $argument->getName();
+            }
             throw new InvalidDefinitionException(sprintf(
                 'More than one body argument found: "%s"',
-                implode(', ', $arguments)
+                implode(', ', $argumentNames)
             ));
         }
 

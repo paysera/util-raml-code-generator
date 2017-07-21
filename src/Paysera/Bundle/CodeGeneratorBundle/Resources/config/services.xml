@@ -6,5 +6,6 @@
 
     <imports>
         <import resource="services/services.xml"/>
+        <import resource="services/type_definition_builders.xml"/>
     </imports>
 </container>
