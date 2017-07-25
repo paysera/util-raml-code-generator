@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Paysera\Bundle\CodeGeneratorBundle\Service\TypeDefinitionBuilder;
 
@@ -14,7 +15,7 @@ class SimpleTypeBuilder implements TypeDefinitionBuilderInterface
         $this->propertyDefinitionBuilder = $propertyDefinitionBuilder;
     }
 
-    public function supports(string $name, array $definition)
+    public function supports(string $name, array $definition): bool
     {
         return isset($definition['properties']);
     }

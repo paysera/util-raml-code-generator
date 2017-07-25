@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Paysera\Bundle\CodeGeneratorBundle\Service\TypeDefinitionBuilder;
 
@@ -9,7 +10,7 @@ class ResultTypeBuilder implements TypeDefinitionBuilderInterface
 {
     const ANNOTATION_ENTITY = '(entity_type)';
 
-    public function supports(string $name, array $definition)
+    public function supports(string $name, array $definition): bool
     {
         return strpos($name, 'Result') !== false && !array_key_exists(self::ANNOTATION_ENTITY, $definition);
     }

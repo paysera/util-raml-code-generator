@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Paysera\Bundle\CodeGeneratorBundle\Entity\Definition;
 
@@ -35,7 +36,7 @@ class FilterTypeDefinition extends TypeDefinition
      *
      * @return $this
      */
-    public function setBaseFilter($baseFilter)
+    public function setBaseFilter(bool $baseFilter)
     {
         $this->baseFilter = $baseFilter;
         return $this;

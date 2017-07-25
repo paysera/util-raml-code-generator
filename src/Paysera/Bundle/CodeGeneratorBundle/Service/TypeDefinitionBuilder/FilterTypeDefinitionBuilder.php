@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Paysera\Bundle\CodeGeneratorBundle\Service\TypeDefinitionBuilder;
 
@@ -16,7 +17,7 @@ class FilterTypeDefinitionBuilder implements TypeDefinitionBuilderInterface
         $this->propertyDefinitionBuilder = $propertyDefinitionBuilder;
     }
 
-    public function supports(string $name, array $definition)
+    public function supports(string $name, array $definition): bool
     {
         return strpos($name, self::TYPE_FILTER) !== false;
     }

@@ -7,7 +7,6 @@ use Fig\Http\Message\RequestMethodInterface;
 use Fig\Http\Message\StatusCodeInterface;
 use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\ApiDefinition;
 use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\ArgumentDefinition;
-use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\FilterTypeDefinition;
 use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\ResultTypeDefinition;
 use Paysera\Bundle\CodeGeneratorBundle\Exception\InvalidDefinitionException;
 use Paysera\Bundle\PhpGeneratorBundle\Service\StringConverter;

@@ -15,12 +15,7 @@ class PropertyDefinitionBuilder
         'time-only',
     ];
 
-    /**
-     * @param string $name
-     * @param array $definition
-     * @return PropertyDefinition
-     */
-    public function buildPropertyDefinition($name, array $definition)
+    public function buildPropertyDefinition(string $name, array $definition)
     {
         $property = $this->getPropertyDefinition($definition);
 
@@ -45,10 +40,6 @@ class PropertyDefinitionBuilder
         return $property;
     }
 
-    /**
-     * @param array $definition
-     * @return PropertyDefinition
-     */
     private function getPropertyDefinition(array $definition)
     {
         $property = new PropertyDefinition();
