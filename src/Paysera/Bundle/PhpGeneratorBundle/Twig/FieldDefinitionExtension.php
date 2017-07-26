@@ -3,6 +3,7 @@
 namespace Paysera\Bundle\PhpGeneratorBundle\Twig;
 
 use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\ArrayPropertyDefinition;
+use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\DateTimePropertyDefinition;
 use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\PropertyDefinition;
 use Paysera\Bundle\PhpGeneratorBundle\Service\StringConverter;
 use Twig_Extension;
@@ -11,7 +12,6 @@ use Twig_SimpleFunction;
 
 class FieldDefinitionExtension extends Twig_Extension
 {
-    const DATETIME_REGEX = '#timestamp|date|time#i';
     const DATETIME_INSTANCE = '\\DateTimeImmutable';
     const DATETIME_INTERFACE = '\\DateTimeInterface';
 
@@ -70,7 +70,7 @@ class FieldDefinitionExtension extends Twig_Extension
             $typehint = $definition->getReference();
         } elseif ($definition instanceof ArrayPropertyDefinition) {
             $typehint = $definition->getItemsType() . '[]';
-        } elseif ($this->isDateTimeInstance($definition)) {
+        } elseif ($definition instanceof DateTimePropertyDefinition) {
             if ($forGetter) {
                 $typehint = self::DATETIME_INSTANCE;
             } else {
@@ -97,7 +97,7 @@ class FieldDefinitionExtension extends Twig_Extension
             $typehint = $definition->getReference();
         } elseif ($definition->getType() === PropertyDefinition::TYPE_ARRAY) {
             $typehint = PropertyDefinition::TYPE_ARRAY;
-        } elseif ($this->isDateTimeInstance($definition)) {
+        } elseif ($definition instanceof DateTimePropertyDefinition) {
             if ($forGetter) {
                 $typehint = self::DATETIME_INSTANCE;
             } else {
@@ -127,7 +127,7 @@ class FieldDefinitionExtension extends Twig_Extension
     {
         $extractor = '$' . $this->stringConverter->convertSlugToVariableName($definition->getName());
 
-        if ($this->isDateTimeInstance($definition)) {
+        if ($definition instanceof DateTimePropertyDefinition) {
             $extractor .= '->getTimestamp()';
             return sprintf('$this->set(\'%s\', %s)', $definition->getName(), $extractor);
         } elseif ($definition->getType() === PropertyDefinition::TYPE_REFERENCE) {
@@ -160,7 +160,7 @@ class FieldDefinitionExtension extends Twig_Extension
             $populator = sprintf('$this->getByReference(\'%s\')', $definition->getName());
         }
 
-        if ($this->isDateTimeInstance($definition)) {
+        if ($definition instanceof DateTimePropertyDefinition) {
             if ($definition->getType() === PropertyDefinition::TYPE_INTEGER) {
                 $populator = sprintf(
                     '(new %s())->setTimestamp($this->get(\'%s\'))',
@@ -183,13 +183,5 @@ class FieldDefinitionExtension extends Twig_Extension
         }
 
         return $populator;
-    }
-
-    private function isDateTimeInstance(PropertyDefinition $definition)
-    {
-        return
-            in_array($definition->getType(), [PropertyDefinition::TYPE_INTEGER, PropertyDefinition::TYPE_STRING], true)
-            && preg_match(self::DATETIME_REGEX, $definition->getDescription()) === 1
-        ;
     }
 }

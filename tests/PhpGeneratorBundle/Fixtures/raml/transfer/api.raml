@@ -111,6 +111,7 @@ types:
         displayName: final_beneficiary
         type: FinalBeneficiary
       perform_at:
+        (datetime_timestamp):
         required: false
         displayName: perform_at
         description: Timestamp when Transfer should be perfomed
@@ -160,6 +161,7 @@ types:
         description: Indicates if related card can be charged
         type: boolean
       reserve_until:
+        (datetime_timestamp):
         required: false
         displayName: reserve_until
         description: Timestamp until Transfer must be reserved
@@ -534,12 +536,14 @@ types:
         displayName: initiator
         type: TransferInitiator
       created_at:
+        (datetime_timestamp):
         required: true
         displayName: created_at
         description: Timestamp when Transfer was created
         type: integer
         format: int32
       performed_at:
+        (datetime_timestamp):
         required: false
         displayName: performed_at
         description: Timestamp when Transfer was performed
@@ -591,6 +595,7 @@ types:
     type: object
     properties:
       estimated_processing_date:
+        (datetime_timestamp):
         required: false
         displayName: estimated_processing_date
         description: Timestamp of estimated Transfer processing date
@@ -638,12 +643,14 @@ types:
     type: object
     properties:
       created_date_from:
+        (datetime_timestamp):
         required: false
         displayName: created_date_from
         description: Timestamp when Transfer was created from
         type: integer
         format: int32
       created_date_to:
+        (datetime_timestamp):
         required: false
         displayName: created_date_to
         description: Timestamp when Transfer was created to

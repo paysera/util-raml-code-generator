@@ -141,15 +141,20 @@ class ApiMethodExtension extends Twig_Extension
 
     public function generateBody(Method $method, ApiDefinition $api)
     {
+        /** @var ArgumentDefinition[] $arguments */
         $arguments = array_merge(
             $this->extractTraitArguments($method, $api),
             $this->extractBodyTypeArguments($method, $api)
         );
 
         if (count($arguments) > 1) {
+            $argumentNames = [];
+            foreach ($arguments as $argument) {
+                $argumentNames[] = $argument->getName();
+            }
             throw new InvalidDefinitionException(sprintf(
                 'More than one body argument found: "%s"',
-                implode(', ', $arguments)
+                implode(', ', $argumentNames)
             ));
         }
 
