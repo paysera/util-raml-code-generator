@@ -1,0 +1,83 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="paysera_javascript_generator.relative_package_source_dir">src</parameter>
+    </parameters>
+
+    <services>
+        <service id="paysera_javascript_generator.generator.entity"
+                 class="Paysera\Bundle\JavascriptGeneratorBundle\Service\Generator\EntityGenerator">
+            <argument type="service" id="templating"/>
+            <argument>%paysera_javascript_generator.relative_package_source_dir%</argument>
+            <tag name="paysera_js_generator" position="10"/>
+        </service>
+
+        <service id="paysera_javascript_generator.generator.client_factory"
+                 class="Paysera\Bundle\JavascriptGeneratorBundle\Service\Generator\ClientFactoryGenerator">
+            <argument type="service" id="templating"/>
+            <argument>%paysera_javascript_generator.relative_package_source_dir%</argument>
+            <tag name="paysera_js_generator" position="20"/>
+        </service>
+
+        <service id="paysera_javascript_generator.generator.client"
+                 class="Paysera\Bundle\JavascriptGeneratorBundle\Service\Generator\ClientGenerator">
+            <argument type="service" id="paysera_php_generator.string_converter"/>
+            <argument type="service" id="templating"/>
+            <argument>%paysera_javascript_generator.relative_package_source_dir%</argument>
+            <tag name="paysera_js_generator" position="30"/>
+        </service>
+
+        <service id="paysera_javascript_generator.generator.date_factory"
+                 class="Paysera\Bundle\JavascriptGeneratorBundle\Service\Generator\DateFactoryGenerator">
+            <argument type="service" id="templating"/>
+            <argument>%paysera_javascript_generator.relative_package_source_dir%</argument>
+            <tag name="paysera_js_generator" position="40"/>
+        </service>
+
+
+        <service id="paysera_javascript_generator.generator.package_json"
+                 class="Paysera\Bundle\JavascriptGeneratorBundle\Service\Generator\PackageJsonGenerator">
+            <argument type="service" id="templating"/>
+            <argument>%paysera_code_generator.vendor_prefix%</argument>
+            <tag name="paysera_js_generator" position="50"/>
+        </service>
+
+        <service id="paysera_javascript_generator.generator.config"
+                 class="Paysera\Bundle\JavascriptGeneratorBundle\Service\Generator\ConfigGenerator">
+            <argument type="service" id="templating"/>
+            <argument>%paysera_code_generator.vendor_prefix%</argument>
+            <tag name="paysera_js_generator" position="60"/>
+        </service>
+
+        <service id="paysera_javascript_generator.generator.gitignore"
+                 class="Paysera\Bundle\JavascriptGeneratorBundle\Service\Generator\GitIgnoreGenerator">
+            <argument type="service" id="templating"/>
+            <tag name="paysera_js_generator" position="70"/>
+        </service>
+
+        <service id="paysera_javascript_generator.generator.module"
+                 class="Paysera\Bundle\JavascriptGeneratorBundle\Service\Generator\ModuleGenerator">
+            <argument type="service" id="templating"/>
+            <argument>%paysera_javascript_generator.relative_package_source_dir%</argument>
+            <tag name="paysera_js_generator" position="80"/>
+        </service>
+
+        <service id="paysera_javascript_generator.generator.angular_module"
+                 class="Paysera\Bundle\JavascriptGeneratorBundle\Service\Generator\AngularModuleGenerator">
+            <argument type="service" id="templating"/>
+            <argument>%paysera_javascript_generator.relative_package_source_dir%</argument>
+            <tag name="paysera_js_generator" position="90"/>
+        </service>
+
+        <service id="paysera_javascript_generator.generator.demo"
+                 class="Paysera\Bundle\JavascriptGeneratorBundle\Service\Generator\DemoGenerator">
+            <argument type="service" id="templating"/>
+            <argument>%paysera_javascript_generator.relative_package_source_dir%</argument>
+            <tag name="paysera_js_generator" position="100"/>
+        </service>
+    </services>
+</container>

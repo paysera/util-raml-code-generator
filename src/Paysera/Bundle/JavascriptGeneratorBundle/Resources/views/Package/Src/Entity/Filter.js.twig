@@ -1,0 +1,17 @@
+{% if type.extendsBaseFilter %}
+import { Filter } from 'paysera-http-client-common';
+
+class {{ type.name }} extends Filter
+{% else %}
+import { Entity } from 'paysera-http-client-common';
+
+class {{ type.name }} extends Entity
+{% endif %}
+{
+{% for property in type.properties %}
+{% include '@PayseraJavascriptGenerator/Package/Src/Entity/Property/getter.js.twig' with { 'property': property } only %}
+{% include '@PayseraJavascriptGenerator/Package/Src/Entity/Property/setter.js.twig' with { 'property': property } only %}
+{% endfor %}
+}
+
+export default {{ type.name }};

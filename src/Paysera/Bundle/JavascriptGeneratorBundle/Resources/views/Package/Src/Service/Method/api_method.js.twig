@@ -1,0 +1,24 @@
+    /**
+     * {{ method.description|raw }}
+     * {{ method.type }} {{ resource.uri|raw }}
+     *
+     {% set arguments = js_generate_method_arguments(method, resource, api) %}
+     {%- for argument in arguments -%}
+     * @param {{ '{%s}'|format(argument.type)|raw }} {{ argument.name }}
+     {% endfor -%}
+     * @return {Promise.<{{ js_get_return_type(method, api) }}>}
+     */
+    {{ js_generate_method_name(method, resource) }}({{ js_inline_arguments(arguments)|raw }}) {
+        const request = RequestFactory.create(
+            '{{ method.type }}',
+            '{{ js_generate_uri(resource)|raw }}',
+            {{ js_generate_body(method, api) }},
+        );
+
+        return this.client
+            .performRequest(request)
+            .then((data) => {
+                return {{ js_generate_result_populator(method, api)|raw }}
+            })
+        ;
+    }

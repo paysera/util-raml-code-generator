@@ -1,0 +1,19 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="paysera_javascript_generator.command.generate_package"
+                 class="Paysera\Bundle\JavascriptGeneratorBundle\Command\GeneratePackageCommand">
+            <argument type="service" id="paysera_code_generator.code_generator"/>
+            <argument type="service" id="paysera_javascript_generator.service.client_name_resolver"/>
+            <argument type="service" id="paysera_javascript_generator.service.package_name_resolver"/>
+            <argument type="service" id="filesystem"/>
+            <argument>%paysera_code_generator.output_dir%</argument>
+            <argument>%vendor_prefix%</argument>
+            <tag name="console.command"/>
+        </service>
+    </services>
+</container>

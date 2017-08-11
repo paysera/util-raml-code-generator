@@ -1,0 +1,35 @@
+import { RequestFactory } from 'paysera-http-client-common';
+
+{% for type in api.types %}
+import {{ type.name }} from '../entity/{{ type.name }}';
+{% endfor %}
+
+{% import _self as macros %}
+{% macro render_methods(resource, api) %}
+{% for subResource in resource.resources %}
+{{ _self.render_methods(subResource, api) }}
+{% endfor %}
+{% for method in resource.methods %}
+{% include '@PayseraJavascriptGenerator/Package/Src/Service/Method/api_method.js.twig' with {
+    'resource': resource,
+    'method': method,
+    'api': api
+} only %}
+{% endfor %}
+{% endmacro -%}
+
+class {{ js_get_client_name(api.name) }} {
+
+    /**
+     * @param {ClientWrapper} client
+     */
+    constructor(client) {
+        this.client = client;
+    }
+
+{% for resource in api.ramlDefinition.resources -%}
+    {{ macros.render_methods(resource, api) }}
+{% endfor %}
+}
+
+export default {{ js_get_client_name(api.name) }};

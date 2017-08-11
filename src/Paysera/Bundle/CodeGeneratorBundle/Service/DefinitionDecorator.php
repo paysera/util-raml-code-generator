@@ -3,13 +3,7 @@ declare(strict_types=1);
 
 namespace Paysera\Bundle\CodeGeneratorBundle\Service;
 
-use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\ArrayPropertyDefinition;
-use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\FilterTypeDefinition;
 use Raml\ApiDefinition;
-use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\PropertyDefinition;
-use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\ResultTypeDefinition;
-use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\TypeDefinition;
-use Paysera\Bundle\CodeGeneratorBundle\Exception\InvalidDefinitionException;
 
 use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\ApiDefinition as DecoratedDefinition;
 
@@ -26,11 +20,8 @@ class DefinitionDecorator
         $this->typeDefinitionBuilder = $typeDefinitionBuilder;
     }
 
-    public function decorate(
-        ApiDefinition $original,
-        string $apiName,
-        string $namespace
-    ) {
+    public function decorate(ApiDefinition $original, string $apiName, string $namespace) : DecoratedDefinition
+    {
         $apiDefinition = new DecoratedDefinition($original);
         $types = $this->typeDefinitionBuilder->buildTypeDefinitions($original);
 

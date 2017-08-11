@@ -1,0 +1,46 @@
+import angular from 'angular';
+import { TokenProvider, Scope } from 'paysera-http-client-common';
+
+{% for type in api.types %}
+import {{ type.name }} from './entity/{{ type.name }}';
+{% endfor %}
+
+import DateFactory from './service/DateFactory';
+import ClientFactory from './service/ClientFactory';
+import {{ js_get_client_name(api.name) }} from './service/{{ js_get_client_name(api.name) }}';
+
+export {
+{% for type in api.types %}
+{{ type.name }},
+{% endfor %}
+    DateFactory,
+    ClientFactory,
+    {{ js_get_client_name(api.name) }},
+};
+
+class AngularClientFactory {
+
+    /**
+     * @param {object} config
+     * @returns {{ ('{' ~ js_get_client_name(api.name) ~ '}')|raw }}
+     */
+    getClient(config) {
+        const tokenProvider = new TokenProvider(
+            new Scope(config.scope),
+            config.initialTokenProvider,
+        );
+
+        const factoryConfig = {
+            baseUrl: config.baseUrl,
+            refreshTokenProvider: config.refreshTokenProvider,
+        };
+
+        return ClientFactory.create(factoryConfig).get{{ js_get_client_name(api.name) }}(tokenProvider);
+    }
+}
+
+export default angular
+    .module('paysera.http.account', [])
+    .service('payseraHttpAccountClientFactory', AngularClientFactory)
+    .name
+;

@@ -9,6 +9,7 @@ use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\ApiDefinition;
 use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\ArgumentDefinition;
 use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\ResultTypeDefinition;
 use Paysera\Bundle\CodeGeneratorBundle\Exception\InvalidDefinitionException;
+use Paysera\Bundle\CodeGeneratorBundle\ResourcePatterns;
 use Paysera\Bundle\PhpGeneratorBundle\Service\StringConverter;
 use Raml\Body;
 use Raml\Method;
@@ -18,17 +19,6 @@ use Twig_SimpleFunction;
 
 class ApiMethodExtension extends Twig_Extension
 {
-    // /categories/{id}/elements
-    const RESOURCE_NAME_REGEX = '#^\/(?P<base_name>\w+)(?:.+\/(?P<sub_name>[\w|-]*)$)*#';
-
-    // /categories/{id}
-    const SINGULAR_RESOURCE = '#{(\w+)}$#';
-
-    // /categories/{id}/*
-    const IDENTIFIER_RESOURCE = '#{(\w+)}#';
-
-    const DEFAULT_VARIABLE_TYPE = 'string';
-
     private $stringConverter;
 
     public function __construct(StringConverter $stringConverter)
@@ -122,10 +112,9 @@ class ApiMethodExtension extends Twig_Extension
         return $arguments;
     }
 
-
     public function generateUri(Resource $resource)
     {
-        $replaced = preg_replace(self::IDENTIFIER_RESOURCE, '%s', ltrim($resource->getUri(), '/'));
+        $replaced = preg_replace(ResourcePatterns::PATTERN_IDENTIFIER_RESOURCE, '%s', ltrim($resource->getUri(), '/'));
         $arguments = $this->extractUriArguments($resource->getUri());
 
         foreach ($arguments as $key => $argument) {
@@ -230,7 +219,7 @@ class ApiMethodExtension extends Twig_Extension
     private function extractUriArguments($uri)
     {
         $arguments = [];
-        if (preg_match_all(self::IDENTIFIER_RESOURCE, $uri, $matches) === 1) {
+        if (preg_match_all(ResourcePatterns::PATTERN_IDENTIFIER_RESOURCE, $uri, $matches) === 1) {
             foreach ($matches[1] as $match) {
                 $arguments[] = new ArgumentDefinition(sprintf(
                     '$%s',
@@ -335,7 +324,7 @@ class ApiMethodExtension extends Twig_Extension
      */
     private function isIdentifierResource($uri)
     {
-        return preg_match(self::IDENTIFIER_RESOURCE, $uri) === 1;
+        return preg_match(ResourcePatterns::PATTERN_IDENTIFIER_RESOURCE, $uri) === 1;
     }
 
     /**
@@ -355,7 +344,7 @@ class ApiMethodExtension extends Twig_Extension
      */
     private function isSingularResource($uri)
     {
-        return preg_match(self::SINGULAR_RESOURCE, $uri) === 1;
+        return preg_match(ResourcePatterns::PATTERN_SINGULAR_RESOURCE, $uri) === 1;
     }
 
     /**
@@ -375,7 +364,7 @@ class ApiMethodExtension extends Twig_Extension
      */
     private function getNameParts($uri)
     {
-        if (preg_match(self::RESOURCE_NAME_REGEX, $uri, $matches) === 1) {
+        if (preg_match(ResourcePatterns::PATTERN_RESOURCE_NAME, $uri, $matches) === 1) {
             if (!isset($matches['base_name'])) {
                 throw new InvalidDefinitionException(sprintf('Unable to resolve name parts for uri "%s"', $uri));
             }
