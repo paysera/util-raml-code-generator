@@ -43,13 +43,10 @@ class EntityGenerator implements GeneratorInterface
                 ]
             );
 
-            $item = new SourceCode();
-            $item
+            $items[] = (new SourceCode())
                 ->setFilepath(sprintf('%s/entity/%s.js', $this->sourceDir, $type->getName()))
                 ->setContents($code)
             ;
-
-            $items[] = $item;
         }
 
         return $items;

@@ -10,9 +10,9 @@ import ClientFactory from './service/ClientFactory';
 import AccountClient from './service/AccountClient';
 
 export {
-AccountResult,
-Account,
-AccountFilter,
+    AccountResult,
+    Account,
+    AccountFilter,
     DateFactory,
     ClientFactory,
     AccountClient,
@@ -25,22 +25,30 @@ class AngularClientFactory {
      * @returns {AccountClient}
      */
     getClient(config) {
-        const tokenProvider = new TokenProvider(
-            new Scope(config.scope),
-            config.initialTokenProvider,
-        );
+        let factoryConfig = {};
+        let tokenProvider = null;
 
-        const factoryConfig = {
-            baseUrl: config.baseUrl,
-            refreshTokenProvider: config.refreshTokenProvider,
-        };
+        if (config.scope && config.initialTokenProvider) {
+            tokenProvider = new TokenProvider(
+                new Scope(config.scope),
+                config.initialTokenProvider,
+            );
+        }
+
+        if (config.baseUrl) {
+            factoryConfig.baseUrl = config.baseUrl;
+        }
+
+        if (config.refreshTokenProvider) {
+            factoryConfig.refreshTokenProvider = config.refreshTokenProvider;
+        }
 
         return ClientFactory.create(factoryConfig).getAccountClient(tokenProvider);
     }
 }
 
 export default angular
-    .module('paysera.http.account', [])
-    .service('payseraHttpAccountClientFactory', AngularClientFactory)
+    .module('acme.http.account', [])
+    .service('acmeHttpAccountClientFactory', AngularClientFactory)
     .name
 ;

@@ -37,36 +37,36 @@ import ClientFactory from './service/ClientFactory';
 import TransferClient from './service/TransferClient';
 
 export {
-TransfersBatchResult,
-TransfersBatch,
-TransferRegistrationParameters,
-ConvertCurrency,
-TransferPassword,
-TransferInput,
-Money,
-TransferBeneficiary,
-Identifiers,
-BankAccount,
-Address,
-CorrespondentBank,
-TaxAccount,
-PayseraAccount,
-PayzaAccount,
-WebmoneyAccount,
-Payer,
-FinalBeneficiary,
-TransferNotifications,
-TransferNotifcation,
-TransferPurpose,
-DetailsOptions,
-TransferPassword34,
-TransferOutput,
-TransferInitiator,
-TransferFailureStatus,
-TransferAdditionalData,
-OutCommissionRule,
-TransfersFilter,
-FilteredTransfersResult,
+    TransfersBatchResult,
+    TransfersBatch,
+    TransferRegistrationParameters,
+    ConvertCurrency,
+    TransferPassword,
+    TransferInput,
+    Money,
+    TransferBeneficiary,
+    Identifiers,
+    BankAccount,
+    Address,
+    CorrespondentBank,
+    TaxAccount,
+    PayseraAccount,
+    PayzaAccount,
+    WebmoneyAccount,
+    Payer,
+    FinalBeneficiary,
+    TransferNotifications,
+    TransferNotifcation,
+    TransferPurpose,
+    DetailsOptions,
+    TransferPassword34,
+    TransferOutput,
+    TransferInitiator,
+    TransferFailureStatus,
+    TransferAdditionalData,
+    OutCommissionRule,
+    TransfersFilter,
+    FilteredTransfersResult,
     DateFactory,
     ClientFactory,
     TransferClient,
@@ -79,22 +79,30 @@ class AngularClientFactory {
      * @returns {TransferClient}
      */
     getClient(config) {
-        const tokenProvider = new TokenProvider(
-            new Scope(config.scope),
-            config.initialTokenProvider,
-        );
+        let factoryConfig = {};
+        let tokenProvider = null;
 
-        const factoryConfig = {
-            baseUrl: config.baseUrl,
-            refreshTokenProvider: config.refreshTokenProvider,
-        };
+        if (config.scope && config.initialTokenProvider) {
+            tokenProvider = new TokenProvider(
+                new Scope(config.scope),
+                config.initialTokenProvider,
+            );
+        }
+
+        if (config.baseUrl) {
+            factoryConfig.baseUrl = config.baseUrl;
+        }
+
+        if (config.refreshTokenProvider) {
+            factoryConfig.refreshTokenProvider = config.refreshTokenProvider;
+        }
 
         return ClientFactory.create(factoryConfig).getTransferClient(tokenProvider);
     }
 }
 
 export default angular
-    .module('paysera.http.account', [])
-    .service('payseraHttpAccountClientFactory', AngularClientFactory)
+    .module('acme.http.transfer', [])
+    .service('acmeHttpTransferClientFactory', AngularClientFactory)
     .name
 ;

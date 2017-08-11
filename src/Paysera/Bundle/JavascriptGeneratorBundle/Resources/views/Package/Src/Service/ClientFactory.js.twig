@@ -12,10 +12,10 @@ class ClientFactory extends ClientFactoryBase {
     }
 
     /**
-     * @param {Object} options
+     * @param {object|null} options
      * @returns {ClientFactory}
      */
-    static create(options) {
+    static create(options = null) {
         return new ClientFactory(this.prototype.getClient(options || {}));
     }
 

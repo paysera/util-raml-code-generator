@@ -9,8 +9,8 @@ import ClientFactory from './service/ClientFactory';
 import CategoryClient from './service/CategoryClient';
 
 export {
-Category,
-CategoryFilter,
+    Category,
+    CategoryFilter,
     DateFactory,
     ClientFactory,
     CategoryClient,
@@ -23,22 +23,30 @@ class AngularClientFactory {
      * @returns {CategoryClient}
      */
     getClient(config) {
-        const tokenProvider = new TokenProvider(
-            new Scope(config.scope),
-            config.initialTokenProvider,
-        );
+        let factoryConfig = {};
+        let tokenProvider = null;
 
-        const factoryConfig = {
-            baseUrl: config.baseUrl,
-            refreshTokenProvider: config.refreshTokenProvider,
-        };
+        if (config.scope && config.initialTokenProvider) {
+            tokenProvider = new TokenProvider(
+                new Scope(config.scope),
+                config.initialTokenProvider,
+            );
+        }
+
+        if (config.baseUrl) {
+            factoryConfig.baseUrl = config.baseUrl;
+        }
+
+        if (config.refreshTokenProvider) {
+            factoryConfig.refreshTokenProvider = config.refreshTokenProvider;
+        }
 
         return ClientFactory.create(factoryConfig).getCategoryClient(tokenProvider);
     }
 }
 
 export default angular
-    .module('paysera.http.account', [])
-    .service('payseraHttpAccountClientFactory', AngularClientFactory)
+    .module('acme.http.category', [])
+    .service('acmeHttpCategoryClientFactory', AngularClientFactory)
     .name
 ;

@@ -11,8 +11,7 @@ use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\ArgumentDefinition;
 use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\ResultTypeDefinition;
 use Paysera\Bundle\CodeGeneratorBundle\Exception\InvalidDefinitionException;
 use Paysera\Bundle\CodeGeneratorBundle\ResourcePatterns;
-use Paysera\Bundle\JavascriptGeneratorBundle\Service\ClientNameResolver;
-use Paysera\Bundle\JavascriptGeneratorBundle\Service\PackageNameResolver;
+use Paysera\Bundle\JavascriptGeneratorBundle\Service\NameResolver;
 use Paysera\Bundle\PhpGeneratorBundle\Service\StringConverter;
 use Raml\Body;
 use Raml\Method;
@@ -23,24 +22,23 @@ use Twig_SimpleFunction;
 class ApiMethodExtension extends Twig_Extension
 {
     private $stringConverter;
-    private $clientNameResolver;
-    private $packageNameResolver;
+    private $nameResolver;
 
     public function __construct(
         StringConverter $stringConverter,
-        ClientNameResolver $clientNameResolver,
-        PackageNameResolver $packageNameResolver
+        NameResolver $nameResolver
     ) {
         $this->stringConverter = $stringConverter;
-        $this->clientNameResolver = $clientNameResolver;
-        $this->packageNameResolver = $packageNameResolver;
+        $this->nameResolver = $nameResolver;
     }
 
     public function getFunctions()
     {
         return [
-            new Twig_SimpleFunction('js_get_client_name', [$this->clientNameResolver, 'getClientName']),
-            new Twig_SimpleFunction('js_get_package_name', [$this->packageNameResolver, 'getPackageName']),
+            new Twig_SimpleFunction('js_get_client_name', [$this->nameResolver, 'getClientName']),
+            new Twig_SimpleFunction('js_get_package_name', [$this->nameResolver, 'getPackageName']),
+            new Twig_SimpleFunction('js_get_angular_module_name', [$this->nameResolver, 'getAngularJsModuleName']),
+            new Twig_SimpleFunction('js_get_angular_client_factory_name', [$this->nameResolver, 'getAngularJsFactoryClassName']),
             new Twig_SimpleFunction('js_generate_method_name', [$this, 'generateMethodName']),
             new Twig_SimpleFunction('js_generate_method_arguments', [$this, 'generateMethodArguments']),
             new Twig_SimpleFunction('js_generate_body', [$this, 'generateBody']),

@@ -10,11 +10,8 @@
             <tag name="paysera_code_generator" language="js"/>
         </service>
 
-        <service id="paysera_javascript_generator.service.package_name_resolver"
-                 class="Paysera\Bundle\JavascriptGeneratorBundle\Service\PackageNameResolver" />
-
-        <service id="paysera_javascript_generator.service.client_name_resolver"
-                 class="Paysera\Bundle\JavascriptGeneratorBundle\Service\ClientNameResolver">
+        <service id="paysera_javascript_generator.service.name_resolver"
+                 class="Paysera\Bundle\JavascriptGeneratorBundle\Service\NameResolver">
             <argument type="service" id="paysera_php_generator.string_converter" />
         </service>
     </services>

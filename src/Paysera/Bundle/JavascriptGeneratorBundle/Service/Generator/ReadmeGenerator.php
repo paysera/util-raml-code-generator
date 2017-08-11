@@ -8,28 +8,29 @@ use Paysera\Bundle\CodeGeneratorBundle\Entity\SourceCode;
 use Paysera\Bundle\CodeGeneratorBundle\Service\Generator\GeneratorInterface;
 use Symfony\Component\Templating\EngineInterface;
 
-class DateFactoryGenerator implements GeneratorInterface
+class ReadmeGenerator implements GeneratorInterface
 {
     private $twig;
-    private $sourceDir;
+    private $vendorPrefix;
 
     public function __construct(
         EngineInterface $twig,
-        string $sourceDir
+        string $vendorPrefix
     ) {
         $this->twig = $twig;
-        $this->sourceDir = $sourceDir;
+        $this->vendorPrefix = $vendorPrefix;
     }
 
     public function generate(ApiDefinition $definition) : array
     {
-        $contents = $this->twig->render('PayseraJavascriptGeneratorBundle:Package/Src/Service:DateFactory.js.twig');
+        $code = $this->twig->render(
+            'PayseraJavascriptGeneratorBundle:Package:readme.md.twig',
+            [
+                'api' => $definition,
+                'vendor_prefix' => $this->vendorPrefix,
+            ]
+        );
 
-        $code = (new SourceCode())
-            ->setFilepath(sprintf('%s/service/DateFactory.js', $this->sourceDir))
-            ->setContents($contents)
-        ;
-
-        return [$code];
+        return [(new SourceCode())->setFilepath('README.md')->setContents($code)];
     }
 }

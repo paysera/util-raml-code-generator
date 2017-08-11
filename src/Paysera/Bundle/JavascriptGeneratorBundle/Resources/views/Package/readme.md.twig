@@ -1,0 +1,34 @@
+# {{ js_get_package_name(vendor_prefix, api.name) }}
+
+`{{ js_get_package_name(vendor_prefix, api.name) }}` package provides means to interact with {{ vendor_prefix|capitalize }} {{ api.name|capitalize }} REST API.
+Package source code is written in ES6 syntax ant is transpiled to ES5 using babel.
+Additional Angular JS module `{{ js_get_angular_module_name(vendor_prefix, api.name) }}` with `{{ js_get_angular_client_factory_name(vendor_prefix, api.name) }}` service is also provided.
+
+## Installing
+Using npm:
+```bash
+$ npm install {{ js_get_package_name(vendor_prefix, api.name) }}
+```
+
+Using javascript files
+```html
+<script src="//domain.com/path/to/paysera-http-client-common/dist/lib.js"></script>
+<script src="//domain.com/path/to/{{ js_get_package_name(vendor_prefix, api.name) }}/dist/lib.js"></script>
+```
+
+# Usage
+```js
+import { ClientFactory } from '{{ js_get_package_name(vendor_prefix, api.name) }}';
+
+let factory = ClientFactory.create({
+    baseUrl: 'http://sandbox.domain.com/', // optional, custom base url
+    refreshTokenProvider: function (Scope) {} // optional, needed only if API requires authentication
+});
+
+let client = factory.get{{ js_get_client_name(api.name) }}(); // accepts optional TokenProvider argument, needed only if API requires authentication
+```
+
+## Demo
+ - Run `npm install`
+ - Run `npm run build`
+ - Run `npm run serve` and take a look at `/dist/app.js` file

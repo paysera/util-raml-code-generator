@@ -11,7 +11,7 @@ import {{ js_get_client_name(api.name) }} from './service/{{ js_get_client_name(
 
 export {
 {% for type in api.types %}
-{{ type.name }},
+    {{ type.name }},
 {% endfor %}
     DateFactory,
     ClientFactory,
@@ -25,22 +25,30 @@ class AngularClientFactory {
      * @returns {{ ('{' ~ js_get_client_name(api.name) ~ '}')|raw }}
      */
     getClient(config) {
-        const tokenProvider = new TokenProvider(
-            new Scope(config.scope),
-            config.initialTokenProvider,
-        );
+        let factoryConfig = {};
+        let tokenProvider = null;
 
-        const factoryConfig = {
-            baseUrl: config.baseUrl,
-            refreshTokenProvider: config.refreshTokenProvider,
-        };
+        if (config.scope && config.initialTokenProvider) {
+            tokenProvider = new TokenProvider(
+                new Scope(config.scope),
+                config.initialTokenProvider,
+            );
+        }
+
+        if (config.baseUrl) {
+            factoryConfig.baseUrl = config.baseUrl;
+        }
+
+        if (config.refreshTokenProvider) {
+            factoryConfig.refreshTokenProvider = config.refreshTokenProvider;
+        }
 
         return ClientFactory.create(factoryConfig).get{{ js_get_client_name(api.name) }}(tokenProvider);
     }
 }
 
 export default angular
-    .module('paysera.http.account', [])
-    .service('payseraHttpAccountClientFactory', AngularClientFactory)
+    .module('{{ js_get_angular_module_name(vendor_prefix, api.name) }}', [])
+    .service('{{ js_get_angular_client_factory_name(vendor_prefix, api.name) }}', AngularClientFactory)
     .name
 ;

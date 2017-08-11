@@ -3,8 +3,7 @@ declare(strict_types=1);
 
 namespace Paysera\Bundle\JavascriptGeneratorBundle\Command;
 
-use Paysera\Bundle\JavascriptGeneratorBundle\Service\PackageNameResolver;
-use Paysera\Bundle\JavascriptGeneratorBundle\Service\ClientNameResolver;
+use Paysera\Bundle\JavascriptGeneratorBundle\Service\NameResolver;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 use Paysera\Bundle\CodeGeneratorBundle\Service\CodeGenerator;
 use Symfony\Component\Console\Question\ConfirmationQuestion;
@@ -20,8 +19,7 @@ class GeneratePackageCommand extends Command
 {
     const LANGUAGE = 'js';
 
-    private $clientNameResolver;
-    private $packageNameResolver;
+    private $nameResolver;
     private $codeGenerator;
     private $outputDir;
     private $vendorPrefix;
@@ -29,8 +27,7 @@ class GeneratePackageCommand extends Command
 
     public function __construct(
         CodeGenerator $codeGenerator,
-        ClientNameResolver $clientNameResolver,
-        PackageNameResolver $packageNameResolver,
+        NameResolver $nameResolver,
         Filesystem $filesystem,
         string $outputDir,
         string $vendorPrefix
@@ -38,8 +35,7 @@ class GeneratePackageCommand extends Command
         parent::__construct();
 
         $this->codeGenerator = $codeGenerator;
-        $this->clientNameResolver = $clientNameResolver;
-        $this->packageNameResolver = $packageNameResolver;
+        $this->nameResolver = $nameResolver;
         $this->filesystem = $filesystem;
         $this->outputDir = $outputDir;
         $this->vendorPrefix = $vendorPrefix;
@@ -97,8 +93,8 @@ class GeneratePackageCommand extends Command
     {
         $question = new ConfirmationQuestion(sprintf(
             'Package <comment>%s</comment> with <comment>%s</comment> will be generated to <comment>%s</comment> directory, y/n?',
-            $this->packageNameResolver->getPackageName($this->vendorPrefix, $apiName),
-            $this->clientNameResolver->getClientName($apiName),
+            $this->nameResolver->getPackageName($this->vendorPrefix, $apiName),
+            $this->nameResolver->getClientName($apiName),
             $directory
         ));
 

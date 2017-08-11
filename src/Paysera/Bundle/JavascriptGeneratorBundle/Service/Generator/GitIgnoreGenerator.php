@@ -19,7 +19,11 @@ class GitIgnoreGenerator implements GeneratorInterface
 
     public function generate(ApiDefinition $definition) : array
     {
-        $code = $this->twig->render('PayseraJavascriptGeneratorBundle:Package:gitignore.txt.twig');
-        return [(new SourceCode())->setFilepath('.gitignore')->setContents($code)];
+        $source = (new SourceCode())
+            ->setFilepath('.gitignore')
+            ->setContents($this->twig->render('PayseraJavascriptGeneratorBundle:Package:gitignore.txt.twig'))
+        ;
+
+        return [$source];
     }
 }

@@ -12,13 +12,16 @@ class AngularModuleGenerator implements GeneratorInterface
 {
     private $twig;
     private $sourceDir;
+    private $vendorPrefix;
 
     public function __construct(
         EngineInterface $twig,
-        string $sourceDir
+        string $sourceDir,
+        string $vendorPrefix
     ) {
         $this->twig = $twig;
         $this->sourceDir = $sourceDir;
+        $this->vendorPrefix = $vendorPrefix;
     }
 
     public function generate(ApiDefinition $definition) : array
@@ -26,7 +29,8 @@ class AngularModuleGenerator implements GeneratorInterface
         $code = $this->twig->render(
             'PayseraJavascriptGeneratorBundle:Package/Src:AngularModule.js.twig',
             [
-                'api' => $definition
+                'api' => $definition,
+                'vendor_prefix' => $this->vendorPrefix
             ]
         );
 
