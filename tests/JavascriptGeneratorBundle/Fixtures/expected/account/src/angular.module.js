@@ -21,25 +21,25 @@ export {
 class AngularClientFactory {
 
     /**
-     * @param {object} config
+     * @param {object|null} config
      * @returns {AccountClient}
      */
     getClient(config) {
-        let factoryConfig = {};
+        const factoryConfig = {};
         let tokenProvider = null;
 
-        if (config.scope && config.initialTokenProvider) {
+        if (config && config.scope && config.initialTokenProvider) {
             tokenProvider = new TokenProvider(
                 new Scope(config.scope),
                 config.initialTokenProvider,
             );
         }
 
-        if (config.baseUrl) {
+        if (config && config.baseUrl) {
             factoryConfig.baseUrl = config.baseUrl;
         }
 
-        if (config.refreshTokenProvider) {
+        if (config && config.refreshTokenProvider) {
             factoryConfig.refreshTokenProvider = config.refreshTokenProvider;
         }
 
