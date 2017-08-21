@@ -1,0 +1,97 @@
+#%RAML 1.0
+title: Client API
+version: 1.0
+baseUri: https://my-api.example.com/rest/v1
+
+traits:
+  Filter: !include traits/filter.raml
+  AccountFilter: !include traits/account-filter.raml
+
+types:
+  AccountResult:
+    displayName: Account Result
+    type: object
+    properties:
+      accounts:
+        required: false
+        displayName: accounts
+        type: array
+        items:
+          type: Account
+      _metadata:
+        required: false
+        displayName: _metadata
+        type: ResultMetadata
+  Account:
+    displayName: Account
+    type: object
+    properties:
+      created_at:
+        (datetime_timestamp):
+        required: true
+        displayName: created_at
+        description: Timestamp when Account was created
+        type: integer
+        format: int32
+      number:
+        required: true
+        displayName: number
+        description: The unique identifier for a Account
+        type: string
+      active:
+        required: true
+        displayName: active
+        description: Is Account active
+        type: boolean
+      client_id:
+        required: true
+        displayName: client_id
+        description: Client id, who owns the Account
+        type: integer
+        format: int32
+      closed:
+        required: true
+        displayName: closed
+        description: Is Account closed
+        type: boolean
+      type:
+        required: true
+        displayName: type
+        description: The type of Account
+        type: string
+  ResultMetadata:
+    displayName: Result meta data
+    type: object
+    properties:
+      total:
+        required: true
+        displayName: total
+        description: Total count of items
+        type: integer
+        format: int32
+      offset:
+        required: true
+        displayName: offset
+        description: Cursor position
+        type: integer
+        format: int32
+      limit:
+        required: false
+        displayName: limit
+        description: Max allowed results
+        type: integer
+        format: int32
+/accounts:
+  get:
+    displayName: Accounts
+    description: Retrieve Accounts by Filter
+    is:
+      - Filter
+      - AccountFilter
+    responses:
+      200:
+        description: Success
+        body:
+          application/json:
+            displayName: response
+            type: AccountResult

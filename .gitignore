@@ -21,3 +21,7 @@ generated/
 !generated/.gitkeep
 /raml/
 !raml/.gitkeep
+
+bin/
+!bin/console
+!bin/symfony_requirements

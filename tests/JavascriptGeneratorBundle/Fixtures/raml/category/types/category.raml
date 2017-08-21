@@ -1,0 +1,23 @@
+#%RAML 1.0 DataType
+type: object
+displayName: Category object
+properties:
+  id:
+    type: string
+    required: false
+    description: Object id
+  parent_id:
+    type: string
+    required: false
+    description: Category parent id
+  titles:
+    type: array
+    items:
+      type: string
+    required: true
+    description: Category title
+  status:
+    type: string
+    enum: ["active", "inactive"]
+    required: false
+    description: Category status

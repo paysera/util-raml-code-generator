@@ -1,0 +1,40 @@
+import { ClientFactoryBase } from 'paysera-http-client-common';
+import {{ js_get_client_name(api.name) }} from './{{ js_get_client_name(api.name) }}';
+
+class ClientFactory extends ClientFactoryBase {
+
+    /**
+     * @param {ClientWrapper} client
+     */
+    constructor(client) {
+        super();
+        this.client = client;
+    }
+
+    /**
+     * @param {object|null} options
+     * @returns {ClientFactory}
+     */
+    static create(options = null) {
+        return new ClientFactory(this.prototype.getClient(options || {}));
+    }
+
+    /**
+     * @returns {string}
+     */
+    static getBaseUrl() {
+        return '{{ base_url|raw }}';
+    }
+
+    /**
+     * @param {TokenProvider} provider
+     *
+     * @returns {{ ('{' ~  js_get_client_name(api.name) ~ '}')|raw }}
+     */
+    get{{ js_get_client_name(api.name) }}(provider) {
+        this.client.setTokenProvider(provider);
+        return new {{ js_get_client_name(api.name) }}(this.client);
+    }
+}
+
+export default ClientFactory;

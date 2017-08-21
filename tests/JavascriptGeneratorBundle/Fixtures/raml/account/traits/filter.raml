@@ -1,0 +1,35 @@
+#%RAML 1.0 Trait
+usage: Used where Result filtering is provided
+description: Standard SQL-style Result filtering
+queryParameters:
+  limit:
+    displayName: limit
+    type: integer
+    minimum: 1
+    maximum: 200
+    default: 20
+    example: 25
+    required: false
+  offset:
+    displayName: offset
+    type: integer
+    minimum: 0
+    default: 0
+    example: 25
+    required: false
+  order_by:
+    displayName: order_by
+    type: string
+    example: createdAt
+    required: false
+    enum:
+      - createdAt
+  order_direction:
+    displayName: order_direction
+    type: string
+    example: desc
+    required: false
+    default: desc
+    enum:
+      - desc
+      - asc
