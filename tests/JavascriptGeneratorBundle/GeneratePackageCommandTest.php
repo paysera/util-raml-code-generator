@@ -2,9 +2,9 @@
 
 namespace Tests\JavascriptGeneratorBundle;
 
+use Paysera\Bundle\JavascriptGeneratorBundle\Command\GeneratePackageCommand;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
-use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\Console\Tester\CommandTester;
 use Symfony\Component\Filesystem\Filesystem;
 use Tests\TestKernel;
@@ -25,19 +25,23 @@ class GeneratePackageCommandTest extends KernelTestCase
 
     protected function setUp()
     {
+        static::$kernel = null;
         /** @var TestKernel $kernel */
         $kernel = self::createKernel();
-        $kernel->setContainerModifier(function (Container $container) {
-            $container->setParameter('vendor_prefix', 'acme');
-            $container->setParameter('paysera_code_generator.raml_dir', __DIR__ . '/Fixtures/raml');
-            $container->setParameter('paysera_code_generator.output_dir', __DIR__ . '/Fixtures/generated');
-        });
         $kernel->boot();
 
         $container = $kernel->getContainer();
         $application = new Application($kernel);
 
-        $commandInstance = $container->get('paysera_javascript_generator.command.generate_package');
+        $commandInstance = new GeneratePackageCommand(
+            $container->get('paysera_code_generator.code_generator'),
+            $container->get('paysera_javascript_generator.service.name_resolver'),
+            $container->get('filesystem'),
+            __DIR__ . '/Fixtures/raml',
+            __DIR__ . '/Fixtures/generated',
+            $container->getParameter('vendor_prefix')
+        );
+
         $application->add($commandInstance);
 
         $this->filesystem = $container->get('filesystem');

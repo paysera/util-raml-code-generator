@@ -1,24 +1,24 @@
-# acme-category-client
+# vendor-category-client
 
-`acme-category-client` package provides means to interact with Acme Category REST API.
+`vendor-category-client` package provides means to interact with Vendor Category REST API.
 Package source code is written in ES6 syntax ant is transpiled to ES5 using babel.
-Additional Angular JS module `acme.http.category` with `acmeHttpCategoryClientFactory` service is also provided.
+Additional Angular JS module `vendor.http.category` with `vendorHttpCategoryClientFactory` service is also provided.
 
 ## Installing
 Using npm:
 ```bash
-$ npm install acme-category-client
+$ npm install vendor-category-client
 ```
 
 Using javascript files
 ```html
 <script src="//domain.com/path/to/paysera-http-client-common/dist/lib.js"></script>
-<script src="//domain.com/path/to/acme-category-client/dist/lib.js"></script>
+<script src="//domain.com/path/to/vendor-category-client/dist/lib.js"></script>
 ```
 
 # Usage
 ```js
-import { ClientFactory } from 'acme-category-client';
+import { ClientFactory } from 'vendor-category-client';
 
 let factory = ClientFactory.create({
     baseUrl: 'http://sandbox.domain.com/', // optional, custom base url

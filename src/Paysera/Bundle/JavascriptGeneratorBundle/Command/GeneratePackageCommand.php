@@ -24,11 +24,13 @@ class GeneratePackageCommand extends Command
     private $outputDir;
     private $vendorPrefix;
     private $filesystem;
+    private $ramlDir;
 
     public function __construct(
         CodeGenerator $codeGenerator,
         NameResolver $nameResolver,
         Filesystem $filesystem,
+        string $ramlDir,
         string $outputDir,
         string $vendorPrefix
     ) {
@@ -37,6 +39,7 @@ class GeneratePackageCommand extends Command
         $this->codeGenerator = $codeGenerator;
         $this->nameResolver = $nameResolver;
         $this->filesystem = $filesystem;
+        $this->ramlDir = $ramlDir;
         $this->outputDir = $outputDir;
         $this->vendorPrefix = $vendorPrefix;
     }
@@ -75,7 +78,9 @@ class GeneratePackageCommand extends Command
         $this->codeGenerator->generateCode(
             self::LANGUAGE,
             $input->getArgument('api_name'),
-            $input->getArgument('client_name')
+            $input->getArgument('client_name'),
+            $this->ramlDir,
+            $this->outputDir
         );
 
         $output->writeln('');

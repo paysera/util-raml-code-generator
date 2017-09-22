@@ -2,10 +2,10 @@
 
 namespace Tests\PhpGeneratorBundle;
 
+use Paysera\Bundle\PhpGeneratorBundle\Command\GenerateRestClientCommand;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Console\Tester\CommandTester;
-use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\Filesystem\Filesystem;
 use Tests\TestKernel;
 
@@ -25,19 +25,20 @@ class GenerateRestClientCommandTest extends KernelTestCase
 
     protected function setUp()
     {
+        static::$kernel = null;
         /** @var TestKernel $kernel */
         $kernel = self::createKernel();
-        $kernel->setContainerModifier(function (Container $container) {
-            $container->setParameter('vendor_prefix', 'vendor');
-            $container->setParameter('paysera_code_generator.raml_dir', __DIR__ . '/Fixtures/raml');
-            $container->setParameter('paysera_code_generator.output_dir', __DIR__ . '/Fixtures/generated');
-        });
         $kernel->boot();
 
         $container = $kernel->getContainer();
         $application = new Application($kernel);
 
-        $commandInstance = $container->get('paysera_php_generator.command.generate_rest_client');
+        $commandInstance = new GenerateRestClientCommand(
+            $container->get('paysera_code_generator.code_generator'),
+            __DIR__ . '/Fixtures/raml',
+            __DIR__ . '/Fixtures/generated'
+        );
+
         $application->add($commandInstance);
 
         $this->filesystem = $container->get('filesystem');

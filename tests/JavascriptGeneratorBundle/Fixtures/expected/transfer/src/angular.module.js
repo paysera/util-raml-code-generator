@@ -102,7 +102,7 @@ class AngularClientFactory {
 }
 
 export default angular
-    .module('acme.http.transfer', [])
-    .service('acmeHttpTransferClientFactory', AngularClientFactory)
+    .module('vendor.http.transfer', [])
+    .service('vendorHttpTransferClientFactory', AngularClientFactory)
     .name
 ;

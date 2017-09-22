@@ -13,15 +13,18 @@ class GenerateRestClientCommand extends Command
     const LANGUAGE = 'php';
 
     private $codeGenerator;
+    private $ramlDir;
     private $outputDir;
 
     public function __construct(
         CodeGenerator $codeGenerator,
+        string $ramlDir,
         string $outputDir
     ) {
         parent::__construct();
 
         $this->codeGenerator = $codeGenerator;
+        $this->ramlDir = $ramlDir;
         $this->outputDir = $outputDir;
     }
 
@@ -43,7 +46,9 @@ class GenerateRestClientCommand extends Command
         $this->codeGenerator->generateCode(
             self::LANGUAGE,
             $input->getArgument('api_name'),
-            $input->getArgument('namespace')
+            $input->getArgument('namespace'),
+            $this->ramlDir,
+            $this->outputDir
         );
 
         $output->writeln('');

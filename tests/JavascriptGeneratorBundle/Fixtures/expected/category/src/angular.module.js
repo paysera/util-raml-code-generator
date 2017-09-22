@@ -46,7 +46,7 @@ class AngularClientFactory {
 }
 
 export default angular
-    .module('acme.http.category', [])
-    .service('acmeHttpCategoryClientFactory', AngularClientFactory)
+    .module('vendor.http.category', [])
+    .service('vendorHttpCategoryClientFactory', AngularClientFactory)
     .name
 ;

@@ -48,7 +48,7 @@ class AngularClientFactory {
 }
 
 export default angular
-    .module('acme.http.account', [])
-    .service('acmeHttpAccountClientFactory', AngularClientFactory)
+    .module('vendor.http.account', [])
+    .service('vendorHttpAccountClientFactory', AngularClientFactory)
     .name
 ;

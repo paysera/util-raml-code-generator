@@ -8,6 +8,7 @@
         <service id="paysera_php_generator.command.generate_rest_client"
                  class="Paysera\Bundle\PhpGeneratorBundle\Command\GenerateRestClientCommand">
             <argument type="service" id="paysera_code_generator.code_generator"/>
+            <argument>%paysera_code_generator.raml_dir%</argument>
             <argument>%paysera_code_generator.output_dir%</argument>
             <tag name="console.command"/>
         </service>

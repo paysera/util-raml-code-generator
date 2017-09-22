@@ -19,21 +19,15 @@ class CodeGenerator
     private $ramlParser;
     private $filesystem;
     private $definitionTransformer;
-    private $ramlDir;
-    private $outputDir;
 
     public function __construct(
         Parser $ramlParser,
         Filesystem $filesystem,
-        DefinitionDecorator $definitionTransformer,
-        string $ramlDir,
-        string $outputDir
+        DefinitionDecorator $definitionTransformer
     ) {
         $this->ramlParser = $ramlParser;
         $this->filesystem = $filesystem;
         $this->definitionTransformer = $definitionTransformer;
-        $this->ramlDir = $ramlDir;
-        $this->outputDir = $outputDir;
 
         $this->generators = [];
     }
@@ -47,17 +41,24 @@ class CodeGenerator
      * @param string $language
      * @param string $apiName
      * @param string $namespace
+     * @param string $ramlDir
+     * @param string $outputDir
      *
      * @throws InvalidApiNameException
      * @throws UnrecognizedTypeException
      */
-    public function generateCode(string $language, string $apiName, string $namespace)
-    {
+    public function generateCode(
+        string $language,
+        string $apiName,
+        string $namespace,
+        string $ramlDir,
+        string $outputDir
+    ) {
         if (!isset($this->generators[$language])) {
             throw new UnrecognizedTypeException(sprintf('Cannot generate Code in %s language', $language));
         }
 
-        $ramlFile = sprintf('%s/%s/api.raml', $this->ramlDir, $apiName);
+        $ramlFile = sprintf('%s/%s/api.raml', $ramlDir, $apiName);
         if (!$this->filesystem->exists($ramlFile)) {
             throw new InvalidApiNameException(sprintf('Cannot find "%s" file', $ramlFile));
         }
@@ -72,7 +73,7 @@ class CodeGenerator
 
         foreach ($sourceFiles as $item) {
             $this->filesystem->dumpFile(
-                sprintf('%s/%s/%s', $this->outputDir, $apiName, $item->getFilepath()),
+                sprintf('%s/%s/%s', $outputDir, $apiName, $item->getFilepath()),
                 $item->getContents()
             );
         }

@@ -1,5 +1,5 @@
 {
-    "name": "acme-transfer-client",
+    "name": "vendor-transfer-client",
     "version": "0.0.1",
     "description": "",
     "main": "dist/lib.js",
@@ -9,7 +9,7 @@
         "build": "webpack --config config/webpack.js",
         "watch": "webpack --config config/webpack.js --progress --watch"
     },
-    "author": "acme",
+    "author": "vendor",
     "license": "ISC",
     "dependencies": {
         "angular": "1.4.9",

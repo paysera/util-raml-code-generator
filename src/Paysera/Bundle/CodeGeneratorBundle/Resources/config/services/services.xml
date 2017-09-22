@@ -32,8 +32,6 @@
             <argument type="service" id="paysera_code_generator.raml_parser"/>
             <argument type="service" id="filesystem"/>
             <argument type="service" id="paysera_code_generator.definition_decorator"/>
-            <argument>%paysera_code_generator.raml_dir%</argument>
-            <argument>%paysera_code_generator.output_dir%</argument>
         </service>
 
         <service id="paysera_code_generator.property_definition_builder"

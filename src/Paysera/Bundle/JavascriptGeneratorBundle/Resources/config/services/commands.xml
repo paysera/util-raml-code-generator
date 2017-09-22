@@ -10,6 +10,7 @@
             <argument type="service" id="paysera_code_generator.code_generator"/>
             <argument type="service" id="paysera_javascript_generator.service.name_resolver"/>
             <argument type="service" id="filesystem"/>
+            <argument>%paysera_code_generator.raml_dir%</argument>
             <argument>%paysera_code_generator.output_dir%</argument>
             <argument>%vendor_prefix%</argument>
             <tag name="console.command"/>
