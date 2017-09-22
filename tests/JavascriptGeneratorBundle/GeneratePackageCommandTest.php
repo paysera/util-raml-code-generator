@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\Console\Tester\CommandTester;
 use Symfony\Component\Filesystem\Filesystem;
+use Tests\TestKernel;
 
 class GeneratePackageCommandTest extends KernelTestCase
 {
@@ -41,6 +42,8 @@ class GeneratePackageCommandTest extends KernelTestCase
 
         $this->filesystem = $container->get('filesystem');
         $this->commandTester = new CommandTester($commandInstance);
+
+        $kernel->shutdown();
     }
 
     /**

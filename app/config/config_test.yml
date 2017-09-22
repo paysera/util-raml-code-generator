@@ -1,8 +1,5 @@
 imports:
     - { resource: config_dev.yml }
 
-parameters:
-    vendor_prefix: vendor
-
 framework:
     test: ~
