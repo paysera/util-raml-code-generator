@@ -43,7 +43,7 @@ class GeneratePackageCommandTest extends KernelTestCase
         $this->filesystem = $container->get('filesystem');
         $this->commandTester = new CommandTester($commandInstance);
 
-        $kernel->shutdown();
+        static::$kernel = $kernel;
     }
 
     /**
@@ -53,6 +53,7 @@ class GeneratePackageCommandTest extends KernelTestCase
      */
     public function testGenerateCode($apiName)
     {
+        $this->removeTargetDir($apiName);
         $this->commandTester->execute(
             [
                 'api_name' => $apiName,
@@ -109,5 +110,29 @@ class GeneratePackageCommandTest extends KernelTestCase
                 );
             }
         }
+    }
+
+    private function removeTargetDir($apiName)
+    {
+        $generatedDir = __DIR__ . '/Fixtures/generated/' . $apiName;
+
+        if (!$this->filesystem->exists($generatedDir)) {
+            return;
+        }
+
+        $files = new \RecursiveIteratorIterator(
+            new \RecursiveDirectoryIterator($generatedDir, \RecursiveDirectoryIterator::SKIP_DOTS),
+            \RecursiveIteratorIterator::CHILD_FIRST
+        );
+
+        /** @var \SplFileInfo $fileInfo */
+        foreach ($files as $fileInfo) {
+            if ($fileInfo->isDir()) {
+                rmdir($fileInfo->getRealPath());
+            } else {
+                unlink($fileInfo->getRealPath());
+            }
+        }
+        rmdir($generatedDir);
     }
 }

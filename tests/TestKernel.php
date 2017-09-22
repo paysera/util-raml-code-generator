@@ -32,6 +32,9 @@ class TestKernel extends \AppKernel
         parent::shutdown();
 
         $cacheDir = $this->getCacheDir();
+        if (!file_exists($cacheDir)) {
+            return;
+        }
 
         $files = new \RecursiveIteratorIterator(
             new \RecursiveDirectoryIterator($cacheDir, \RecursiveDirectoryIterator::SKIP_DOTS),
