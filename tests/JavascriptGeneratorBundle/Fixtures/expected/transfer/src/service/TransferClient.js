@@ -249,7 +249,7 @@ class TransferClient {
      * @param {TransfersBatch} transfersBatch
      * @return {Promise.<TransfersBatchResult>}
      */
-    updateTransfer(transfersBatch) {
+    reserveTransfers(transfersBatch) {
         const request = RequestFactory.create(
             'PUT',
             'transfers/reserve',

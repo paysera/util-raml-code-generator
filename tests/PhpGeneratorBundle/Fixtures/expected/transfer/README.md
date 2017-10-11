@@ -175,7 +175,7 @@ $transfersBatch->setRevokedTransfers($revokedTransfers);
 $transfersBatch->setReservedTransfers($reservedTransfers);
 $transfersBatch->setConvertCurrency($convertCurrency);
     
-$result = $transferClient->updateTransfer($transfersBatch);
+$result = $transferClient->reserveTransfers($transfersBatch);
 ```
 ---
 

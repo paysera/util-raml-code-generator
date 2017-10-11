@@ -53,13 +53,16 @@ class DefinitionValidator
         }
     }
 
-    private function validateType(string $type, ApiDefinition $api)
+    private function validateType($type, ApiDefinition $api)
     {
         if (
             !in_array($type, PropertyDefinition::getSimpleTypes(), true)
             && $api->getType($type) === null
             && $type !== PropertyDefinition::TYPE_REFERENCE
         ) {
+            if (!is_string($type)) {
+                $type = gettype($type);
+            }
             throw new UnrecognizedTypeException(sprintf('Did not found defined type "%s"', $type));
         }
     }

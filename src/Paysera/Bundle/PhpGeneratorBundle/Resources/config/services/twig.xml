@@ -8,6 +8,7 @@
         <service id="paysera_php_generator.twig_extension.api_method"
                  class="Paysera\Bundle\PhpGeneratorBundle\Twig\ApiMethodExtension">
             <argument type="service" id="paysera_php_generator.string_converter"/>
+            <argument type="service" id="paysera_code_generator.method_name_builder"/>
             <tag name="twig.extension"/>
         </service>
 

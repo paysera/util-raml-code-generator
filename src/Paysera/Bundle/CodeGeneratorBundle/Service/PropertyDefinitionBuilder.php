@@ -50,9 +50,10 @@ class PropertyDefinitionBuilder
                 ->setItemsType($definition['items']['type'])
             ;
         } elseif (
-            in_array($definition['type'], $this->supportedDateTimeTypes, true)
+            isset($definition['type'])
+            && in_array($definition['type'], $this->supportedDateTimeTypes, true)
             || (
-                $definition['type'] === PropertyDefinition::TYPE_INTEGER
+                isset($definition['type']) && $definition['type'] === PropertyDefinition::TYPE_INTEGER
                 && array_key_exists(DateTimePropertyDefinition::ANNOTATION_TIMESTAMP, $definition)
             )
         ) {

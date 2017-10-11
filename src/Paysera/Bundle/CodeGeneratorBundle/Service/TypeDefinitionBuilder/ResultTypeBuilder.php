@@ -29,7 +29,10 @@ class ResultTypeBuilder implements TypeDefinitionBuilderInterface
         }
 
         $dataKey = array_diff(array_keys($definition['properties']), ['_metadata'])[0];
-        $itemsType = $definition['properties'][$dataKey]['items']['type'];
+        $itemsType = null;
+        if (isset($definition['properties'][$dataKey]['items'])) {
+            $itemsType = $definition['properties'][$dataKey]['items']['type'];
+        }
 
         $type
             ->setDataKey($dataKey)

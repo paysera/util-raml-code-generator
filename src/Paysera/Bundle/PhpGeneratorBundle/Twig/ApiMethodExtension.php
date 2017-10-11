@@ -2,7 +2,6 @@
 
 namespace Paysera\Bundle\PhpGeneratorBundle\Twig;
 
-use Doctrine\Common\Inflector\Inflector;
 use Fig\Http\Message\RequestMethodInterface;
 use Fig\Http\Message\StatusCodeInterface;
 use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\ApiDefinition;
@@ -10,6 +9,7 @@ use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\ArgumentDefinition;
 use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\ResultTypeDefinition;
 use Paysera\Bundle\CodeGeneratorBundle\Exception\InvalidDefinitionException;
 use Paysera\Bundle\CodeGeneratorBundle\ResourcePatterns;
+use Paysera\Bundle\CodeGeneratorBundle\Service\MethodNameBuilder;
 use Paysera\Bundle\PhpGeneratorBundle\Service\StringConverter;
 use Raml\Body;
 use Raml\Method;
@@ -20,10 +20,15 @@ use Twig_SimpleFunction;
 class ApiMethodExtension extends Twig_Extension
 {
     private $stringConverter;
+    private $methodNameBuilder;
 
-    public function __construct(StringConverter $stringConverter)
+    public function __construct(
+        StringConverter $stringConverter,
+        MethodNameBuilder $methodNameBuilder
+    )
     {
         $this->stringConverter = $stringConverter;
+        $this->methodNameBuilder = $methodNameBuilder;
     }
 
     public function getFunctions()
@@ -219,7 +224,7 @@ class ApiMethodExtension extends Twig_Extension
     private function extractUriArguments($uri)
     {
         $arguments = [];
-        if (preg_match_all(ResourcePatterns::PATTERN_IDENTIFIER_RESOURCE, $uri, $matches) === 1) {
+        if (preg_match_all(ResourcePatterns::PATTERN_IDENTIFIER_RESOURCE, $uri, $matches) !== false) {
             foreach ($matches[1] as $match) {
                 $arguments[] = new ArgumentDefinition(sprintf(
                     '$%s',
@@ -240,24 +245,10 @@ class ApiMethodExtension extends Twig_Extension
      */
     public function generateMethodName(Method $method, Resource $resource)
     {
-        $nameParts = $this->getNameParts($resource->getUri());
         $name = $this->getNamePrefix($method->getType());
 
-        if (
-            $this->isBinaryResource($resource->getUri(), $method->getType())
-            && $this->isIdentifierResource($resource->getUri())
-        ) {
-            if (strpos($nameParts['sub_name'], '-') !== false) {
-                $subParts = explode('-', $nameParts['sub_name']);
-                $firstPart = $subParts[0];
-                unset($subParts[0]);
-                return $firstPart
-                    . ucfirst(Inflector::singularize($nameParts['base_name']))
-                    . Inflector::classify(implode(' ', $subParts))
-                ;
-            } else {
-                return $nameParts['sub_name'] . ucfirst(Inflector::singularize($nameParts['base_name']));
-            }
+        if ($this->isBinaryResource($resource->getUri(), $method->getType())) {
+            return $this->methodNameBuilder->buildBinaryMethodName($resource->getUri());
         }
 
         if (
@@ -267,25 +258,14 @@ class ApiMethodExtension extends Twig_Extension
                 && $method->getType() !== RequestMethodInterface::METHOD_GET
             )
         ) {
-            $name .= ucfirst(Inflector::singularize($nameParts['base_name']));
-            if (isset($nameParts['sub_name'])) {
-                $name .= ucfirst(Inflector::singularize($nameParts['sub_name']));
-            }
-            return $name;
+            return $this->methodNameBuilder->buildSingularMethodName($resource->getUri(), $name);
         }
 
         if (
             $this->isPluralResource($resource->getUri())
             && $method->getType() === RequestMethodInterface::METHOD_GET
         ) {
-            if (!isset($nameParts['sub_name'])) {
-                return $name . ucfirst(Inflector::pluralize($nameParts['base_name']));
-            }
-            $name .= ucfirst(Inflector::singularize($nameParts['base_name']));
-            if (isset($nameParts['sub_name'])) {
-                $name .= ucfirst(Inflector::pluralize($nameParts['sub_name']));
-            }
-            return $name;
+            return $this->methodNameBuilder->buildPluralMethodName($resource->getUri(), $name);
         }
 
         throw new InvalidDefinitionException(sprintf(
@@ -320,15 +300,6 @@ class ApiMethodExtension extends Twig_Extension
 
     /**
      * @param string $uri
-     * @return bool
-     */
-    private function isIdentifierResource($uri)
-    {
-        return preg_match(ResourcePatterns::PATTERN_IDENTIFIER_RESOURCE, $uri) === 1;
-    }
-
-    /**
-     * @param string $uri
      * @param string $method
      *
      * @return bool
@@ -354,23 +325,5 @@ class ApiMethodExtension extends Twig_Extension
     private function isPluralResource($uri)
     {
         return !$this->isSingularResource($uri);
-    }
-
-    /**
-     * @param string $uri
-     * @return array|null
-     *
-     * @throws InvalidDefinitionException
-     */
-    private function getNameParts($uri)
-    {
-        if (preg_match(ResourcePatterns::PATTERN_RESOURCE_NAME, $uri, $matches) === 1) {
-            if (!isset($matches['base_name'])) {
-                throw new InvalidDefinitionException(sprintf('Unable to resolve name parts for uri "%s"', $uri));
-            }
-            return $matches;
-        }
-
-        return null;
     }
 }

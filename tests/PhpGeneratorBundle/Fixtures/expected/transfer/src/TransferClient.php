@@ -197,7 +197,7 @@ class TransferClient
      * @param Entities\TransfersBatch $transfersBatch
      * @return Entities\TransfersBatchResult
      */
-    public function updateTransfer(Entities\TransfersBatch $transfersBatch)
+    public function reserveTransfers(Entities\TransfersBatch $transfersBatch)
     {
         $request = $this->apiClient->createRequest(
             RequestMethodInterface::METHOD_PUT,
