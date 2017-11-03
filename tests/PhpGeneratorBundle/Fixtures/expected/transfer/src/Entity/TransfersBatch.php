@@ -39,13 +39,13 @@ class TransfersBatch extends Entity
         return $this;
     }
     /**
-     * @return ConvertCurrency[]|null
+     * @return ConvertCurrency[]
      */
     public function getConvertCurrency()
     {
         $items = $this->getByReference('convert_currency');
         if ($items === null) {
-            return null;
+            return [];
         }
 
         $list = [];

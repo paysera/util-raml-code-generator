@@ -7,7 +7,7 @@
         {%- if property.type == 'array' and property.itemsType not in property.simpleTypes -%}
         let data = {{ populator|raw }};
         if (data === null) {
-            return null;
+            return [];
         }
 
         let collection = [];

@@ -5,12 +5,12 @@ import DateFactory from '../service/DateFactory';
 class TransfersBatchResult extends Entity {
 
     /**
-     * @return {Array.<TransferOutput>}|null
+     * @return {Array.<TransferOutput>}
      */
     getRevokedTransfers() {
         let data = this.get('revoked_transfers');
         if (data === null) {
-            return null;
+            return [];
         }
 
         let collection = [];
@@ -33,12 +33,12 @@ class TransfersBatchResult extends Entity {
         }
 
     /**
-     * @return {Array.<TransferOutput>}|null
+     * @return {Array.<TransferOutput>}
      */
     getReservedTransfers() {
         let data = this.get('reserved_transfers');
         if (data === null) {
-            return null;
+            return [];
         }
 
         let collection = [];

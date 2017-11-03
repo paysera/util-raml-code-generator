@@ -7,13 +7,13 @@ use Paysera\Component\RestClientCommon\Entity\Entity;
 class TransfersBatchResult extends Entity
 {
     /**
-     * @return TransferOutput[]|null
+     * @return TransferOutput[]
      */
     public function getRevokedTransfers()
     {
         $items = $this->getByReference('revoked_transfers');
         if ($items === null) {
-            return null;
+            return [];
         }
 
         $list = [];
@@ -37,13 +37,13 @@ class TransfersBatchResult extends Entity
         return $this;
     }
     /**
-     * @return TransferOutput[]|null
+     * @return TransferOutput[]
      */
     public function getReservedTransfers()
     {
         $items = $this->getByReference('reserved_transfers');
         if ($items === null) {
-            return null;
+            return [];
         }
 
         $list = [];
