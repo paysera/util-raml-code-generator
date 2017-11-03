@@ -7,7 +7,7 @@
         {%- if property.type == 'array' and property.itemsType not in property.simpleTypes -%}
         $items = {{ populator|raw }};
         if ($items === null) {
-            return null;
+            return [];
         }
 
         $list = [];

@@ -74,7 +74,13 @@ class FieldDefinitionExtension extends Twig_Extension
         }
 
         if ($isGetter) {
-            if (!$definition->isRequired()) {
+            if (
+                !$definition->isRequired()
+                && (
+                    $definition->getType() !== PropertyDefinition::TYPE_ARRAY
+                    ||  in_array($definition->getItemsType(), ['string', 'boolean'], true)
+                )
+            ) {
                 $typehint .= '|null';
             }
             return $typehint;

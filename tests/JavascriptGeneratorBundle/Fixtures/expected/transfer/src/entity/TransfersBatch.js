@@ -33,12 +33,12 @@ class TransfersBatch extends Entity {
     }
 
     /**
-     * @return {Array.<ConvertCurrency>}|null
+     * @return {Array.<ConvertCurrency>}
      */
     getConvertCurrency() {
         let data = this.get('convert_currency');
         if (data === null) {
-            return null;
+            return [];
         }
 
         let collection = [];
