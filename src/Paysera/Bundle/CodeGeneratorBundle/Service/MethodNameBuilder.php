@@ -117,7 +117,7 @@ class MethodNameBuilder
         if (preg_match('#^/([\w-]+)/*(\{[\w-]+\})*#', $uri, $matches) === 1) {
             $namePart = new UriNameParts();
             $namePart
-                ->setPartName($matches[1])
+                ->setPartName(Inflector::classify($matches[1]))
                 ->setFullPart($matches[0])
             ;
             if (isset($matches[2])) {
