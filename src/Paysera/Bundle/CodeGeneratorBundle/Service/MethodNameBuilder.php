@@ -18,7 +18,7 @@ class MethodNameBuilder
 
         $firstPart = $prefix . ucfirst(Inflector::pluralize($nameParts->getPartName()));
         if ($nameParts->getSubName() === null) {
-            return $firstPart;
+            return Inflector::camelize($firstPart);
         }
 
         $parts = $this->buildSingularPaths($nameParts);
