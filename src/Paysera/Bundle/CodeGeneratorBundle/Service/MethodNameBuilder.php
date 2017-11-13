@@ -24,7 +24,7 @@ class MethodNameBuilder
         $parts = $this->buildSingularPaths($nameParts);
         $parts[count($parts) - 1] = ucfirst(Inflector::pluralize($parts[count($parts) - 1]));
 
-        return $prefix . implode('', $parts);
+        return $prefix . Inflector::classify(implode('', $parts));
     }
 
     /**
@@ -117,7 +117,7 @@ class MethodNameBuilder
         if (preg_match('#^/([\w-]+)/*(\{[\w-]+\})*#', $uri, $matches) === 1) {
             $namePart = new UriNameParts();
             $namePart
-                ->setPartName(Inflector::classify($matches[1]))
+                ->setPartName($matches[1])
                 ->setFullPart($matches[0])
             ;
             if (isset($matches[2])) {
