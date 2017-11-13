@@ -40,7 +40,7 @@ class ApiMethodExtension extends Twig_Extension
         return [
             new Twig_SimpleFunction('js_get_client_name', [$this->nameResolver, 'getClientName']),
             new Twig_SimpleFunction('js_get_package_name', [$this->nameResolver, 'getPackageName']),
-            new Twig_SimpleFunction('js_get_angular_module_name', [$this->nameResolver, 'getAngularJsModuleName']),
+            new Twig_SimpleFunction('js_get_angular_module_name', [$this->nameResolver, 'getAngularJsModuleName'], ['is_safe' => ['js']]),
             new Twig_SimpleFunction('js_get_angular_client_factory_name', [$this->nameResolver, 'getAngularJsFactoryClassName']),
             new Twig_SimpleFunction('js_generate_method_name', [$this, 'generateMethodName']),
             new Twig_SimpleFunction('js_generate_method_arguments', [$this, 'generateMethodArguments']),

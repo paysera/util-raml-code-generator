@@ -2,6 +2,7 @@
 
 namespace Paysera\Bundle\JavascriptGeneratorBundle\Service;
 
+use Doctrine\Common\Inflector\Inflector;
 use Paysera\Bundle\PhpGeneratorBundle\Service\StringConverter;
 
 class NameResolver
@@ -30,6 +31,6 @@ class NameResolver
 
     public function getAngularJsFactoryClassName(string $vendor, string $apiName) : string
     {
-        return sprintf('%sHttp%sClientFactory', $vendor, ucfirst($apiName));
+        return sprintf('%sHttp%sClientFactory', $vendor, ucfirst(Inflector::classify($apiName)));
     }
 }
