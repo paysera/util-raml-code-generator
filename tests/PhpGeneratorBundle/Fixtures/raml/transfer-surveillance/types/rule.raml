@@ -1,0 +1,47 @@
+#%RAML 1.0 DataType
+description: Transfer Inspection Rule
+properties:
+  id:
+    type: integer
+    required: false
+  matcher_identifier:
+    type: string
+    required: true
+    description: Should exist corresponding criterion
+  title:
+    type: string
+    required: true
+  action:
+    type: string
+    enum:
+      - "needs_review"
+      - "needs_audit"
+      - "none"
+    required: true
+  type:
+    type: string
+    enum:
+      - "system"
+      - "filter"
+    required: true
+  status:
+    type: string
+    enum:
+      - "enabled"
+      - "disabled"
+    required: false
+  aml_details_needed:
+    type: boolean
+    required: false
+    default: false
+  related_bank_accounts_allowed:
+    type: boolean
+    required: false
+    default: false
+  description:
+    type: string
+    required: false
+  inform_prevention:
+    type: boolean
+    required: false
+    default: false

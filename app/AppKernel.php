@@ -17,6 +17,7 @@ class AppKernel extends Kernel
             new Paysera\Bundle\CodeGeneratorBundle\PayseraCodeGeneratorBundle(),
             new Paysera\Bundle\PhpGeneratorBundle\PayseraPhpGeneratorBundle(),
             new Paysera\Bundle\JavascriptGeneratorBundle\PayseraJavascriptGeneratorBundle(),
+            new Paysera\Bundle\WordNetBundle\PayseraWordNetBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

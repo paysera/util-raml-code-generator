@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <imports>
+        <import resource="services/repositories.xml"/>
+    </imports>
+
+    <services>
+        <service id="paysera_word_net.database_connection"
+                 class="Doctrine\DBAL\Connection"
+                 lazy="true">
+            <factory class="Doctrine\DBAL\DriverManager" method="getConnection"/>
+            <argument type="collection">
+                <argument key="url">sqlite:///%paysera_word_net.sqlite_file%</argument>
+            </argument>
+        </service>
+
+        <service id="paysera_word_net.part_of_speech_resolver"
+                 class="Paysera\Bundle\WordNetBundle\Service\PartOfSpeechResolver">
+            <argument type="service" id="paysera_word_net.repository.parts_of_speech"/>
+        </service>
+    </services>
+</container>

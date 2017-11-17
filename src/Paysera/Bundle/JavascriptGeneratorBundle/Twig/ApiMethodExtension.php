@@ -11,6 +11,7 @@ use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\ResultTypeDefinition;
 use Paysera\Bundle\CodeGeneratorBundle\Exception\InvalidDefinitionException;
 use Paysera\Bundle\CodeGeneratorBundle\ResourcePatterns;
 use Paysera\Bundle\CodeGeneratorBundle\Service\MethodNameBuilder;
+use Paysera\Bundle\CodeGeneratorBundle\Service\ResourceTypeDetector;
 use Paysera\Bundle\JavascriptGeneratorBundle\Service\NameResolver;
 use Paysera\Bundle\PhpGeneratorBundle\Service\StringConverter;
 use Raml\Body;
@@ -24,15 +25,18 @@ class ApiMethodExtension extends Twig_Extension
     private $stringConverter;
     private $nameResolver;
     private $methodNameBuilder;
+    private $resourceTypeDetector;
 
     public function __construct(
         StringConverter $stringConverter,
         NameResolver $nameResolver,
-        MethodNameBuilder $methodNameBuilder
+        MethodNameBuilder $methodNameBuilder,
+        ResourceTypeDetector $resourceTypeDetector
     ) {
         $this->stringConverter = $stringConverter;
         $this->nameResolver = $nameResolver;
         $this->methodNameBuilder = $methodNameBuilder;
+        $this->resourceTypeDetector = $resourceTypeDetector;
     }
 
     public function getFunctions()
@@ -174,25 +178,17 @@ class ApiMethodExtension extends Twig_Extension
     public function generateMethodName(Method $method, Resource $resource) : string
     {
         $name = $this->getNamePrefix($method->getType());
+        $nameParts = $this->methodNameBuilder->getNameParts($resource->getUri());
 
-        if ($this->isBinaryResource($resource->getUri(), $method->getType())) {
+        if ($this->resourceTypeDetector->isBinaryResource($resource, $method, $nameParts)) {
             return $this->methodNameBuilder->buildBinaryMethodName($resource->getUri());
         }
 
-        if (
-            $this->isSingularResource($resource->getUri())
-            || (
-                $this->isPluralResource($resource->getUri())
-                && $method->getType() !== RequestMethodInterface::METHOD_GET
-            )
-        ) {
+        if ($this->resourceTypeDetector->isSingularResource($resource, $method)) {
             return $this->methodNameBuilder->buildSingularMethodName($resource->getUri(), $name);
         }
 
-        if (
-            $this->isPluralResource($resource->getUri())
-            && $method->getType() === RequestMethodInterface::METHOD_GET
-        ) {
+        if ($this->resourceTypeDetector->isPluralResource($resource, $method)) {
             return $this->methodNameBuilder->buildPluralMethodName($resource->getUri(), $name);
         }
 
@@ -254,21 +250,6 @@ class ApiMethodExtension extends Twig_Extension
         }
 
         return $arguments;
-    }
-
-    private function isBinaryResource(string $uri, string $method) : bool
-    {
-        return $method === RequestMethodInterface::METHOD_PUT && $this->isPluralResource($uri);
-    }
-
-    private function isSingularResource(string $uri) : bool
-    {
-        return preg_match(ResourcePatterns::PATTERN_SINGULAR_RESOURCE, $uri) === 1;
-    }
-
-    private function isPluralResource(string $uri) : bool
-    {
-        return !$this->isSingularResource($uri);
     }
 
     /**

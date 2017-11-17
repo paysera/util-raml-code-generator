@@ -1,0 +1,13 @@
+#%RAML 1.0 DataType
+type: object
+displayName: MatchersResult object
+properties:
+  items:
+    required: true
+    type: array
+    items:
+      type: Matcher
+  _metadata:
+    required: true
+    displayName: _metadata
+    type: ResultMetadata

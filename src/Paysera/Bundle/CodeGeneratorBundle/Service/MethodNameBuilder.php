@@ -35,7 +35,7 @@ class MethodNameBuilder
     public function buildSingularMethodName($uri, $prefix)
     {
         $nameParts = $this->getNameParts($uri);
-        return $prefix . implode('', $this->buildSingularPaths($nameParts));
+        return $prefix . Inflector::classify(implode('', $this->buildSingularPaths($nameParts)));
     }
 
     /**
@@ -56,7 +56,7 @@ class MethodNameBuilder
             unset($parts[count($parts) - 1]);
             $parts[] = Inflector::classify(implode(' ', $subParts));
 
-            return implode('', $parts);
+            return Inflector::camelize(implode('', $parts));
         }
 
         $parts[] = Inflector::singularize($nameParts->getLastPart()->getPartName());
@@ -67,7 +67,7 @@ class MethodNameBuilder
         $parts = array_merge($parts, $lastParts);
         unset($parts[count($parts) - 1]);
 
-        return implode('', $parts);
+        return Inflector::camelize(implode('', $parts));
     }
 
     /**
@@ -90,7 +90,7 @@ class MethodNameBuilder
      * @param string $uri
      * @return UriNameParts|null
      */
-    private function getNameParts($uri)
+    public function getNameParts($uri)
     {
         $parts = new UriNameParts();
         $previousPart = $parts;

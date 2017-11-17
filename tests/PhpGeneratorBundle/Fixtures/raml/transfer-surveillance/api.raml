@@ -1,0 +1,361 @@
+#%RAML 1.0
+title: Transfer Surveillance API
+version: 1.0
+baseUri: http://gateway.paysera.com/transfer-surveillance/rest/v1/
+
+annotationTypes:
+  entity_type: nil
+
+types:
+  Review: !include types/review.raml
+  Matcher: !include types/matcher.raml
+  MatchersResult: !include types/matchers-result.raml
+  MatchCriteria: !include types/match-criteria.raml
+  MatchCriteriasResult: !include types/match-criterias-result.raml
+  Rule: !include types/rule.raml
+  RulesResult: !include types/rules-result.raml
+  ResultMetadata: !include types/result-meta-data.raml
+  Whitelist: !include types/whitelist.raml
+  WhitelistProfile: !include types/whitelist-profile.raml
+  WhitelistsResult: !include types/whitelist-result.raml
+
+traits:
+  filter: !include traits/filter.raml
+  ruleFilter: !include traits/rule-filter.raml
+
+/transfer:
+  /inspection:
+    /{transferId}:
+      uriParameters:
+        transferId:
+          required: true
+          displayName: Transfer Id
+          type: string
+      /accept:
+        put:
+          description: Mark Inspection as accepted. Allow transfer to complete
+          body:
+            application/json:
+              type: Review
+          responses:
+            204:
+              body: null
+      /cancel:
+        put:
+          description: Mark Inspection as cancelled/rejected. Do not allow the transfer to complete
+          queryParameters:         
+            comment:
+                displayName: comment
+                type: string
+                description: Comment which is going to be set as failure status message and sent to client. Default message 'Transfer surveillance review rejected.'
+                required: false
+          body:
+            application/json:
+              type: Review
+          responses:
+            204:
+              body: null
+      /audit:
+        put:
+          description: Mark Inspection as audited.
+          body:
+            application/json:
+              type: Review
+          responses:
+            204:
+              body: null
+      /need_user_info:
+        put:
+          description: Mark Inspection as need additional info from user about the transfer.
+          queryParameters:
+            comment:
+              displayName: comment
+              type: string
+              description: Comment which is going to be sent to client who signed transaction.
+              required: false
+          body:
+            application/json:
+              type: Review
+          responses:
+            204:
+              body: null
+      /received_user_info:
+        put:
+          description: Mark Inspection as received additional info from user about the transfer.
+          body:
+            application/json:
+              type: Review
+          responses:
+            204:
+              body: null
+
+/matchers:
+  get:
+    description: Get Transfer Surveillance Matchers
+    responses:
+      200:
+        body:
+          application/json:
+            type: MatchersResult
+
+/criteria:
+  get:
+    description: Get MatchCriterias
+    responses:
+      200:
+        body:
+          application/json:
+            type: MatchCriteriasResult
+  post:
+    description: Create MatchCriteria
+    body:
+      application/json:
+        type: MatchCriteria
+    responses:
+      200:
+        body:
+          application/json:
+            type: MatchCriteria
+  /{id}:
+    uriParameters:
+      id:
+        required: true
+        displayName: MatchCriteria Id
+        type: string
+    delete:
+      description: Delete MatchCriteria
+      responses:
+        204:
+          body: null
+        404:
+          body:
+            application/json:
+              example: |
+                {
+                    "error": "not_found",
+                    "error_description": "SOME TEXT"
+                }
+    get:
+      description: Get MatchCriterion
+      responses:
+        200:
+          body:
+            application/json:
+              type: MatchCriteria
+        404:
+          body:
+            application/json:
+              example: |
+                {
+                    "error": "not_found",
+                    "error_description": "SOME TEXT"
+                }
+    put:
+      description: Update MatchCriteria
+      body:
+        application/json:
+          type: MatchCriteria
+      responses:
+        200:
+          body:
+            application/json:
+              type: MatchCriteria
+        404:
+          body:
+            application/json:
+              example: |
+                {
+                    "error": "not_found",
+                    "error_description": "SOME TEXT"
+                }
+
+/rules:
+  get:
+    description: Get Rules
+    is:
+      - ruleFilter
+    responses:
+      200:
+        body:
+          application/json:
+            type: RulesResult
+            example: !include examples/rules-result-example.json
+      400:
+        body:
+          application/json:
+            example: |
+              {
+                  "error": "invalid_parameters",
+                  "error_description": "error description"
+              }
+  post:
+    description: Create a rule
+    body:
+      application/json:
+        type: Rule
+        example: !include examples/rule-request-example.json
+    responses:
+      200:
+        body:
+          application/json:
+            type: Rule
+            example: !include examples/rule-response-example.json
+      400:
+        body:
+          application/json:
+            example: |
+              {
+                  "error": "invalid_parameters",
+                  "error_description": "error description"
+              }
+  /{id}:
+    uriParameters:
+      id:
+        required: true
+        description: Rule Id
+        type: string
+    get:
+      description: Get a rule
+      responses:
+        200:
+          body:
+            application/json:
+              type: Rule
+              example: !include examples/rule-response-example.json
+        404:
+          body:
+            application/json:
+              example: |
+                {
+                    "error": "not_found",
+                    "error_description": "error description"
+                }
+    put:
+      description: Update rule
+      body:
+        application/json:
+          type: Rule
+          example: !include examples/rule-request-example.json
+      responses:
+        200:
+          body:
+            application/json:
+              type: Rule
+              example: !include examples/rule-response-example.json
+        404:
+          body:
+            application/json:
+              example: |
+                {
+                    "error": "not_found",
+                    "error_description": "error description"
+                }
+    delete:
+      description: Delete a rule
+      responses:
+        204:
+          body: null
+        404:
+          body:
+            application/json:
+              example: |
+                {
+                    "error": "not_found",
+                    "error_description": "error description"
+                }
+    /enable:
+      put:
+        description: Enable rule
+        responses:
+          204:
+            body: null
+          404:
+            body:
+              application/json:
+                example: |
+                  {
+                      "error": "not_found",
+                      "error_description": "error description"
+                  }
+    /disable:
+      put:
+        description: Disable rule
+        responses:
+          204:
+            body: null
+          404:
+            body:
+              application/json:
+                example: |
+                  {
+                      "error": "not_found",
+                      "error_description": "error description"
+                  }
+    /whitelists:
+      get:
+        description: Get all active whitelists for this rule
+        responses:
+          200:
+            body:
+              application/json:
+                type: WhitelistsResult
+      post:
+        description: Add whitelist to a rule
+        body:
+          application/json:
+            type: Whitelist
+        responses:
+          200:
+            body:
+              application/json:
+                type: Whitelist
+      /{whitelist_id}:
+        uriParameters:
+          whitelist_id:
+            required: true
+            description: Whitelist Id
+            type: string
+        get:
+          description: Get a single whitelist
+          responses:
+            200:
+              body:
+                application/json:
+                  type: Whitelist
+                  example: !include examples/whitelist.json
+        put:
+          description: Update whitelist
+          body:
+            application/json:
+              type: Whitelist
+          responses:
+            200:
+              body:
+                application/json:
+                  type: Whitelist
+                  example: !include examples/whitelist.json
+        delete:
+          description: Delete a whitelist
+          responses:
+            204:
+              body: null
+        /profile-list:
+          get:
+            description: Get a single whitelist
+            responses:
+              200:
+                body:
+                  application/json:
+                    type: Whitelist
+                    example: !include examples/whitelist.json
+          put:
+            description: Update whitelist
+            body:
+              application/json:
+                type: Whitelist
+            responses:
+              200:
+                body:
+                  application/json:
+                    type: Whitelist
+                    example: !include examples/whitelist.json

@@ -1,5 +1,6 @@
 /.web-server-pid
 /app/config/parameters.yml
+/app/Resources/sqlite-31.db
 /build/
 /phpunit.xml
 /var/*

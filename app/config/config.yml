@@ -16,3 +16,6 @@ twig:
 
 paysera_code_generator:
     vendor_prefix: '%vendor_prefix%'
+
+paysera_word_net:
+    sqlite_file: '%kernel.root_dir%/Resources/sqlite-31.db'
