@@ -10,10 +10,5 @@ php:
   - '7.0'
   - '7.1'
 
-before_install:
-  - sudo apt-get -qq update
-  - sudo apt-get install -y p7zip-full
-  - 7z x app/Resources/sqlite-31.db.7z -o./app/Resources -y
-
 install:
   - composer install
