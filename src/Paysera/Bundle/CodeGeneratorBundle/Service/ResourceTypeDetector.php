@@ -2,6 +2,7 @@
 
 namespace Paysera\Bundle\CodeGeneratorBundle\Service;
 
+use Doctrine\Common\Util\Inflector;
 use Fig\Http\Message\RequestMethodInterface;
 use Paysera\Bundle\CodeGeneratorBundle\Entity\UriNameParts;
 use Paysera\Bundle\WordNetBundle\Service\PartOfSpeechResolver;
@@ -58,7 +59,7 @@ class ResourceTypeDetector
         $words = preg_split(self::PATTERN_WORD_SEPARATOR, $part);
         $nouns = 0;
         foreach ($words as $word) {
-            if ($this->partOfSpeechResolver->isNoun($word)) {
+            if ($this->partOfSpeechResolver->isNoun(Inflector::singularize($word))) {
                 $nouns++;
             }
         }
