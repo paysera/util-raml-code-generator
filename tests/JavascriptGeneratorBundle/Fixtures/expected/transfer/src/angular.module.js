@@ -73,6 +73,9 @@ export {
 };
 
 class AngularClientFactory {
+    constructor($q) {
+        this.$q = $q;
+    }
 
     /**
      * @param {object|null} config
@@ -97,9 +100,66 @@ class AngularClientFactory {
             factoryConfig.refreshTokenProvider = config.refreshTokenProvider;
         }
 
-        return ClientFactory.create(factoryConfig).getTransferClient(tokenProvider);
+        return this.wrapQ(
+            ClientFactory.create(factoryConfig).getTransferClient(tokenProvider)
+        );
+    }
+
+    /**
+     * @param {TransferClient} client
+     * @returns {TransferClient}
+     */
+    wrapQ(client) {
+        const signTransferOriginal = client.signTransfer.bind(client);
+        client.signTransfer = (...args) => {
+            return this.$q.when(signTransferOriginal(...args));
+        }
+        const reserveTransferOriginal = client.reserveTransfer.bind(client);
+        client.reserveTransfer = (...args) => {
+            return this.$q.when(reserveTransferOriginal(...args));
+        }
+        const provideTransferPasswordOriginal = client.provideTransferPassword.bind(client);
+        client.provideTransferPassword = (...args) => {
+            return this.$q.when(provideTransferPasswordOriginal(...args));
+        }
+        const freezeTransferOriginal = client.freezeTransfer.bind(client);
+        client.freezeTransfer = (...args) => {
+            return this.$q.when(freezeTransferOriginal(...args));
+        }
+        const completeTransferOriginal = client.completeTransfer.bind(client);
+        client.completeTransfer = (...args) => {
+            return this.$q.when(completeTransferOriginal(...args));
+        }
+        const registerTransferOriginal = client.registerTransfer.bind(client);
+        client.registerTransfer = (...args) => {
+            return this.$q.when(registerTransferOriginal(...args));
+        }
+        const getTransferOriginal = client.getTransfer.bind(client);
+        client.getTransfer = (...args) => {
+            return this.$q.when(getTransferOriginal(...args));
+        }
+        const deleteTransferOriginal = client.deleteTransfer.bind(client);
+        client.deleteTransfer = (...args) => {
+            return this.$q.when(deleteTransferOriginal(...args));
+        }
+        const createTransferOriginal = client.createTransfer.bind(client);
+        client.createTransfer = (...args) => {
+            return this.$q.when(createTransferOriginal(...args));
+        }
+        const reserveTransfersOriginal = client.reserveTransfers.bind(client);
+        client.reserveTransfers = (...args) => {
+            return this.$q.when(reserveTransfersOriginal(...args));
+        }
+        const getTransfersOriginal = client.getTransfers.bind(client);
+        client.getTransfers = (...args) => {
+            return this.$q.when(getTransfersOriginal(...args));
+        }
+
+        return client;
     }
 }
+
+AngularClientFactory.$inject = ['$q'];
 
 export default angular
     .module('vendor.http.transfer', [])
