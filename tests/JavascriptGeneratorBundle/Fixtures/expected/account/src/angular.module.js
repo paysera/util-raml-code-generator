@@ -19,6 +19,9 @@ export {
 };
 
 class AngularClientFactory {
+    constructor($q) {
+        this.$q = $q;
+    }
 
     /**
      * @param {object|null} config
@@ -43,9 +46,26 @@ class AngularClientFactory {
             factoryConfig.refreshTokenProvider = config.refreshTokenProvider;
         }
 
-        return ClientFactory.create(factoryConfig).getAccountClient(tokenProvider);
+        return this.wrapQ(
+            ClientFactory.create(factoryConfig).getAccountClient(tokenProvider)
+        );
+    }
+
+    /**
+     * @param {AccountClient} client
+     * @returns {AccountClient}
+     */
+    wrapQ(client) {
+        const getAccountsOriginal = client.getAccounts.bind(client);
+        client.getAccounts = (...args) => {
+            return this.$q.when(getAccountsOriginal(...args));
+        }
+
+        return client;
     }
 }
+
+AngularClientFactory.$inject = ['$q'];
 
 export default angular
     .module('vendor.http.account', [])

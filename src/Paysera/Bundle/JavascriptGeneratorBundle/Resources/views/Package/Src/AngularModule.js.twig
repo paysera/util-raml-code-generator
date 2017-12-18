@@ -5,6 +5,20 @@ import { TokenProvider, Scope } from 'paysera-http-client-common';
 import {{ type.name }} from './entity/{{ type.name }}';
 {% endfor %}
 
+{% import _self as macros %}
+{% macro render_wrap_q(resource, api) %}
+{% for subResource in resource.resources -%}
+{{ _self.render_wrap_q(subResource, api) -}}
+{% endfor %}
+{% for method in resource.methods -%}
+{% include '@PayseraJavascriptGenerator/Package/Src/Service/Method/wrap_q.js.twig' with {
+    'resource': resource,
+    'method': method,
+    'api': api
+} only -%}
+{% endfor %}
+{% endmacro -%}
+
 import DateFactory from './service/DateFactory';
 import ClientFactory from './service/ClientFactory';
 import {{ js_get_client_name(api.name) }} from './service/{{ js_get_client_name(api.name) }}';
@@ -19,6 +33,9 @@ export {
 };
 
 class AngularClientFactory {
+    constructor($q) {
+        this.$q = $q;
+    }
 
     /**
      * @param {object|null} config
@@ -43,9 +60,25 @@ class AngularClientFactory {
             factoryConfig.refreshTokenProvider = config.refreshTokenProvider;
         }
 
-        return ClientFactory.create(factoryConfig).get{{ js_get_client_name(api.name) }}(tokenProvider);
+        return this.wrapQ(
+            ClientFactory.create(factoryConfig).get{{ js_get_client_name(api.name) }}(tokenProvider)
+        );
+    }
+
+    /**
+     * @param {{ ('{' ~ js_get_client_name(api.name) ~ '}')|raw }} client
+     * @returns {{ ('{' ~ js_get_client_name(api.name) ~ '}')|raw }}
+     */
+    wrapQ(client) {
+{% for resource in api.ramlDefinition.resources -%}
+    {{ macros.render_wrap_q(resource, api) -}}
+{% endfor %}
+
+        return client;
     }
 }
+
+AngularClientFactory.$inject = ['$q'];
 
 export default angular
     .module('{{ js_get_angular_module_name(vendor_prefix, api.name) }}', [])
