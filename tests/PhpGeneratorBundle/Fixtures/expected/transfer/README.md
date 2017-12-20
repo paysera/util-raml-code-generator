@@ -39,7 +39,7 @@ Sign the transfer, even if no funds available.
 
 
 ```php
-use Paysera\Test\TestClientEntity as Entities;
+use Paysera\Test\TestClient\Entity as Entities;
 
 $transferRegistrationParameters = new Entities\TransferRegistrationParameters();
 
@@ -54,7 +54,7 @@ Sign and reserve money for transfer. Returns error if no funds available.
 
 
 ```php
-use Paysera\Test\TestClientEntity as Entities;
+use Paysera\Test\TestClient\Entity as Entities;
 
 $transferRegistrationParameters = new Entities\TransferRegistrationParameters();
 
@@ -69,7 +69,7 @@ Provide password for Transfer. Available only for internal transfers.
 
 
 ```php
-use Paysera\Test\TestClientEntity as Entities;
+use Paysera\Test\TestClient\Entity as Entities;
 
 $transferPassword = new Entities\TransferPassword();
 
@@ -104,7 +104,7 @@ Make transfer visible in frontend for signing. If currency convert operations ar
 
 
 ```php
-use Paysera\Test\TestClientEntity as Entities;
+use Paysera\Test\TestClient\Entity as Entities;
 
 $transferRegistrationParameters = new Entities\TransferRegistrationParameters();
 
@@ -139,7 +139,7 @@ Create transfer in the system. Created transfer is invisible and will be deleted
 
 
 ```php
-use Paysera\Test\TestClientEntity as Entities;
+use Paysera\Test\TestClient\Entity as Entities;
 
 $transferInput = new Entities\TransferInput();
 
@@ -167,7 +167,7 @@ Reserve all transfers in a transaction. Possibly revoke other given transfers in
 
 
 ```php
-use Paysera\Test\TestClientEntity as Entities;
+use Paysera\Test\TestClient\Entity as Entities;
 
 $transfersBatch = new Entities\TransfersBatch();
 
@@ -184,7 +184,7 @@ Get list of transfers by filter
 
 
 ```php
-use Paysera\Test\TestClientEntity as Entities;
+use Paysera\Test\TestClient\Entity as Entities;
 
 $transfersFilter = new Entities\TransfersFilter();
 

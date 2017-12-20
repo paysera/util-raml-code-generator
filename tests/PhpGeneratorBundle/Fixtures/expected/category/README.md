@@ -78,7 +78,7 @@ Standard SQL-style Result filtering
 
 
 ```php
-use Paysera\Test\TestClientEntity as Entities;
+use Paysera\Test\TestClient\Entity as Entities;
 
 $categoryFilter = new Entities\CategoryFilter();
 
@@ -92,7 +92,7 @@ Create category
 
 
 ```php
-use Paysera\Test\TestClientEntity as Entities;
+use Paysera\Test\TestClient\Entity as Entities;
 
 $category = new Entities\Category();
 
