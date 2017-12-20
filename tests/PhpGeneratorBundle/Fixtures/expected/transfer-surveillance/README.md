@@ -39,7 +39,7 @@ Mark Inspection as accepted. Allow transfer to complete
 
 
 ```php
-use Paysera\Test\TestClientEntity as Entities;
+use Paysera\Test\TestClient\Entity as Entities;
 
 $review = new Entities\Review();
 
@@ -56,7 +56,7 @@ Mark Inspection as cancelled/rejected. Do not allow the transfer to complete
 
 
 ```php
-use Paysera\Test\TestClientEntity as Entities;
+use Paysera\Test\TestClient\Entity as Entities;
 
 $review = new Entities\Review();
 
@@ -73,7 +73,7 @@ Mark Inspection as audited.
 
 
 ```php
-use Paysera\Test\TestClientEntity as Entities;
+use Paysera\Test\TestClient\Entity as Entities;
 
 $review = new Entities\Review();
 
@@ -90,7 +90,7 @@ Mark Inspection as need additional info from user about the transfer.
 
 
 ```php
-use Paysera\Test\TestClientEntity as Entities;
+use Paysera\Test\TestClient\Entity as Entities;
 
 $review = new Entities\Review();
 
@@ -107,7 +107,7 @@ Mark Inspection as received additional info from user about the transfer.
 
 
 ```php
-use Paysera\Test\TestClientEntity as Entities;
+use Paysera\Test\TestClient\Entity as Entities;
 
 $review = new Entities\Review();
 
@@ -155,7 +155,7 @@ Update MatchCriteria
 
 
 ```php
-use Paysera\Test\TestClientEntity as Entities;
+use Paysera\Test\TestClient\Entity as Entities;
 
 $matchCriteria = new Entities\MatchCriteria();
 
@@ -183,7 +183,7 @@ Create MatchCriteria
 
 
 ```php
-use Paysera\Test\TestClientEntity as Entities;
+use Paysera\Test\TestClient\Entity as Entities;
 
 $matchCriteria = new Entities\MatchCriteria();
 
@@ -231,7 +231,7 @@ Update whitelist
 
 
 ```php
-use Paysera\Test\TestClientEntity as Entities;
+use Paysera\Test\TestClient\Entity as Entities;
 
 $whitelist = new Entities\Whitelist();
 
@@ -261,7 +261,7 @@ Update whitelist
 
 
 ```php
-use Paysera\Test\TestClientEntity as Entities;
+use Paysera\Test\TestClient\Entity as Entities;
 
 $whitelist = new Entities\Whitelist();
 
@@ -300,7 +300,7 @@ Add whitelist to a rule
 
 
 ```php
-use Paysera\Test\TestClientEntity as Entities;
+use Paysera\Test\TestClient\Entity as Entities;
 
 $whitelist = new Entities\Whitelist();
 
@@ -330,7 +330,7 @@ Update rule
 
 
 ```php
-use Paysera\Test\TestClientEntity as Entities;
+use Paysera\Test\TestClient\Entity as Entities;
 
 $rule = new Entities\Rule();
 
@@ -363,7 +363,7 @@ Standard SQL-style Result filtering
 
 
 ```php
-use Paysera\Test\TestClientEntity as Entities;
+use Paysera\Test\TestClient\Entity as Entities;
 
 $ruleFilter = new Entities\ruleFilter();
 
@@ -380,7 +380,7 @@ Create a rule
 
 
 ```php
-use Paysera\Test\TestClientEntity as Entities;
+use Paysera\Test\TestClient\Entity as Entities;
 
 $rule = new Entities\Rule();
 

@@ -39,7 +39,7 @@ Standard SQL-style Result filtering
 
 
 ```php
-use Paysera\Test\TestClientEntity as Entities;
+use Paysera\Test\TestClient\Entity as Entities;
 
 $accountFilter = new Entities\AccountFilter();
 

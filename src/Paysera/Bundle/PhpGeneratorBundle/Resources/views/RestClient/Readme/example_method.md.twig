@@ -15,7 +15,7 @@
 
 {% for argument in arguments %}
     {% if argument.type != constant('TYPE_DEFAULT', argument) %}
-       {% set namespace = 'use '~ api.namespace ~ '\Entity as Entities;' %}
+       {% set namespace = 'use '~ api.namespace ~ '\\Entity as Entities;' %}
     {% endif %}
 {% endfor %}
 
