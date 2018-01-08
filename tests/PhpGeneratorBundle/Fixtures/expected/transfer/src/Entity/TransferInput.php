@@ -6,6 +6,11 @@ use Paysera\Component\RestClientCommon\Entity\Entity;
 
 class TransferInput extends Entity
 {
+    const CHARGE_TYPE_SHA = 'SHA';
+    const CHARGE_TYPE_OUR = 'OUR';
+    const URGENCY_STANDARD = 'standard';
+    const URGENCY_URGENT = 'urgent';
+
     /**
      * @return Money
      */

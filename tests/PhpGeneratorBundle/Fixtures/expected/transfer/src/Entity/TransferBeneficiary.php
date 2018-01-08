@@ -6,6 +6,14 @@ use Paysera\Component\RestClientCommon\Entity\Entity;
 
 class TransferBeneficiary extends Entity
 {
+    const TYPE_PAYSERA = 'paysera';
+    const TYPE_PAYZA = 'payza';
+    const TYPE_WEBMONEY = 'webmoney';
+    const TYPE_TAX = 'tax';
+    const TYPE_BANK = 'bank';
+    const PERSON_TYPE_NATURAL = 'natural';
+    const PERSON_TYPE_LEGAL = 'legal';
+
     /**
      * @return string
      */

@@ -6,6 +6,9 @@ use Paysera\Component\RestClientCommon\Entity\Entity;
 
 class TransferPassword34 extends Entity
 {
+    const STATUS_PENDING = 'pending';
+    const STATUS_UNLOCKED = 'unlocked';
+
     /**
      * @return string|null
      */

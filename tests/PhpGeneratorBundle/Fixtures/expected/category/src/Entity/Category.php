@@ -6,6 +6,9 @@ use Paysera\Component\RestClientCommon\Entity\Entity;
 
 class Category extends Entity
 {
+    const STATUS_ACTIVE = 'active';
+    const STATUS_INACTIVE = 'inactive';
+
     /**
      * @return string|null
      */

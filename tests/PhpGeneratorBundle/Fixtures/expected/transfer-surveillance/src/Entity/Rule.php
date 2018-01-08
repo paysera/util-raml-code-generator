@@ -6,6 +6,14 @@ use Paysera\Component\RestClientCommon\Entity\Entity;
 
 class Rule extends Entity
 {
+    const ACTION_NEEDS_REVIEW = 'needs_review';
+    const ACTION_NEEDS_AUDIT = 'needs_audit';
+    const ACTION_NONE = 'none';
+    const TYPE_SYSTEM = 'system';
+    const TYPE_FILTER = 'filter';
+    const STATUS_ENABLED = 'enabled';
+    const STATUS_DISABLED = 'disabled';
+
     /**
      * @return integer|null
      */

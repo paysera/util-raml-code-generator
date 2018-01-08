@@ -6,6 +6,9 @@ use Paysera\Component\RestClientCommon\Entity\Entity;
 
 class FinalBeneficiary extends Entity
 {
+    const PERSON_TYPE_NATURAL = 'natural';
+    const PERSON_TYPE_LEGAL = 'legal';
+
     /**
      * @return string|null
      */

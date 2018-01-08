@@ -6,6 +6,11 @@ use Paysera\Component\RestClientCommon\Entity\Entity;
 
 class TransferPurpose extends Entity
 {
+    const CODE_CASH_IN = 'cash_in';
+    const CODE_CASH_OUT = 'cash_out';
+    const CODE_PAYMENT = 'payment';
+    const CODE_APP_TRANSFER = 'app_transfer';
+
     /**
      * @return string|null
      */
