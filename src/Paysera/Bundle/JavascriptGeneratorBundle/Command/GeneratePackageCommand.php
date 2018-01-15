@@ -3,10 +3,8 @@ declare(strict_types=1);
 
 namespace Paysera\Bundle\JavascriptGeneratorBundle\Command;
 
-use Paysera\Bundle\JavascriptGeneratorBundle\Service\NameResolver;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 use Paysera\Bundle\CodeGeneratorBundle\Service\CodeGenerator;
-use Symfony\Component\Console\Question\ConfirmationQuestion;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputArgument;
@@ -19,7 +17,6 @@ class GeneratePackageCommand extends Command
 {
     const LANGUAGE = 'js';
 
-    private $nameResolver;
     private $codeGenerator;
     private $outputDir;
     private $vendorPrefix;
@@ -28,7 +25,6 @@ class GeneratePackageCommand extends Command
 
     public function __construct(
         CodeGenerator $codeGenerator,
-        NameResolver $nameResolver,
         Filesystem $filesystem,
         string $ramlDir,
         string $outputDir,
@@ -37,7 +33,6 @@ class GeneratePackageCommand extends Command
         parent::__construct();
 
         $this->codeGenerator = $codeGenerator;
-        $this->nameResolver = $nameResolver;
         $this->filesystem = $filesystem;
         $this->ramlDir = $ramlDir;
         $this->outputDir = $outputDir;
@@ -71,10 +66,6 @@ class GeneratePackageCommand extends Command
 
         $directory = realpath($directory);
 
-        if (!$this->confirm($input, $output, $directory, $input->getArgument('api_name'))) {
-            return;
-        }
-
         $this->codeGenerator->generateCode(
             self::LANGUAGE,
             $input->getArgument('api_name'),
@@ -92,20 +83,6 @@ class GeneratePackageCommand extends Command
         }
 
         $output->writeln('');
-    }
-
-    private function confirm(InputInterface $input, OutputInterface $output, string $directory, string $apiName) : bool
-    {
-        $question = new ConfirmationQuestion(sprintf(
-            'Package <comment>%s</comment> with <comment>%s</comment> will be generated to <comment>%s</comment> directory, y/n?',
-            $this->nameResolver->getPackageName($this->vendorPrefix, $apiName),
-            $this->nameResolver->getClientName($apiName),
-            $directory
-        ));
-
-        $helper = $this->getHelper('question');
-
-        return $helper->ask($input, $output, $question);
     }
 
     private function runNpmInstall(OutputInterface $output, string $directory)

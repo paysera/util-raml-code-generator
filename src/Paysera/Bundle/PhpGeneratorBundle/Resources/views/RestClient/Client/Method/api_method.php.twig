@@ -1,6 +1,6 @@
     /**
-     * {{ method.description }}
-     * {{ method.type }} {{ resource.uri }}
+     * {{ method.description|raw }}
+     * {{ method.type }} {{ resource.uri|raw }}
      *
 {% set arguments = generate_method_arguments(method, resource, api) %}
 {% for argument in arguments %}

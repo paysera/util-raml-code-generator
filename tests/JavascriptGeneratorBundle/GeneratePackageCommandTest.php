@@ -35,7 +35,6 @@ class GeneratePackageCommandTest extends KernelTestCase
 
         $commandInstance = new GeneratePackageCommand(
             $container->get('paysera_code_generator.code_generator'),
-            $container->get('paysera_javascript_generator.service.name_resolver'),
             $container->get('filesystem'),
             __DIR__ . '/Fixtures/raml',
             __DIR__ . '/Fixtures/generated',
@@ -61,7 +60,7 @@ class GeneratePackageCommandTest extends KernelTestCase
         $this->commandTester->execute(
             [
                 'api_name' => $apiName,
-                'client_name' => 'Category',
+                'client_name' => ucfirst($apiName),
             ],
             [
                 'interactive' => false

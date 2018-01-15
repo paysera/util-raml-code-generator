@@ -35,7 +35,12 @@ class MethodNameBuilder
     public function buildSingularMethodName($uri, $prefix)
     {
         $nameParts = $this->getNameParts($uri);
-        return $prefix . Inflector::classify(implode('', $this->buildSingularPaths($nameParts)));
+        $paths = $this->buildSingularPaths($nameParts);
+        if (!$nameParts->hasPlaceholder()) {
+            $paths = array_reverse($paths);
+        }
+
+        return $prefix . Inflector::classify(implode('', $paths));
     }
 
     /**
@@ -100,6 +105,9 @@ class MethodNameBuilder
             $previousPart->setSubName($part);
             $previousPart = $part;
             $uri = substr($uri, strlen($part->getFullPart()));
+            if (strlen($uri) > 0) {
+                $uri = '/' . ltrim($uri, '/');
+            }
         }
 
         return $parts->getSubName();

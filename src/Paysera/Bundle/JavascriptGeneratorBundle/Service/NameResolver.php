@@ -3,7 +3,9 @@
 namespace Paysera\Bundle\JavascriptGeneratorBundle\Service;
 
 use Doctrine\Common\Inflector\Inflector;
+use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\ApiDefinition;
 use Paysera\Bundle\PhpGeneratorBundle\Service\StringConverter;
+use Paysera\Component\StringHelper;
 
 class NameResolver
 {
@@ -19,9 +21,9 @@ class NameResolver
         return sprintf('%sClient', $this->converter->convertSlugToClassName($name));
     }
 
-    public function getPackageName(string $vendor, string $apiName) : string
+    public function getPackageName(string $vendor, ApiDefinition $api) : string
     {
-        return sprintf('%s-%s-client', $vendor, $apiName);
+        return sprintf('%s-%s-client', $vendor, StringHelper::kebabCase($api->getNamespace()));
     }
 
     public function getAngularJsModuleName(string $vendor, string $apiName) : string

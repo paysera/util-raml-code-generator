@@ -9,10 +9,10 @@
     ;
 
     DemoController.$inject = [
-        'payseraHttpAccountClientFactory'
+        '{{ js_get_angular_client_factory_name(vendor_prefix, api.name) }}'
     ];
     function DemoController(
-        payseraHttpAccountClientFactory
+        {{ js_get_angular_client_factory_name(vendor_prefix, api.name) }}
     ) {
         var vm = this;
 

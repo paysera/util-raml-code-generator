@@ -1,0 +1,17 @@
+#%RAML 1.0 DataType
+type: object
+displayName: System Token Response
+properties:
+  type:
+    type: string
+    enum: ["scope_challenge", "system_token"]
+    required: true
+    description: Type
+  scope_challenge:
+    type: ScopeChallenge
+    required: false
+    description: Scope Challenge
+  system_token:
+    type: SystemToken
+    required: false
+    description: Generated system token
