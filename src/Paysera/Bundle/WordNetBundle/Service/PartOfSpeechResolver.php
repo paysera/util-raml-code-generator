@@ -33,4 +33,20 @@ class PartOfSpeechResolver
 
         return count($parts->getNounDomains()) > count($parts->getVerbDomains());
     }
+
+    /**
+     * @param string $word
+     * @return bool
+     */
+    public function isVerb($word)
+    {
+        $parts = $this->partOfSpeechRepository->getPartsOfSpeech($word);
+        return (
+            count($parts->getVerbDomains()) > 0
+            && count($parts->getVerbDomains()) >= count($parts->getNounDomains())
+            && count($parts->getVerbDomains()) >= count($parts->getAdjectiveDomains())
+            && count($parts->getVerbDomains()) >= count($parts->getAdjectiveSatelliteDomains())
+        );
+    }
+
 }

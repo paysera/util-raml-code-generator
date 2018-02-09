@@ -12,7 +12,7 @@ This library provides `ClientFactory` class, which you should use to get the API
 use Paysera\Test\TestClient\ClientFactory;
 
 $clientFactory = ClientFactory::create([
-    'base_url' => 'http://gateway.paysera.com/transfer-surveillance/rest/v1/', // optional, in case you need a custom one.
+    'base_url' => 'http://example.com/transfer-surveillance/rest/v1/', // optional, in case you need a custom one.
     'basic' => [                                        // use this, it API requires Basic authentication.
         'username' => 'username',
         'password' => 'password',
@@ -98,7 +98,7 @@ $review->setReviewerUserId($reviewerUserId);
 $review->setComment($comment);
 $review->setInternalComment($internalComment);
     
-$transferSurveillanceClient->updateTransferInspectionNeedUserInfo($transferId, $review);
+$transferSurveillanceClient->requestTransferInspectionUserInfo($transferId, $review);
 ```
 ---
 
@@ -115,7 +115,7 @@ $review->setReviewerUserId($reviewerUserId);
 $review->setComment($comment);
 $review->setInternalComment($internalComment);
     
-$transferSurveillanceClient->receivedUserInfoTransferInspection($transferId, $review);
+$transferSurveillanceClient->receiveTransferInspectionUserInfo($transferId, $review);
 ```
 ---
 

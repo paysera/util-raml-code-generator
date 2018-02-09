@@ -77,17 +77,17 @@ class TransferSurveillanceClient
 
     /**
      * Mark Inspection as need additional info from user about the transfer.
-     * PUT /transfer/inspection/{transferId}/need_user_info
+     * PUT /transfer/inspection/{transferId}/request-user-info
      *
      * @param string $transferId
      * @param Entities\Review $review
      * @return null
      */
-    public function updateTransferInspectionNeedUserInfo($transferId, Entities\Review $review)
+    public function requestTransferInspectionUserInfo($transferId, Entities\Review $review)
     {
         $request = $this->apiClient->createRequest(
             RequestMethodInterface::METHOD_PUT,
-            sprintf('transfer/inspection/%s/need_user_info', urlencode($transferId)),
+            sprintf('transfer/inspection/%s/request-user-info', urlencode($transferId)),
             $review
         );
         $data = $this->apiClient->makeRequest($request);
@@ -97,17 +97,17 @@ class TransferSurveillanceClient
 
     /**
      * Mark Inspection as received additional info from user about the transfer.
-     * PUT /transfer/inspection/{transferId}/received_user_info
+     * PUT /transfer/inspection/{transferId}/receive-user-info
      *
      * @param string $transferId
      * @param Entities\Review $review
      * @return null
      */
-    public function receivedUserInfoTransferInspection($transferId, Entities\Review $review)
+    public function receiveTransferInspectionUserInfo($transferId, Entities\Review $review)
     {
         $request = $this->apiClient->createRequest(
             RequestMethodInterface::METHOD_PUT,
-            sprintf('transfer/inspection/%s/received_user_info', urlencode($transferId)),
+            sprintf('transfer/inspection/%s/receive-user-info', urlencode($transferId)),
             $review
         );
         $data = $this->apiClient->makeRequest($request);

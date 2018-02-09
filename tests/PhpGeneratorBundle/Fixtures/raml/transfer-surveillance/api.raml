@@ -1,7 +1,7 @@
 #%RAML 1.0
 title: Transfer Surveillance API
 version: 1.0
-baseUri: http://gateway.paysera.com/transfer-surveillance/rest/v1/
+baseUri: http://example.com/transfer-surveillance/rest/v1/
 
 annotationTypes:
   entity_type: nil
@@ -64,7 +64,7 @@ traits:
           responses:
             204:
               body: null
-      /need_user_info:
+      /request-user-info:
         put:
           description: Mark Inspection as need additional info from user about the transfer.
           queryParameters:
@@ -79,7 +79,7 @@ traits:
           responses:
             204:
               body: null
-      /received_user_info:
+      /receive-user-info:
         put:
           description: Mark Inspection as received additional info from user about the transfer.
           body:
