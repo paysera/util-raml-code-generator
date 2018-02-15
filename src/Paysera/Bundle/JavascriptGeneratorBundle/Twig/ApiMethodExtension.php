@@ -10,6 +10,7 @@ use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\ArgumentDefinition;
 use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\ResultTypeDefinition;
 use Paysera\Bundle\CodeGeneratorBundle\Exception\InvalidDefinitionException;
 use Paysera\Bundle\CodeGeneratorBundle\ResourcePatterns;
+use Paysera\Bundle\CodeGeneratorBundle\Service\ArgumentsHelper;
 use Paysera\Bundle\CodeGeneratorBundle\Service\MethodNameBuilder;
 use Paysera\Bundle\CodeGeneratorBundle\Service\ResourceTypeDetector;
 use Paysera\Bundle\JavascriptGeneratorBundle\Service\NameResolver;
@@ -26,17 +27,20 @@ class ApiMethodExtension extends Twig_Extension
     private $nameResolver;
     private $methodNameBuilder;
     private $resourceTypeDetector;
+    private $argumentsHelper;
 
     public function __construct(
         StringConverter $stringConverter,
         NameResolver $nameResolver,
         MethodNameBuilder $methodNameBuilder,
-        ResourceTypeDetector $resourceTypeDetector
+        ResourceTypeDetector $resourceTypeDetector,
+        ArgumentsHelper $argumentsHelper
     ) {
         $this->stringConverter = $stringConverter;
         $this->nameResolver = $nameResolver;
         $this->methodNameBuilder = $methodNameBuilder;
         $this->resourceTypeDetector = $resourceTypeDetector;
+        $this->argumentsHelper = $argumentsHelper;
     }
 
     public function getFunctions()
@@ -84,7 +88,7 @@ class ApiMethodExtension extends Twig_Extension
             $this->extractBodyTypeArguments($method, $api)
         );
 
-        return $arguments;
+        return $this->argumentsHelper->filterOutBaseFilter($arguments);
     }
 
     public function generateUri(Resource $resource) : string
@@ -111,22 +115,7 @@ class ApiMethodExtension extends Twig_Extension
             $this->extractBodyTypeArguments($method, $api)
         );
 
-        if (count($arguments) > 1) {
-            $argumentNames = [];
-            foreach ($arguments as $argument) {
-                $argumentNames[] = $argument->getName();
-            }
-            throw new InvalidDefinitionException(sprintf(
-                'More than one body argument found: "%s"',
-                implode(', ', $argumentNames)
-            ));
-        }
-
-        if (!empty($arguments)) {
-            return reset($arguments)->getName();
-        }
-
-        return 'null';
+        return $this->argumentsHelper->resolveArgumentName($arguments);
     }
 
     public function generateResultPopulator(Method $method, ApiDefinition $api) : string

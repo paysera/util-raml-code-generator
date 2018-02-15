@@ -11,6 +11,7 @@
             <argument type="service" id="paysera_javascript_generator.service.name_resolver"/>
             <argument type="service" id="paysera_code_generator.method_name_builder"/>
             <argument type="service" id="paysera_code_generator.resource_type_detector"/>
+            <argument type="service" id="paysera_code_generator.arguments_helper"/>
 
             <tag name="twig.extension"/>
         </service>

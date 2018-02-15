@@ -90,5 +90,23 @@ class AuthClient
     }
 
 
+    /**
+     * 
+     * GET /tokens
+     *
+     * @param Entities\Filter $filter
+     * @return null
+     */
+    public function getTokens(Entities\Filter $filter)
+    {
+        $request = $this->apiClient->createRequest(
+            RequestMethodInterface::METHOD_GET,
+            'tokens',
+            $filter
+        );
+        $data = $this->apiClient->makeRequest($request);
+
+        return null;
+    }
 
 }

@@ -93,3 +93,20 @@ $result = $authClient->createStrictSystemToken($systemTokenRequest);
 
 
 
+
+
+
+```php
+use Paysera\Test\TestClient\Entity as Entities;
+
+$filter = new Entities\Filter();
+
+$filter->setLimit($limit);
+$filter->setOffset($offset);
+$filter->setOrderBy($orderBy);
+$filter->setOrderDirection($orderDirection);
+    
+$authClient->getTokens($filter);
+```
+---
+

@@ -55,5 +55,9 @@
         <service id="paysera_code_generator.constant_builder"
                  class="Paysera\Bundle\CodeGeneratorBundle\Service\ConstantBuilder">
         </service>
+
+        <service id="paysera_code_generator.arguments_helper"
+                 class="Paysera\Bundle\CodeGeneratorBundle\Service\ArgumentsHelper">
+        </service>
     </services>
 </container>

@@ -2,6 +2,7 @@ import { RequestFactory } from 'paysera-http-client-common';
 
 import AccountResult from '../entity/AccountResult';
 import Account from '../entity/Account';
+import Filter from '../entity/Filter';
 import AccountFilter from '../entity/AccountFilter';
 
 class AccountClient {

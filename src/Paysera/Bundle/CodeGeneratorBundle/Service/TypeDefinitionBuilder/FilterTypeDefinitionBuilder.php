@@ -8,8 +8,6 @@ use Paysera\Bundle\CodeGeneratorBundle\Service\PropertyDefinitionBuilder;
 
 class FilterTypeDefinitionBuilder implements TypeDefinitionBuilderInterface
 {
-    const TYPE_FILTER = 'Filter';
-
     private $propertyDefinitionBuilder;
 
     public function __construct(PropertyDefinitionBuilder $propertyDefinitionBuilder)
@@ -19,7 +17,7 @@ class FilterTypeDefinitionBuilder implements TypeDefinitionBuilderInterface
 
     public function supports(string $name, array $definition): bool
     {
-        return strpos($name, self::TYPE_FILTER) !== false;
+        return strpos($name, FilterTypeDefinition::BASE_FILTER) !== false;
     }
 
     public function buildTypeDefinition(string $name, array $definition)
@@ -48,7 +46,7 @@ class FilterTypeDefinitionBuilder implements TypeDefinitionBuilderInterface
             $type->addProperty($property);
         }
 
-        if ($name === self::TYPE_FILTER) {
+        if ($name === FilterTypeDefinition::BASE_FILTER) {
             $type->setBaseFilter(true);
         }
 
