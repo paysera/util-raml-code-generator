@@ -35,6 +35,16 @@ Now, that you have instance of `AccountClient`, you can use following methods
 ### Methods
 
     
+Generated JS code
+
+
+```php
+
+$result = $accountClient->getAccountScripts();
+```
+---
+
+
 Standard SQL-style Result filtering
 
 

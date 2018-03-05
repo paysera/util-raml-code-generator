@@ -1,4 +1,4 @@
-import { RequestFactory } from 'paysera-http-client-common';
+import { RequestFactory, ClientWrapper } from 'paysera-http-client-common';
 
 {% for type in api.types %}
 import {{ type.name }} from '../entity/{{ type.name }}';

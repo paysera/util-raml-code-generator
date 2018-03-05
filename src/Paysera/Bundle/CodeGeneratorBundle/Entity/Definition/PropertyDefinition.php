@@ -14,7 +14,7 @@ class PropertyDefinition
     const TYPE_NUMBER = 'number';
     const TYPE_REFERENCE = 'reference';
 
-    private static $simpleTypes = [
+    protected static $simpleTypes = [
         self::TYPE_INTEGER,
         self::TYPE_BOOLEAN,
         self::TYPE_OBJECT,
@@ -192,5 +192,10 @@ class PropertyDefinition
         $this->constants = $constants;
 
         return $this;
+    }
+
+    public function isSimpleType()
+    {
+        return in_array($this->type, self::$simpleTypes, true);
     }
 }

@@ -50,7 +50,6 @@ class AuthClient
 
         return null;
     }
-
     /**
      * Creates system token by the requested scopes. If user can't access all the scopes - returns token created by the scopes user can access
      * POST /tokens/system/optional
@@ -69,7 +68,6 @@ class AuthClient
 
         return new Entities\SystemToken($data);
     }
-
     /**
      * Creates system token by the requested scopes. If user can't access all the scopes - returns challenge
      * POST /tokens/system/strict
@@ -88,8 +86,6 @@ class AuthClient
 
         return new Entities\SystemTokenResponse($data);
     }
-
-
     /**
      * 
      * GET /tokens
@@ -108,5 +104,4 @@ class AuthClient
 
         return null;
     }
-
 }

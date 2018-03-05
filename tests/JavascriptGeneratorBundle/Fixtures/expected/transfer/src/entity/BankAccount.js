@@ -1,5 +1,7 @@
 import { Entity } from 'paysera-http-client-common';
 
+import Address from '../entity/Address';
+import CorrespondentBank from '../entity/CorrespondentBank';
 import DateFactory from '../service/DateFactory';
 
 class BankAccount extends Entity {

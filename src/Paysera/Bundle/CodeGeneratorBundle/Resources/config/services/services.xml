@@ -34,6 +34,10 @@
             <argument type="service" id="paysera_code_generator.definition_decorator"/>
         </service>
 
+        <service id="paysera_code_generator.body_resolver"
+                 class="Paysera\Bundle\CodeGeneratorBundle\Service\BodyResolver">
+        </service>
+
         <service id="paysera_code_generator.property_definition_builder"
                  class="Paysera\Bundle\CodeGeneratorBundle\Service\PropertyDefinitionBuilder">
             <argument type="service" id="paysera_code_generator.constant_builder" />

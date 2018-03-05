@@ -1,5 +1,11 @@
 import { Entity } from 'paysera-http-client-common';
 
+import Identifiers from '../entity/Identifiers';
+import BankAccount from '../entity/BankAccount';
+import TaxAccount from '../entity/TaxAccount';
+import PayseraAccount from '../entity/PayseraAccount';
+import PayzaAccount from '../entity/PayzaAccount';
+import WebmoneyAccount from '../entity/WebmoneyAccount';
 import DateFactory from '../service/DateFactory';
 
 class TransferBeneficiary extends Entity {

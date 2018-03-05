@@ -1,15 +1,15 @@
-{% import _self as macros %}
-{% macro render_methods(resource, api) %}
-{% for subResource in resource.resources %}
-{{ _self.render_methods(subResource, api) }}
-{% endfor %}
-{% for method in resource.methods %}
-{% include '@PayseraPhpGenerator/RestClient/Client/Method/api_method.php.twig' with {
-    'resource': resource,
-    'method': method,
-    'api': api
-} only %}
-{% endfor %}
+{%- import _self as macros %}
+{%- macro render_methods(resource, api) -%}
+    {%- for subResource in resource.resources -%}
+        {{ _self.render_methods(subResource, api) }}
+    {%- endfor %}
+    {%- for method in resource.methods -%}
+        {%- include '@PayseraPhpGenerator/RestClient/Client/Method/api_method.php.twig' with {
+            'resource': resource,
+            'method': method,
+            'api': api
+        } only -%}
+    {%- endfor -%}
 {% endmacro %}
 <?php
 
@@ -29,6 +29,6 @@ class {{ api.name|to_class_name }}Client
     }
 
 {% for resource in api.ramlDefinition.resources -%}
-    {{ macros.render_methods(resource, api) }}
+    {{- macros.render_methods(resource, api) -}}
 {% endfor %}
 }

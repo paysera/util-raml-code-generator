@@ -27,4 +27,9 @@ class ArrayPropertyDefinition extends PropertyDefinition
         $this->itemsType = $itemsType;
         return $this;
     }
+
+    public function isSimpleType()
+    {
+        return in_array($this->itemsType, self::$simpleTypes, true);
+    }
 }

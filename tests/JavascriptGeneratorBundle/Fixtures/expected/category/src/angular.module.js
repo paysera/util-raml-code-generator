@@ -59,27 +59,27 @@ class AngularClientFactory {
         const enableCategoryOriginal = client.enableCategory.bind(client);
         client.enableCategory = (...args) => {
             return this.$q.when(enableCategoryOriginal(...args));
-        }
+        };
         const disableCategoryOriginal = client.disableCategory.bind(client);
         client.disableCategory = (...args) => {
             return this.$q.when(disableCategoryOriginal(...args));
-        }
+        };
         const updateCategoryOriginal = client.updateCategory.bind(client);
         client.updateCategory = (...args) => {
             return this.$q.when(updateCategoryOriginal(...args));
-        }
+        };
         const deleteCategoryOriginal = client.deleteCategory.bind(client);
         client.deleteCategory = (...args) => {
             return this.$q.when(deleteCategoryOriginal(...args));
-        }
+        };
         const getCategoriesOriginal = client.getCategories.bind(client);
         client.getCategories = (...args) => {
             return this.$q.when(getCategoriesOriginal(...args));
-        }
+        };
         const createCategoryOriginal = client.createCategory.bind(client);
         client.createCategory = (...args) => {
             return this.$q.when(createCategoryOriginal(...args));
-        }
+        };
 
         return client;
     }

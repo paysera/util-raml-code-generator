@@ -18,7 +18,11 @@
         return this.client
             .performRequest(request)
             .then((data) => {
+                {% if js_is_raw_response(method) -%}
+                return data;
+            {% else -%}
                 return {{ js_generate_result_populator(method, api)|raw }}
+            {% endif -%}
             })
         ;
     }

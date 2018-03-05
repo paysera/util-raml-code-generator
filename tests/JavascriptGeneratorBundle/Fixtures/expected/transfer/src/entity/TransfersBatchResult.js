@@ -1,5 +1,6 @@
 import { Entity } from 'paysera-http-client-common';
 
+import TransferOutput from '../entity/TransferOutput';
 import DateFactory from '../service/DateFactory';
 
 class TransfersBatchResult extends Entity {

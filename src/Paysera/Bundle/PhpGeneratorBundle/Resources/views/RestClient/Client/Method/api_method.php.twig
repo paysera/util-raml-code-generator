@@ -15,7 +15,11 @@
             {{ generate_uri(resource) }},
             {{ generate_body(method, api) }}
         );
+        {% if is_raw_response(method) -%}
+        return $this->apiClient->makeRawRequest($request)->getBody()->getContents();
+    {% else -%}
         $data = $this->apiClient->makeRequest($request);
 
         return {{ generate_result_populator(method, api) }}
+    {% endif -%}
     }

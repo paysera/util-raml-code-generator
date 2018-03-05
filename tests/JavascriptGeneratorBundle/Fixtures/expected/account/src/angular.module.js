@@ -58,10 +58,14 @@ class AngularClientFactory {
      * @returns {AccountClient}
      */
     wrapQ(client) {
+        const getAccountScriptsOriginal = client.getAccountScripts.bind(client);
+        client.getAccountScripts = (...args) => {
+            return this.$q.when(getAccountScriptsOriginal(...args));
+        };
         const getAccountsOriginal = client.getAccounts.bind(client);
         client.getAccounts = (...args) => {
             return this.$q.when(getAccountsOriginal(...args));
-        }
+        };
 
         return client;
     }

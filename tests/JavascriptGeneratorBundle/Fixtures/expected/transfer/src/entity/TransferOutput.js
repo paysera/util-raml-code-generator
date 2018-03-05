@@ -1,5 +1,9 @@
 import { Entity } from 'paysera-http-client-common';
 
+import TransferInitiator from '../entity/TransferInitiator';
+import TransferFailureStatus from '../entity/TransferFailureStatus';
+import Money from '../entity/Money';
+import TransferAdditionalData from '../entity/TransferAdditionalData';
 import DateFactory from '../service/DateFactory';
 
 class TransferOutput extends Entity {

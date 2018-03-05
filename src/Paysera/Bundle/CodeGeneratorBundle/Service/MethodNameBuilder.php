@@ -3,10 +3,29 @@
 namespace Paysera\Bundle\CodeGeneratorBundle\Service;
 
 use Doctrine\Common\Inflector\Inflector;
+use Fig\Http\Message\RequestMethodInterface;
 use Paysera\Bundle\CodeGeneratorBundle\Entity\UriNameParts;
+use Paysera\Bundle\CodeGeneratorBundle\Exception\InvalidDefinitionException;
 
 class MethodNameBuilder
 {
+    public function getNamePrefix(string $method) : string
+    {
+        switch ($method) {
+            case RequestMethodInterface::METHOD_GET:
+                return 'get';
+            case RequestMethodInterface::METHOD_DELETE:
+                return 'delete';
+            case RequestMethodInterface::METHOD_PATCH:
+            case RequestMethodInterface::METHOD_PUT:
+                return 'update';
+            case RequestMethodInterface::METHOD_POST:
+                return 'create';
+            default:
+                throw new InvalidDefinitionException(sprintf('Unable to resolve method prefix for type "%s"', $method));
+        }
+    }
+
     /**
      * @param string $uri
      * @param string $prefix

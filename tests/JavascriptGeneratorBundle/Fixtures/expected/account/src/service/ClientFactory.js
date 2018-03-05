@@ -1,4 +1,4 @@
-import { ClientFactoryBase } from 'paysera-http-client-common';
+import { ClientFactoryBase, ClientWrapper, TokenProvider } from 'paysera-http-client-common';
 import AccountClient from './AccountClient';
 
 class ClientFactory extends ClientFactoryBase {
