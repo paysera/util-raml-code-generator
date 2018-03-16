@@ -17,7 +17,7 @@ class SimpleTypeBuilder implements TypeDefinitionBuilderInterface
 
     public function supports(string $name, array $definition): bool
     {
-        return isset($definition['properties']);
+        return isset($definition['properties']) || isset($definition['queryParameters']);
     }
 
     public function buildTypeDefinition(string $name, array $definition)
@@ -29,7 +29,13 @@ class SimpleTypeBuilder implements TypeDefinitionBuilderInterface
             ->setDisplayName(isset($definition['displayName']) ? $definition['displayName'] : null)
         ;
 
-        foreach ($definition['properties'] as $propertyName => $propertyDefinition) {
+        $properties = [];
+        if (isset($definition['properties'])) {
+            $properties = $definition['properties'];
+        } elseif ($definition['queryParameters']) {
+            $properties = $definition['queryParameters'];
+        }
+        foreach ($properties as $propertyName => $propertyDefinition) {
             $property = $this->propertyDefinitionBuilder->buildPropertyDefinition($propertyName, $propertyDefinition);
             $type->addProperty($property);
         }

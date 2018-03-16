@@ -2,16 +2,17 @@
 
 namespace Paysera\Bundle\PhpGeneratorBundle\Twig;
 
-use Fig\Http\Message\RequestMethodInterface;
-use Fig\Http\Message\StatusCodeInterface;
 use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\ApiDefinition;
 use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\ArgumentDefinition;
 use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\ResultTypeDefinition;
 use Paysera\Bundle\CodeGeneratorBundle\Exception\InvalidDefinitionException;
 use Paysera\Bundle\CodeGeneratorBundle\ResourcePatterns;
+use Paysera\Bundle\CodeGeneratorBundle\Service\ArgumentsHelper;
+use Paysera\Bundle\CodeGeneratorBundle\Service\BodyResolver;
 use Paysera\Bundle\CodeGeneratorBundle\Service\MethodNameBuilder;
 use Paysera\Bundle\CodeGeneratorBundle\Service\ResourceTypeDetector;
 use Paysera\Bundle\PhpGeneratorBundle\Service\StringConverter;
+use Paysera\Component\TypeHelper;
 use Raml\Body;
 use Raml\Method;
 use Raml\Resource;
@@ -23,16 +24,21 @@ class ApiMethodExtension extends Twig_Extension
     private $stringConverter;
     private $methodNameBuilder;
     private $resourceTypeDetector;
+    private $argumentsHelper;
+    private $bodyResolver;
 
     public function __construct(
         StringConverter $stringConverter,
         MethodNameBuilder $methodNameBuilder,
-        ResourceTypeDetector $resourceTypeDetector
-    )
-    {
+        ResourceTypeDetector $resourceTypeDetector,
+        ArgumentsHelper $argumentsHelper,
+        BodyResolver $bodyResolver
+    ) {
         $this->stringConverter = $stringConverter;
         $this->methodNameBuilder = $methodNameBuilder;
         $this->resourceTypeDetector = $resourceTypeDetector;
+        $this->argumentsHelper = $argumentsHelper;
+        $this->bodyResolver = $bodyResolver;
     }
 
     public function getFunctions()
@@ -46,6 +52,7 @@ class ApiMethodExtension extends Twig_Extension
             new Twig_SimpleFunction('inline_arguments', [$this, 'inlineArguments']),
             new Twig_SimpleFunction('inline_argument_names', [$this, 'inlineArgumentNames']),
             new Twig_SimpleFunction('get_return_type', [$this, 'getReturnType']),
+            new Twig_SimpleFunction('is_raw_response', [$this, 'isRawResponse']),
         ];
     }
 
@@ -56,16 +63,19 @@ class ApiMethodExtension extends Twig_Extension
      */
     public function getReturnType(Method $method, ApiDefinition $api)
     {
-        $okResponse = $method->getResponse(StatusCodeInterface::STATUS_OK);
-        if ($okResponse === null) {
+        $body = $this->bodyResolver->getResponseBody($method);
+
+        if ($body === null) {
             return 'null';
         }
 
-        /** @var Body $body */
-        $body = $okResponse->getBodyByType('application/json');
-
-        if ($body->getType() !== null && $api->getType($body->getType()) !== null) {
-            return sprintf('Entities\%s', $body->getType());
+        if ($body->getType() !== null) {
+            if ($api->getType($body->getType()) !== null) {
+                return sprintf('Entities\%s', $body->getType());
+            }
+            if (TypeHelper::isPrimitiveType($body->getType())) {
+                return $body->getType();
+            }
         }
 
         return 'null';
@@ -118,7 +128,7 @@ class ApiMethodExtension extends Twig_Extension
             $this->extractBodyTypeArguments($method, $api)
         );
 
-        return $arguments;
+        return $this->argumentsHelper->filterOutBaseFilter($arguments);
     }
 
     public function generateUri(Resource $resource)
@@ -145,34 +155,16 @@ class ApiMethodExtension extends Twig_Extension
             $this->extractBodyTypeArguments($method, $api)
         );
 
-        if (count($arguments) > 1) {
-            $argumentNames = [];
-            foreach ($arguments as $argument) {
-                $argumentNames[] = $argument->getName();
-            }
-            throw new InvalidDefinitionException(sprintf(
-                'More than one body argument found: "%s"',
-                implode(', ', $argumentNames)
-            ));
-        }
-
-        if (!empty($arguments)) {
-            return reset($arguments)->getName();
-        }
-
-        return 'null';
+        return $this->argumentsHelper->resolveArgumentName($arguments);
     }
 
     public function generateResultPopulator(Method $method, ApiDefinition $api)
     {
-        $okResponse = $method->getResponse(StatusCodeInterface::STATUS_OK);
+        $body = $this->bodyResolver->getResponseBody($method);
 
-        if ($okResponse === null) {
+        if ($body === null) {
             return 'null;';
         }
-
-        /** @var Body $body */
-        $body = $okResponse->getBodyByType('application/json');
 
         if ($body->getType() !== null && $api->getType($body->getType()) !== null) {
             $type = $api->getType($body->getType());
@@ -183,6 +175,11 @@ class ApiMethodExtension extends Twig_Extension
         }
 
         return 'null;';
+    }
+
+    public function isRawResponse(Method $method)
+    {
+        return $this->bodyResolver->isRawResponse($method);
     }
 
     private function extractBodyTypeArguments(Method $method, ApiDefinition $api)
@@ -249,7 +246,7 @@ class ApiMethodExtension extends Twig_Extension
      */
     public function generateMethodName(Method $method, Resource $resource)
     {
-        $name = $this->getNamePrefix($method->getType());
+        $name = $this->methodNameBuilder->getNamePrefix($method->getType());
         $nameParts = $this->methodNameBuilder->getNameParts($resource->getUri());
 
         if ($this->resourceTypeDetector->isBinaryResource($resource, $method, $nameParts)) {
@@ -269,28 +266,5 @@ class ApiMethodExtension extends Twig_Extension
             $resource->getUri(),
             $method->getType()
         ));
-    }
-
-    /**
-     * @param string $method
-     *
-     * @return string
-     * @throws InvalidDefinitionException
-     */
-    private function getNamePrefix($method)
-    {
-        switch ($method) {
-            case RequestMethodInterface::METHOD_GET:
-                return 'get';
-            case RequestMethodInterface::METHOD_DELETE:
-                return 'delete';
-            case RequestMethodInterface::METHOD_PATCH:
-            case RequestMethodInterface::METHOD_PUT:
-                return 'update';
-            case RequestMethodInterface::METHOD_POST:
-                return 'create';
-            default:
-                throw new InvalidDefinitionException(sprintf('Unable to resolve method prefix for type "%s"', $method));
-        }
     }
 }

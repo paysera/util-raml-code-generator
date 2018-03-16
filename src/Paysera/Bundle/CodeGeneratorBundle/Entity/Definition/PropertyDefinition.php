@@ -2,6 +2,8 @@
 
 namespace Paysera\Bundle\CodeGeneratorBundle\Entity\Definition;
 
+use Paysera\Bundle\CodeGeneratorBundle\Entity\Constant;
+
 class PropertyDefinition
 {
     const TYPE_INTEGER = 'integer';
@@ -12,7 +14,7 @@ class PropertyDefinition
     const TYPE_NUMBER = 'number';
     const TYPE_REFERENCE = 'reference';
 
-    private static $simpleTypes = [
+    protected static $simpleTypes = [
         self::TYPE_INTEGER,
         self::TYPE_BOOLEAN,
         self::TYPE_OBJECT,
@@ -21,9 +23,10 @@ class PropertyDefinition
         self::TYPE_NUMBER,
     ];
 
-    private $ramlPrimitiveTypesMap = [
-        PropertyDefinition::TYPE_NUMBER => PropertyDefinition::TYPE_STRING,
-    ];
+    /**
+     * @var array
+     */
+    private $ramlPrimitiveTypesMap;
 
     /**
      * @var string
@@ -51,6 +54,11 @@ class PropertyDefinition
     private $required;
 
     /**
+     * @var Constant[]
+     */
+    private $constants;
+
+    /**
      * @return array
      */
     public static function getSimpleTypes()
@@ -61,6 +69,10 @@ class PropertyDefinition
     public function __construct()
     {
         $this->required = false;
+        $this->constants = [];
+        $this->ramlPrimitiveTypesMap = [
+            PropertyDefinition::TYPE_NUMBER => PropertyDefinition::TYPE_STRING,
+        ];
     }
 
     /**
@@ -160,5 +172,30 @@ class PropertyDefinition
     {
         $this->required = $required;
         return $this;
+    }
+
+    /**
+     * @return Constant[]
+     */
+    public function getConstants()
+    {
+        return $this->constants;
+    }
+
+    /**
+     * @param Constant[] $constants
+     *
+     * @return PropertyDefinition
+     */
+    public function setConstants(array $constants)
+    {
+        $this->constants = $constants;
+
+        return $this;
+    }
+
+    public function isSimpleType()
+    {
+        return in_array($this->type, self::$simpleTypes, true);
     }
 }

@@ -6,6 +6,19 @@ use Paysera\Component\RestClientCommon\Entity\Entity;
 
 class TransferOutput extends Entity
 {
+    const STATUS_NEW = 'new';
+    const STATUS_REGISTERED = 'registered';
+    const STATUS_WAITING_FUNDS = 'waiting_funds';
+    const STATUS_WAITING_REGISTRATION = 'waiting_registration';
+    const STATUS_WAITING_PASSWORD = 'waiting_password';
+    const STATUS_RESERVED = 'reserved';
+    const STATUS_FROZEN = 'frozen';
+    const STATUS_PROCESSING = 'processing';
+    const STATUS_DONE = 'done';
+    const STATUS_REJECTED = 'rejected';
+    const STATUS_REVOKED = 'revoked';
+    const STATUS_FAILED = 'failed';
+
     /**
      * @return string
      */

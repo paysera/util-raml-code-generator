@@ -3,10 +3,29 @@
 namespace Paysera\Bundle\CodeGeneratorBundle\Service;
 
 use Doctrine\Common\Inflector\Inflector;
+use Fig\Http\Message\RequestMethodInterface;
 use Paysera\Bundle\CodeGeneratorBundle\Entity\UriNameParts;
+use Paysera\Bundle\CodeGeneratorBundle\Exception\InvalidDefinitionException;
 
 class MethodNameBuilder
 {
+    public function getNamePrefix(string $method) : string
+    {
+        switch ($method) {
+            case RequestMethodInterface::METHOD_GET:
+                return 'get';
+            case RequestMethodInterface::METHOD_DELETE:
+                return 'delete';
+            case RequestMethodInterface::METHOD_PATCH:
+            case RequestMethodInterface::METHOD_PUT:
+                return 'update';
+            case RequestMethodInterface::METHOD_POST:
+                return 'create';
+            default:
+                throw new InvalidDefinitionException(sprintf('Unable to resolve method prefix for type "%s"', $method));
+        }
+    }
+
     /**
      * @param string $uri
      * @param string $prefix
@@ -35,7 +54,12 @@ class MethodNameBuilder
     public function buildSingularMethodName($uri, $prefix)
     {
         $nameParts = $this->getNameParts($uri);
-        return $prefix . Inflector::classify(implode('', $this->buildSingularPaths($nameParts)));
+        $paths = $this->buildSingularPaths($nameParts);
+        if (!$nameParts->hasPlaceholder()) {
+            $paths = array_reverse($paths);
+        }
+
+        return $prefix . Inflector::classify(implode('', $paths));
     }
 
     /**
@@ -100,6 +124,9 @@ class MethodNameBuilder
             $previousPart->setSubName($part);
             $previousPart = $part;
             $uri = substr($uri, strlen($part->getFullPart()));
+            if (strlen($uri) > 0) {
+                $uri = '/' . ltrim($uri, '/');
+            }
         }
 
         return $parts->getSubName();

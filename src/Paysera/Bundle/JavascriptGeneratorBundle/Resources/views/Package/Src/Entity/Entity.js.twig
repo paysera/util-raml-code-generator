@@ -1,5 +1,8 @@
 import { Entity } from 'paysera-http-client-common';
 
+{% for type in js_get_related_types(api, type) %}
+import {{ type.name }} from '../entity/{{ type.name }}';
+{% endfor %}
 import DateFactory from '../service/DateFactory';
 
 class {{ type.name }} extends Entity {

@@ -35,9 +35,9 @@ class GenerateRestClientCommand extends Command
         $this
             ->setName('paysera:php-generator:rest-client')
             ->setDescription('Generates RESTful Php Client from given RAML definition')
-            ->addArgument('api_name', InputArgument::REQUIRED, 'The name of API definition to look for')
-            ->addArgument('namespace', InputArgument::REQUIRED, 'Namespace of generated library')
-            ->setHelp('You must provide the API name and its namespace (with escaped slashes, i.e. Acme\\Client\\AcmeClient)')
+            ->addArgument('api_name', InputArgument::REQUIRED, 'The name of API definition to look for in \'raml\' directory')
+            ->addArgument('namespace', InputArgument::REQUIRED, 'Namespace of generated library, i.e.: Acme\\\\Client\\\\AcmeClient')
+            ->setHelp('You must provide the API name and its namespace')
         ;
     }
 

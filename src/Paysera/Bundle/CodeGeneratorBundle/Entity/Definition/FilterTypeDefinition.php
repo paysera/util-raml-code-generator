@@ -5,6 +5,8 @@ namespace Paysera\Bundle\CodeGeneratorBundle\Entity\Definition;
 
 class FilterTypeDefinition extends TypeDefinition
 {
+    const BASE_FILTER = 'Filter';
+
     /**
      * @var bool
      */

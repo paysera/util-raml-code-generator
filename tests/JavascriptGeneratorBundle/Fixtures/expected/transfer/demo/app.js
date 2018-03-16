@@ -9,10 +9,10 @@
     ;
 
     DemoController.$inject = [
-        'payseraHttpAccountClientFactory'
+        'vendorHttpTransferClientFactory'
     ];
     function DemoController(
-        payseraHttpAccountClientFactory
+        vendorHttpTransferClientFactory
     ) {
         var vm = this;
 

@@ -3,6 +3,7 @@ import { TokenProvider, Scope } from 'paysera-http-client-common';
 
 import Category from './entity/Category';
 import CategoryFilter from './entity/CategoryFilter';
+import Filter from './entity/Filter';
 
 import DateFactory from './service/DateFactory';
 import ClientFactory from './service/ClientFactory';
@@ -11,6 +12,7 @@ import CategoryClient from './service/CategoryClient';
 export {
     Category,
     CategoryFilter,
+    Filter,
     DateFactory,
     ClientFactory,
     CategoryClient,
@@ -57,27 +59,27 @@ class AngularClientFactory {
         const enableCategoryOriginal = client.enableCategory.bind(client);
         client.enableCategory = (...args) => {
             return this.$q.when(enableCategoryOriginal(...args));
-        }
+        };
         const disableCategoryOriginal = client.disableCategory.bind(client);
         client.disableCategory = (...args) => {
             return this.$q.when(disableCategoryOriginal(...args));
-        }
+        };
         const updateCategoryOriginal = client.updateCategory.bind(client);
         client.updateCategory = (...args) => {
             return this.$q.when(updateCategoryOriginal(...args));
-        }
+        };
         const deleteCategoryOriginal = client.deleteCategory.bind(client);
         client.deleteCategory = (...args) => {
             return this.$q.when(deleteCategoryOriginal(...args));
-        }
+        };
         const getCategoriesOriginal = client.getCategories.bind(client);
         client.getCategories = (...args) => {
             return this.$q.when(getCategoriesOriginal(...args));
-        }
+        };
         const createCategoryOriginal = client.createCategory.bind(client);
         client.createCategory = (...args) => {
             return this.$q.when(createCategoryOriginal(...args));
-        }
+        };
 
         return client;
     }

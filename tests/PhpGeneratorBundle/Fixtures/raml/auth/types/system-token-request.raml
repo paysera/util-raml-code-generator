@@ -1,0 +1,14 @@
+#%RAML 1.0 DataType
+type: object
+displayName: System Token Request
+properties:
+  scope:
+    type: string
+    required: true
+    description: List of wanted scopes separated with blank space
+    example: "m:a:123456 m:b:123456"
+  audience:
+    required: true
+    type: string
+    description: System name in which system token should be created
+    example: "mokejimai"

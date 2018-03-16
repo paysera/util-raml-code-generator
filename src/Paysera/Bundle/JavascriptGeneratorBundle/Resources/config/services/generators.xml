@@ -77,7 +77,7 @@
         <service id="paysera_javascript_generator.generator.demo"
                  class="Paysera\Bundle\JavascriptGeneratorBundle\Service\Generator\DemoGenerator">
             <argument type="service" id="templating"/>
-            <argument>%paysera_javascript_generator.relative_package_source_dir%</argument>
+            <argument>%paysera_code_generator.vendor_prefix%</argument>
             <tag name="paysera_js_generator" position="100"/>
         </service>
 

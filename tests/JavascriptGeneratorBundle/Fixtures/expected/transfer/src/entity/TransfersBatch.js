@@ -1,5 +1,6 @@
 import { Entity } from 'paysera-http-client-common';
 
+import ConvertCurrency from '../entity/ConvertCurrency';
 import DateFactory from '../service/DateFactory';
 
 class TransfersBatch extends Entity {

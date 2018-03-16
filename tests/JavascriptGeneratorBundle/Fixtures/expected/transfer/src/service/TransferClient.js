@@ -1,4 +1,4 @@
-import { RequestFactory } from 'paysera-http-client-common';
+import { RequestFactory, ClientWrapper } from 'paysera-http-client-common';
 
 import TransfersBatchResult from '../entity/TransfersBatchResult';
 import TransfersBatch from '../entity/TransfersBatch';

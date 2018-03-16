@@ -4,7 +4,6 @@ namespace Paysera\Bundle\CodeGeneratorBundle\Service;
 
 use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\FilterTypeDefinition;
 use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\TypeDefinition;
-use Paysera\Bundle\CodeGeneratorBundle\Service\TypeDefinitionBuilder\FilterTypeDefinitionBuilder;
 use Paysera\Bundle\CodeGeneratorBundle\Service\TypeDefinitionBuilder\TypeDefinitionBuilderInterface;
 use Raml\ApiDefinition;
 
@@ -43,7 +42,7 @@ class TypeDefinitionBuilder
                     $type = $builder->buildTypeDefinition($name, $definition);
                     if ($type instanceof FilterTypeDefinition && $type->isBaseFilter()) {
                         $extendsBaseFilter = true;
-                        break;
+//                        break;
                     }
                     $types[] = $type;
                     break;
@@ -53,7 +52,10 @@ class TypeDefinitionBuilder
 
         if ($extendsBaseFilter) {
             foreach ($types as $type) {
-                if ($type instanceof FilterTypeDefinition) {
+                if (
+                    $type instanceof FilterTypeDefinition
+                    && $type->getName() !== FilterTypeDefinition::BASE_FILTER
+                ) {
                     $type->setExtendsBaseFilter(true);
                 }
             }

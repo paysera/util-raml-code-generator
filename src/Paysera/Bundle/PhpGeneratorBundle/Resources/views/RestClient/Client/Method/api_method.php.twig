@@ -1,6 +1,6 @@
     /**
-     * {{ method.description }}
-     * {{ method.type }} {{ resource.uri }}
+     * {{ method.description|raw }}
+     * {{ method.type }} {{ resource.uri|raw }}
      *
 {% set arguments = generate_method_arguments(method, resource, api) %}
 {% for argument in arguments %}
@@ -15,7 +15,11 @@
             {{ generate_uri(resource) }},
             {{ generate_body(method, api) }}
         );
+        {% if is_raw_response(method) -%}
+        return $this->apiClient->makeRawRequest($request)->getBody()->getContents();
+    {% else -%}
         $data = $this->apiClient->makeRequest($request);
 
         return {{ generate_result_populator(method, api) }}
+    {% endif -%}
     }

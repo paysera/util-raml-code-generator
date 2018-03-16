@@ -33,7 +33,6 @@ class CategoryClient
 
         return new Entities\Category($data);
     }
-
     /**
      * Disable category
      * PUT /categories/{id}/disable
@@ -52,7 +51,6 @@ class CategoryClient
 
         return new Entities\Category($data);
     }
-
     /**
      * Update category
      * PUT /categories/{id}
@@ -89,7 +87,6 @@ class CategoryClient
 
         return null;
     }
-
     /**
      * Standard SQL-style Result filtering
      * GET /categories
@@ -126,5 +123,4 @@ class CategoryClient
 
         return new Entities\Category($data);
     }
-
 }

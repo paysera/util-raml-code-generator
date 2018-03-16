@@ -1,0 +1,98 @@
+#%RAML 1.0
+title: Authentication
+version: v1
+baseUri: https://my-api.example.com/rest/v1
+mediaType: application/json
+protocols: [ HTTPS ]
+
+types:
+  AuthToken: !include types/auth-token.raml
+  AuthTokenResponse: !include types/auth-token-response.raml
+  SystemToken: !include types/system-token.raml
+  SystemTokenRequest: !include types/system-token-request.raml
+  Credentials: !include types/credentials.raml
+  SystemTokenResponse: !include types/system-token-response.raml
+  ScopeChallenge: !include types/scope-challenge.raml
+  Challenge: !include types/challenge.raml
+
+traits:
+  Filter: !include traits/filter.raml
+
+/tokens:
+  get:
+    is:
+      - Filter
+  /auth:
+    post:
+      description: Create auth token
+      body:
+        application/json:
+          type: Credentials
+      responses:
+        200:
+          body:
+            application/json:
+              type: AuthTokenResponse
+        429:
+          body:
+            text/plain:
+              example: Too many requests
+        500:
+          description: Interval server error
+        400:
+          body:
+            application/json:
+    delete:
+      description: Invalidate auth token
+      responses:
+        204:
+          description: Request successfully processed
+        500:
+          description: Interval server error
+        401:
+          description: Invalid auth token
+  /system:
+    /optional:
+      post:
+        description: Creates system token by the requested scopes. If user can't access all the scopes - returns token created by the scopes user can access
+        body:
+          application/json:
+            type: SystemTokenRequest
+        responses:
+          200:
+            body:
+              application/json:
+                type: SystemToken
+          400:
+            body:
+              application/json:
+          429:
+            body:
+              text/plain:
+                example: Too many requests
+          500:
+            description: Interval server error
+          401:
+            description: Invalid auth token
+    /strict:
+      post:
+        description: Creates system token by the requested scopes. If user can't access all the scopes - returns challenge
+        body:
+          application/json:
+            type: SystemTokenRequest
+        responses:
+          200:
+            body:
+              application/json:
+                type: SystemTokenResponse
+          400:
+            body:
+              application/json:
+          429:
+            body:
+              text/plain:
+                example: Too many requests
+          500:
+            description: Interval server error
+          401:
+            description: Invalid auth token

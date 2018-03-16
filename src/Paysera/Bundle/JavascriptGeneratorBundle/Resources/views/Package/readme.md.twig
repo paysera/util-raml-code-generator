@@ -1,24 +1,24 @@
-# {{ js_get_package_name(vendor_prefix, api.name) }}
+# {{ js_get_package_name(vendor_prefix, api) }}
 
-`{{ js_get_package_name(vendor_prefix, api.name) }}` package provides means to interact with {{ vendor_prefix|capitalize }} {{ api.name|capitalize }} REST API.
+`{{ js_get_package_name(vendor_prefix, api) }}` package provides means to interact with {{ vendor_prefix|capitalize }} {{ api.name|capitalize }} REST API.
 Package source code is written in ES6 syntax ant is transpiled to ES5 using babel.
 Additional Angular JS module `{{ js_get_angular_module_name(vendor_prefix, api.name) }}` with `{{ js_get_angular_client_factory_name(vendor_prefix, api.name) }}` service is also provided.
 
 ## Installing
 Using npm:
 ```bash
-$ npm install {{ js_get_package_name(vendor_prefix, api.name) }}
+$ npm install {{ js_get_package_name(vendor_prefix, api) }}
 ```
 
 Using javascript files
 ```html
 <script src="//domain.com/path/to/paysera-http-client-common/dist/lib.js"></script>
-<script src="//domain.com/path/to/{{ js_get_package_name(vendor_prefix, api.name) }}/dist/lib.js"></script>
+<script src="//domain.com/path/to/{{ js_get_package_name(vendor_prefix, api) }}/dist/lib.js"></script>
 ```
 
 # Usage
 ```js
-import { ClientFactory } from '{{ js_get_package_name(vendor_prefix, api.name) }}';
+import { ClientFactory } from '{{ js_get_package_name(vendor_prefix, api) }}';
 
 let factory = ClientFactory.create({
     baseUrl: 'http://sandbox.domain.com/', // optional, custom base url

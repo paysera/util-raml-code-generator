@@ -16,6 +16,21 @@ class AccountClient
     }
 
     /**
+     * Generated JS code
+     * GET /accounts/scripts
+     *
+     * @return string
+     */
+    public function getAccountScripts()
+    {
+        $request = $this->apiClient->createRequest(
+            RequestMethodInterface::METHOD_GET,
+            'accounts/scripts',
+            null
+        );
+        return $this->apiClient->makeRawRequest($request)->getBody()->getContents();
+    }
+    /**
      * Standard SQL-style Result filtering
      * GET /accounts
      *
@@ -33,5 +48,4 @@ class AccountClient
 
         return new Entities\AccountResult($data, 'accounts');
     }
-
 }

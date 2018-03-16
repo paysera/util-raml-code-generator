@@ -1,7 +1,8 @@
-import { RequestFactory } from 'paysera-http-client-common';
+import { RequestFactory, ClientWrapper } from 'paysera-http-client-common';
 
 import AccountResult from '../entity/AccountResult';
 import Account from '../entity/Account';
+import Filter from '../entity/Filter';
 import AccountFilter from '../entity/AccountFilter';
 
 class AccountClient {
@@ -11,6 +12,27 @@ class AccountClient {
      */
     constructor(client) {
         this.client = client;
+    }
+
+    /**
+     * Generated JS code
+     * GET /accounts/scripts
+     *
+     * @return {Promise.<string>}
+     */
+    getAccountScripts() {
+        const request = RequestFactory.create(
+            'GET',
+            'accounts/scripts',
+            null,
+        );
+
+        return this.client
+            .performRequest(request)
+            .then((data) => {
+                return data;
+            })
+        ;
     }
 
     /**

@@ -35,11 +35,21 @@ Now, that you have instance of `AccountClient`, you can use following methods
 ### Methods
 
     
+Generated JS code
+
+
+```php
+
+$result = $accountClient->getAccountScripts();
+```
+---
+
+
 Standard SQL-style Result filtering
 
 
 ```php
-use Paysera\Test\TestClientEntity as Entities;
+use Paysera\Test\TestClient\Entity as Entities;
 
 $accountFilter = new Entities\AccountFilter();
 

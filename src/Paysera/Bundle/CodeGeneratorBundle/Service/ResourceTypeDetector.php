@@ -33,7 +33,7 @@ class ResourceTypeDetector
             && preg_match(self::PATTERN_SINGULAR_RESOURCE, $resource->getUri()) === 0
             && (
                 preg_match(self::PATTERN_WORD_SEPARATOR, $nameParts->getLastPart()->getPartName()) === 0
-                || $this->hasAtLeastSingleNoun($nameParts->getLastPart()->getPartName())
+                || $this->firstWordIsVerb($nameParts->getLastPart()->getPartName())
             )
         ;
     }
@@ -54,16 +54,9 @@ class ResourceTypeDetector
         ;
     }
 
-    private function hasAtLeastSingleNoun($part)
+    private function firstWordIsVerb($part)
     {
         $words = preg_split(self::PATTERN_WORD_SEPARATOR, $part);
-        $nouns = 0;
-        foreach ($words as $word) {
-            if ($this->partOfSpeechResolver->isNoun(Inflector::singularize($word))) {
-                $nouns++;
-            }
-        }
-
-        return count($words) > $nouns && $nouns > 0;
+        return $this->partOfSpeechResolver->isVerb($words[0]);
     }
 }

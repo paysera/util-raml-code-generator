@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Paysera\Bundle\CodeGeneratorBundle\Service;
 
@@ -8,12 +9,22 @@ use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\PropertyDefinition;
 
 class PropertyDefinitionBuilder
 {
-    private $supportedDateTimeTypes = [
-        'datetime',
-        'datetime-only',
-        'date-only',
-        'time-only',
-    ];
+    /**
+     * @var array
+     */
+    private $supportedDateTimeTypes;
+    private $constantBuilder;
+
+    public function __construct(ConstantBuilder $constantBuilder)
+    {
+        $this->constantBuilder = $constantBuilder;
+        $this->supportedDateTimeTypes = [
+            'datetime',
+            'datetime-only',
+            'date-only',
+            'time-only',
+        ];
+    }
 
     public function buildPropertyDefinition(string $name, array $definition)
     {
@@ -35,6 +46,10 @@ class PropertyDefinitionBuilder
                 ->setType(PropertyDefinition::TYPE_REFERENCE)
                 ->setReference(isset($definition['type']) ? $definition['type'] : null)
             ;
+        }
+
+        if (isset($definition['enum'])) {
+            $property->setConstants($this->constantBuilder->build($name, $definition['enum']));
         }
 
         return $property;

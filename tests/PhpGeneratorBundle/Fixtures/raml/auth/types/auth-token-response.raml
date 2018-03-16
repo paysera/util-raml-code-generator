@@ -1,0 +1,17 @@
+#%RAML 1.0 DataType
+type: object
+displayName: Auth Token Response
+properties:
+  type:
+    type: string
+    enum: ["challenge", "auth_token"]
+    required: true
+    description: Type
+  challenge:
+    type: Challenge
+    required: false
+    description: Challenge
+  auth_token:
+    type: AuthToken
+    required: false
+    description: Generated auth token
