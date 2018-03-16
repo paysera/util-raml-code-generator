@@ -1,4 +1,4 @@
-# util-raml-code-generator ![](https://travis-ci.org/paysera/util-raml-code-generator.svg?branch=master)
+# util-raml-code-generator [![Build Status](https://travis-ci.org/paysera/util-raml-code-generator.svg?branch=master)](https://travis-ci.org/paysera/util-raml-code-generator)
 
 util-raml-code generator generates code packages from specified RAML definition
 
