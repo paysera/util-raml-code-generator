@@ -365,7 +365,7 @@ Standard SQL-style Result filtering
 ```php
 use Paysera\Test\TestClient\Entity as Entities;
 
-$ruleFilter = new Entities\ruleFilter();
+$ruleFilter = new Entities\RuleFilter();
 
 $ruleFilter->setLimit($limit);
 $ruleFilter->setOffset($offset);

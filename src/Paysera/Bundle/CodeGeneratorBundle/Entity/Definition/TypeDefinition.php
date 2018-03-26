@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Paysera\Bundle\CodeGeneratorBundle\Entity\Definition;
 
@@ -26,9 +27,15 @@ class TypeDefinition
      */
     private $properties;
 
+    /**
+     * @var bool
+     */
+    private $generatable;
+
     public function __construct()
     {
         $this->properties = [];
+        $this->generatable = true;
     }
 
     /**
@@ -44,7 +51,7 @@ class TypeDefinition
      *
      * @return $this
      */
-    public function setName($name)
+    public function setName(string $name)
     {
         $this->name = $name;
         return $this;
@@ -59,7 +66,7 @@ class TypeDefinition
     }
 
     /**
-     * @param string $type
+     * @param string|null $type
      *
      * @return $this
      */
@@ -72,7 +79,7 @@ class TypeDefinition
     /**
      * @return PropertyDefinition[]
      */
-    public function getProperties()
+    public function getProperties(): array
     {
         return $this->properties;
     }
@@ -93,7 +100,7 @@ class TypeDefinition
      *
      * @return $this
      */
-    public function addProperty($property)
+    public function addProperty(PropertyDefinition $property)
     {
         $this->properties[] = $property;
         return $this;
@@ -108,13 +115,30 @@ class TypeDefinition
     }
 
     /**
-     * @param string $displayName
+     * @param string|null $displayName
      *
      * @return $this
      */
     public function setDisplayName($displayName)
     {
         $this->displayName = $displayName;
+        return $this;
+    }
+
+    public function isGeneratable(): bool
+    {
+        return $this->generatable;
+    }
+
+    /**
+     * @param bool $generatable
+     *
+     * @return $this
+     */
+    public function setGeneratable(bool $generatable)
+    {
+        $this->generatable = $generatable;
+
         return $this;
     }
 }

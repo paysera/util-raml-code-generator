@@ -105,3 +105,21 @@ $result = $categoryClient->createCategory($category);
 ```
 ---
 
+    
+Standard SQL-style Result filtering
+
+
+```php
+use Paysera\Test\TestClient\Entity as Entities;
+
+$filter = new Paysera\Component\RestClientCommon\Entity\Filter();
+
+$filter->setLimit($limit);
+$filter->setOffset($offset);
+$filter->setOrderBy($orderBy);
+$filter->setOrderDirection($orderDirection);
+    
+$categoryClient->getKeywords($filter);
+```
+---
+

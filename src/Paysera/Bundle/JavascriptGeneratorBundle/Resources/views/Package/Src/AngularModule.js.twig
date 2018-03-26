@@ -2,7 +2,9 @@ import angular from 'angular';
 import { TokenProvider, Scope } from 'paysera-http-client-common';
 
 {% for type in api.types %}
+{% if type.isGeneratable %}
 import {{ type.name }} from './entity/{{ type.name }}';
+{% endif %}
 {% endfor %}
 
 {% import _self as macros %}
@@ -25,7 +27,9 @@ import {{ js_get_client_name(api.name) }} from './service/{{ js_get_client_name(
 
 export {
 {% for type in api.types %}
+{% if type.isGeneratable %}
     {{ type.name }},
+{% endif %}
 {% endfor %}
     DateFactory,
     ClientFactory,

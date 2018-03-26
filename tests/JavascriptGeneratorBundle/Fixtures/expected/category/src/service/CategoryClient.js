@@ -2,7 +2,6 @@ import { RequestFactory, ClientWrapper } from 'paysera-http-client-common';
 
 import Category from '../entity/Category';
 import CategoryFilter from '../entity/CategoryFilter';
-import Filter from '../entity/Filter';
 
 class CategoryClient {
 

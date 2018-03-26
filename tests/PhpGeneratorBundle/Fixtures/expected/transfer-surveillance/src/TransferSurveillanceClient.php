@@ -446,10 +446,10 @@ class TransferSurveillanceClient
      * Standard SQL-style Result filtering
      * GET /rules
      *
-     * @param Entities\ruleFilter $ruleFilter
+     * @param Entities\RuleFilter $ruleFilter
      * @return Entities\RulesResult
      */
-    public function getRules(Entities\ruleFilter $ruleFilter)
+    public function getRules(Entities\RuleFilter $ruleFilter)
     {
         $request = $this->apiClient->createRequest(
             RequestMethodInterface::METHOD_GET,
