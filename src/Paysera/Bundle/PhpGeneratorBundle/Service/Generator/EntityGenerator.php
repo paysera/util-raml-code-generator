@@ -24,6 +24,10 @@ class EntityGenerator implements GeneratorInterface
     {
         $items = [];
         foreach ($definition->getTypes() as $type) {
+            if (!$type->isGeneratable()) {
+                continue;
+            }
+
             if ($type instanceof ResultTypeDefinition) {
                 $template = 'PayseraPhpGeneratorBundle:RestClient/Entity:Result.php.twig';
             } elseif ($type instanceof FilterTypeDefinition) {

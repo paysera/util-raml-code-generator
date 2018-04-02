@@ -1,7 +1,9 @@
 import { RequestFactory, ClientWrapper } from 'paysera-http-client-common';
 
 {% for type in api.types %}
+{% if type.isGeneratable %}
 import {{ type.name }} from '../entity/{{ type.name }}';
+{% endif %}
 {% endfor %}
 
 {% import _self as macros %}

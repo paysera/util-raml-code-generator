@@ -20,8 +20,8 @@ types:
   WhitelistsResult: !include types/whitelist-result.raml
 
 traits:
-  filter: !include traits/filter.raml
-  ruleFilter: !include traits/rule-filter.raml
+  Filter: !include traits/filter.raml
+  RuleFilter: !include traits/rule-filter.raml
 
 /transfer:
   /inspection:
@@ -173,7 +173,7 @@ traits:
   get:
     description: Get Rules
     is:
-      - ruleFilter
+      - RuleFilter
     responses:
       200:
         body:

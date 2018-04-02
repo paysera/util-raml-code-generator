@@ -2,9 +2,9 @@
 
 namespace Paysera\Test\TestClient\Entity;
 
-use Paysera\Component\RestClientCommon\Entity\Entity;
+use Paysera\Component\RestClientCommon\Entity\Filter;
 
-class ruleFilter extends Entity
+class RuleFilter extends Filter
 {
     /**
      * @return integer|null

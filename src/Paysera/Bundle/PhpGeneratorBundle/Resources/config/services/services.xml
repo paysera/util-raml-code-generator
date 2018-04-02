@@ -13,5 +13,9 @@
                  class="Paysera\Bundle\CodeGeneratorBundle\Service\Generator\LanguageCodeGenerator">
             <tag name="paysera_code_generator" language="php"/>
         </service>
+
+        <service id="paysera_bundle_php_generator.service.namespace_helper"
+                 class="Paysera\Bundle\PhpGeneratorBundle\Service\NamespaceHelper">
+        </service>
     </services>
 </container>

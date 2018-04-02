@@ -36,17 +36,26 @@ class TypeDefinitionBuilder
         $apiTypes = array_merge($api->getTypes(), $api->getTraits());
 
         $extendsBaseFilter = false;
+        /** @var FilterTypeDefinition[] $filters */
+        $filters = [];
         foreach ($apiTypes as $name => $definition) {
             foreach ($this->builders as $builder) {
                 if ($builder->supports($name, $definition)) {
                     $type = $builder->buildTypeDefinition($name, $definition);
-                    if ($type instanceof FilterTypeDefinition && $type->isBaseFilter()) {
-                        $extendsBaseFilter = true;
-//                        break;
+                    if ($type instanceof FilterTypeDefinition) {
+                        $filters[] = $type;
                     }
                     $types[] = $type;
                     break;
                 }
+            }
+        }
+
+        foreach ($filters as $filter) {
+            if ($filter->isBaseFilter() && count($filters) > 1) {
+                $extendsBaseFilter = true;
+                $filter->setGeneratable(false);
+                break;
             }
         }
 

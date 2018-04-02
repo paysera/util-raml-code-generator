@@ -11,6 +11,7 @@ use Paysera\Bundle\CodeGeneratorBundle\Service\ArgumentsHelper;
 use Paysera\Bundle\CodeGeneratorBundle\Service\BodyResolver;
 use Paysera\Bundle\CodeGeneratorBundle\Service\MethodNameBuilder;
 use Paysera\Bundle\CodeGeneratorBundle\Service\ResourceTypeDetector;
+use Paysera\Bundle\PhpGeneratorBundle\Service\NamespaceHelper;
 use Paysera\Bundle\PhpGeneratorBundle\Service\StringConverter;
 use Paysera\Component\TypeHelper;
 use Raml\Body;
@@ -26,19 +27,22 @@ class ApiMethodExtension extends Twig_Extension
     private $resourceTypeDetector;
     private $argumentsHelper;
     private $bodyResolver;
+    private $namespaceHelper;
 
     public function __construct(
         StringConverter $stringConverter,
         MethodNameBuilder $methodNameBuilder,
         ResourceTypeDetector $resourceTypeDetector,
         ArgumentsHelper $argumentsHelper,
-        BodyResolver $bodyResolver
+        BodyResolver $bodyResolver,
+        NamespaceHelper $namespaceHelper
     ) {
         $this->stringConverter = $stringConverter;
         $this->methodNameBuilder = $methodNameBuilder;
         $this->resourceTypeDetector = $resourceTypeDetector;
         $this->argumentsHelper = $argumentsHelper;
         $this->bodyResolver = $bodyResolver;
+        $this->namespaceHelper = $namespaceHelper;
     }
 
     public function getFunctions()
@@ -190,8 +194,15 @@ class ApiMethodExtension extends Twig_Extension
         foreach ($method->getBodies() as $body) {
             if ($body->getType() !== null && $api->getType($body->getType()) !== null) {
                 $arguments[] = (
-                new ArgumentDefinition(sprintf('$%s', lcfirst($body->getType())))
-                )->setType($body->getType());
+                new ArgumentDefinition(sprintf('$%s', lcfirst($body->getType()))))
+                    ->setType($body->getType())
+                    ->setNamespacedType(
+                        $this->namespaceHelper->buildNamespace(
+                            $body->getType(),
+                            $api->getType($body->getType())
+                        )
+                    )
+                ;
             }
         }
 
@@ -210,8 +221,15 @@ class ApiMethodExtension extends Twig_Extension
         foreach ($method->getTraits() as $trait) {
             if ($api->getType($trait) !== null) {
                 $arguments[] = (
-                    new ArgumentDefinition(sprintf('$%s', lcfirst($trait)))
-                )->setType($trait);
+                    new ArgumentDefinition(sprintf('$%s', lcfirst($trait))))
+                        ->setType($trait)
+                        ->setNamespacedType(
+                            $this->namespaceHelper->buildNamespace(
+                                $trait,
+                                $api->getType($trait)
+                            )
+                        )
+                    ;
             }
         }
 
@@ -227,10 +245,12 @@ class ApiMethodExtension extends Twig_Extension
         $arguments = [];
         if (preg_match_all(ResourcePatterns::PATTERN_IDENTIFIER_RESOURCE, $uri, $matches) !== false) {
             foreach ($matches[1] as $match) {
-                $arguments[] = new ArgumentDefinition(sprintf(
+                $arguments[] = (new ArgumentDefinition(sprintf(
                     '$%s',
                     $this->stringConverter->convertSlugToVariableName($match)
-                ));
+                )))->setNamespacedType(
+                    $this->namespaceHelper->buildNamespace(ArgumentDefinition::TYPE_DEFAULT)
+                );
             }
         }
 

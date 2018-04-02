@@ -5,7 +5,6 @@ namespace Paysera\Bundle\CodeGeneratorBundle\Entity\Definition;
 class ArgumentDefinition
 {
     const TYPE_DEFAULT = 'string';
-    const NAMESPACE_PREFIX = 'Entities\\';
 
     /**
      * @var string
@@ -16,6 +15,11 @@ class ArgumentDefinition
      * @var string
      */
     private $type;
+
+    /**
+     * @var string
+     */
+    private $namespacedType;
 
     /**
      * @param $name
@@ -69,10 +73,18 @@ class ArgumentDefinition
      */
     public function getNamespacedType()
     {
-        if ($this->type === self::TYPE_DEFAULT) {
-            return self::TYPE_DEFAULT;
-        }
+        return $this->namespacedType;
+    }
 
-        return self::NAMESPACE_PREFIX . $this->type;
+    /**
+     * @param string $namespacedType
+     *
+     * @return $this
+     */
+    public function setNamespacedType($namespacedType)
+    {
+        $this->namespacedType = $namespacedType;
+
+        return $this;
     }
 }
