@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "9057e51e0115967e870631acd335fb5a",
+    "content-hash": "d80dfe851b1db2e9d17453c97d36e688",
     "packages": [
         {
             "name": "composer/ca-bundle",
@@ -933,17 +933,17 @@
             "time": "2017-03-13T16:27:32+00:00"
         },
         {
-            "name": "paysera/alecsammon-php-raml-parser",
-            "version": "2.5.1",
+            "name": "paysera/fork-alecsammon-php-raml-parser",
+            "version": "2.5.2",
             "source": {
                 "type": "git",
-                "url": "https://github.com/paysera/php-raml-parser.git",
-                "reference": "b081cf415d36cb991d7df442f85f4a792a17c8a0"
+                "url": "https://github.com/paysera/fork-alecsammon-php-raml-parser.git",
+                "reference": "fcabb974c88ac4b560914e74c898ea3acb40e954"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/paysera/php-raml-parser/zipball/b081cf415d36cb991d7df442f85f4a792a17c8a0",
-                "reference": "b081cf415d36cb991d7df442f85f4a792a17c8a0",
+                "url": "https://api.github.com/repos/paysera/fork-alecsammon-php-raml-parser/zipball/fcabb974c88ac4b560914e74c898ea3acb40e954",
+                "reference": "fcabb974c88ac4b560914e74c898ea3acb40e954",
                 "shasum": ""
             },
             "require": {
@@ -953,6 +953,9 @@
                 "psr/http-message": "^1.0",
                 "symfony/routing": "~3.0",
                 "symfony/yaml": "~3.0"
+            },
+            "replace": {
+                "paysera/alecsammon-php-raml-parser": "self.version"
             },
             "require-dev": {
                 "phpunit/phpunit": "4.*",
@@ -973,11 +976,14 @@
                 {
                     "name": "Alec Sammon",
                     "email": "alec.sammon@googlemail.com"
+                },
+                {
+                    "name": "Paysera LT"
                 }
             ],
             "description": "A RAML parser built in php",
-            "homepage": "https://github.com/alecsammon/php-raml-parser",
-            "time": "2017-06-09T17:38:02+00:00"
+            "homepage": "https://github.com/paysera/fork-alecsammon-php-raml-parser",
+            "time": "2018-04-02T09:17:04+00:00"
         },
         {
             "name": "paysera/lib-dependency-injection",
@@ -3872,7 +3878,8 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=7.0"
+        "php": ">=7.0",
+        "ext-sqlite3": "*"
     },
     "platform-dev": []
 }
