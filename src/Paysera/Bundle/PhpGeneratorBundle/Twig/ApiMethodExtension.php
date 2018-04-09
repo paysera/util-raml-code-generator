@@ -73,12 +73,14 @@ class ApiMethodExtension extends Twig_Extension
             return 'null';
         }
 
+        $bodyType = $body->getType()->getName();
+
         if ($body->getType() !== null) {
-            if ($api->getType($body->getType()) !== null) {
-                return sprintf('Entities\%s', $body->getType());
+            if ($api->getType($bodyType) !== null) {
+                return sprintf('Entities\%s', $bodyType);
             }
-            if (TypeHelper::isPrimitiveType($body->getType())) {
-                return $body->getType();
+            if (TypeHelper::isPrimitiveType($bodyType)) {
+                return $bodyType;
             }
         }
 
@@ -170,12 +172,14 @@ class ApiMethodExtension extends Twig_Extension
             return 'null;';
         }
 
-        if ($body->getType() !== null && $api->getType($body->getType()) !== null) {
-            $type = $api->getType($body->getType());
+        $bodyType = $body->getType()->getName();
+
+        if ($body->getType() !== null && $api->getType($bodyType) !== null) {
+            $type = $api->getType($bodyType);
             if ($type instanceof ResultTypeDefinition) {
-                return sprintf('new Entities\%s($data, \'%s\');', $body->getType(), $type->getDataKey());
+                return sprintf('new Entities\%s($data, \'%s\');', $bodyType, $type->getDataKey());
             }
-            return sprintf('new Entities\%s($data);', $body->getType());
+            return sprintf('new Entities\%s($data);', $bodyType);
         }
 
         return 'null;';
@@ -192,14 +196,15 @@ class ApiMethodExtension extends Twig_Extension
 
         /** @var Body $body */
         foreach ($method->getBodies() as $body) {
-            if ($body->getType() !== null && $api->getType($body->getType()) !== null) {
+            $bodyType = $body->getType()->getName();
+            if ($body->getType() !== null && $api->getType($bodyType) !== null) {
                 $arguments[] = (
-                new ArgumentDefinition(sprintf('$%s', lcfirst($body->getType()))))
-                    ->setType($body->getType())
+                new ArgumentDefinition(sprintf('$%s', lcfirst($bodyType))))
+                    ->setType($bodyType)
                     ->setNamespacedType(
                         $this->namespaceHelper->buildNamespace(
-                            $body->getType(),
-                            $api->getType($body->getType())
+                            $bodyType,
+                            $api->getType($bodyType)
                         )
                     )
                 ;
@@ -219,14 +224,15 @@ class ApiMethodExtension extends Twig_Extension
     {
         $arguments = [];
         foreach ($method->getTraits() as $trait) {
-            if ($api->getType($trait) !== null) {
+            $traitName = $trait->getName();
+            if ($api->getType($traitName) !== null) {
                 $arguments[] = (
-                    new ArgumentDefinition(sprintf('$%s', lcfirst($trait))))
-                        ->setType($trait)
+                    new ArgumentDefinition(sprintf('$%s', lcfirst($traitName))))
+                        ->setType($traitName)
                         ->setNamespacedType(
                             $this->namespaceHelper->buildNamespace(
-                                $trait,
-                                $api->getType($trait)
+                                $traitName,
+                                $api->getType($traitName)
                             )
                         )
                     ;

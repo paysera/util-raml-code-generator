@@ -20,7 +20,7 @@ class ClientFactoryGenerator implements GeneratorInterface
 
     public function generate(ApiDefinition $definition) : array
     {
-        $baseUrl = $definition->getRamlDefinition()->getBaseUrl();
+        $baseUrl = $definition->getRamlDefinition()->getBaseUri();
 
         $code = $this->twig->render(
             'PayseraPhpGeneratorBundle:RestClient/:Client/ClientFactory.php.twig',

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "d80dfe851b1db2e9d17453c97d36e688",
+    "content-hash": "7c4ef8e91f7eacb2c4d4d692f35e6cc7",
     "packages": [
         {
             "name": "composer/ca-bundle",
@@ -536,6 +536,60 @@
             "time": "2014-09-09T13:34:57+00:00"
         },
         {
+            "name": "elama/php-raml-parser",
+            "version": "3.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/paysera/fork-elama-php-raml-parser.git",
+                "reference": "5cce243899a79e9cdb4ac169729d298727019698"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/paysera/fork-elama-php-raml-parser/zipball/5cce243899a79e9cdb4ac169729d298727019698",
+                "reference": "5cce243899a79e9cdb4ac169729d298727019698",
+                "shasum": ""
+            },
+            "require": {
+                "justinrainbow/json-schema": "5.1.*",
+                "oodle/inflect": "~0.2",
+                "php": ">=5.5.9",
+                "psr/http-message": "^1.0",
+                "symfony/routing": "~3.0",
+                "symfony/yaml": "~3.0",
+                "willdurand/negotiation": "^2.2"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "4.*",
+                "satooshi/php-coveralls": "~0.6",
+                "squizlabs/php_codesniffer": "@dev"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Raml\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "eLama Team",
+                    "email": "dev@elama.ru"
+                },
+                {
+                    "name": "Alec Sammon",
+                    "email": "alec.sammon@googlemail.com"
+                }
+            ],
+            "description": "A RAML parser built in php",
+            "homepage": "https://github.com/alecsammon/php-raml-parser",
+            "support": {
+                "source": "https://github.com/paysera/fork-elama-php-raml-parser/tree/3.2.0"
+            },
+            "time": "2018-04-09T13:15:24+00:00"
+        },
+        {
             "name": "fig/http-message-util",
             "version": "1.1.2",
             "source": {
@@ -692,25 +746,25 @@
         },
         {
             "name": "justinrainbow/json-schema",
-            "version": "1.6.1",
+            "version": "5.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/justinrainbow/json-schema.git",
-                "reference": "cc84765fb7317f6b07bd8ac78364747f95b86341"
+                "reference": "48817e5f95c9d29e11513f12e43cc0223fa5eb6c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/justinrainbow/json-schema/zipball/cc84765fb7317f6b07bd8ac78364747f95b86341",
-                "reference": "cc84765fb7317f6b07bd8ac78364747f95b86341",
+                "url": "https://api.github.com/repos/justinrainbow/json-schema/zipball/48817e5f95c9d29e11513f12e43cc0223fa5eb6c",
+                "reference": "48817e5f95c9d29e11513f12e43cc0223fa5eb6c",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.29"
+                "php": ">=5.3.3"
             },
             "require-dev": {
-                "json-schema/json-schema-test-suite": "1.1.0",
+                "json-schema/json-schema-test-suite": "1.2.0",
                 "phpdocumentor/phpdocumentor": "~2",
-                "phpunit/phpunit": "~3.7"
+                "phpunit/phpunit": "^4.8.22"
             },
             "bin": [
                 "bin/validate-json"
@@ -718,7 +772,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.6.x-dev"
+                    "dev-master": "5.0.x-dev"
                 }
             },
             "autoload": {
@@ -728,7 +782,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "BSD-3-Clause"
+                "MIT"
             ],
             "authors": [
                 {
@@ -754,7 +808,7 @@
                 "json",
                 "schema"
             ],
-            "time": "2016-01-25T15:43:01+00:00"
+            "time": "2017-02-22T03:28:16+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -931,59 +985,6 @@
                 "random"
             ],
             "time": "2017-03-13T16:27:32+00:00"
-        },
-        {
-            "name": "paysera/fork-alecsammon-php-raml-parser",
-            "version": "2.5.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/paysera/fork-alecsammon-php-raml-parser.git",
-                "reference": "fcabb974c88ac4b560914e74c898ea3acb40e954"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/paysera/fork-alecsammon-php-raml-parser/zipball/fcabb974c88ac4b560914e74c898ea3acb40e954",
-                "reference": "fcabb974c88ac4b560914e74c898ea3acb40e954",
-                "shasum": ""
-            },
-            "require": {
-                "justinrainbow/json-schema": "~1.5",
-                "oodle/inflect": "~0.2",
-                "php": ">=5.5.9",
-                "psr/http-message": "^1.0",
-                "symfony/routing": "~3.0",
-                "symfony/yaml": "~3.0"
-            },
-            "replace": {
-                "paysera/alecsammon-php-raml-parser": "self.version"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "4.*",
-                "satooshi/php-coveralls": "~0.6",
-                "squizlabs/php_codesniffer": "@dev"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Raml\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Alec Sammon",
-                    "email": "alec.sammon@googlemail.com"
-                },
-                {
-                    "name": "Paysera LT"
-                }
-            ],
-            "description": "A RAML parser built in php",
-            "homepage": "https://github.com/paysera/fork-alecsammon-php-raml-parser",
-            "time": "2018-04-02T09:17:04+00:00"
         },
         {
             "name": "paysera/lib-dependency-injection",
@@ -2086,6 +2087,58 @@
                 "templating"
             ],
             "time": "2017-07-04T13:19:31+00:00"
+        },
+        {
+            "name": "willdurand/negotiation",
+            "version": "v2.3.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/willdurand/Negotiation.git",
+                "reference": "03436ededa67c6e83b9b12defac15384cb399dc9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/willdurand/Negotiation/zipball/03436ededa67c6e83b9b12defac15384cb399dc9",
+                "reference": "03436ededa67c6e83b9b12defac15384cb399dc9",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.5"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.3-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Negotiation\\": "src/Negotiation"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "William Durand",
+                    "email": "will+git@drnd.me"
+                }
+            ],
+            "description": "Content Negotiation tools for PHP provided as a standalone library.",
+            "homepage": "http://williamdurand.fr/Negotiation/",
+            "keywords": [
+                "accept",
+                "content",
+                "format",
+                "header",
+                "negotiation"
+            ],
+            "time": "2017-05-14T17:21:12+00:00"
         }
     ],
     "packages-dev": [

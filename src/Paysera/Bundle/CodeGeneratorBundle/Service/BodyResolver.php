@@ -4,9 +4,9 @@ namespace Paysera\Bundle\CodeGeneratorBundle\Service;
 
 use Exception;
 use Fig\Http\Message\StatusCodeInterface;
-use Paysera\Component\TypeHelper;
 use Raml\Body;
 use Raml\Method;
+use Raml\Types\StringType;
 
 class BodyResolver
 {
@@ -27,14 +27,14 @@ class BodyResolver
         }
 
         try {
-            return $okResponse->getBodyByType(self::BODY_JSON);
+            $body = $okResponse->getBodyByType(self::BODY_JSON);
         } catch (Exception $exception) {
             /** @var Body $body */
             $body = $okResponse->getBodyByType(self::BODY_JAVASCRIPT);
-            $body->setType(TypeHelper::TYPE_STRING);
-
-            return $body;
+            $body->setType(new StringType('string'));
         }
+
+        return $body;
     }
 
     public function isRawResponse(Method $method)

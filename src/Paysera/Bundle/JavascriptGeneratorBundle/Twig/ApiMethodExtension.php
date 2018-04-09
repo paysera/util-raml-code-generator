@@ -134,12 +134,14 @@ class ApiMethodExtension extends Twig_Extension
             return 'null;';
         }
 
-        if ($body->getType() !== null && $api->getType($body->getType()) !== null) {
-            $type = $api->getType($body->getType());
+        $bodyType = $body->getType()->getName();
+
+        if ($body->getType() !== null && $api->getType($bodyType) !== null) {
+            $type = $api->getType($bodyType);
             if ($type instanceof ResultTypeDefinition) {
-                return sprintf('new %s(data, \'%s\');', $body->getType(), $type->getDataKey());
+                return sprintf('new %s(data, \'%s\');', $bodyType, $type->getDataKey());
             }
-            return sprintf('new %s(data);', $body->getType());
+            return sprintf('new %s(data);', $bodyType);
         }
 
         return 'null;';
@@ -153,12 +155,14 @@ class ApiMethodExtension extends Twig_Extension
             return 'null';
         }
 
+        $bodyType = $body->getType()->getName();
+
         if ($body->getType() !== null) {
-            if ($api->getType($body->getType()) !== null) {
-                return $body->getType();
+            if ($api->getType($bodyType) !== null) {
+                return $bodyType;
             }
-            if (TypeHelper::isPrimitiveType($body->getType())) {
-                return $body->getType();
+            if (TypeHelper::isPrimitiveType($bodyType)) {
+                return $bodyType;
             }
         }
 
@@ -222,9 +226,10 @@ class ApiMethodExtension extends Twig_Extension
 
         /** @var Body $body */
         foreach ($method->getBodies() as $body) {
-            if ($body->getType() !== null && $api->getType($body->getType()) !== null) {
-                $arguments[] = (new ArgumentDefinition(sprintf('%s', lcfirst($body->getType()))))
-                    ->setType($body->getType());
+            $bodyType = $body->getType()->getName();
+            if ($body->getType() !== null && $api->getType($bodyType) !== null) {
+                $arguments[] = (new ArgumentDefinition(sprintf('%s', lcfirst($bodyType))))
+                    ->setType($bodyType);
             }
         }
 
@@ -241,9 +246,10 @@ class ApiMethodExtension extends Twig_Extension
     {
         $arguments = [];
         foreach ($method->getTraits() as $trait) {
-            if ($api->getType($trait) !== null) {
+            $traitType = $trait->getName();
+            if ($api->getType($traitType) !== null) {
                 $arguments[] = (
-                new ArgumentDefinition(sprintf('%s', lcfirst($trait))))->setType($trait);
+                new ArgumentDefinition(sprintf('%s', lcfirst($traitType))))->setType($traitType);
             }
         }
 

@@ -20,14 +20,20 @@
             "vendor/symfony/symfony/src/Symfony/Component/VarDumper/Resources/functions/dump.php"
         ]
     },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/paysera/fork-elama-php-raml-parser"
+        }
+    ],
     "require": {
         "php": ">=7.0",
         "ext-sqlite3": "*",
         "doctrine/dbal": "^2.5",
         "doctrine/inflector": "^1.1",
+        "elama/php-raml-parser": "^3.2",
         "fig/http-message-util": "^1.0",
         "incenteev/composer-parameter-handler": "^2.0",
-        "paysera/fork-alecsammon-php-raml-parser": "^2.5",
         "paysera/lib-dependency-injection": "^1.0",
         "sensio/distribution-bundle": "^5.0.19",
         "sensio/framework-extra-bundle": "^3.0.2",

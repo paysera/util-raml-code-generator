@@ -33,7 +33,7 @@ class TypeDefinitionBuilder
     public function buildTypeDefinitions(ApiDefinition $api)
     {
         $types = [];
-        $apiTypes = array_merge($api->getTypes(), $api->getTraits());
+        $apiTypes = array_merge($api->getTypes()->toArray(), $api->getTraits()->toArray());
 
         $extendsBaseFilter = false;
         /** @var FilterTypeDefinition[] $filters */

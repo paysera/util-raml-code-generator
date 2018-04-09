@@ -179,7 +179,6 @@ traits:
         body:
           application/json:
             type: RulesResult
-            example: !include examples/rules-result-example.json
       400:
         body:
           application/json:
@@ -193,13 +192,11 @@ traits:
     body:
       application/json:
         type: Rule
-        example: !include examples/rule-request-example.json
     responses:
       200:
         body:
           application/json:
             type: Rule
-            example: !include examples/rule-response-example.json
       400:
         body:
           application/json:
@@ -221,7 +218,6 @@ traits:
           body:
             application/json:
               type: Rule
-              example: !include examples/rule-response-example.json
         404:
           body:
             application/json:
@@ -235,13 +231,11 @@ traits:
       body:
         application/json:
           type: Rule
-          example: !include examples/rule-request-example.json
       responses:
         200:
           body:
             application/json:
               type: Rule
-              example: !include examples/rule-response-example.json
         404:
           body:
             application/json:
@@ -322,7 +316,6 @@ traits:
               body:
                 application/json:
                   type: Whitelist
-                  example: !include examples/whitelist.json
         put:
           description: Update whitelist
           body:
@@ -333,7 +326,6 @@ traits:
               body:
                 application/json:
                   type: Whitelist
-                  example: !include examples/whitelist.json
         delete:
           description: Delete a whitelist
           responses:
@@ -347,7 +339,6 @@ traits:
                 body:
                   application/json:
                     type: Whitelist
-                    example: !include examples/whitelist.json
           put:
             description: Update whitelist
             body:
@@ -358,4 +349,3 @@ traits:
                 body:
                   application/json:
                     type: Whitelist
-                    example: !include examples/whitelist.json

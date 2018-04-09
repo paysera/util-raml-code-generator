@@ -9,6 +9,7 @@ use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\PropertyDefinition;
 use Paysera\Bundle\CodeGeneratorBundle\Exception\UnrecognizedTypeException;
 use Raml\Body;
 use Raml\Resource;
+use Raml\Types\LazyProxyType;
 
 class DefinitionValidator
 {
@@ -35,14 +36,25 @@ class DefinitionValidator
     {
         foreach ($resource->getMethods() as $method) {
             foreach ($method->getResponses() as $response) {
+                if ($response->getStatusCode() !== 200) {
+                    continue;
+                }
                 foreach ($response->getBodies() as $body) {
-                    if ($body instanceof Body && $body->getType() !== null) {
+                    if (
+                        $body instanceof Body
+                        && $body->getType() !== null
+                        && $body->getMediaType() === BodyResolver::BODY_JSON
+                    ) {
                         $this->validateType($body->getType(), $api);
                     }
                 }
             }
             foreach ($method->getBodies() as $body) {
-                if ($body instanceof Body && $body->getType() !== null) {
+                if (
+                    $body instanceof Body
+                    && $body->getType() !== null
+                    && $body->getMediaType() === BodyResolver::BODY_JSON
+                ) {
                     $this->validateType($body->getType(), $api);
                 }
             }
@@ -55,6 +67,10 @@ class DefinitionValidator
 
     private function validateType($type, ApiDefinition $api)
     {
+        if ($type instanceof LazyProxyType) {
+            $type = $type->getResolvedObject()->getName();
+        }
+
         if (
             !in_array($type, PropertyDefinition::getSimpleTypes(), true)
             && $api->getType($type) === null
