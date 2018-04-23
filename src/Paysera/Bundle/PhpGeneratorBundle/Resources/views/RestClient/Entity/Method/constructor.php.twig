@@ -1,0 +1,6 @@
+    public function __construct(array $data = [])
+    {
+        parent::__construct($data);
+    {% if is_discriminated(type) %}
+    $this->set{{ type.parent.discriminatorKey|capitalize }}(self::{{ get_constant_name(type.parent.discriminatorKey, type.discriminatorValue) }});
+    {% endif -%}}

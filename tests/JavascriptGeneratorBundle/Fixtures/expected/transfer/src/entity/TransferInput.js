@@ -10,6 +10,9 @@ import TransferPassword34 from '../entity/TransferPassword34';
 import DateFactory from '../service/DateFactory';
 
 class TransferInput extends Entity {
+    constructor(data = []) {
+        super(data);
+    }
 
     /**
      * @return {Money}

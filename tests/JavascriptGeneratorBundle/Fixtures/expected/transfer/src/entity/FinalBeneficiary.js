@@ -4,6 +4,9 @@ import Identifiers from '../entity/Identifiers';
 import DateFactory from '../service/DateFactory';
 
 class FinalBeneficiary extends Entity {
+    constructor(data = []) {
+        super(data);
+    }
 
     /**
      * @return {string}|null

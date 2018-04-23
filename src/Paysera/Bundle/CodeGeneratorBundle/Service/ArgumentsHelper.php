@@ -33,10 +33,10 @@ class ArgumentsHelper
 
     /**
      * @param ArgumentDefinition[] $arguments
-     * @return string
+     * @return string|null
      * @throws InvalidDefinitionException
      */
-    public function resolveArgumentName(array $arguments): string
+    public function resolveArgumentName(array $arguments)
     {
         $containsBaseFilter = false;
         foreach ($arguments as $argument) {
@@ -71,6 +71,6 @@ class ArgumentsHelper
             return reset($arguments)->getName();
         }
 
-        return 'null';
+        return null;
     }
 }

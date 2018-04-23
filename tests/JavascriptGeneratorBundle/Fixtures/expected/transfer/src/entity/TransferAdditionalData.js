@@ -5,6 +5,9 @@ import Money from '../entity/Money';
 import DateFactory from '../service/DateFactory';
 
 class TransferAdditionalData extends Entity {
+    constructor(data = []) {
+        super(data);
+    }
 
     /**
      * @return {Date}|null

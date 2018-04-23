@@ -19,6 +19,11 @@ class TransferOutput extends Entity
     const STATUS_REVOKED = 'revoked';
     const STATUS_FAILED = 'failed';
 
+    public function __construct(array $data = [])
+    {
+        parent::__construct($data);
+    }
+
     /**
      * @return string
      */

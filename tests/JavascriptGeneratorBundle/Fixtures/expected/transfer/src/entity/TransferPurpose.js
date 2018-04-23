@@ -4,6 +4,9 @@ import DetailsOptions from '../entity/DetailsOptions';
 import DateFactory from '../service/DateFactory';
 
 class TransferPurpose extends Entity {
+    constructor(data = []) {
+        super(data);
+    }
 
     /**
      * @return {string}|null

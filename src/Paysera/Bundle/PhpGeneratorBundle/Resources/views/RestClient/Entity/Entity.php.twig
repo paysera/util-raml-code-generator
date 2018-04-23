@@ -1,10 +1,12 @@
 <?php
 
 namespace {{ api.namespace }}\Entity;
+{% if not is_discriminated(type) %}
 
 use Paysera\Component\RestClientCommon\Entity\Entity;
+{% endif %}
 
-class {{ type.name }} extends Entity
+class {{ type.name }} extends {{ get_parent_class(type) }}
 {
 {% set constantsExists = false %}
 {%- for properties in type.properties -%}
@@ -16,8 +18,10 @@ class {{ type.name }} extends Entity
 {% if constantsExists %}
 
 {% endif %}
+{% include '@PayseraPhpGenerator/RestClient/Entity/Method/constructor.php.twig' with { 'type': type } only %}
+
 {% for property in type.properties %}
-    {%- include '@PayseraPhpGenerator/RestClient/Entity/Property/getter.php.twig' with { 'property': property } only -%}
-    {%- include '@PayseraPhpGenerator/RestClient/Entity/Property/setter.php.twig' with { 'property': property } only -%}
+    {%- include '@PayseraPhpGenerator/RestClient/Entity/Method/getter.php.twig' with { 'property': property } only -%}
+    {%- include '@PayseraPhpGenerator/RestClient/Entity/Method/setter.php.twig' with { 'property': property } only -%}
 {% endfor %}
 }

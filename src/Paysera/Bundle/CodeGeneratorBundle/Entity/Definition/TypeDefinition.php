@@ -5,8 +5,6 @@ namespace Paysera\Bundle\CodeGeneratorBundle\Entity\Definition;
 
 class TypeDefinition
 {
-    const TYPE_OBJECT = 'object';
-
     /**
      * @var string
      */
@@ -32,10 +30,31 @@ class TypeDefinition
      */
     private $generatable;
 
+    /**
+     * @var TypeDefinition|null
+     */
+    private $parent;
+
+    /**
+     * @var array
+     */
+    private $data;
+
+    /**
+     * @var string
+     */
+    private $discriminatorKey;
+
+    /**
+     * @var string
+     */
+    private $discriminatorValue;
+
     public function __construct()
     {
         $this->properties = [];
         $this->generatable = true;
+        $this->data = [];
     }
 
     /**
@@ -51,7 +70,7 @@ class TypeDefinition
      *
      * @return $this
      */
-    public function setName(string $name)
+    public function setName($name)
     {
         $this->name = $name;
         return $this;
@@ -79,7 +98,7 @@ class TypeDefinition
     /**
      * @return PropertyDefinition[]
      */
-    public function getProperties(): array
+    public function getProperties()
     {
         return $this->properties;
     }
@@ -100,7 +119,7 @@ class TypeDefinition
      *
      * @return $this
      */
-    public function addProperty(PropertyDefinition $property)
+    public function addProperty($property)
     {
         $this->properties[] = $property;
         return $this;
@@ -125,7 +144,7 @@ class TypeDefinition
         return $this;
     }
 
-    public function isGeneratable(): bool
+    public function isGeneratable()
     {
         return $this->generatable;
     }
@@ -135,10 +154,86 @@ class TypeDefinition
      *
      * @return $this
      */
-    public function setGeneratable(bool $generatable)
+    public function setGeneratable($generatable)
     {
         $this->generatable = $generatable;
 
+        return $this;
+    }
+
+    /**
+     * @return null|TypeDefinition
+     */
+    public function getParent()
+    {
+        return $this->parent;
+    }
+
+    /**
+     * @param null|TypeDefinition $parent
+     *
+     * @return $this
+     */
+    public function setParent($parent)
+    {
+        $this->parent = $parent;
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getData()
+    {
+        return $this->data;
+    }
+
+    /**
+     * @param array $data
+     *
+     * @return $this
+     */
+    public function setData($data)
+    {
+        $this->data = $data;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDiscriminatorKey()
+    {
+        return $this->discriminatorKey;
+    }
+
+    /**
+     * @param string $discriminatorKey
+     *
+     * @return $this
+     */
+    public function setDiscriminatorKey($discriminatorKey)
+    {
+        $this->discriminatorKey = $discriminatorKey;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDiscriminatorValue()
+    {
+        return $this->discriminatorValue;
+    }
+
+    /**
+     * @param string $discriminatorValue
+     *
+     * @return $this
+     */
+    public function setDiscriminatorValue($discriminatorValue)
+    {
+        $this->discriminatorValue = $discriminatorValue;
         return $this;
     }
 }

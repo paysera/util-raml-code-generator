@@ -9,6 +9,11 @@ class AuthTokenResponse extends Entity
     const TYPE_CHALLENGE = 'challenge';
     const TYPE_AUTH_TOKEN = 'auth_token';
 
+    public function __construct(array $data = [])
+    {
+        parent::__construct($data);
+    }
+
     /**
      * @return string
      */

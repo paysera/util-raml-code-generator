@@ -13,9 +13,9 @@ class {{ type.name }} extends Entity
 {% endif %}
 {
 {% for property in type.properties %}
-{% include '@PayseraPhpGenerator/RestClient/Entity/Property/getter.php.twig' with { 'property': property } only %}
+{% include '@PayseraPhpGenerator/RestClient/Entity/Method/getter.php.twig' with { 'property': property } only %}
 
-{% include '@PayseraPhpGenerator/RestClient/Entity/Property/setter.php.twig' with { 'property': property } only %}
+{% include '@PayseraPhpGenerator/RestClient/Entity/Method/setter.php.twig' with { 'property': property } only %}
 
 {% endfor %}
 }

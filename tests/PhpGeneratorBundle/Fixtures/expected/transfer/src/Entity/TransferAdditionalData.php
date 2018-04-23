@@ -6,6 +6,11 @@ use Paysera\Component\RestClientCommon\Entity\Entity;
 
 class TransferAdditionalData extends Entity
 {
+    public function __construct(array $data = [])
+    {
+        parent::__construct($data);
+    }
+
     /**
      * @return \DateTimeImmutable|null
      */

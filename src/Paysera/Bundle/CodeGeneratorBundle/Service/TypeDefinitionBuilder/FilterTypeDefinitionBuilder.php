@@ -27,6 +27,7 @@ class FilterTypeDefinitionBuilder implements TypeDefinitionBuilderInterface
             ->setName($name)
             ->setType(isset($definition['type']) ? $definition['type'] : null)
             ->setDisplayName(isset($definition['displayName']) ? $definition['displayName'] : null)
+            ->setData($definition)
         ;
 
         $fields = null;

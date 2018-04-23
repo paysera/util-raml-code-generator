@@ -9,6 +9,11 @@ class TransferPassword34 extends Entity
     const STATUS_PENDING = 'pending';
     const STATUS_UNLOCKED = 'unlocked';
 
+    public function __construct(array $data = [])
+    {
+        parent::__construct($data);
+    }
+
     /**
      * @return string|null
      */

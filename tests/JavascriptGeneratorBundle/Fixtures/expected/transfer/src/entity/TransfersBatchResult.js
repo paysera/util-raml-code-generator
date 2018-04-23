@@ -4,6 +4,9 @@ import TransferOutput from '../entity/TransferOutput';
 import DateFactory from '../service/DateFactory';
 
 class TransfersBatchResult extends Entity {
+    constructor(data = []) {
+        super(data);
+    }
 
     /**
      * @return {Array.<TransferOutput>}

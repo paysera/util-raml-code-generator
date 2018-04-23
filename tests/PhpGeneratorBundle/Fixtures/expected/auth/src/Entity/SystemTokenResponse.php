@@ -9,6 +9,11 @@ class SystemTokenResponse extends Entity
     const TYPE_SCOPE_CHALLENGE = 'scope_challenge';
     const TYPE_SYSTEM_TOKEN = 'system_token';
 
+    public function __construct(array $data = [])
+    {
+        parent::__construct($data);
+    }
+
     /**
      * @return string
      */

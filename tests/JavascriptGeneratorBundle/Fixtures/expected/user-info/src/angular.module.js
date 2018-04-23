@@ -1,0 +1,78 @@
+import angular from 'angular';
+import { TokenProvider, Scope } from 'paysera-http-client-common';
+
+import UserInfo from './entity/UserInfo';
+import Legal from './entity/Legal';
+import Natural from './entity/Natural';
+
+import DateFactory from './service/DateFactory';
+import ClientFactory from './service/ClientFactory';
+import UserInfoClient from './service/UserInfoClient';
+
+export {
+    UserInfo,
+    Legal,
+    Natural,
+    DateFactory,
+    ClientFactory,
+    UserInfoClient,
+};
+
+class AngularClientFactory {
+    constructor($q) {
+        this.$q = $q;
+    }
+
+    /**
+     * @param {object|null} config
+     * @returns {UserInfoClient}
+     */
+    getClient(config) {
+        const factoryConfig = {};
+        let tokenProvider = null;
+
+        if (config && config.scope && config.initialTokenProvider) {
+            tokenProvider = new TokenProvider(
+                new Scope(config.scope),
+                config.initialTokenProvider,
+            );
+        }
+
+        if (config && config.baseUrl) {
+            factoryConfig.baseUrl = config.baseUrl;
+        }
+
+        if (config && config.refreshTokenProvider) {
+            factoryConfig.refreshTokenProvider = config.refreshTokenProvider;
+        }
+
+        return this.wrapQ(
+            ClientFactory.create(factoryConfig).getUserInfoClient(tokenProvider)
+        );
+    }
+
+    /**
+     * @param {UserInfoClient} client
+     * @returns {UserInfoClient}
+     */
+    wrapQ(client) {
+        const getUserInformationOriginal = client.getUserInformation.bind(client);
+        client.getUserInformation = (...args) => {
+            return this.$q.when(getUserInformationOriginal(...args));
+        };
+        const informationUserOriginal = client.informationUser.bind(client);
+        client.informationUser = (...args) => {
+            return this.$q.when(informationUserOriginal(...args));
+        };
+
+        return client;
+    }
+}
+
+AngularClientFactory.$inject = ['$q'];
+
+export default angular
+    .module('vendor.http.user-info', [])
+    .service('vendorHttpUserInfoClientFactory', AngularClientFactory)
+    .name
+;

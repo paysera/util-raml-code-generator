@@ -11,6 +11,11 @@ class TransferPurpose extends Entity
     const CODE_PAYMENT = 'payment';
     const CODE_APP_TRANSFER = 'app_transfer';
 
+    public function __construct(array $data = [])
+    {
+        parent::__construct($data);
+    }
+
     /**
      * @return string|null
      */

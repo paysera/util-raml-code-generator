@@ -1,0 +1,14 @@
+#%RAML 1.0 DataType
+description: User
+discriminator: type
+properties:
+  id:
+    type: string
+    required: false
+  type:
+    type: string
+    enum:
+      - legal
+      - natural
+    required: true
+    description: User's type

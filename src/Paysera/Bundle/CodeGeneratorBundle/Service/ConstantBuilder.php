@@ -23,7 +23,7 @@ class ConstantBuilder
         return $constants;
     }
 
-    private function buildName(string $name, string $value) : string
+    public function buildName(string $name, string $value) : string
     {
         return mb_strtoupper(
             sprintf(

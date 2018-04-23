@@ -1,7 +1,6 @@
 import { Filter } from 'paysera-http-client-common';
 
-class CategoryFilter extends Filter
-{
+class CategoryFilter extends Filter {
 
     /**
      * @return {string}|null

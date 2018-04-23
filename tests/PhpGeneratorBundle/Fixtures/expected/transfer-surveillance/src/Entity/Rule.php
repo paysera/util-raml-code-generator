@@ -14,6 +14,11 @@ class Rule extends Entity
     const STATUS_ENABLED = 'enabled';
     const STATUS_DISABLED = 'disabled';
 
+    public function __construct(array $data = [])
+    {
+        parent::__construct($data);
+    }
+
     /**
      * @return integer|null
      */

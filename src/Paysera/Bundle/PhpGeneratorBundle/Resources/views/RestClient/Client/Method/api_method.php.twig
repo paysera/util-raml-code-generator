@@ -2,24 +2,24 @@
      * {{ method.description|raw }}
      * {{ method.type }} {{ resource.uri|raw }}
      *
-{% set arguments = generate_method_arguments(method, resource, api) %}
+{% set arguments = php_generate_method_arguments(method, resource, api) %}
 {% for argument in arguments %}
-     * @param {{ argument.namespacedType }} {{ argument.name }}
+     * @param {{ argument.namespacedType }} ${{ argument.name }}
 {% endfor %}
-     * @return {{ get_return_type(method, api) }}
+     * @return {{ php_get_return_type(method, api) }}
      */
-    public function {{ generate_method_name(method, resource) }}({{ inline_arguments(arguments) }})
+    public function {{ generate_method_name(method, resource) }}({{ php_inline_arguments(arguments) }})
     {
         $request = $this->apiClient->createRequest(
             RequestMethodInterface::METHOD_{{ method.type }},
-            {{ generate_uri(resource) }},
-            {{ generate_body(method, api) }}
+            {{ php_generate_uri(resource) }},
+            {{ generate_body(method, api) == null ? 'null' : '$' ~ generate_body(method, api) }}
         );
         {% if is_raw_response(method) -%}
         return $this->apiClient->makeRawRequest($request)->getBody()->getContents();
     {% else -%}
         $data = $this->apiClient->makeRequest($request);
 
-        return {{ generate_result_populator(method, api) }}
+        return {{ php_generate_result_populator(method, api) }}
     {% endif -%}
     }

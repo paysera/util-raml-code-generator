@@ -9,6 +9,11 @@ class Category extends Entity
     const STATUS_ACTIVE = 'active';
     const STATUS_INACTIVE = 'inactive';
 
+    public function __construct(array $data = [])
+    {
+        parent::__construct($data);
+    }
+
     /**
      * @return string|null
      */

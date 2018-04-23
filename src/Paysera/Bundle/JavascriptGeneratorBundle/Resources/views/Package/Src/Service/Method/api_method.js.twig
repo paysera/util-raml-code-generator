@@ -2,23 +2,23 @@
      * {{ method.description|raw }}
      * {{ method.type }} {{ resource.uri|raw }}
      *
-     {% set arguments = js_generate_method_arguments(method, resource, api) %}
+     {% set arguments = generate_method_arguments(method, resource, api) %}
      {%- for argument in arguments -%}
      * @param {{ '{%s}'|format(argument.type)|raw }} {{ argument.name }}
      {% endfor -%}
      * @return {Promise.<{{ js_get_return_type(method, api) }}>}
      */
-    {{ js_generate_method_name(method, resource) }}({{ js_inline_arguments(arguments)|raw }}) {
+    {{ generate_method_name(method, resource) }}({{ get_argument_names(arguments)|join(', ')|raw }}) {
         const request = RequestFactory.create(
             '{{ method.type }}',
             '{{ js_generate_uri(resource)|raw }}',
-            {{ js_generate_body(method, api) }},
+            {{ generate_body(method, api) == null ? 'null' : generate_body(method, api) }},
         );
 
         return this.client
             .performRequest(request)
             .then((data) => {
-                {% if js_is_raw_response(method) -%}
+                {% if is_raw_response(method) -%}
                 return data;
             {% else -%}
                 return {{ js_generate_result_populator(method, api)|raw }}

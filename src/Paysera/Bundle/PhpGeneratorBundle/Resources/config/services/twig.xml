@@ -7,13 +7,9 @@
     <services>
         <service id="paysera_php_generator.twig_extension.api_method"
                  class="Paysera\Bundle\PhpGeneratorBundle\Twig\ApiMethodExtension">
-            <argument type="service" id="paysera_php_generator.string_converter"/>
-            <argument type="service" id="paysera_code_generator.method_name_builder"/>
-            <argument type="service" id="paysera_code_generator.resource_type_detector"/>
-            <argument type="service" id="paysera_code_generator.arguments_helper"/>
             <argument type="service" id="paysera_code_generator.body_resolver"/>
+            <argument type="service" id="paysera_code_generator.twig_extension.base"/>
             <argument type="service" id="paysera_bundle_php_generator.service.namespace_helper"/>
-
             <tag name="twig.extension"/>
         </service>
 

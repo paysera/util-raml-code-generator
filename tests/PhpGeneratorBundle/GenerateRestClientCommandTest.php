@@ -71,6 +71,7 @@ class GenerateRestClientCommandTest extends KernelTestCase
             ['transfer'],
             ['transfer-surveillance'],
             ['auth'],
+            ['user-info'],
         ];
     }
 

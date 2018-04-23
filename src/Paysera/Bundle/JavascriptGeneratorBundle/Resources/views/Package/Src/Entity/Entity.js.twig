@@ -5,11 +5,12 @@ import {{ type.name }} from '../entity/{{ type.name }}';
 {% endfor %}
 import DateFactory from '../service/DateFactory';
 
-class {{ type.name }} extends Entity {
+class {{ type.name }} extends {{ get_parent_class(type) }} {
+{% include '@PayseraJavascriptGenerator/Package/Src/Entity/Method/constructor.js.twig' with { 'type': type } only %}
 {% for property in type.properties %}
-    {%- include '@PayseraJavascriptGenerator/Package/Src/Entity/Property/getter.js.twig' with { 'property': property } only -%}
+    {%- include '@PayseraJavascriptGenerator/Package/Src/Entity/Method/getter.js.twig' with { 'property': property } only -%}
 
-    {%- include '@PayseraJavascriptGenerator/Package/Src/Entity/Property/setter.js.twig' with { 'property': property } only -%}
+    {%- include '@PayseraJavascriptGenerator/Package/Src/Entity/Method/setter.js.twig' with { 'property': property } only -%}
 {% endfor %}
 }
 

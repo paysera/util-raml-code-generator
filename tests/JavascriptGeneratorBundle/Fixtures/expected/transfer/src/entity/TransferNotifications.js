@@ -4,6 +4,9 @@ import TransferNotifcation from '../entity/TransferNotifcation';
 import DateFactory from '../service/DateFactory';
 
 class TransferNotifications extends Entity {
+    constructor(data = []) {
+        super(data);
+    }
 
     /**
      * @return {TransferNotifcation}|null

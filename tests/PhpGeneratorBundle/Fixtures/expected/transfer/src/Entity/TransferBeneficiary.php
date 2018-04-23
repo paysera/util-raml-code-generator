@@ -14,6 +14,11 @@ class TransferBeneficiary extends Entity
     const PERSON_TYPE_NATURAL = 'natural';
     const PERSON_TYPE_LEGAL = 'legal';
 
+    public function __construct(array $data = [])
+    {
+        parent::__construct($data);
+    }
+
     /**
      * @return string
      */

@@ -5,6 +5,7 @@ namespace Paysera\Bundle\CodeGeneratorBundle\Service;
 use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\FilterTypeDefinition;
 use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\TypeDefinition;
 use Paysera\Bundle\CodeGeneratorBundle\Service\TypeDefinitionBuilder\TypeDefinitionBuilderInterface;
+use Paysera\Component\TypeHelper;
 use Raml\ApiDefinition;
 
 class TypeDefinitionBuilder
@@ -32,12 +33,13 @@ class TypeDefinitionBuilder
      */
     public function buildTypeDefinitions(ApiDefinition $api)
     {
+        /** @var TypeDefinition[] $types */
         $types = [];
-        $apiTypes = array_merge($api->getTypes()->toArray(), $api->getTraits()->toArray());
-
-        $extendsBaseFilter = false;
         /** @var FilterTypeDefinition[] $filters */
         $filters = [];
+
+        $apiTypes = array_merge($api->getTypes()->toArray(), $api->getTraits()->toArray());
+
         foreach ($apiTypes as $name => $definition) {
             foreach ($this->builders as $builder) {
                 if ($builder->supports($name, $definition)) {
@@ -51,6 +53,22 @@ class TypeDefinitionBuilder
             }
         }
 
+        $types = array_filter($types);
+
+        foreach ($types as $type) {
+            if (
+                !TypeHelper::isPrimitiveType($type->getType())
+                && $type->getParent() === null
+            ) {
+                foreach ($types as $typeInner) {
+                    if ($type->getType() === $typeInner->getName()) {
+                        $type->setParent($typeInner);
+                    }
+                }
+            }
+        }
+
+        $extendsBaseFilter = false;
         foreach ($filters as $filter) {
             if ($filter->isBaseFilter() && count($filters) > 1) {
                 $extendsBaseFilter = true;
@@ -70,6 +88,6 @@ class TypeDefinitionBuilder
             }
         }
 
-        return array_filter($types);
+        return $types;
     }
 }

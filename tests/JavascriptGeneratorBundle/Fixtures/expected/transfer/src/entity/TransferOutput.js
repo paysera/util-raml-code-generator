@@ -7,6 +7,9 @@ import TransferAdditionalData from '../entity/TransferAdditionalData';
 import DateFactory from '../service/DateFactory';
 
 class TransferOutput extends Entity {
+    constructor(data = []) {
+        super(data);
+    }
 
     /**
      * @return {string}

@@ -4,6 +4,9 @@ import Money from '../entity/Money';
 import DateFactory from '../service/DateFactory';
 
 class OutCommissionRule extends Entity {
+    constructor(data = []) {
+        super(data);
+    }
 
     /**
      * @return {string}|null

@@ -4,6 +4,9 @@ import ConvertCurrency from '../entity/ConvertCurrency';
 import DateFactory from '../service/DateFactory';
 
 class TransfersBatch extends Entity {
+    constructor(data = []) {
+        super(data);
+    }
 
     /**
      * @return {Array.<string>}|null

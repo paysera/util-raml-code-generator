@@ -3,9 +3,9 @@
 
 {% spaceless %}
 
-{% set arguments = generate_method_arguments(method, resource, api) %}
+{% set arguments = php_generate_method_arguments(method, resource, api) %}
 
-{% if get_return_type(method, api) == 'null' %}
+{% if php_get_return_type(method, api) == 'null' %}
     {% set return_value = '' %}
 {% else %}
     {% set return_value = '$result = ' %}
@@ -28,17 +28,17 @@
 {% endif -%}
 {% for argument in arguments %}
 {% if argument.type != constant('TYPE_DEFAULT', argument) %}
-{{ argument.name }} = new {{ argument.namespacedType }}();
+${{ argument.name }} = new {{ argument.namespacedType }}();
 
 {% set type_definition = get_type_definition(argument, api) %}
 {% if type_definition is not null -%}
 {% for propertyDefinition in type_definition.getProperties %}
-{{ argument.name }}->{{ generate_setter_name(propertyDefinition) }}(${{ propertyDefinition.name|to_variable_name }});
+${{ argument.name }}->{{ generate_setter_name(propertyDefinition) }}(${{ propertyDefinition.name|to_variable_name }});
 {% endfor %}
 {% endif %}
     {% endif %}
 {% endfor %}
 
-{{ return_value }}${{ api.name|to_variable_name }}Client->{{ generate_method_name(method, resource) }}({{ inline_argument_names(arguments) }});
+{{ return_value }}${{ api.name|to_variable_name }}Client->{{ generate_method_name(method, resource) }}({{ get_argument_names(arguments)|length > 0 ? '$' ~ get_argument_names(arguments)|join(', $') : '' }});
 ```
 ---

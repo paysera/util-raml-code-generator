@@ -11,6 +11,11 @@ class TransferInput extends Entity
     const URGENCY_STANDARD = 'standard';
     const URGENCY_URGENT = 'urgent';
 
+    public function __construct(array $data = [])
+    {
+        parent::__construct($data);
+    }
+
     /**
      * @return Money
      */

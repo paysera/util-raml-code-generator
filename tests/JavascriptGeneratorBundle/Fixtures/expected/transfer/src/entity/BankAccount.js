@@ -5,6 +5,9 @@ import CorrespondentBank from '../entity/CorrespondentBank';
 import DateFactory from '../service/DateFactory';
 
 class BankAccount extends Entity {
+    constructor(data = []) {
+        super(data);
+    }
 
     /**
      * @return {string}|null

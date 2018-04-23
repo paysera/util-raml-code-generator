@@ -9,6 +9,9 @@ import WebmoneyAccount from '../entity/WebmoneyAccount';
 import DateFactory from '../service/DateFactory';
 
 class TransferBeneficiary extends Entity {
+    constructor(data = []) {
+        super(data);
+    }
 
     /**
      * @return {string}

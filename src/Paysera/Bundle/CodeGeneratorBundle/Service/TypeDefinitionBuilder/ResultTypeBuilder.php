@@ -37,6 +37,7 @@ class ResultTypeBuilder implements TypeDefinitionBuilderInterface
         $type
             ->setDataKey($dataKey)
             ->setItemsType($itemsType)
+            ->setData($definition)
         ;
 
         return $type;

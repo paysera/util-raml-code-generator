@@ -1,0 +1,5 @@
+    constructor(data = []) {
+        super(data);
+    {% if is_discriminated(type) %}
+    this.set{{ type.parent.discriminatorKey|capitalize }}('{{ type.discriminatorValue }}');
+    {% endif -%}}

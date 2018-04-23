@@ -8,4 +8,17 @@
         <import resource="services/services.xml"/>
         <import resource="services/type_definition_builders.xml"/>
     </imports>
+
+    <services>
+        <service id="paysera_code_generator.twig_extension.base"
+                 class="Paysera\Bundle\CodeGeneratorBundle\Twig\BaseExtension">
+            <argument type="service" id="paysera_code_generator.method_name_builder"/>
+            <argument type="service" id="paysera_code_generator.resource_type_detector"/>
+            <argument type="service" id="paysera_code_generator.body_resolver"/>
+            <argument type="service" id="paysera_code_generator.arguments_helper"/>
+            <argument type="service" id="paysera_php_generator.string_converter"/>
+            <argument type="service" id="paysera_code_generator.constant_builder"/>
+            <tag name="twig.extension"/>
+        </service>
+    </services>
 </container>
