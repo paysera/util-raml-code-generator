@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "7c4ef8e91f7eacb2c4d4d692f35e6cc7",
+    "content-hash": "540e12890f2162998e0cd74783b3ab58",
     "packages": [
         {
             "name": "composer/ca-bundle",
@@ -537,16 +537,16 @@
         },
         {
             "name": "elama/php-raml-parser",
-            "version": "3.2.0",
+            "version": "v3.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/paysera/fork-elama-php-raml-parser.git",
-                "reference": "5cce243899a79e9cdb4ac169729d298727019698"
+                "reference": "50baf9c85dfcc7482b5c189880d6c4b6f5e55458"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/paysera/fork-elama-php-raml-parser/zipball/5cce243899a79e9cdb4ac169729d298727019698",
-                "reference": "5cce243899a79e9cdb4ac169729d298727019698",
+                "url": "https://api.github.com/repos/paysera/fork-elama-php-raml-parser/zipball/50baf9c85dfcc7482b5c189880d6c4b6f5e55458",
+                "reference": "50baf9c85dfcc7482b5c189880d6c4b6f5e55458",
                 "shasum": ""
             },
             "require": {
@@ -585,9 +585,9 @@
             "description": "A RAML parser built in php",
             "homepage": "https://github.com/alecsammon/php-raml-parser",
             "support": {
-                "source": "https://github.com/paysera/fork-elama-php-raml-parser/tree/3.2.0"
+                "source": "https://github.com/paysera/fork-elama-php-raml-parser/tree/v3.3.1"
             },
-            "time": "2018-04-09T13:15:24+00:00"
+            "time": "2018-04-28T09:17:16+00:00"
         },
         {
             "name": "fig/http-message-util",

@@ -1,7 +1,7 @@
 <?php
 
 namespace {{ api.namespace }}\Entity;
-{% if not is_discriminated(type) %}
+{% if get_parent_class(type) == 'Entity' %}
 
 use Paysera\Component\RestClientCommon\Entity\Entity;
 {% endif %}

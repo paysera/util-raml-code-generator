@@ -1,5 +1,6 @@
 import { Entity } from 'paysera-http-client-common';
 
+import UserInfo from './UserInfo';
 import DateFactory from '../service/DateFactory';
 
 class Legal extends UserInfo {

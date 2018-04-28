@@ -1,0 +1,11 @@
+#%RAML 1.0 DataType
+type: User
+description: User Basic info
+properties:
+  type:
+    type: string
+    enum:
+      - 'legal'
+      - 'natural'
+    required: true
+    description: User's type

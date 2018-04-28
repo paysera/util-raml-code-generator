@@ -1,6 +1,6 @@
 import { Entity } from 'paysera-http-client-common';
 
-import ConvertCurrency from '../entity/ConvertCurrency';
+import ConvertCurrency from './ConvertCurrency';
 import DateFactory from '../service/DateFactory';
 
 class TransferRegistrationParameters extends Entity {

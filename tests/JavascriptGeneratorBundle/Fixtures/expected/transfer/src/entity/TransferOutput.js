@@ -1,12 +1,13 @@
 import { Entity } from 'paysera-http-client-common';
 
-import TransferInitiator from '../entity/TransferInitiator';
-import TransferFailureStatus from '../entity/TransferFailureStatus';
-import Money from '../entity/Money';
-import TransferAdditionalData from '../entity/TransferAdditionalData';
+import TransferInitiator from './TransferInitiator';
+import TransferFailureStatus from './TransferFailureStatus';
+import Money from './Money';
+import TransferAdditionalData from './TransferAdditionalData';
+import TransferInput from './TransferInput';
 import DateFactory from '../service/DateFactory';
 
-class TransferOutput extends Entity {
+class TransferOutput extends TransferInput {
     constructor(data = []) {
         super(data);
     }

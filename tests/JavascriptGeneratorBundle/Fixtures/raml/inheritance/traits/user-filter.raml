@@ -1,0 +1,14 @@
+#%RAML 1.0 Trait
+description: User Filter
+is:
+  - Filter
+queryParameters:
+  user_id:
+    type: integer
+    required: false
+  user_type:
+    type: string
+    required: false
+    enum:
+      - 'natural'
+      - 'legal'

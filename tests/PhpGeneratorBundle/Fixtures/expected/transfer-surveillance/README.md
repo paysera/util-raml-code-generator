@@ -367,10 +367,7 @@ use Paysera\Test\TestClient\Entity as Entities;
 
 $ruleFilter = new Entities\RuleFilter();
 
-$ruleFilter->setLimit($limit);
-$ruleFilter->setOffset($offset);
 $ruleFilter->setOrderBy($orderBy);
-$ruleFilter->setOrderDirection($orderDirection);
     
 $result = $transferSurveillanceClient->getRules($ruleFilter);
 ```

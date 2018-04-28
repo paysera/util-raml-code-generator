@@ -1,6 +1,6 @@
 import { Entity } from 'paysera-http-client-common';
 
-import DetailsOptions from '../entity/DetailsOptions';
+import DetailsOptions from './DetailsOptions';
 import DateFactory from '../service/DateFactory';
 
 class TransferPurpose extends Entity {

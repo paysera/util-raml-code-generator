@@ -13,7 +13,6 @@ class AccountFilter extends Filter
     {
         return $this->get('type');
     }
-
     /**
      * @param string $type
      * @return $this
@@ -23,7 +22,6 @@ class AccountFilter extends Filter
         $this->set('type', $type);
         return $this;
     }
-
     /**
      * @return integer|null
      */
@@ -31,7 +29,6 @@ class AccountFilter extends Filter
     {
         return $this->get('administered_by_user_id');
     }
-
     /**
      * @param integer $administeredByUserId
      * @return $this
@@ -41,7 +38,6 @@ class AccountFilter extends Filter
         $this->set('administered_by_user_id', $administeredByUserId);
         return $this;
     }
-
     /**
      * @return integer|null
      */
@@ -49,7 +45,6 @@ class AccountFilter extends Filter
     {
         return $this->get('owned_by_user_id');
     }
-
     /**
      * @param integer $ownedByUserId
      * @return $this
@@ -59,7 +54,6 @@ class AccountFilter extends Filter
         $this->set('owned_by_user_id', $ownedByUserId);
         return $this;
     }
-
     /**
      * @return boolean|null
      */
@@ -67,7 +61,6 @@ class AccountFilter extends Filter
     {
         return $this->get('closed');
     }
-
     /**
      * @param boolean $closed
      * @return $this
@@ -77,7 +70,6 @@ class AccountFilter extends Filter
         $this->set('closed', $closed);
         return $this;
     }
-
     /**
      * @return integer|null
      */
@@ -85,7 +77,6 @@ class AccountFilter extends Filter
     {
         return $this->get('readable_by_client_id');
     }
-
     /**
      * @param integer $readableByClientId
      * @return $this
@@ -95,7 +86,6 @@ class AccountFilter extends Filter
         $this->set('readable_by_client_id', $readableByClientId);
         return $this;
     }
-
     /**
      * @return boolean|null
      */
@@ -103,7 +93,6 @@ class AccountFilter extends Filter
     {
         return $this->get('active');
     }
-
     /**
      * @param boolean $active
      * @return $this
@@ -113,5 +102,4 @@ class AccountFilter extends Filter
         $this->set('active', $active);
         return $this;
     }
-
 }

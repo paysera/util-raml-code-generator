@@ -1,7 +1,6 @@
 import { Entity } from 'paysera-http-client-common';
 
 class TransfersFilter extends Entity {
-
     /**
      * @return {Date}|null
      */

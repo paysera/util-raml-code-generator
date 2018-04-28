@@ -4,7 +4,7 @@ namespace Paysera\Test\TestClient\Entity;
 
 use Paysera\Component\RestClientCommon\Entity\Entity;
 
-class Filter extends Entity
+class TokenFilter extends Entity
 {
     /**
      * @return integer|null
@@ -13,7 +13,6 @@ class Filter extends Entity
     {
         return $this->get('limit');
     }
-
     /**
      * @param integer $limit
      * @return $this
@@ -23,7 +22,6 @@ class Filter extends Entity
         $this->set('limit', $limit);
         return $this;
     }
-
     /**
      * @return integer|null
      */
@@ -31,7 +29,6 @@ class Filter extends Entity
     {
         return $this->get('offset');
     }
-
     /**
      * @param integer $offset
      * @return $this
@@ -41,7 +38,6 @@ class Filter extends Entity
         $this->set('offset', $offset);
         return $this;
     }
-
     /**
      * @return string|null
      */
@@ -49,7 +45,6 @@ class Filter extends Entity
     {
         return $this->get('order_by');
     }
-
     /**
      * @param string $orderBy
      * @return $this
@@ -59,7 +54,6 @@ class Filter extends Entity
         $this->set('order_by', $orderBy);
         return $this;
     }
-
     /**
      * @return string|null
      */
@@ -67,7 +61,6 @@ class Filter extends Entity
     {
         return $this->get('order_direction');
     }
-
     /**
      * @param string $orderDirection
      * @return $this
@@ -77,5 +70,4 @@ class Filter extends Entity
         $this->set('order_direction', $orderDirection);
         return $this;
     }
-
 }

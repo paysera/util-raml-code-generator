@@ -13,7 +13,6 @@ class CategoryFilter extends Filter
     {
         return $this->get('parent_id');
     }
-
     /**
      * @param string $parentId
      * @return $this
@@ -23,5 +22,4 @@ class CategoryFilter extends Filter
         $this->set('parent_id', $parentId);
         return $this;
     }
-
 }

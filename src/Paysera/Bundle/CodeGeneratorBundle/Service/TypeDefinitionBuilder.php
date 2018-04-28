@@ -68,25 +68,24 @@ class TypeDefinitionBuilder
             }
         }
 
-        $extendsBaseFilter = false;
         foreach ($filters as $filter) {
-            if ($filter->isBaseFilter() && count($filters) > 1) {
-                $extendsBaseFilter = true;
+            if ($filter->getName() === FilterTypeDefinition::BASE_FILTER) {
                 $filter->setGeneratable(false);
                 break;
             }
         }
 
-        if ($extendsBaseFilter) {
-            foreach ($types as $type) {
-                if (
-                    $type instanceof FilterTypeDefinition
-                    && $type->getName() !== FilterTypeDefinition::BASE_FILTER
-                ) {
-                    $type->setExtendsBaseFilter(true);
-                }
-            }
-        }
+//
+//        if ($extendsBaseFilter) {
+//            foreach ($types as $type) {
+//                if (
+//                    $type instanceof FilterTypeDefinition
+//                    && $type->getName() !== FilterTypeDefinition::BASE_FILTER
+//                ) {
+//                    $type->setExtendsBaseFilter(true);
+//                }
+//            }
+//        }
 
         return $types;
     }

@@ -25,7 +25,7 @@ class FilterTypeDefinitionBuilder implements TypeDefinitionBuilderInterface
         $type = new FilterTypeDefinition();
         $type
             ->setName($name)
-            ->setType(isset($definition['type']) ? $definition['type'] : null)
+            ->setType(isset($definition['is']) ? $definition['is'][0] : null)
             ->setDisplayName(isset($definition['displayName']) ? $definition['displayName'] : null)
             ->setData($definition)
         ;
@@ -47,9 +47,9 @@ class FilterTypeDefinitionBuilder implements TypeDefinitionBuilderInterface
             $type->addProperty($property);
         }
 
-        if ($name === FilterTypeDefinition::BASE_FILTER) {
-            $type->setBaseFilter(true);
-        }
+//        if ($name === FilterTypeDefinition::BASE_FILTER) {
+//            $type->setBaseFilter(true);
+//        }
 
         return $type;
     }

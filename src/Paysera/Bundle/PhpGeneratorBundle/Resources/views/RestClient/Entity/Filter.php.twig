@@ -1,21 +1,18 @@
 <?php
 
 namespace {{ api.namespace }}\Entity;
+{% if get_parent_class(type) == 'Entity' %}
 
-{% if type.extendsBaseFilter %}
-use Paysera\Component\RestClientCommon\Entity\Filter;
-
-class {{ type.name }} extends Filter
-{% else %}
 use Paysera\Component\RestClientCommon\Entity\Entity;
+{% elseif get_parent_class(type) == 'Filter' %}
 
-class {{ type.name }} extends Entity
+use Paysera\Component\RestClientCommon\Entity\Filter;
 {% endif %}
+
+class {{ type.name }} extends {{ get_parent_class(type) }}
 {
 {% for property in type.properties %}
-{% include '@PayseraPhpGenerator/RestClient/Entity/Method/getter.php.twig' with { 'property': property } only %}
-
-{% include '@PayseraPhpGenerator/RestClient/Entity/Method/setter.php.twig' with { 'property': property } only %}
-
+    {%- include '@PayseraPhpGenerator/RestClient/Entity/Method/getter.php.twig' with { 'property': property } only -%}
+    {%- include '@PayseraPhpGenerator/RestClient/Entity/Method/setter.php.twig' with { 'property': property } only -%}
 {% endfor %}
 }

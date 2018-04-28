@@ -18,16 +18,16 @@ class CodeGenerator
 
     private $ramlParser;
     private $filesystem;
-    private $definitionTransformer;
+    private $definitionDecorator;
 
     public function __construct(
         Parser $ramlParser,
         Filesystem $filesystem,
-        DefinitionDecorator $definitionTransformer
+        DefinitionDecorator $definitionDecorator
     ) {
         $this->ramlParser = $ramlParser;
         $this->filesystem = $filesystem;
-        $this->definitionTransformer = $definitionTransformer;
+        $this->definitionDecorator = $definitionDecorator;
 
         $this->generators = [];
     }
@@ -63,7 +63,7 @@ class CodeGenerator
             throw new InvalidApiNameException(sprintf('Cannot find "%s" file', $ramlFile));
         }
 
-        $apiDefinition = $this->definitionTransformer->decorate(
+        $apiDefinition = $this->definitionDecorator->decorate(
             $this->ramlParser->parse($ramlFile),
             $apiName,
             $namespace

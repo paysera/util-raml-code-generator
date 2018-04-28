@@ -1,7 +1,7 @@
 import { Entity } from 'paysera-http-client-common';
 
-import OutCommissionRule from '../entity/OutCommissionRule';
-import Money from '../entity/Money';
+import OutCommissionRule from './OutCommissionRule';
+import Money from './Money';
 import DateFactory from '../service/DateFactory';
 
 class TransferAdditionalData extends Entity {

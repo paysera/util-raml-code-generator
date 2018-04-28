@@ -31,7 +31,7 @@
         "ext-sqlite3": "*",
         "doctrine/dbal": "^2.5",
         "doctrine/inflector": "^1.1",
-        "elama/php-raml-parser": "^3.2",
+        "elama/php-raml-parser": "^3.3",
         "fig/http-message-util": "^1.0",
         "incenteev/composer-parameter-handler": "^2.0",
         "paysera/lib-dependency-injection": "^1.0",

@@ -99,14 +99,14 @@ $result = $authClient->createStrictSystemToken($systemTokenRequest);
 ```php
 use Paysera\Test\TestClient\Entity as Entities;
 
-$filter = new Entities\Filter();
+$tokenFilter = new Entities\TokenFilter();
 
-$filter->setLimit($limit);
-$filter->setOffset($offset);
-$filter->setOrderBy($orderBy);
-$filter->setOrderDirection($orderDirection);
+$tokenFilter->setLimit($limit);
+$tokenFilter->setOffset($offset);
+$tokenFilter->setOrderBy($orderBy);
+$tokenFilter->setOrderDirection($orderDirection);
     
-$authClient->getTokens($filter);
+$authClient->getTokens($tokenFilter);
 ```
 ---
 

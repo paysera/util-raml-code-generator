@@ -9,6 +9,7 @@ use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\PropertyDefinition;
 use Paysera\Bundle\CodeGeneratorBundle\Exception\UnrecognizedTypeException;
 use Raml\Body;
 use Raml\Resource;
+use Raml\Types\ArrayType;
 use Raml\Types\LazyProxyType;
 use Raml\Types\UnionType;
 
@@ -68,6 +69,9 @@ class DefinitionValidator
 
     private function validateType($type, ApiDefinition $api)
     {
+        if ($type instanceof ArrayType) {
+            $type = $type->getItems();
+        }
         if ($type instanceof LazyProxyType) {
             $type = $type->getResolvedObject()->getName();
         }

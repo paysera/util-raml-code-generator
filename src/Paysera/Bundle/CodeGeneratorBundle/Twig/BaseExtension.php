@@ -70,9 +70,9 @@ class BaseExtension extends Twig_Extension
         return $typeDefinition->getParent() !== null && $typeDefinition->getDiscriminatorValue() !== null;
     }
 
-    public function getParentClass(TypeDefinition $typeDefinition): string
+    public function getParentClass(TypeDefinition $typeDefinition)
     {
-        if ($this->isDiscriminated($typeDefinition)) {
+        if ($typeDefinition->getParent() !== null) {
             return $typeDefinition->getParent()->getName();
         }
 

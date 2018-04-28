@@ -1,6 +1,6 @@
 import { Entity } from 'paysera-http-client-common';
 
-import Identifiers from '../entity/Identifiers';
+import Identifiers from './Identifiers';
 import DateFactory from '../service/DateFactory';
 
 class FinalBeneficiary extends Entity {

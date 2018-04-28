@@ -16,12 +16,12 @@ types:
   Challenge: !include types/challenge.raml
 
 traits:
-  Filter: !include traits/filter.raml
+  TokenFilter: !include traits/token-filter.raml
 
 /tokens:
   get:
     is:
-      - Filter
+      - TokenFilter
   /auth:
     post:
       description: Create auth token

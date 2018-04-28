@@ -147,6 +147,9 @@ class ApiMethodExtension extends Twig_Extension
                 $relatedTypes[] = $api->getType($property->getReference());
             }
         }
+        if ($type->getParent() !== null) {
+            $relatedTypes[] = $api->getType($type->getParent()->getName());
+        }
 
         return array_unique($relatedTypes, SORT_REGULAR);
     }

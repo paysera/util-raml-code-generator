@@ -2,9 +2,7 @@
 
 namespace Paysera\Test\TestClient\Entity;
 
-use Paysera\Component\RestClientCommon\Entity\Entity;
-
-class TransferOutput extends Entity
+class TransferOutput extends TransferInput
 {
     const STATUS_NEW = 'new';
     const STATUS_REGISTERED = 'registered';
