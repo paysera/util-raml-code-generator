@@ -6,13 +6,15 @@ use Paysera\Component\RestClientCommon\Entity\Entity;
 
 class Money extends Entity
 {
+    const CURRENCY_EUR = 'EUR';
+
     public function __construct(array $data = [])
     {
         parent::__construct($data);
     }
 
     /**
-     * @return string|null
+     * @return string
      */
     public function getAmount()
     {
@@ -28,7 +30,7 @@ class Money extends Entity
         return $this;
     }
     /**
-     * @return string|null
+     * @return string
      */
     public function getCurrency()
     {

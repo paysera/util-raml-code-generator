@@ -2,6 +2,7 @@ import { RequestFactory, ClientWrapper } from 'paysera-http-client-common';
 
 import Category from '../entity/Category';
 import CategoryFilter from '../entity/CategoryFilter';
+import { Filter } from 'paysera-http-client-common';
 
 class CategoryClient {
 
@@ -138,6 +139,28 @@ class CategoryClient {
             .performRequest(request)
             .then((data) => {
                 return new Category(data);
+            })
+        ;
+    }
+
+    /**
+     * Standard SQL-style Result filtering
+     * GET /keywords
+     *
+     * @param {Filter} filter
+     * @return {Promise.<null>}
+     */
+    getKeywords(filter) {
+        const request = RequestFactory.create(
+            'GET',
+            'keywords',
+            filter,
+        );
+
+        return this.client
+            .performRequest(request)
+            .then((data) => {
+                return null;
             })
         ;
     }

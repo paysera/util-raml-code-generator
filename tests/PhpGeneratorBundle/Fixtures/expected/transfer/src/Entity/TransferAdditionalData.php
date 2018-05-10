@@ -2,6 +2,7 @@
 
 namespace Paysera\Test\TestClient\Entity;
 
+use Evp\Component\Money\Money;
 use Paysera\Component\RestClientCommon\Entity\Entity;
 
 class TransferAdditionalData extends Entity
@@ -16,6 +17,9 @@ class TransferAdditionalData extends Entity
      */
     public function getEstimatedProcessingDate()
     {
+        if ($this->get('estimated_processing_date') === null) {
+            return null;
+        }
         return (new \DateTimeImmutable())->setTimestamp($this->get('estimated_processing_date'));
     }
     /**
@@ -32,6 +36,9 @@ class TransferAdditionalData extends Entity
      */
     public function getOutCommissionRule()
     {
+        if ($this->get('out_commission_rule') === null) {
+            return null;
+        }
         return (new OutCommissionRule())->setDataByReference($this->getByReference('out_commission_rule'));
     }
     /**
@@ -48,7 +55,10 @@ class TransferAdditionalData extends Entity
      */
     public function getOriginalOutCommission()
     {
-        return (new Money())->setDataByReference($this->getByReference('original_out_commission'));
+        if ($this->get('original_out_commission_amount') === null && $this->get('original_out_commission_currency') === null) {
+            return null;
+        }
+        return new Money($this->get('original_out_commission_amount'), $this->get('original_out_commission_currency'));
     }
     /**
      * @param Money $originalOutCommission
@@ -56,7 +66,8 @@ class TransferAdditionalData extends Entity
      */
     public function setOriginalOutCommission(Money $originalOutCommission)
     {
-        $this->setByReference('original_out_commission', $originalOutCommission->getDataByReference());
+        $this->set('original_out_commission_amount', $originalOutCommission->getAmount());
+        $this->set('original_out_commission_currency', $originalOutCommission->getCurrency());
         return $this;
     }
     /**

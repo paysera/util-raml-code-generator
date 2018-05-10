@@ -1,12 +1,12 @@
-import { Entity } from 'paysera-http-client-common';
-
+import FinalBeneficiary from './FinalBeneficiary';
+import Payer from './Payer';
 import Money from './Money';
 import TransferBeneficiary from './TransferBeneficiary';
-import Payer from './Payer';
-import FinalBeneficiary from './FinalBeneficiary';
 import TransferNotifications from './TransferNotifications';
-import TransferPurpose from './TransferPurpose';
 import TransferPassword34 from './TransferPassword34';
+import TransferPurpose from './TransferPurpose';
+import { Entity } from 'paysera-http-client-common';
+
 import DateFactory from '../service/DateFactory';
 
 class TransferInput extends Entity {
@@ -25,7 +25,7 @@ class TransferInput extends Entity {
      * @param {Money} amount
      */
     setAmount(amount) {
-        this.set('amount', amount.data);
+        this.set('amount', amount.getData());
     }
 
     /**
@@ -39,7 +39,7 @@ class TransferInput extends Entity {
      * @param {TransferBeneficiary} beneficiary
      */
     setBeneficiary(beneficiary) {
-        this.set('beneficiary', beneficiary.data);
+        this.set('beneficiary', beneficiary.getData());
     }
 
     /**
@@ -53,13 +53,16 @@ class TransferInput extends Entity {
      * @param {Payer} payer
      */
     setPayer(payer) {
-        this.set('payer', payer.data);
+        this.set('payer', payer.getData());
     }
 
     /**
      * @return {FinalBeneficiary}|null
      */
     getFinalBeneficiary() {
+        if (this.get('final_beneficiary') == null) {
+            return null;
+        }
         return new FinalBeneficiary(this.get('final_beneficiary'));
     }
 
@@ -67,13 +70,16 @@ class TransferInput extends Entity {
      * @param {FinalBeneficiary} finalBeneficiary
      */
     setFinalBeneficiary(finalBeneficiary) {
-        this.set('final_beneficiary', finalBeneficiary.data);
+        this.set('final_beneficiary', finalBeneficiary.getData());
     }
 
     /**
      * @return {Date}|null
      */
     getPerformAt() {
+        if (this.get('perform_at') == null) {
+            return null;
+        }
         return DateFactory.create(this.get('perform_at'));
     }
 
@@ -116,6 +122,9 @@ class TransferInput extends Entity {
      * @return {TransferNotifications}|null
      */
     getNotifications() {
+        if (this.get('notifications') == null) {
+            return null;
+        }
         return new TransferNotifications(this.get('notifications'));
     }
 
@@ -123,7 +132,7 @@ class TransferInput extends Entity {
      * @param {TransferNotifications} notifications
      */
     setNotifications(notifications) {
-        this.set('notifications', notifications.data);
+        this.set('notifications', notifications.getData());
     }
 
     /**
@@ -137,13 +146,16 @@ class TransferInput extends Entity {
      * @param {TransferPurpose} purpose
      */
     setPurpose(purpose) {
-        this.set('purpose', purpose.data);
+        this.set('purpose', purpose.getData());
     }
 
     /**
      * @return {TransferPassword34}|null
      */
     getPassword() {
+        if (this.get('password') == null) {
+            return null;
+        }
         return new TransferPassword34(this.get('password'));
     }
 
@@ -151,7 +163,7 @@ class TransferInput extends Entity {
      * @param {TransferPassword34} password
      */
     setPassword(password) {
-        this.set('password', password.data);
+        this.set('password', password.getData());
     }
 
     /**
@@ -200,6 +212,9 @@ class TransferInput extends Entity {
      * @return {Date}|null
      */
     getReserveUntil() {
+        if (this.get('reserve_until') == null) {
+            return null;
+        }
         return DateFactory.create(this.get('reserve_until'));
     }
 

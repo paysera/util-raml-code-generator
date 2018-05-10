@@ -5,16 +5,12 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <service id="paysera_php_generator.string_converter"
-                 class="Paysera\Bundle\PhpGeneratorBundle\Service\StringConverter">
-        </service>
-
         <service id="paysera_php_generator.language_code_generator"
                  class="Paysera\Bundle\CodeGeneratorBundle\Service\Generator\LanguageCodeGenerator">
             <tag name="paysera_code_generator" language="php"/>
         </service>
 
-        <service id="paysera_bundle_php_generator.service.namespace_helper"
+        <service id="paysera_php_generator.namespace_helper"
                  class="Paysera\Bundle\PhpGeneratorBundle\Service\NamespaceHelper">
         </service>
     </services>

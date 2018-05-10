@@ -1,6 +1,6 @@
+import DetailsOptions from './DetailsOptions';
 import { Entity } from 'paysera-http-client-common';
 
-import DetailsOptions from './DetailsOptions';
 import DateFactory from '../service/DateFactory';
 
 class TransferPurpose extends Entity {
@@ -68,6 +68,9 @@ class TransferPurpose extends Entity {
      * @return {DetailsOptions}|null
      */
     getDetailsOptions() {
+        if (this.get('details_options') == null) {
+            return null;
+        }
         return new DetailsOptions(this.get('details_options'));
     }
 
@@ -75,7 +78,7 @@ class TransferPurpose extends Entity {
      * @param {DetailsOptions} detailsOptions
      */
     setDetailsOptions(detailsOptions) {
-        this.set('details_options', detailsOptions.data);
+        this.set('details_options', detailsOptions.getData());
     }
 
     /**

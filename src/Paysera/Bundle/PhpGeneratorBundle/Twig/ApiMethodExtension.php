@@ -8,6 +8,8 @@ use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\ArgumentDefinition;
 use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\ResultTypeDefinition;
 use Paysera\Bundle\CodeGeneratorBundle\ResourcePatterns;
 use Paysera\Bundle\CodeGeneratorBundle\Service\BodyResolver;
+use Paysera\Bundle\CodeGeneratorBundle\Service\StringConverter;
+use Paysera\Bundle\CodeGeneratorBundle\Service\TypeConfigurationProvider;
 use Paysera\Bundle\CodeGeneratorBundle\Twig\BaseExtension;
 use Paysera\Bundle\PhpGeneratorBundle\Service\NamespaceHelper;
 use Paysera\Component\TypeHelper;
@@ -21,15 +23,21 @@ class ApiMethodExtension extends Twig_Extension
     private $bodyResolver;
     private $baseExtension;
     private $namespaceHelper;
+    private $typeConfigurationProvider;
+    private $stringConverter;
 
     public function __construct(
         BodyResolver $bodyResolver,
         BaseExtension $baseExtension,
-        NamespaceHelper $namespaceHelper
+        NamespaceHelper $namespaceHelper,
+        TypeConfigurationProvider $typeConfigurationProvider,
+        StringConverter $stringConverter
     ) {
         $this->bodyResolver = $bodyResolver;
         $this->baseExtension = $baseExtension;
         $this->namespaceHelper = $namespaceHelper;
+        $this->typeConfigurationProvider = $typeConfigurationProvider;
+        $this->stringConverter = $stringConverter;
     }
 
     public function getFunctions()
@@ -76,12 +84,12 @@ class ApiMethodExtension extends Twig_Extension
     {
         $arguments = $this->baseExtension->generateMethodArguments($method, $resource, $api);
         foreach ($arguments as $argument) {
-            $argument->setNamespacedType(
-                $this->namespaceHelper->buildNamespace(
-                    $argument->getType(),
-                    $api->getType($argument->getType())
-                )
-            );
+            $typeConfig = $this->typeConfigurationProvider->getTypeConfiguration($argument->getType());
+            if ($typeConfig->getImportString() !== null) {
+                $argument->setNamespacedType('\\' . $typeConfig->getImportString());
+            } else {
+                $argument->setNamespacedType($this->namespaceHelper->buildNamespace($argument->getType()));
+            }
         }
         return $arguments;
     }
@@ -97,7 +105,11 @@ class ApiMethodExtension extends Twig_Extension
             if ($argument->getType() === ArgumentDefinition::TYPE_DEFAULT) {
                 $parts[] = '$' . $argument->getName();
             } else {
-                $parts[] = sprintf('%s $%s', $argument->getNamespacedType(), $argument->getName());
+                $parts[] = sprintf(
+                    '%s $%s',
+                    $argument->getNamespacedType(),
+                    $this->stringConverter->convertSlugToVariableName($argument->getName())
+                );
             }
         }
 

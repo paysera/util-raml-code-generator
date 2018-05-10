@@ -1,0 +1,8 @@
+{% spaceless %}
+    {% if property.required == false and property.itemsType in property.scalarTypes %}
+        {{ property.itemsType }}[]|null
+    {% else %}
+        {{ property.itemsType }}[]
+    {% endif %}
+{% endspaceless %}
+

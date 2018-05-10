@@ -1,0 +1,8 @@
+{% spaceless %}
+    {% if property.required == false %}
+        Money|null
+    {% else %}
+        Money
+    {% endif %}
+{% endspaceless %}
+

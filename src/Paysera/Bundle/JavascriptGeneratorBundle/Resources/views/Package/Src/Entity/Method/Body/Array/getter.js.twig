@@ -1,0 +1,16 @@
+
+{% if property.itemsType in property.simpleTypes %}
+        return this.get('{{ property.name }}');
+{% else %}
+        let data = this.get('{{ property.name }}');
+        if (data === null) {
+            return [];
+        }
+
+        let collection = [];
+        for (let value of data) {
+            collection.push(new {{ property.itemsType }}(value));
+        }
+
+        return collection;
+{% endif %}

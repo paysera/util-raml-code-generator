@@ -11,6 +11,18 @@ types:
   Natural: !include types/natural.raml
 
 /users:
+  /legal:
+    post:
+      description: Creates Legal User
+      body:
+        application/json:
+          type: Legal
+  /natural:
+    post:
+      description: Creates Natural User
+      body:
+        application/json:
+          type: Natural
   /{id}:
     uriParameters:
       id:

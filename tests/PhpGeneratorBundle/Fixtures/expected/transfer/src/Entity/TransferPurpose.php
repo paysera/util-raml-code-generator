@@ -85,6 +85,9 @@ class TransferPurpose extends Entity
      */
     public function getDetailsOptions()
     {
+        if ($this->get('details_options') === null) {
+            return null;
+        }
         return (new DetailsOptions())->setDataByReference($this->getByReference('details_options'));
     }
     /**

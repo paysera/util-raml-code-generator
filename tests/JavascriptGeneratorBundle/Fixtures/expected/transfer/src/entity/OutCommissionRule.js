@@ -1,6 +1,6 @@
+import Money from './Money';
 import { Entity } from 'paysera-http-client-common';
 
-import Money from './Money';
 import DateFactory from '../service/DateFactory';
 
 class OutCommissionRule extends Entity {
@@ -26,6 +26,9 @@ class OutCommissionRule extends Entity {
      * @return {Money}|null
      */
     getMin() {
+        if (this.get('min') == null) {
+            return null;
+        }
         return new Money(this.get('min'));
     }
 
@@ -33,13 +36,16 @@ class OutCommissionRule extends Entity {
      * @param {Money} min
      */
     setMin(min) {
-        this.set('min', min.data);
+        this.set('min', min.getData());
     }
 
     /**
      * @return {Money}|null
      */
     getMax() {
+        if (this.get('max') == null) {
+            return null;
+        }
         return new Money(this.get('max'));
     }
 
@@ -47,13 +53,16 @@ class OutCommissionRule extends Entity {
      * @param {Money} max
      */
     setMax(max) {
-        this.set('max', max.data);
+        this.set('max', max.getData());
     }
 
     /**
      * @return {Money}|null
      */
     getFix() {
+        if (this.get('fix') == null) {
+            return null;
+        }
         return new Money(this.get('fix'));
     }
 
@@ -61,7 +70,7 @@ class OutCommissionRule extends Entity {
      * @param {Money} fix
      */
     setFix(fix) {
-        this.set('fix', fix.data);
+        this.set('fix', fix.getData());
     }
 }
 

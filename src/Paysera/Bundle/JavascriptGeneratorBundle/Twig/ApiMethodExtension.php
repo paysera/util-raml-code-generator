@@ -12,7 +12,7 @@ use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\TypeDefinition;
 use Paysera\Bundle\CodeGeneratorBundle\ResourcePatterns;
 use Paysera\Bundle\CodeGeneratorBundle\Service\BodyResolver;
 use Paysera\Bundle\CodeGeneratorBundle\Twig\BaseExtension;
-use Paysera\Bundle\PhpGeneratorBundle\Service\StringConverter;
+use Paysera\Bundle\CodeGeneratorBundle\Service\StringConverter;
 use Paysera\Component\StringHelper;
 use Paysera\Component\TypeHelper;
 use Raml\Method;
@@ -47,13 +47,6 @@ class ApiMethodExtension extends Twig_Extension
             new Twig_SimpleFunction('js_generate_result_populator', [$this, 'generateResultPopulator'], ['is_safe' => ['html']]),
             new Twig_SimpleFunction('js_get_return_type', [$this, 'getReturnType']),
             new Twig_SimpleFunction('js_get_related_types', [$this, 'getRelatedTypes']),
-
-
-//            new Twig_SimpleFunction('js_generate_method_name', [$this, 'generateMethodName']),
-//            new Twig_SimpleFunction('js_generate_method_arguments', [$this, 'generateMethodArguments']),
-//            new Twig_SimpleFunction('js_generate_body', [$this, 'generateBody']),
-//            new Twig_SimpleFunction('js_inline_arguments', [$this, 'getInlineArgumentNames']),
-//            new Twig_SimpleFunction('js_is_raw_response', [$this, 'isRawResponse']),
         ];
     }
 

@@ -1,0 +1,11 @@
+
+{% if property.required == false %}
+        if (this.get('{{ property.name }}') == null) {
+            return null;
+        }
+{% endif -%}
+{% if property.type == constant('TYPE_INTEGER', property) %}
+        return DateFactory.create(this.get('{{ property.name }}'));
+{% else %}
+        return new Date(this.get('{{ property.name }}'));
+{% endif %}

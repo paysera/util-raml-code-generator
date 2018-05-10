@@ -68,25 +68,6 @@ class TypeDefinitionBuilder
             }
         }
 
-        foreach ($filters as $filter) {
-            if ($filter->getName() === FilterTypeDefinition::BASE_FILTER) {
-                $filter->setGeneratable(false);
-                break;
-            }
-        }
-
-//
-//        if ($extendsBaseFilter) {
-//            foreach ($types as $type) {
-//                if (
-//                    $type instanceof FilterTypeDefinition
-//                    && $type->getName() !== FilterTypeDefinition::BASE_FILTER
-//                ) {
-//                    $type->setExtendsBaseFilter(true);
-//                }
-//            }
-//        }
-
         return $types;
     }
 }

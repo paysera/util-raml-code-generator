@@ -1,0 +1,13 @@
+
+{% if property.required == false and property.type == constant('TYPE_REFERENCE', property) %}
+        if ($this->get('{{ property.name }}') === null) {
+            return null;
+        }
+{% endif %}
+{% if property.type in property.scalarTypes %}
+        return $this->get('{{ property.name }}');
+{% elseif property.type == constant('TYPE_REFERENCE', property) %}
+        return (new {{ property.reference|extract_type_name }}())->setDataByReference($this->getByReference('{{ property.name }}'));
+{% else -%}
+        return $this->getByReference('{{ property.name }}');
+{% endif %}

@@ -1,9 +1,11 @@
 import angular from 'angular';
 import { TokenProvider, Scope } from 'paysera-http-client-common';
 
-{% for type in api.types %}
-{% if type.isGeneratable %}
-import {{ type.name }} from './entity/{{ type.name }}';
+{% for typeConfig in get_all_used_types(api) %}
+{% if typeConfig.importString is not null %}
+import {{ typeConfig.importString|raw }};
+{% else %}
+import {{ typeConfig.typeName|extract_type_name }} from './entity/{{ typeConfig.typeName|extract_type_name }}';
 {% endif %}
 {% endfor %}
 
@@ -26,10 +28,8 @@ import ClientFactory from './service/ClientFactory';
 import {{ js_get_client_name(api.name) }} from './service/{{ js_get_client_name(api.name) }}';
 
 export {
-{% for type in api.types %}
-{% if type.isGeneratable %}
-    {{ type.name }},
-{% endif %}
+{% for typeConfig in get_all_used_types(api) %}
+    {{ typeConfig.typeName|extract_type_name }},
 {% endfor %}
     DateFactory,
     ClientFactory,

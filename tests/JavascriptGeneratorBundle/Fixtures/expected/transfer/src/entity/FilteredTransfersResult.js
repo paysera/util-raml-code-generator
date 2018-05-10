@@ -1,5 +1,4 @@
 import { Result } from 'paysera-http-client-common';
-
 import TransferOutput from './TransferOutput';
 
 class FilteredTransfersResult extends Result {

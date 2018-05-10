@@ -3,14 +3,16 @@ title: Client API
 version: 1.0
 baseUri: https://my-api.example.com/rest/v1
 
+uses:
+  Paysera: ../__library/rest.raml
+
 traits:
-  Filter: !include traits/filter.raml
   AccountFilter: !include traits/account-filter.raml
 
 types:
   AccountResult:
     displayName: Account Result
-    type: object
+    type: Paysera.Result
     properties:
       accounts:
         required: false
@@ -18,10 +20,6 @@ types:
         type: array
         items:
           type: Account
-      _metadata:
-        required: false
-        displayName: _metadata
-        type: ResultMetadata
   Account:
     displayName: Account
     type: object
@@ -59,28 +57,9 @@ types:
         displayName: type
         description: The type of Account
         type: string
-  ResultMetadata:
-    displayName: Result meta data
-    type: object
-    properties:
-      total:
+      undescribed:
         required: true
-        displayName: total
-        description: Total count of items
-        type: integer
-        format: int32
-      offset:
-        required: true
-        displayName: offset
-        description: Cursor position
-        type: integer
-        format: int32
-      limit:
-        required: false
-        displayName: limit
-        description: Max allowed results
-        type: integer
-        format: int32
+        type: Paysera.UndescribedType
 /accounts:
   get:
     displayName: Accounts

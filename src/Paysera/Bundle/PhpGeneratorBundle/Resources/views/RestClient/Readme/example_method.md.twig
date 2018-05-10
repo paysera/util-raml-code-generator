@@ -28,12 +28,12 @@
 {% endif -%}
 {% for argument in arguments %}
 {% if argument.type != constant('TYPE_DEFAULT', argument) %}
-${{ argument.name }} = new {{ argument.namespacedType }}();
+${{ argument.name|to_variable_name }} = new {{ argument.namespacedType }}();
 
 {% set type_definition = get_type_definition(argument, api) %}
 {% if type_definition is not null -%}
 {% for propertyDefinition in type_definition.getProperties %}
-${{ argument.name }}->{{ generate_setter_name(propertyDefinition) }}(${{ propertyDefinition.name|to_variable_name }});
+${{ argument.name|to_variable_name }}->{{ php_generate_setter_name(propertyDefinition) }}(${{ propertyDefinition.name|to_variable_name }});
 {% endfor %}
 {% endif %}
     {% endif %}

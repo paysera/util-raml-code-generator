@@ -4,7 +4,7 @@
      *
      {% set arguments = generate_method_arguments(method, resource, api) %}
      {%- for argument in arguments -%}
-     * @param {{ '{%s}'|format(argument.type)|raw }} {{ argument.name }}
+     * @param {{ ('{' ~ argument.type|extract_type_name ~ '}')|raw }} {{ argument.name|to_variable_name }}
      {% endfor -%}
      * @return {Promise.<{{ js_get_return_type(method, api) }}>}
      */
@@ -12,7 +12,7 @@
         const request = RequestFactory.create(
             '{{ method.type }}',
             '{{ js_generate_uri(resource)|raw }}',
-            {{ generate_body(method, api) == null ? 'null' : generate_body(method, api) }},
+            {{ generate_body(method, api) == null ? 'null' : generate_body(method, api)|to_variable_name }},
         );
 
         return this.client

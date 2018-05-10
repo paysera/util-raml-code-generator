@@ -1,0 +1,9 @@
+{% spaceless %}
+    {% if property.type == constant('TYPE_REFERENCE', property) -%}
+        {% set type = property.reference %}
+    {% else %}
+        {% set type = property.type %}
+    {% endif %}
+    {{ type|extract_type_name }} ${{ property.name|to_variable_name }}
+{% endspaceless %}
+

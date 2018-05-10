@@ -1,15 +1,7 @@
 
     /**
-     * @param {{ js_get_doc_block(property, false)|raw }}
+     * @param {% include get_method_argument_type_template(property) with { 'property': property } only %}
      */
     {{ js_generate_setter_name(property) }}({{ property.name|to_variable_name }}) {
-        {% if property.type == 'array' and property.itemsType not in property.simpleTypes -%}
-        let data = [];
-        for (let entity of {{ property.name|to_variable_name }}) {
-            data.push(entity.data);
-        }
-        this.data = data;
-        {% else -%}
-        {{ js_generate_value_extractor(property)|raw -}};
-    {% endif %}
-}
+        {% include get_method_body_setter_template(property) with { 'property': property } only %}
+    }

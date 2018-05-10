@@ -1,0 +1,14 @@
+#%RAML 1.0 Library
+usage: Used in RESTful APIs
+
+types:
+  Money: !include rest/types/money.raml
+  Result: !include rest/types/result.raml
+  ResultMetadata: !include rest/types/result-metadata.raml
+  UndescribedType: !include rest/types/undescribed-type.raml
+traits:
+  Filter: !include rest/traits/filter.raml
+
+annotationTypes:
+  datetimeTimestamp: !include rest/annotation-types/datetime-timestamp.raml
+  entityType: !include rest/annotation-types/entity-type.raml

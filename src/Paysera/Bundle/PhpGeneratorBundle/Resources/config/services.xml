@@ -9,5 +9,6 @@
         <import resource="services/twig.xml"/>
         <import resource="services/generators.xml"/>
         <import resource="services/commands.xml"/>
+        <import resource="services/type_configurations.xml"/>
     </imports>
 </container>

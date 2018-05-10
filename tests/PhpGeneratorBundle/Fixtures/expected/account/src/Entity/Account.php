@@ -107,4 +107,20 @@ class Account extends Entity
         $this->set('type', $type);
         return $this;
     }
+    /**
+     * @return UndescribedType
+     */
+    public function getUndescribed()
+    {
+        return (new UndescribedType())->setDataByReference($this->getByReference('undescribed'));
+    }
+    /**
+     * @param UndescribedType $undescribed
+     * @return $this
+     */
+    public function setUndescribed(UndescribedType $undescribed)
+    {
+        $this->setByReference('undescribed', $undescribed->getDataByReference());
+        return $this;
+    }
 }

@@ -2,12 +2,18 @@
 
 namespace {{ api.namespace }}\Entity;
 
-use Paysera\Component\RestClientCommon\Entity\Result;
+{% set importsExists = false %}
+{% for type in get_related_types_config(type, api) if type.importString is not null %}
+{% set importsExists = true %}
+use {{ type.importString }};
+{% endfor %}
+{% if importsExists == true %}
 
-class {{ type.name }} extends Result
+{% endif %}
+class {{ type.name|extract_type_name }} extends {{ get_parent_type_config(type).typeName }}
 {
     protected function createItem(array $data)
     {
-        return new {{ type.itemsType }}($data);
+        return new {{ type.itemsType|extract_type_name }}($data);
     }
 }

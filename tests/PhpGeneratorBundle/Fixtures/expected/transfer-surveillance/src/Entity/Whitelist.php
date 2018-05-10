@@ -92,19 +92,22 @@ class Whitelist extends Entity
         return $this;
     }
     /**
-     * @return object|null
+     * @return Money|null
      */
     public function getMaxAmount()
     {
-        return $this->getByReference('max_amount');
+        if ($this->get('max_amount') === null) {
+            return null;
+        }
+        return (new Money())->setDataByReference($this->getByReference('max_amount'));
     }
     /**
-     * @param object $maxAmount
+     * @param Money $maxAmount
      * @return $this
      */
-    public function setMaxAmount($maxAmount)
+    public function setMaxAmount(Money $maxAmount)
     {
-        $this->set('max_amount', $maxAmount);
+        $this->setByReference('max_amount', $maxAmount->getDataByReference());
         return $this;
     }
     /**

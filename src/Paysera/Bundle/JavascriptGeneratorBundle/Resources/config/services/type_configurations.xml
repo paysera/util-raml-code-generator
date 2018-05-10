@@ -1,0 +1,148 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="paysera_javascript_generator.type_configuration_provider"
+                 class="Paysera\Bundle\CodeGeneratorBundle\Service\TypeConfigurationProvider">
+            <tag name="paysera_code_generator.type_configuration_provider" language="js"/>
+            <argument type="service">
+                <service class="Paysera\Bundle\CodeGeneratorBundle\Entity\TypeConfiguration">
+                    <call method="setGetterTemplate">
+                        <argument type="string">@PayseraJavascriptGenerator/Package/Src/Entity/Method/Body/Default/getter.js.twig</argument>
+                    </call>
+                    <call method="setSetterTemplate">
+                        <argument type="string">@PayseraJavascriptGenerator/Package/Src/Entity/Method/Body/Default/setter.js.twig</argument>
+                    </call>
+                    <call method="setArgumentTypeTemplate">
+                        <argument type="string">@PayseraJavascriptGenerator/Package/Src/Entity/Method/Body/Default/argument_type.js.twig</argument>
+                    </call>
+                    <call method="setReturnTypeTemplate">
+                        <argument type="string">@PayseraJavascriptGenerator/Package/Src/Entity/Method/Body/Default/return_type.js.twig</argument>
+                    </call>
+                </service>
+            </argument>
+            <argument type="service">
+                <service class="Paysera\Bundle\CodeGeneratorBundle\Entity\TypeConfiguration">
+                    <call method="setTypeName">
+                        <argument>Entity</argument>
+                    </call>
+                    <call method="setImportString">
+                        <argument type="string">{ Entity } from 'paysera-http-client-common'</argument>
+                    </call>
+                    <call method="setLibraryConfiguration">
+                        <argument type="service">
+                            <service class="Paysera\Bundle\CodeGeneratorBundle\Entity\LibraryConfiguration">
+                                <call method="setName">
+                                    <argument type="string">paysera-http-client-common</argument>
+                                </call>
+                                <call method="setVersion">
+                                    <argument type="string">^1.0</argument>
+                                </call>
+                            </service>
+                        </argument>
+                    </call>
+                </service>
+            </argument>
+
+            <call method="addTypeConfiguration">
+                <argument type="service">
+                    <service class="Paysera\Bundle\CodeGeneratorBundle\Entity\TypeConfiguration">
+                        <call method="setMatchRegex">
+                            <argument type="string">^array$</argument>
+                        </call>
+                        <call method="setGetterTemplate">
+                            <argument type="string">@PayseraJavascriptGenerator/Package/Src/Entity/Method/Body/Array/getter.js.twig</argument>
+                        </call>
+                        <call method="setSetterTemplate">
+                            <argument type="string">@PayseraJavascriptGenerator/Package/Src/Entity/Method/Body/Array/setter.js.twig</argument>
+                        </call>
+                        <call method="setArgumentTypeTemplate">
+                            <argument type="string">@PayseraJavascriptGenerator/Package/Src/Entity/Method/Body/Array/argument_type.js.twig</argument>
+                        </call>
+                        <call method="setReturnTypeTemplate">
+                            <argument type="string">@PayseraJavascriptGenerator/Package/Src/Entity/Method/Body/Array/return_type.js.twig</argument>
+                        </call>
+                    </service>
+                </argument>
+            </call>
+            <call method="addTypeConfiguration">
+                <argument type="service">
+                    <service class="Paysera\Bundle\CodeGeneratorBundle\Entity\TypeConfiguration">
+                        <call method="setMatchRegex">
+                            <argument type="string">^datetime$</argument>
+                        </call>
+                        <call method="setGetterTemplate">
+                            <argument type="string">@PayseraJavascriptGenerator/Package/Src/Entity/Method/Body/DateTime/getter.js.twig</argument>
+                        </call>
+                        <call method="setSetterTemplate">
+                            <argument type="string">@PayseraJavascriptGenerator/Package/Src/Entity/Method/Body/DateTime/setter.js.twig</argument>
+                        </call>
+                        <call method="setArgumentTypeTemplate">
+                            <argument type="string">@PayseraJavascriptGenerator/Package/Src/Entity/Method/Body/DateTime/argument_type.js.twig</argument>
+                        </call>
+                        <call method="setReturnTypeTemplate">
+                            <argument type="string">@PayseraJavascriptGenerator/Package/Src/Entity/Method/Body/DateTime/return_type.js.twig</argument>
+                        </call>
+                    </service>
+                </argument>
+            </call>
+            <call method="addTypeConfiguration">
+                <argument type="service">
+                    <service class="Paysera\Bundle\CodeGeneratorBundle\Entity\TypeConfiguration">
+                        <call method="setTypeName">
+                            <argument>Filter</argument>
+                        </call>
+                        <call method="setMatchRegex">
+                            <argument type="string">\.filter$</argument>
+                        </call>
+                        <call method="setImportString">
+                            <argument type="string">{ Filter } from 'paysera-http-client-common'</argument>
+                        </call>
+                        <call method="setLibraryConfiguration">
+                            <argument type="service">
+                                <service class="Paysera\Bundle\CodeGeneratorBundle\Entity\LibraryConfiguration">
+                                    <call method="setName">
+                                        <argument type="string">paysera-http-client-common</argument>
+                                    </call>
+                                    <call method="setVersion">
+                                        <argument type="string">^1.0</argument>
+                                    </call>
+                                </service>
+                            </argument>
+                        </call>
+                    </service>
+                </argument>
+            </call>
+            <call method="addTypeConfiguration">
+                <argument type="service">
+                    <service class="Paysera\Bundle\CodeGeneratorBundle\Entity\TypeConfiguration">
+                        <call method="setTypeName">
+                            <argument>Result</argument>
+                        </call>
+                        <call method="setMatchRegex">
+                            <argument type="string">\.result$</argument>
+                        </call>
+                        <call method="setImportString">
+                            <argument type="string">{ Result } from 'paysera-http-client-common'</argument>
+                        </call>
+                        <call method="setLibraryConfiguration">
+                            <argument type="service">
+                                <service class="Paysera\Bundle\CodeGeneratorBundle\Entity\LibraryConfiguration">
+                                    <call method="setName">
+                                        <argument type="string">paysera-http-client-common</argument>
+                                    </call>
+                                    <call method="setVersion">
+                                        <argument type="string">^1.0</argument>
+                                    </call>
+                                </service>
+                            </argument>
+                        </call>
+                    </service>
+                </argument>
+            </call>
+        </service>
+    </services>
+</container>

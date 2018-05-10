@@ -3,6 +3,8 @@ import { TokenProvider, Scope } from 'paysera-http-client-common';
 
 import Category from './entity/Category';
 import CategoryFilter from './entity/CategoryFilter';
+import { Filter } from 'paysera-http-client-common';
+import { Entity } from 'paysera-http-client-common';
 
 import DateFactory from './service/DateFactory';
 import ClientFactory from './service/ClientFactory';
@@ -11,6 +13,8 @@ import CategoryClient from './service/CategoryClient';
 export {
     Category,
     CategoryFilter,
+    Filter,
+    Entity,
     DateFactory,
     ClientFactory,
     CategoryClient,
@@ -77,6 +81,10 @@ class AngularClientFactory {
         const createCategoryOriginal = client.createCategory.bind(client);
         client.createCategory = (...args) => {
             return this.$q.when(createCategoryOriginal(...args));
+        };
+        const getKeywordsOriginal = client.getKeywords.bind(client);
+        client.getKeywords = (...args) => {
+            return this.$q.when(getKeywordsOriginal(...args));
         };
 
         return client;

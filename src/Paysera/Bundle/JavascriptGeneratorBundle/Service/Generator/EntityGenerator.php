@@ -6,28 +6,43 @@ namespace Paysera\Bundle\JavascriptGeneratorBundle\Service\Generator;
 use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\ApiDefinition;
 use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\FilterTypeDefinition;
 use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\ResultTypeDefinition;
+use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\TypeDefinition;
 use Paysera\Bundle\CodeGeneratorBundle\Entity\SourceCode;
 use Paysera\Bundle\CodeGeneratorBundle\Service\Generator\GeneratorInterface;
+use Paysera\Bundle\CodeGeneratorBundle\Service\StringConverter;
+use Paysera\Bundle\CodeGeneratorBundle\Service\TypeConfigurationProvider;
+use Paysera\Bundle\CodeGeneratorBundle\Service\UsedTypesResolver;
 use Symfony\Component\Templating\EngineInterface;
 
 class EntityGenerator implements GeneratorInterface
 {
     private $twig;
     private $sourceDir;
+    private $typeConfigurationProvider;
+    private $usedTypesResolver;
+    private $stringConverter;
 
     public function __construct(
         EngineInterface $twig,
-        string $sourceDir
+        string $sourceDir,
+        TypeConfigurationProvider $typeConfigurationProvider,
+        UsedTypesResolver $usedTypesResolver,
+        StringConverter $stringConverter
     ) {
         $this->twig = $twig;
         $this->sourceDir = $sourceDir;
+        $this->typeConfigurationProvider = $typeConfigurationProvider;
+        $this->usedTypesResolver = $usedTypesResolver;
+        $this->stringConverter = $stringConverter;
     }
 
     public function generate(ApiDefinition $definition) : array
     {
         $items = [];
-        foreach ($definition->getTypes() as $type) {
-            if (!$type->isGeneratable()) {
+        $usedTypes = $this->usedTypesResolver->resolveUsedTypes($definition);
+        foreach ($usedTypes as $typName) {
+            $type = $definition->getType($typName);
+            if ($this->skipTypeGeneration($type)) {
                 continue;
             }
 
@@ -48,11 +63,21 @@ class EntityGenerator implements GeneratorInterface
             );
 
             $items[] = (new SourceCode())
-                ->setFilepath(sprintf('%s/entity/%s.js', $this->sourceDir, $type->getName()))
+                ->setFilepath(sprintf(
+                    '%s/entity/%s.js',
+                    $this->sourceDir,
+                    $this->stringConverter->extractTypeName($type->getName())
+                ))
                 ->setContents($code)
             ;
         }
 
         return $items;
+    }
+
+    private function skipTypeGeneration(TypeDefinition $type)
+    {
+        $typeConfig = $this->typeConfigurationProvider->getTypeConfiguration($type->getName());
+        return $typeConfig->getLibraryConfiguration() !== null;
     }
 }

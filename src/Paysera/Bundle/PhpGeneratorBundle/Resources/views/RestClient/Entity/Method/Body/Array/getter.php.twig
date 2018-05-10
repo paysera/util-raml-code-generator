@@ -1,0 +1,16 @@
+
+{% if property.itemsType in property.simpleTypes %}
+        return $this->get('{{ property.name }}');
+{% else %}
+        $items = $this->getByReference('{{ property.name }}');
+        if ($items === null) {
+            return [];
+        }
+
+        $list = [];
+        foreach($items as &$item) {
+            $list[] = (new {{ property.itemsType }}())->setDataByReference($item);
+        }
+
+        return $list;
+{% endif %}

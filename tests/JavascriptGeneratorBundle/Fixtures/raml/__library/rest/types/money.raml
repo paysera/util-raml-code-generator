@@ -1,0 +1,13 @@
+#%RAML 1.0 DataType
+type: object
+displayName: Money instance
+properties:
+  amount:
+    required: true
+    type: number
+    format: float
+  currency:
+    required: true
+    type: string
+    minLength: 3
+    maxLength: 3

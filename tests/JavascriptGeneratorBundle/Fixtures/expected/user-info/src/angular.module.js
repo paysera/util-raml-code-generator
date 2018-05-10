@@ -1,18 +1,20 @@
 import angular from 'angular';
 import { TokenProvider, Scope } from 'paysera-http-client-common';
 
-import UserInfo from './entity/UserInfo';
 import Legal from './entity/Legal';
 import Natural from './entity/Natural';
+import UserInfo from './entity/UserInfo';
+import { Entity } from 'paysera-http-client-common';
 
 import DateFactory from './service/DateFactory';
 import ClientFactory from './service/ClientFactory';
 import UserInfoClient from './service/UserInfoClient';
 
 export {
-    UserInfo,
     Legal,
     Natural,
+    UserInfo,
+    Entity,
     DateFactory,
     ClientFactory,
     UserInfoClient,
@@ -56,6 +58,14 @@ class AngularClientFactory {
      * @returns {UserInfoClient}
      */
     wrapQ(client) {
+        const createLegalUserOriginal = client.createLegalUser.bind(client);
+        client.createLegalUser = (...args) => {
+            return this.$q.when(createLegalUserOriginal(...args));
+        };
+        const createNaturalUserOriginal = client.createNaturalUser.bind(client);
+        client.createNaturalUser = (...args) => {
+            return this.$q.when(createNaturalUserOriginal(...args));
+        };
         const getUserInformationOriginal = client.getUserInformation.bind(client);
         client.getUserInformation = (...args) => {
             return this.$q.when(getUserInformationOriginal(...args));

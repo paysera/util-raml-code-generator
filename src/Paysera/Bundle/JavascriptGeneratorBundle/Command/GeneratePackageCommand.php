@@ -12,6 +12,7 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Process\Process;
+use Twig_Environment;
 
 class GeneratePackageCommand extends Command
 {
@@ -22,13 +23,15 @@ class GeneratePackageCommand extends Command
     private $vendorPrefix;
     private $filesystem;
     private $ramlDir;
+    private $twigEnvironment;
 
     public function __construct(
         CodeGenerator $codeGenerator,
         Filesystem $filesystem,
         string $ramlDir,
         string $outputDir,
-        string $vendorPrefix
+        string $vendorPrefix,
+        Twig_Environment $twigEnvironment
     ) {
         parent::__construct();
 
@@ -37,6 +40,7 @@ class GeneratePackageCommand extends Command
         $this->ramlDir = $ramlDir;
         $this->outputDir = $outputDir;
         $this->vendorPrefix = $vendorPrefix;
+        $this->twigEnvironment = $twigEnvironment;
     }
 
     protected function configure()
@@ -59,6 +63,8 @@ class GeneratePackageCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        $this->twigEnvironment->addGlobal('language', self::LANGUAGE);
+
         $directory = $this->outputDir . DIRECTORY_SEPARATOR . $input->getArgument('api_name');
         if (!$this->filesystem->exists($directory)) {
             $this->filesystem->mkdir($directory);

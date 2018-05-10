@@ -35,6 +35,9 @@ class FinalBeneficiary extends Entity
      */
     public function getIdentifiers()
     {
+        if ($this->get('identifiers') === null) {
+            return null;
+        }
         return (new Identifiers())->setDataByReference($this->getByReference('identifiers'));
     }
     /**

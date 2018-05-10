@@ -1,15 +1,16 @@
 <?php
 
 namespace {{ api.namespace }}\Entity;
-{% if get_parent_class(type) == 'Entity' %}
 
-use Paysera\Component\RestClientCommon\Entity\Entity;
-{% elseif get_parent_class(type) == 'Filter' %}
+{% set importsExists = false %}
+{% for type in get_related_types_config(type, api) if type.importString is not null %}
+{% set importsExists = true %}
+use {{ type.importString }};
+{% endfor %}
+{% if importsExists == true %}
 
-use Paysera\Component\RestClientCommon\Entity\Filter;
 {% endif %}
-
-class {{ type.name }} extends {{ get_parent_class(type) }}
+class {{ type.name|extract_type_name }} extends {{ get_parent_type_config(type).typeName }}
 {
 {% for property in type.properties %}
     {%- include '@PayseraPhpGenerator/RestClient/Entity/Method/getter.php.twig' with { 'property': property } only -%}

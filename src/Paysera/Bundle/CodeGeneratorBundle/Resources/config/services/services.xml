@@ -13,6 +13,7 @@
             <argument type="service">
                 <service class="Raml\ParseConfiguration">
                     <call method="enableDirectoryTraversal"/>
+                    <call method="allowRemoteFileInclusion"/>
                 </service>
             </argument>
         </service>
@@ -60,8 +61,15 @@
                  class="Paysera\Bundle\CodeGeneratorBundle\Service\ConstantBuilder">
         </service>
 
-        <service id="paysera_code_generator.arguments_helper"
-                 class="Paysera\Bundle\CodeGeneratorBundle\Service\ArgumentsHelper">
+        <service id="paysera_code_generator.used_types_resolver"
+                 class="Paysera\Bundle\CodeGeneratorBundle\Service\UsedTypesResolver">
+        </service>
+        <service id="paysera_code_generator.string_converter"
+                 class="Paysera\Bundle\CodeGeneratorBundle\Service\StringConverter">
+        </service>
+
+        <service id="paysera_code_generator.type_configuration_provider_storage"
+                 class="Paysera\Bundle\CodeGeneratorBundle\Service\TypeConfigurationProviderStorage">
         </service>
     </services>
 </container>

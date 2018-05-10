@@ -1,0 +1,10 @@
+#%RAML 1.0 DataType
+description: Money type
+properties:
+  amount:
+    required: true
+    type: string
+  currency:
+    required: true
+    enum: [EUR]
+    type: string

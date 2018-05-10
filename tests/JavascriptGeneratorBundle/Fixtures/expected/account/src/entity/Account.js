@@ -1,3 +1,4 @@
+import UndescribedType from './UndescribedType';
 import { Entity } from 'paysera-http-client-common';
 
 import DateFactory from '../service/DateFactory';
@@ -89,6 +90,20 @@ class Account extends Entity {
      */
     setType(type) {
         this.set('type', type);
+    }
+
+    /**
+     * @return {UndescribedType}
+     */
+    getUndescribed() {
+        return new UndescribedType(this.get('undescribed'));
+    }
+
+    /**
+     * @param {UndescribedType} undescribed
+     */
+    setUndescribed(undescribed) {
+        this.set('undescribed', undescribed.getData());
     }
 }
 

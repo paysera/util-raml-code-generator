@@ -15,9 +15,10 @@
             <argument type="service" id="paysera_code_generator.method_name_builder"/>
             <argument type="service" id="paysera_code_generator.resource_type_detector"/>
             <argument type="service" id="paysera_code_generator.body_resolver"/>
-            <argument type="service" id="paysera_code_generator.arguments_helper"/>
-            <argument type="service" id="paysera_php_generator.string_converter"/>
+            <argument type="service" id="paysera_code_generator.string_converter"/>
             <argument type="service" id="paysera_code_generator.constant_builder"/>
+            <argument type="service" id="paysera_code_generator.type_configuration_provider_storage"/>
+            <argument type="service" id="paysera_code_generator.used_types_resolver"/>
             <tag name="twig.extension"/>
         </service>
     </services>

@@ -2,6 +2,7 @@
 
 namespace Paysera\Test\TestClient\Entity;
 
+use Evp\Component\Money\Money;
 use Paysera\Component\RestClientCommon\Entity\Entity;
 
 class TransferInput extends Entity
@@ -21,7 +22,7 @@ class TransferInput extends Entity
      */
     public function getAmount()
     {
-        return (new Money())->setDataByReference($this->getByReference('amount'));
+        return new Money($this->get('amount_amount'), $this->get('amount_currency'));
     }
     /**
      * @param Money $amount
@@ -29,7 +30,8 @@ class TransferInput extends Entity
      */
     public function setAmount(Money $amount)
     {
-        $this->setByReference('amount', $amount->getDataByReference());
+        $this->set('amount_amount', $amount->getAmount());
+        $this->set('amount_currency', $amount->getCurrency());
         return $this;
     }
     /**
@@ -69,6 +71,9 @@ class TransferInput extends Entity
      */
     public function getFinalBeneficiary()
     {
+        if ($this->get('final_beneficiary') === null) {
+            return null;
+        }
         return (new FinalBeneficiary())->setDataByReference($this->getByReference('final_beneficiary'));
     }
     /**
@@ -85,6 +90,9 @@ class TransferInput extends Entity
      */
     public function getPerformAt()
     {
+        if ($this->get('perform_at') === null) {
+            return null;
+        }
         return (new \DateTimeImmutable())->setTimestamp($this->get('perform_at'));
     }
     /**
@@ -133,6 +141,9 @@ class TransferInput extends Entity
      */
     public function getNotifications()
     {
+        if ($this->get('notifications') === null) {
+            return null;
+        }
         return (new TransferNotifications())->setDataByReference($this->getByReference('notifications'));
     }
     /**
@@ -165,6 +176,9 @@ class TransferInput extends Entity
      */
     public function getPassword()
     {
+        if ($this->get('password') === null) {
+            return null;
+        }
         return (new TransferPassword34())->setDataByReference($this->getByReference('password'));
     }
     /**
@@ -229,6 +243,9 @@ class TransferInput extends Entity
      */
     public function getReserveUntil()
     {
+        if ($this->get('reserve_until') === null) {
+            return null;
+        }
         return (new \DateTimeImmutable())->setTimestamp($this->get('reserve_until'));
     }
     /**

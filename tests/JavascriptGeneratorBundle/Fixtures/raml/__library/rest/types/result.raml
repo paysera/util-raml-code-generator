@@ -1,0 +1,12 @@
+#%RAML 1.0 DataType
+type: object
+displayName: Result of some objects
+properties:
+  items:
+    type: array
+    items:
+      type: object
+    required: true
+  _metadata:
+    required: true
+    type: ResultMetadata

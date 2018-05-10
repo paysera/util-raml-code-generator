@@ -1,6 +1,6 @@
+import TransferNotifcation from './TransferNotifcation';
 import { Entity } from 'paysera-http-client-common';
 
-import TransferNotifcation from './TransferNotifcation';
 import DateFactory from '../service/DateFactory';
 
 class TransferNotifications extends Entity {
@@ -12,6 +12,9 @@ class TransferNotifications extends Entity {
      * @return {TransferNotifcation}|null
      */
     getDone() {
+        if (this.get('done') == null) {
+            return null;
+        }
         return new TransferNotifcation(this.get('done'));
     }
 
@@ -19,7 +22,7 @@ class TransferNotifications extends Entity {
      * @param {TransferNotifcation} done
      */
     setDone(done) {
-        this.set('done', done.data);
+        this.set('done', done.getData());
     }
 }
 

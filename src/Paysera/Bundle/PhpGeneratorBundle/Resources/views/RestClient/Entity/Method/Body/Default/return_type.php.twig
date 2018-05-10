@@ -1,0 +1,14 @@
+{% spaceless %}
+    {% if property.type == constant('TYPE_REFERENCE', property) -%}
+        {% set type = property.reference %}
+    {% else %}
+        {% set type = property.type %}
+    {% endif %}
+
+    {% if property.required == false %}
+        {{ type|extract_type_name }}|null
+    {% else %}
+        {{ type|extract_type_name }}
+    {% endif %}
+{% endspaceless %}
+

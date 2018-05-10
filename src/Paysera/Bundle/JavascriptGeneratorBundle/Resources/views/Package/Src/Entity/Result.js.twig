@@ -1,16 +1,22 @@
-import { Result } from 'paysera-http-client-common';
+{% for typeConfig in get_related_types_config(type, api) %}
+{% if typeConfig.importString is not null %}
+import {{ typeConfig.importString|raw }};
+{% else %}
+import {{ typeConfig.typeName|extract_type_name }} from './{{ typeConfig.typeName|extract_type_name }}';
+{% endif %}
+{% endfor %}
+{% if get_related_types_config(type, api) is not empty %}
 
-import {{ type.itemsType }} from './{{ type.itemsType }}';
-
-class {{ type.name }} extends Result {
+{% endif %}
+class {{ type.name|extract_type_name }} extends {{ get_parent_type_config(type).typeName }} {
 
     /**
      * @param {Array} data
-     * @returns {{ ('{' ~ type.itemsType ~ '}')|raw }}
+     * @returns {{ ('{' ~ type.itemsType|extract_type_name ~ '}')|raw }}
      */
     createItem(data) {
-        return new {{ type.itemsType }}(data);
+        return new {{ type.itemsType|extract_type_name }}(data);
     }
 }
 
-export default {{ type.name }};
+export default {{ type.name|extract_type_name }};

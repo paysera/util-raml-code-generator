@@ -1,12 +1,11 @@
 import { RequestFactory, ClientWrapper } from 'paysera-http-client-common';
 
-import User from '../entity/User';
-import UserLegal from '../entity/UserLegal';
-import UserNatural from '../entity/UserNatural';
 import UserBasic from '../entity/UserBasic';
-import UserLegalFilter from '../entity/UserLegalFilter';
-import UserNaturalFilter from '../entity/UserNaturalFilter';
 import UserFilter from '../entity/UserFilter';
+import UserLegal from '../entity/UserLegal';
+import UserLegalFilter from '../entity/UserLegalFilter';
+import UserNatural from '../entity/UserNatural';
+import UserNaturalFilter from '../entity/UserNaturalFilter';
 
 class InheritanceClient {
 

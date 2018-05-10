@@ -127,10 +127,10 @@ class CategoryClient
      * Standard SQL-style Result filtering
      * GET /keywords
      *
-     * @param Paysera\Component\RestClientCommon\Entity\Filter $filter
+     * @param \Paysera\Component\RestClientCommon\Entity\Filter $filter
      * @return null
      */
-    public function getKeywords(Paysera\Component\RestClientCommon\Entity\Filter $filter)
+    public function getKeywords(\Paysera\Component\RestClientCommon\Entity\Filter $filter)
     {
         $request = $this->apiClient->createRequest(
             RequestMethodInterface::METHOD_GET,

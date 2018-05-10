@@ -8,7 +8,7 @@ class Money extends Entity {
     }
 
     /**
-     * @return {string}|null
+     * @return {string}
      */
     getAmount() {
         return this.get('amount');
@@ -22,7 +22,7 @@ class Money extends Entity {
     }
 
     /**
-     * @return {string}|null
+     * @return {string}
      */
     getCurrency() {
         return this.get('currency');

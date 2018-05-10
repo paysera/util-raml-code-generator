@@ -36,7 +36,8 @@ class GenerateRestClientCommandTest extends KernelTestCase
         $commandInstance = new GenerateRestClientCommand(
             $container->get('paysera_code_generator.code_generator'),
             __DIR__ . '/Fixtures/raml',
-            __DIR__ . '/Fixtures/generated'
+            __DIR__ . '/Fixtures/generated',
+            $container->get('twig')
         );
 
         $application->add($commandInstance);

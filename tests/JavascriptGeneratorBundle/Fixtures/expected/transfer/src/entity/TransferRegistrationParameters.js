@@ -1,6 +1,6 @@
+import ConvertCurrency from './ConvertCurrency';
 import { Entity } from 'paysera-http-client-common';
 
-import ConvertCurrency from './ConvertCurrency';
 import DateFactory from '../service/DateFactory';
 
 class TransferRegistrationParameters extends Entity {
@@ -31,10 +31,10 @@ class TransferRegistrationParameters extends Entity {
     setConvertCurrency(convertCurrency) {
         let data = [];
         for (let entity of convertCurrency) {
-            data.push(entity.data);
+            data.push(entity.getData());
         }
-        this.data = data;
-        }
+        this.set('convert_currency', data);
+    }
 }
 
 export default TransferRegistrationParameters;

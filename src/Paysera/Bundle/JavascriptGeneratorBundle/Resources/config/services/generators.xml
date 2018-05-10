@@ -13,6 +13,9 @@
                  class="Paysera\Bundle\JavascriptGeneratorBundle\Service\Generator\EntityGenerator">
             <argument type="service" id="templating"/>
             <argument>%paysera_javascript_generator.relative_package_source_dir%</argument>
+            <argument type="service" id="paysera_javascript_generator.type_configuration_provider"/>
+            <argument type="service" id="paysera_code_generator.used_types_resolver"/>
+            <argument type="service" id="paysera_code_generator.string_converter"/>
             <tag name="paysera_js_generator" position="10"/>
         </service>
 
@@ -25,7 +28,7 @@
 
         <service id="paysera_javascript_generator.generator.client"
                  class="Paysera\Bundle\JavascriptGeneratorBundle\Service\Generator\ClientGenerator">
-            <argument type="service" id="paysera_php_generator.string_converter"/>
+            <argument type="service" id="paysera_code_generator.string_converter"/>
             <argument type="service" id="templating"/>
             <argument>%paysera_javascript_generator.relative_package_source_dir%</argument>
             <tag name="paysera_js_generator" position="30"/>

@@ -5,6 +5,9 @@ class TransfersFilter extends Entity {
      * @return {Date}|null
      */
     getCreatedDateFrom() {
+        if (this.get('created_date_from') == null) {
+            return null;
+        }
         return DateFactory.create(this.get('created_date_from'));
     }
 
@@ -19,6 +22,9 @@ class TransfersFilter extends Entity {
      * @return {Date}|null
      */
     getCreatedDateTo() {
+        if (this.get('created_date_to') == null) {
+            return null;
+        }
         return DateFactory.create(this.get('created_date_to'));
     }
 

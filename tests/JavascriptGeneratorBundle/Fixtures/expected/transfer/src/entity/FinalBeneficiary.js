@@ -1,6 +1,6 @@
+import Identifiers from './Identifiers';
 import { Entity } from 'paysera-http-client-common';
 
-import Identifiers from './Identifiers';
 import DateFactory from '../service/DateFactory';
 
 class FinalBeneficiary extends Entity {
@@ -26,6 +26,9 @@ class FinalBeneficiary extends Entity {
      * @return {Identifiers}|null
      */
     getIdentifiers() {
+        if (this.get('identifiers') == null) {
+            return null;
+        }
         return new Identifiers(this.get('identifiers'));
     }
 
@@ -33,7 +36,7 @@ class FinalBeneficiary extends Entity {
      * @param {Identifiers} identifiers
      */
     setIdentifiers(identifiers) {
-        this.set('identifiers', identifiers.data);
+        this.set('identifiers', identifiers.getData());
     }
 
     /**

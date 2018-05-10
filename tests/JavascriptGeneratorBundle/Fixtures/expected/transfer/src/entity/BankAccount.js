@@ -1,7 +1,7 @@
-import { Entity } from 'paysera-http-client-common';
-
 import Address from './Address';
 import CorrespondentBank from './CorrespondentBank';
+import { Entity } from 'paysera-http-client-common';
+
 import DateFactory from '../service/DateFactory';
 
 class BankAccount extends Entity {
@@ -83,6 +83,9 @@ class BankAccount extends Entity {
      * @return {Address}|null
      */
     getBankAddress() {
+        if (this.get('bank_address') == null) {
+            return null;
+        }
         return new Address(this.get('bank_address'));
     }
 
@@ -90,7 +93,7 @@ class BankAccount extends Entity {
      * @param {Address} bankAddress
      */
     setBankAddress(bankAddress) {
-        this.set('bank_address', bankAddress.data);
+        this.set('bank_address', bankAddress.getData());
     }
 
     /**
@@ -111,6 +114,9 @@ class BankAccount extends Entity {
      * @return {CorrespondentBank}|null
      */
     getCorrespondentBank() {
+        if (this.get('correspondent_bank') == null) {
+            return null;
+        }
         return new CorrespondentBank(this.get('correspondent_bank'));
     }
 
@@ -118,7 +124,7 @@ class BankAccount extends Entity {
      * @param {CorrespondentBank} correspondentBank
      */
     setCorrespondentBank(correspondentBank) {
-        this.set('correspondent_bank', correspondentBank.data);
+        this.set('correspondent_bank', correspondentBank.getData());
     }
 }
 

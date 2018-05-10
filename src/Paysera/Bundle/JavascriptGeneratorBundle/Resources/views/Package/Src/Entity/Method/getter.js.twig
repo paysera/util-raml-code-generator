@@ -1,23 +1,7 @@
 
     /**
-     * @return {{ js_get_doc_block(property, true)|raw }}
+     * @return {% include get_method_return_type_template(property) with { 'property': property } only %}
      */
     {{ js_generate_getter_name(property) }}() {
-        {% set populator = js_generate_value_populator(property) %}
-        {%- if property.type == 'array' and property.itemsType not in property.simpleTypes -%}
-        let data = {{ populator|raw }};
-        if (data === null) {
-            return [];
-        }
-
-        let collection = [];
-        for (let value of data) {
-            collection.push(new {{ property.itemsType }}(value));
-        }
-
-        return collection;
-        {%- else %}
-return {{ populator|raw }};
-        {%- endif %}
-
+        {%- include get_method_body_getter_template(property) with { 'property': property } only %}
     }

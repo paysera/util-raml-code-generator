@@ -4,7 +4,7 @@
      *
 {% set arguments = php_generate_method_arguments(method, resource, api) %}
 {% for argument in arguments %}
-     * @param {{ argument.namespacedType }} ${{ argument.name }}
+     * @param {{ argument.namespacedType }} ${{ argument.name|to_variable_name }}
 {% endfor %}
      * @return {{ php_get_return_type(method, api) }}
      */
@@ -13,7 +13,7 @@
         $request = $this->apiClient->createRequest(
             RequestMethodInterface::METHOD_{{ method.type }},
             {{ php_generate_uri(resource) }},
-            {{ generate_body(method, api) == null ? 'null' : '$' ~ generate_body(method, api) }}
+            {{ generate_body(method, api) == null ? 'null' : '$' ~ generate_body(method, api)|to_variable_name }}
         );
         {% if is_raw_response(method) -%}
         return $this->apiClient->makeRawRequest($request)->getBody()->getContents();

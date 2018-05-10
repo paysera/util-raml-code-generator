@@ -12,6 +12,7 @@
             <argument>%paysera_code_generator.raml_dir%</argument>
             <argument>%paysera_code_generator.output_dir%</argument>
             <argument>%vendor_prefix%</argument>
+            <argument type="service" id="twig"/>
             <tag name="console.command"/>
         </service>
     </services>

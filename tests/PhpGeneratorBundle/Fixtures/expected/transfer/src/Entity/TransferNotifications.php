@@ -16,6 +16,9 @@ class TransferNotifications extends Entity
      */
     public function getDone()
     {
+        if ($this->get('done') === null) {
+            return null;
+        }
         return (new TransferNotifcation())->setDataByReference($this->getByReference('done'));
     }
     /**

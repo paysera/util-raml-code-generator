@@ -26,11 +26,6 @@ class TypeDefinition
     private $properties;
 
     /**
-     * @var bool
-     */
-    private $generatable;
-
-    /**
      * @var TypeDefinition|null
      */
     private $parent;
@@ -53,7 +48,6 @@ class TypeDefinition
     public function __construct()
     {
         $this->properties = [];
-        $this->generatable = true;
         $this->data = [];
     }
 
@@ -141,23 +135,6 @@ class TypeDefinition
     public function setDisplayName($displayName)
     {
         $this->displayName = $displayName;
-        return $this;
-    }
-
-    public function isGeneratable()
-    {
-        return $this->generatable;
-    }
-
-    /**
-     * @param bool $generatable
-     *
-     * @return $this
-     */
-    public function setGeneratable($generatable)
-    {
-        $this->generatable = $generatable;
-
         return $this;
     }
 

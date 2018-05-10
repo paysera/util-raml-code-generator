@@ -1,0 +1,11 @@
+{% spaceless %}
+    {% if property.type == constant('TYPE_REFERENCE', property) -%}
+        {% set type = property.reference %}
+    {% elseif property.type == constant('TYPE_INTEGER', property) %}
+        {% set type = 'Number' %}
+    {% else %}
+        {% set type = property.type %}
+    {% endif %}
+    {{ ('{' ~ type|extract_type_name ~ '}')|raw }} {{ property.name|to_variable_name }}
+{% endspaceless %}
+

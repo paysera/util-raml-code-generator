@@ -1,7 +1,7 @@
-import { Entity } from 'paysera-http-client-common';
-
 import OutCommissionRule from './OutCommissionRule';
 import Money from './Money';
+import { Entity } from 'paysera-http-client-common';
+
 import DateFactory from '../service/DateFactory';
 
 class TransferAdditionalData extends Entity {
@@ -13,6 +13,9 @@ class TransferAdditionalData extends Entity {
      * @return {Date}|null
      */
     getEstimatedProcessingDate() {
+        if (this.get('estimated_processing_date') == null) {
+            return null;
+        }
         return DateFactory.create(this.get('estimated_processing_date'));
     }
 
@@ -27,6 +30,9 @@ class TransferAdditionalData extends Entity {
      * @return {OutCommissionRule}|null
      */
     getOutCommissionRule() {
+        if (this.get('out_commission_rule') == null) {
+            return null;
+        }
         return new OutCommissionRule(this.get('out_commission_rule'));
     }
 
@@ -34,13 +40,16 @@ class TransferAdditionalData extends Entity {
      * @param {OutCommissionRule} outCommissionRule
      */
     setOutCommissionRule(outCommissionRule) {
-        this.set('out_commission_rule', outCommissionRule.data);
+        this.set('out_commission_rule', outCommissionRule.getData());
     }
 
     /**
      * @return {Money}|null
      */
     getOriginalOutCommission() {
+        if (this.get('original_out_commission') == null) {
+            return null;
+        }
         return new Money(this.get('original_out_commission'));
     }
 
@@ -48,7 +57,7 @@ class TransferAdditionalData extends Entity {
      * @param {Money} originalOutCommission
      */
     setOriginalOutCommission(originalOutCommission) {
-        this.set('original_out_commission', originalOutCommission.data);
+        this.set('original_out_commission', originalOutCommission.getData());
     }
 
     /**

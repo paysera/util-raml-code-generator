@@ -2,6 +2,10 @@
 title: Transfer API
 version: 1.0
 baseUri: https://my-api.example.com/rest/v1
+
+uses:
+  Paysera: ../__library/rest.raml
+
 types:
   TransfersBatchResult:
     displayName: Result of TransfersBatch
@@ -97,7 +101,7 @@ types:
         required: true
         displayName: amount
         description: Amount to transfer
-        type: Money
+        type: Paysera.Money
       beneficiary:
         required: true
         displayName: beneficiary
@@ -167,20 +171,6 @@ types:
         description: Timestamp until Transfer must be reserved
         type: integer
         format: int32
-  Money:
-    displayName: Money object
-    type: object
-    properties:
-      amount:
-        required: false
-        displayName: amount
-        description: Amount
-        type: string
-      currency:
-        required: false
-        displayName: currency
-        description: ISO 4217 Code
-        type: string
   TransferBeneficiary:
     displayName: Transfer beneficiary
     type: object
@@ -557,7 +547,7 @@ types:
         required: false
         displayName: out_commission
         description: Transfer out commission amount
-        type: Money
+        type: Paysera.Money
       additional_information:
         required: false
         displayName: additional_information
@@ -608,7 +598,7 @@ types:
       original_out_commission:
         required: false
         displayName: original_out_commission
-        type: Money
+        type: Paysera.Money
       correspondent_bank_fees_may_apply:
         required: false
         displayName: correspondent_bank_fees_may_apply
@@ -627,17 +617,17 @@ types:
         required: false
         displayName: min
         description: Minimum commission
-        type: Money
+        type: Paysera.Money
       max:
         required: false
         displayName: max
         description: Maximum commission
-        type: Money
+        type: Paysera.Money
       fix:
         required: false
         displayName: fix
         description: Fixed commission
-        type: Money
+        type: Paysera.Money
   TransfersFilter:
     displayName: Transfers filter
     type: object
@@ -673,7 +663,7 @@ types:
         type: string
   FilteredTransfersResult:
     displayName: Filtered Transfers result
-    type: object
+    type: Paysera.Result
     properties:
       transfers:
         required: false
@@ -681,32 +671,6 @@ types:
         type: array
         items:
           type: TransferOutput
-      _metadata:
-        required: false
-        displayName: _metadata
-        type: ResultMetadata
-  ResultMetadata:
-    displayName: Result meta data
-    type: object
-    properties:
-      total:
-        required: true
-        displayName: total
-        description: Total count of items
-        type: integer
-        format: int32
-      offset:
-        required: true
-        displayName: offset
-        description: Cursor position
-        type: integer
-        format: int32
-      limit:
-        required: false
-        displayName: limit
-        description: Max allowed results
-        type: integer
-        format: int32
 /transfer:
   post:
     displayName: Transfer

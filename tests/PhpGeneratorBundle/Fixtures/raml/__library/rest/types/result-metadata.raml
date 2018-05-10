@@ -1,0 +1,27 @@
+#%RAML 1.0 DataType
+type: object
+displayName: ResultMetadata object
+properties:
+  total:
+    required: true
+    description: Total count of items
+    type: integer
+    format: int32
+  offset:
+    required: true
+    description: Cursor position
+    type: integer
+    format: int32
+  limit:
+    required: false
+    description: Max allowed results
+    type: integer
+    format: int32
+  order_direction:
+    required: false
+    description: Order direction
+    type: string
+  order_by:
+    required: false
+    description: Order results by some field
+    type: string

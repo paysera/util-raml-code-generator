@@ -7,6 +7,7 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Twig_Environment;
 
 class GenerateRestClientCommand extends Command
 {
@@ -15,17 +16,20 @@ class GenerateRestClientCommand extends Command
     private $codeGenerator;
     private $ramlDir;
     private $outputDir;
+    private $twigEnvironment;
 
     public function __construct(
         CodeGenerator $codeGenerator,
         string $ramlDir,
-        string $outputDir
+        string $outputDir,
+        Twig_Environment $twigEnvironment
     ) {
         parent::__construct();
 
         $this->codeGenerator = $codeGenerator;
         $this->ramlDir = $ramlDir;
         $this->outputDir = $outputDir;
+        $this->twigEnvironment = $twigEnvironment;
     }
 
     protected function configure()
@@ -43,6 +47,8 @@ class GenerateRestClientCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        $this->twigEnvironment->addGlobal('language', self::LANGUAGE);
+
         $this->codeGenerator->generateCode(
             self::LANGUAGE,
             $input->getArgument('api_name'),

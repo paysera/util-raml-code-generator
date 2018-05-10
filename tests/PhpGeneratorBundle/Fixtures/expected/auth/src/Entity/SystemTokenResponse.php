@@ -35,6 +35,9 @@ class SystemTokenResponse extends Entity
      */
     public function getScopeChallenge()
     {
+        if ($this->get('scope_challenge') === null) {
+            return null;
+        }
         return (new ScopeChallenge())->setDataByReference($this->getByReference('scope_challenge'));
     }
     /**
@@ -51,6 +54,9 @@ class SystemTokenResponse extends Entity
      */
     public function getSystemToken()
     {
+        if ($this->get('system_token') === null) {
+            return null;
+        }
         return (new SystemToken())->setDataByReference($this->getByReference('system_token'));
     }
     /**

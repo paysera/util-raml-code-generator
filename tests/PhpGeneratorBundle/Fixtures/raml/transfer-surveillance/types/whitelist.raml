@@ -22,16 +22,8 @@ properties:
     required: false
   max_amount:
     description: The maximum transfer amount that this whitelist can be applied to
-    type: object
+    type: Money
     required: false
-    properties:
-      amount:
-        required: true
-        type: string
-      currency:
-        required: true
-        enum: [EUR]
-        type: string
   profiles:
     description: Whitelisted profiles (for blacklist rule checking only, required at least one profile)
     required: false

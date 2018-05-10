@@ -1,8 +1,7 @@
 import { RequestFactory, ClientWrapper } from 'paysera-http-client-common';
 
-import AccountResult from '../entity/AccountResult';
-import Account from '../entity/Account';
 import AccountFilter from '../entity/AccountFilter';
+import AccountResult from '../entity/AccountResult';
 
 class AccountClient {
 

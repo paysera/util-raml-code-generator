@@ -1,8 +1,8 @@
 import { RequestFactory, ClientWrapper } from 'paysera-http-client-common';
 
-import UserInfo from '../entity/UserInfo';
 import Legal from '../entity/Legal';
 import Natural from '../entity/Natural';
+import UserInfo from '../entity/UserInfo';
 
 class UserInfoClient {
 
@@ -11,6 +11,50 @@ class UserInfoClient {
      */
     constructor(client) {
         this.client = client;
+    }
+
+    /**
+     * Creates Legal User
+     * POST /users/legal
+     *
+     * @param {Legal} legal
+     * @return {Promise.<null>}
+     */
+    createLegalUser(legal) {
+        const request = RequestFactory.create(
+            'POST',
+            'users/legal',
+            legal,
+        );
+
+        return this.client
+            .performRequest(request)
+            .then((data) => {
+                return null;
+            })
+        ;
+    }
+
+    /**
+     * Creates Natural User
+     * POST /users/natural
+     *
+     * @param {Natural} natural
+     * @return {Promise.<null>}
+     */
+    createNaturalUser(natural) {
+        const request = RequestFactory.create(
+            'POST',
+            'users/natural',
+            natural,
+        );
+
+        return this.client
+            .performRequest(request)
+            .then((data) => {
+                return null;
+            })
+        ;
     }
 
     /**

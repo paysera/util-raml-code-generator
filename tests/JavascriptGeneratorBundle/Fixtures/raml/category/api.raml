@@ -5,12 +5,14 @@ baseUri: https://my-api.example.com/rest/v1
 mediaType: application/json
 protocols: [ HTTPS ]
 
+uses:
+  Paysera: ../__library/rest.raml
+
 types:
   Category: !include types/category.raml
 
 traits:
   CategoryFilter: !include traits/category-filter.raml
-  Filter: !include traits/filter.raml
   hasItem200Response: !include traits/item-200-response.raml
 
 /categories:
@@ -55,3 +57,9 @@ traits:
         is:
           - hasItem200Response:
               typeName: Category
+
+/keywords:
+  get:
+    description: Get keywords list
+    is:
+      - Paysera.Filter

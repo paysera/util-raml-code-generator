@@ -35,6 +35,9 @@ class AuthTokenResponse extends Entity
      */
     public function getChallenge()
     {
+        if ($this->get('challenge') === null) {
+            return null;
+        }
         return (new Challenge())->setDataByReference($this->getByReference('challenge'));
     }
     /**
@@ -51,6 +54,9 @@ class AuthTokenResponse extends Entity
      */
     public function getAuthToken()
     {
+        if ($this->get('auth_token') === null) {
+            return null;
+        }
         return (new AuthToken())->setDataByReference($this->getByReference('auth_token'));
     }
     /**

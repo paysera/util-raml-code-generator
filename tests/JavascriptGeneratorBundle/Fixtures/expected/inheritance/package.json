@@ -12,8 +12,8 @@
     "author": "vendor",
     "license": "ISC",
     "dependencies": {
-        "angular": "1.4.9",
-        "paysera-http-client-common": "^1.0.0"
+        "paysera-http-client-common": "^1.0",
+        "angular": "1.4.9"
     },
     "devDependencies": {
         "babel-core": "^6.23.1",

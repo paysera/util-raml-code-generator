@@ -9,18 +9,15 @@
                  class="Paysera\Bundle\PhpGeneratorBundle\Twig\ApiMethodExtension">
             <argument type="service" id="paysera_code_generator.body_resolver"/>
             <argument type="service" id="paysera_code_generator.twig_extension.base"/>
-            <argument type="service" id="paysera_bundle_php_generator.service.namespace_helper"/>
+            <argument type="service" id="paysera_php_generator.namespace_helper"/>
+            <argument type="service" id="paysera_php_generator.type_configuration_provider"/>
+            <argument type="service" id="paysera_code_generator.string_converter"/>
             <tag name="twig.extension"/>
         </service>
 
         <service id="paysera_php_generator.twig_extension.field_definition"
                  class="Paysera\Bundle\PhpGeneratorBundle\Twig\FieldDefinitionExtension">
-            <argument type="service" id="paysera_php_generator.string_converter"/>
-            <tag name="twig.extension"/>
-        </service>
-
-        <service id="paysera_php_generator.twig_extension.type_definition"
-                 class="Paysera\Bundle\PhpGeneratorBundle\Twig\TypeDefinitionExtension">
+            <argument type="service" id="paysera_code_generator.string_converter"/>
             <tag name="twig.extension"/>
         </service>
     </services>

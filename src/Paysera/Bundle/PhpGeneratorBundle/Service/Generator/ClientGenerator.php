@@ -5,7 +5,7 @@ namespace Paysera\Bundle\PhpGeneratorBundle\Service\Generator;
 
 use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\ApiDefinition;
 use Paysera\Bundle\CodeGeneratorBundle\Entity\SourceCode;
-use Paysera\Bundle\PhpGeneratorBundle\Service\StringConverter;
+use Paysera\Bundle\CodeGeneratorBundle\Service\StringConverter;
 use Paysera\Bundle\CodeGeneratorBundle\Service\Generator\GeneratorInterface;
 use Symfony\Component\Templating\EngineInterface;
 

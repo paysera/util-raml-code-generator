@@ -1,11 +1,11 @@
-import { Entity } from 'paysera-http-client-common';
-
-import Identifiers from './Identifiers';
 import BankAccount from './BankAccount';
-import TaxAccount from './TaxAccount';
+import Identifiers from './Identifiers';
 import PayseraAccount from './PayseraAccount';
 import PayzaAccount from './PayzaAccount';
+import TaxAccount from './TaxAccount';
 import WebmoneyAccount from './WebmoneyAccount';
+import { Entity } from 'paysera-http-client-common';
+
 import DateFactory from '../service/DateFactory';
 
 class TransferBeneficiary extends Entity {
@@ -31,6 +31,9 @@ class TransferBeneficiary extends Entity {
      * @return {Identifiers}|null
      */
     getIdentifiers() {
+        if (this.get('identifiers') == null) {
+            return null;
+        }
         return new Identifiers(this.get('identifiers'));
     }
 
@@ -38,7 +41,7 @@ class TransferBeneficiary extends Entity {
      * @param {Identifiers} identifiers
      */
     setIdentifiers(identifiers) {
-        this.set('identifiers', identifiers.data);
+        this.set('identifiers', identifiers.getData());
     }
 
     /**
@@ -73,6 +76,9 @@ class TransferBeneficiary extends Entity {
      * @return {BankAccount}|null
      */
     getBankAccount() {
+        if (this.get('bank_account') == null) {
+            return null;
+        }
         return new BankAccount(this.get('bank_account'));
     }
 
@@ -80,13 +86,16 @@ class TransferBeneficiary extends Entity {
      * @param {BankAccount} bankAccount
      */
     setBankAccount(bankAccount) {
-        this.set('bank_account', bankAccount.data);
+        this.set('bank_account', bankAccount.getData());
     }
 
     /**
      * @return {TaxAccount}|null
      */
     getTaxAccount() {
+        if (this.get('tax_account') == null) {
+            return null;
+        }
         return new TaxAccount(this.get('tax_account'));
     }
 
@@ -94,13 +103,16 @@ class TransferBeneficiary extends Entity {
      * @param {TaxAccount} taxAccount
      */
     setTaxAccount(taxAccount) {
-        this.set('tax_account', taxAccount.data);
+        this.set('tax_account', taxAccount.getData());
     }
 
     /**
      * @return {PayseraAccount}|null
      */
     getPayseraAccount() {
+        if (this.get('paysera_account') == null) {
+            return null;
+        }
         return new PayseraAccount(this.get('paysera_account'));
     }
 
@@ -108,13 +120,16 @@ class TransferBeneficiary extends Entity {
      * @param {PayseraAccount} payseraAccount
      */
     setPayseraAccount(payseraAccount) {
-        this.set('paysera_account', payseraAccount.data);
+        this.set('paysera_account', payseraAccount.getData());
     }
 
     /**
      * @return {PayzaAccount}|null
      */
     getPayzaAccount() {
+        if (this.get('payza_account') == null) {
+            return null;
+        }
         return new PayzaAccount(this.get('payza_account'));
     }
 
@@ -122,13 +137,16 @@ class TransferBeneficiary extends Entity {
      * @param {PayzaAccount} payzaAccount
      */
     setPayzaAccount(payzaAccount) {
-        this.set('payza_account', payzaAccount.data);
+        this.set('payza_account', payzaAccount.getData());
     }
 
     /**
      * @return {WebmoneyAccount}|null
      */
     getWebmoneyAccount() {
+        if (this.get('webmoney_account') == null) {
+            return null;
+        }
         return new WebmoneyAccount(this.get('webmoney_account'));
     }
 
@@ -136,7 +154,7 @@ class TransferBeneficiary extends Entity {
      * @param {WebmoneyAccount} webmoneyAccount
      */
     setWebmoneyAccount(webmoneyAccount) {
-        this.set('webmoney_account', webmoneyAccount.data);
+        this.set('webmoney_account', webmoneyAccount.getData());
     }
 }
 

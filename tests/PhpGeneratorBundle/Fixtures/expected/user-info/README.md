@@ -35,6 +35,39 @@ Now, that you have instance of `UserInfoClient`, you can use following methods
 ### Methods
 
     
+Creates Legal User
+
+
+```php
+use Paysera\Test\TestClient\Entity as Entities;
+
+$legal = new Entities\Legal();
+
+$legal->setCompanyName($companyName);
+$legal->setCompanyCode($companyCode);
+$legal->setVatCode($vatCode);
+    
+$userInfoClient->createLegalUser($legal);
+```
+---
+
+
+Creates Natural User
+
+
+```php
+use Paysera\Test\TestClient\Entity as Entities;
+
+$natural = new Entities\Natural();
+
+$natural->setName($name);
+$natural->setSurname($surname);
+    
+$userInfoClient->createNaturalUser($natural);
+```
+---
+
+
 Get user by it&#039;s id
 
 

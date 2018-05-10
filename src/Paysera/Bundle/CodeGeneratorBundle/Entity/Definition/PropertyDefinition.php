@@ -23,6 +23,12 @@ class PropertyDefinition
         self::TYPE_NUMBER,
     ];
 
+    protected static $scalarTypes = [
+        self::TYPE_INTEGER,
+        self::TYPE_STRING,
+        self::TYPE_BOOLEAN,
+    ];
+
     /**
      * @var array
      */
@@ -58,12 +64,14 @@ class PropertyDefinition
      */
     private $constants;
 
-    /**
-     * @return array
-     */
     public static function getSimpleTypes()
     {
         return self::$simpleTypes;
+    }
+
+    public static function getScalarTypes()
+    {
+        return self::$scalarTypes;
     }
 
     public function __construct()

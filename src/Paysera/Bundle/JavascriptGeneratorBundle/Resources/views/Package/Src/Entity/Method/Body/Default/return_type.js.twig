@@ -1,0 +1,16 @@
+{% spaceless %}
+    {% if property.type == constant('TYPE_REFERENCE', property) -%}
+        {% set type = property.reference %}
+    {% elseif property.type == constant('TYPE_INTEGER', property) %}
+        {% set type = 'Number' %}
+    {% else %}
+        {% set type = property.type %}
+    {% endif %}
+
+    {% if property.required == false %}
+        {{ ('{' ~ type|extract_type_name ~ '}')|raw }}|null
+    {% else %}
+        {{ ('{' ~ type|extract_type_name ~ '}')|raw }}
+    {% endif %}
+{% endspaceless %}
+

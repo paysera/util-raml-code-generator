@@ -1,10 +1,9 @@
-import { Entity } from 'paysera-http-client-common';
-
-import TransferInitiator from './TransferInitiator';
-import TransferFailureStatus from './TransferFailureStatus';
 import Money from './Money';
 import TransferAdditionalData from './TransferAdditionalData';
+import TransferFailureStatus from './TransferFailureStatus';
+import TransferInitiator from './TransferInitiator';
 import TransferInput from './TransferInput';
+
 import DateFactory from '../service/DateFactory';
 
 class TransferOutput extends TransferInput {
@@ -51,7 +50,7 @@ class TransferOutput extends TransferInput {
      * @param {TransferInitiator} initiator
      */
     setInitiator(initiator) {
-        this.set('initiator', initiator.data);
+        this.set('initiator', initiator.getData());
     }
 
     /**
@@ -72,6 +71,9 @@ class TransferOutput extends TransferInput {
      * @return {Date}|null
      */
     getPerformedAt() {
+        if (this.get('performed_at') == null) {
+            return null;
+        }
         return DateFactory.create(this.get('performed_at'));
     }
 
@@ -86,6 +88,9 @@ class TransferOutput extends TransferInput {
      * @return {TransferFailureStatus}|null
      */
     getFailureStatus() {
+        if (this.get('failure_status') == null) {
+            return null;
+        }
         return new TransferFailureStatus(this.get('failure_status'));
     }
 
@@ -93,13 +98,16 @@ class TransferOutput extends TransferInput {
      * @param {TransferFailureStatus} failureStatus
      */
     setFailureStatus(failureStatus) {
-        this.set('failure_status', failureStatus.data);
+        this.set('failure_status', failureStatus.getData());
     }
 
     /**
      * @return {Money}|null
      */
     getOutCommission() {
+        if (this.get('out_commission') == null) {
+            return null;
+        }
         return new Money(this.get('out_commission'));
     }
 
@@ -107,13 +115,16 @@ class TransferOutput extends TransferInput {
      * @param {Money} outCommission
      */
     setOutCommission(outCommission) {
-        this.set('out_commission', outCommission.data);
+        this.set('out_commission', outCommission.getData());
     }
 
     /**
      * @return {TransferAdditionalData}|null
      */
     getAdditionalInformation() {
+        if (this.get('additional_information') == null) {
+            return null;
+        }
         return new TransferAdditionalData(this.get('additional_information'));
     }
 
@@ -121,7 +132,7 @@ class TransferOutput extends TransferInput {
      * @param {TransferAdditionalData} additionalInformation
      */
     setAdditionalInformation(additionalInformation) {
-        this.set('additional_information', additionalInformation.data);
+        this.set('additional_information', additionalInformation.getData());
     }
 }
 

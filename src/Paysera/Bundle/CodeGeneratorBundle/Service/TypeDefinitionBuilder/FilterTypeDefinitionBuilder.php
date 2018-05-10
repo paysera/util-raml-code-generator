@@ -47,10 +47,6 @@ class FilterTypeDefinitionBuilder implements TypeDefinitionBuilderInterface
             $type->addProperty($property);
         }
 
-//        if ($name === FilterTypeDefinition::BASE_FILTER) {
-//            $type->setBaseFilter(true);
-//        }
-
         return $type;
     }
 }

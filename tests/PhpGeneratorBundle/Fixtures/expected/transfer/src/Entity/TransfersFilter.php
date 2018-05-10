@@ -11,6 +11,9 @@ class TransfersFilter extends Entity
      */
     public function getCreatedDateFrom()
     {
+        if ($this->get('created_date_from') === null) {
+            return null;
+        }
         return (new \DateTimeImmutable())->setTimestamp($this->get('created_date_from'));
     }
     /**
@@ -27,6 +30,9 @@ class TransfersFilter extends Entity
      */
     public function getCreatedDateTo()
     {
+        if ($this->get('created_date_to') === null) {
+            return null;
+        }
         return (new \DateTimeImmutable())->setTimestamp($this->get('created_date_to'));
     }
     /**

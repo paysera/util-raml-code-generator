@@ -1,0 +1,7 @@
+
+{% if property.required == false %}
+        if ($this->get('{{ property.name }}_amount') === null && $this->get('{{ property.name }}_currency') === null) {
+            return null;
+        }
+{% endif %}
+        return new Money($this->get('{{ property.name }}_amount'), $this->get('{{ property.name }}_currency'));

@@ -1,17 +1,9 @@
     /**
-     * @param {{ generate_doc_block(property, false) }}
+     * @param {% include get_method_argument_type_template(property) with { 'property': property } only %}
      * @return $this
      */
-    public function {{ generate_setter_name(property) }}({{ generate_typehint(property) }})
+    public function {{ php_generate_setter_name(property) }}({% include get_method_argument_typehint_template(property) with { 'property': property } only %})
     {
-        {% if property.type == 'array' and property.itemsType not in property.simpleTypes -%}
-        $data = [];
-        foreach(${{ property.name|to_variable_name }} as $item) {
-            $data[] = $item->getDataByReference();
-        }
-        $this->setByReference('{{ property.name }}', $data);
-        {% else -%}
-        {{ generate_value_extractor(property) }};
-        {% endif -%}
+        {% include get_method_body_setter_template(property) with { 'property': property } only %}
         return $this;
     }

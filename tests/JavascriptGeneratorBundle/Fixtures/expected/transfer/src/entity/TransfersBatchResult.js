@@ -1,6 +1,6 @@
+import TransferOutput from './TransferOutput';
 import { Entity } from 'paysera-http-client-common';
 
-import TransferOutput from './TransferOutput';
 import DateFactory from '../service/DateFactory';
 
 class TransfersBatchResult extends Entity {
@@ -31,10 +31,10 @@ class TransfersBatchResult extends Entity {
     setRevokedTransfers(revokedTransfers) {
         let data = [];
         for (let entity of revokedTransfers) {
-            data.push(entity.data);
+            data.push(entity.getData());
         }
-        this.data = data;
-        }
+        this.set('revoked_transfers', data);
+    }
 
     /**
      * @return {Array.<TransferOutput>}
@@ -59,10 +59,10 @@ class TransfersBatchResult extends Entity {
     setReservedTransfers(reservedTransfers) {
         let data = [];
         for (let entity of reservedTransfers) {
-            data.push(entity.data);
+            data.push(entity.getData());
         }
-        this.data = data;
-        }
+        this.set('reserved_transfers', data);
+    }
 }
 
 export default TransfersBatchResult;

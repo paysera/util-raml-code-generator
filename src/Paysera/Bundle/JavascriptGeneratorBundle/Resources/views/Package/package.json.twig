@@ -12,8 +12,10 @@
     "author": "{{ vendor_prefix }}",
     "license": "ISC",
     "dependencies": {
-        "angular": "1.4.9",
-        "paysera-http-client-common": "^1.0.0"
+        {% for libraryConfig in get_external_libraries(api) -%}
+        "{{ libraryConfig.name }}": "{{ libraryConfig.version }}",
+        {% endfor -%}
+        "angular": "1.4.9"
     },
     "devDependencies": {
         "babel-core": "^6.23.1",

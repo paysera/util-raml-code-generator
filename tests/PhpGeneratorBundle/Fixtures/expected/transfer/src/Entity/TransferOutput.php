@@ -2,6 +2,8 @@
 
 namespace Paysera\Test\TestClient\Entity;
 
+use Evp\Component\Money\Money;
+
 class TransferOutput extends TransferInput
 {
     const STATUS_NEW = 'new';
@@ -91,6 +93,9 @@ class TransferOutput extends TransferInput
      */
     public function getPerformedAt()
     {
+        if ($this->get('performed_at') === null) {
+            return null;
+        }
         return (new \DateTimeImmutable())->setTimestamp($this->get('performed_at'));
     }
     /**
@@ -107,6 +112,9 @@ class TransferOutput extends TransferInput
      */
     public function getFailureStatus()
     {
+        if ($this->get('failure_status') === null) {
+            return null;
+        }
         return (new TransferFailureStatus())->setDataByReference($this->getByReference('failure_status'));
     }
     /**
@@ -123,7 +131,10 @@ class TransferOutput extends TransferInput
      */
     public function getOutCommission()
     {
-        return (new Money())->setDataByReference($this->getByReference('out_commission'));
+        if ($this->get('out_commission_amount') === null && $this->get('out_commission_currency') === null) {
+            return null;
+        }
+        return new Money($this->get('out_commission_amount'), $this->get('out_commission_currency'));
     }
     /**
      * @param Money $outCommission
@@ -131,7 +142,8 @@ class TransferOutput extends TransferInput
      */
     public function setOutCommission(Money $outCommission)
     {
-        $this->setByReference('out_commission', $outCommission->getDataByReference());
+        $this->set('out_commission_amount', $outCommission->getAmount());
+        $this->set('out_commission_currency', $outCommission->getCurrency());
         return $this;
     }
     /**
@@ -139,6 +151,9 @@ class TransferOutput extends TransferInput
      */
     public function getAdditionalInformation()
     {
+        if ($this->get('additional_information') === null) {
+            return null;
+        }
         return (new TransferAdditionalData())->setDataByReference($this->getByReference('additional_information'));
     }
     /**

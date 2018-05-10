@@ -3,6 +3,9 @@ title: Transfer Surveillance API
 version: 1.0
 baseUri: http://example.com/transfer-surveillance/rest/v1/
 
+uses:
+  Paysera: ../__library/rest.raml
+
 annotationTypes:
   entity_type: nil
 
@@ -14,13 +17,12 @@ types:
   MatchCriteriasResult: !include types/match-criterias-result.raml
   Rule: !include types/rule.raml
   RulesResult: !include types/rules-result.raml
-  ResultMetadata: !include types/result-meta-data.raml
   Whitelist: !include types/whitelist.raml
   WhitelistProfile: !include types/whitelist-profile.raml
   WhitelistsResult: !include types/whitelist-result.raml
+  Money: !include types/money.raml
 
 traits:
-  Filter: !include traits/filter.raml
   RuleFilter: !include traits/rule-filter.raml
 
 /transfer:

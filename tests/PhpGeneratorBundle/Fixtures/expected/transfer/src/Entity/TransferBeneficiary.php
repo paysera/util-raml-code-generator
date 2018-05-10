@@ -40,6 +40,9 @@ class TransferBeneficiary extends Entity
      */
     public function getIdentifiers()
     {
+        if ($this->get('identifiers') === null) {
+            return null;
+        }
         return (new Identifiers())->setDataByReference($this->getByReference('identifiers'));
     }
     /**
@@ -88,6 +91,9 @@ class TransferBeneficiary extends Entity
      */
     public function getBankAccount()
     {
+        if ($this->get('bank_account') === null) {
+            return null;
+        }
         return (new BankAccount())->setDataByReference($this->getByReference('bank_account'));
     }
     /**
@@ -104,6 +110,9 @@ class TransferBeneficiary extends Entity
      */
     public function getTaxAccount()
     {
+        if ($this->get('tax_account') === null) {
+            return null;
+        }
         return (new TaxAccount())->setDataByReference($this->getByReference('tax_account'));
     }
     /**
@@ -120,6 +129,9 @@ class TransferBeneficiary extends Entity
      */
     public function getPayseraAccount()
     {
+        if ($this->get('paysera_account') === null) {
+            return null;
+        }
         return (new PayseraAccount())->setDataByReference($this->getByReference('paysera_account'));
     }
     /**
@@ -136,6 +148,9 @@ class TransferBeneficiary extends Entity
      */
     public function getPayzaAccount()
     {
+        if ($this->get('payza_account') === null) {
+            return null;
+        }
         return (new PayzaAccount())->setDataByReference($this->getByReference('payza_account'));
     }
     /**
@@ -152,6 +167,9 @@ class TransferBeneficiary extends Entity
      */
     public function getWebmoneyAccount()
     {
+        if ($this->get('webmoney_account') === null) {
+            return null;
+        }
         return (new WebmoneyAccount())->setDataByReference($this->getByReference('webmoney_account'));
     }
     /**

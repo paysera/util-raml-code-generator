@@ -1,23 +1,7 @@
     /**
-     * @return {{ generate_doc_block(property, true) }}
+     * @return {% include get_method_return_type_template(property) with { 'property': property } only %}
      */
-    public function {{ generate_getter_name(property) }}()
+    public function {{ php_generate_getter_name(property) }}()
     {
-        {% set populator = generate_value_populator(property) %}
-        {%- if property.type == 'array' and property.itemsType not in property.simpleTypes -%}
-        $items = {{ populator|raw }};
-        if ($items === null) {
-            return [];
-        }
-
-        $list = [];
-        foreach($items as &$item) {
-            $list[] = (new {{ property.itemsType }}())->setDataByReference($item);
-        }
-
-        return $list;
-        {%- else %}
-return {{ populator|raw }};
-        {%- endif %}
-
+        {%- include get_method_body_getter_template(property) with { 'property': property } only %}
     }

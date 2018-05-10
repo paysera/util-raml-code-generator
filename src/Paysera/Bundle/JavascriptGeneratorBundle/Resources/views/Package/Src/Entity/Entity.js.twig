@@ -1,11 +1,16 @@
-import { Entity } from 'paysera-http-client-common';
-
-{% for type in js_get_related_types(api, type) %}
-import {{ type.name }} from './{{ type.name }}';
+{% for typeConfig in get_related_types_config(type, api) %}
+{% if typeConfig.importString is not null %}
+import {{ typeConfig.importString|raw }};
+{% else %}
+import {{ typeConfig.typeName|extract_type_name }} from './{{ typeConfig.typeName|extract_type_name }}';
+{% endif %}
 {% endfor %}
+{% if get_related_types_config(type, api) is not empty %}
+
+{% endif %}
 import DateFactory from '../service/DateFactory';
 
-class {{ type.name }} extends {{ get_parent_class(type) }} {
+class {{ type.name|extract_type_name }} extends {{ get_parent_type_config(type).typeName }} {
 {% include '@PayseraJavascriptGenerator/Package/Src/Entity/Method/constructor.js.twig' with { 'type': type } only %}
 {% for property in type.properties %}
     {%- include '@PayseraJavascriptGenerator/Package/Src/Entity/Method/getter.js.twig' with { 'property': property } only -%}
@@ -14,4 +19,4 @@ class {{ type.name }} extends {{ get_parent_class(type) }} {
 {% endfor %}
 }
 
-export default {{ type.name }};
+export default {{ type.name|extract_type_name }};

@@ -38,7 +38,8 @@ class GeneratePackageCommandTest extends KernelTestCase
             $container->get('filesystem'),
             __DIR__ . '/Fixtures/raml',
             __DIR__ . '/Fixtures/generated',
-            $container->getParameter('vendor_prefix')
+            $container->getParameter('vendor_prefix'),
+            $container->get('twig')
         );
 
         $application->add($commandInstance);
@@ -73,11 +74,11 @@ class GeneratePackageCommandTest extends KernelTestCase
     public function dataProviderTestGenerateCode()
     {
         return [
-            ['account'],
-            ['category'],
             ['transfer'],
-            ['user-info'],
             ['inheritance'],
+            ['user-info'],
+            ['category'],
+            ['account'],
         ];
     }
 

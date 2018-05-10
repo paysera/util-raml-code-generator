@@ -5,6 +5,9 @@ baseUri: https://example.com/user/rest/v1
 mediaType: application/json
 protocols: [ HTTPS ]
 
+uses:
+  Paysera: ../__library/rest.raml
+
 types:
   User: !include types/user.raml
   UserLegal: !include types/user-legal.raml
@@ -14,7 +17,6 @@ traits:
   UserLegalFilter: !include traits/user-legal-filter.raml
   UserNaturalFilter: !include traits/user-natural-filter.raml
   UserFilter: !include traits/user-filter.raml
-  Filter: !include traits/filter.raml
 
 /users:
   get:

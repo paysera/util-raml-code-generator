@@ -1,6 +1,5 @@
-import { Entity } from 'paysera-http-client-common';
-
 import User from './User';
+
 import DateFactory from '../service/DateFactory';
 
 class UserNatural extends User {

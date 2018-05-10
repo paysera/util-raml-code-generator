@@ -112,7 +112,7 @@ Standard SQL-style Result filtering
 ```php
 use Paysera\Test\TestClient\Entity as Entities;
 
-$filter = new Paysera\Component\RestClientCommon\Entity\Filter();
+$filter = new \Paysera\Component\RestClientCommon\Entity\Filter();
 
 $filter->setLimit($limit);
 $filter->setOffset($offset);

@@ -1,16 +1,18 @@
-{% if get_parent_class(type) == 'Entity' %}
-import { Entity } from 'paysera-http-client-common';
-{% elseif get_parent_class(type) == 'Filter' %}
-import { Filter } from 'paysera-http-client-common';
+{% for typeConfig in get_related_types_config(type, api) %}
+{% if typeConfig.importString is not null %}
+import {{ typeConfig.importString|raw }};
 {% else %}
-import {{ get_parent_class(type) }} from './{{ get_parent_class(type) }}';
+import {{ typeConfig.typeName|extract_type_name }} from './{{ typeConfig.typeName|extract_type_name }}';
 {% endif %}
+{% endfor %}
+{% if get_related_types_config(type, api) is not empty %}
 
-class {{ type.name }} extends {{ get_parent_class(type) }} {
+{% endif %}
+class {{ type.name|extract_type_name }} extends {{ get_parent_type_config(type).typeName }} {
 {%- for property in type.properties %}
 {% include '@PayseraJavascriptGenerator/Package/Src/Entity/Method/getter.js.twig' with { 'property': property } only %}
 {% include '@PayseraJavascriptGenerator/Package/Src/Entity/Method/setter.js.twig' with { 'property': property } only %}
 {% endfor %}
 }
 
-export default {{ type.name }};
+export default {{ type.name|extract_type_name }};
