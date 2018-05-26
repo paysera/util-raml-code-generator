@@ -1,8 +1,8 @@
 <?php
 
-namespace Paysera\Test\TestClient;
+namespace Paysera\Test\UserInfoClient;
 
-use Paysera\Test\TestClient\Entity as Entities;
+use Paysera\Test\UserInfoClient\Entity as Entities;
 use Fig\Http\Message\RequestMethodInterface;
 use Paysera\Component\RestClientCommon\Client\ApiClient;
 

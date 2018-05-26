@@ -8,7 +8,7 @@
 {% endfor %}
      * @return {{ php_get_return_type(method, api) }}
      */
-    public function {{ generate_method_name(method, resource) }}({{ php_inline_arguments(arguments) }})
+    public function {{ generate_method_name(method, resource, api) }}({{ php_inline_arguments(arguments) }})
     {
         $request = $this->apiClient->createRequest(
             RequestMethodInterface::METHOD_{{ method.type }},

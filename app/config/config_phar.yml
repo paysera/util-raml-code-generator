@@ -1,0 +1,11 @@
+imports:
+    - { resource: config.yml }
+
+paysera_phar:
+    package_name: 'paysera/util-raml-code-generator'
+    phar_name: 'raml-code-generator.phar'
+    current_version: '@package_version@'
+
+twig:
+    debug: '%kernel.debug%'
+    cache: false

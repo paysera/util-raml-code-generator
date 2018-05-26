@@ -22,7 +22,7 @@ import {{ typeConfig.typeName }} from '../entity/{{ typeConfig.typeName }}';
 {% endfor %}
 {% endmacro -%}
 
-class {{ js_get_client_name(api.name) }} {
+class {{ js_get_client_name(api) }} {
 
     /**
      * @param {ClientWrapper} client
@@ -36,4 +36,4 @@ class {{ js_get_client_name(api.name) }} {
 {% endfor %}
 }
 
-export default {{ js_get_client_name(api.name) }};
+export default {{ js_get_client_name(api) }};

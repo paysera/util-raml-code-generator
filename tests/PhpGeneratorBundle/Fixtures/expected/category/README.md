@@ -1,7 +1,7 @@
 
 ## vendor-category-client
 
-Provides methods to manipulate `Category` API.
+Provides methods to manipulate `CategoryClient` API.
 It automatically authenticates all requests and maps required data structure for you.
 
 #### Usage
@@ -9,7 +9,7 @@ It automatically authenticates all requests and maps required data structure for
 This library provides `ClientFactory` class, which you should use to get the API client itself:
 
 ```php
-use Paysera\Test\TestClient\ClientFactory;
+use Paysera\Test\CategoryClient\ClientFactory;
 
 $clientFactory = ClientFactory::create([
     'base_url' => 'https://my-api.example.com/rest/v1', // optional, in case you need a custom one.
@@ -78,13 +78,13 @@ Standard SQL-style Result filtering
 
 
 ```php
-use Paysera\Test\TestClient\Entity as Entities;
+use Paysera\Test\CategoryClient\Entity as Entities;
 
 $categoryFilter = new Entities\CategoryFilter();
 
 $categoryFilter->setParentId($parentId);
     
-$categoryClient->getCategories($categoryFilter);
+$result = $categoryClient->getCategories($categoryFilter);
 ```
 ---
 
@@ -92,7 +92,7 @@ Create category
 
 
 ```php
-use Paysera\Test\TestClient\Entity as Entities;
+use Paysera\Test\CategoryClient\Entity as Entities;
 
 $category = new Entities\Category();
 
@@ -110,7 +110,7 @@ Standard SQL-style Result filtering
 
 
 ```php
-use Paysera\Test\TestClient\Entity as Entities;
+use Paysera\Test\CategoryClient\Entity as Entities;
 
 $filter = new \Paysera\Component\RestClientCommon\Entity\Filter();
 

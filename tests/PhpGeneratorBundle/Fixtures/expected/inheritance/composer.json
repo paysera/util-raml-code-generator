@@ -1,9 +1,9 @@
 {
     "name": "vendor/lib-inheritance-client",
-    "description": "Inheritance Client",
+    "description": "InheritanceClient",
     "autoload": {
         "psr-4": {
-            "Paysera\\Test\\TestClient\\": "src"
+            "Paysera\\Test\\InheritanceClient\\": "src"
         }
     },
     "require": {

@@ -1,7 +1,7 @@
 
 ## vendor-auth-client
 
-Provides methods to manipulate `Auth` API.
+Provides methods to manipulate `AuthClient` API.
 It automatically authenticates all requests and maps required data structure for you.
 
 #### Usage
@@ -9,7 +9,7 @@ It automatically authenticates all requests and maps required data structure for
 This library provides `ClientFactory` class, which you should use to get the API client itself:
 
 ```php
-use Paysera\Test\TestClient\ClientFactory;
+use Paysera\Test\AuthClient\ClientFactory;
 
 $clientFactory = ClientFactory::create([
     'base_url' => 'https://my-api.example.com/rest/v1', // optional, in case you need a custom one.
@@ -39,7 +39,7 @@ Create auth token
 
 
 ```php
-use Paysera\Test\TestClient\Entity as Entities;
+use Paysera\Test\AuthClient\Entity as Entities;
 
 $credentials = new Entities\Credentials();
 
@@ -64,7 +64,7 @@ Creates system token by the requested scopes. If user can&#039;t access all the 
 
 
 ```php
-use Paysera\Test\TestClient\Entity as Entities;
+use Paysera\Test\AuthClient\Entity as Entities;
 
 $systemTokenRequest = new Entities\SystemTokenRequest();
 
@@ -80,7 +80,7 @@ Creates system token by the requested scopes. If user can&#039;t access all the 
 
 
 ```php
-use Paysera\Test\TestClient\Entity as Entities;
+use Paysera\Test\AuthClient\Entity as Entities;
 
 $systemTokenRequest = new Entities\SystemTokenRequest();
 
@@ -92,21 +92,4 @@ $result = $authClient->createStrictSystemToken($systemTokenRequest);
 ---
 
 
-
-
-
-
-```php
-use Paysera\Test\TestClient\Entity as Entities;
-
-$tokenFilter = new Entities\TokenFilter();
-
-$tokenFilter->setLimit($limit);
-$tokenFilter->setOffset($offset);
-$tokenFilter->setOrderBy($orderBy);
-$tokenFilter->setOrderDirection($orderDirection);
-    
-$authClient->getTokens($tokenFilter);
-```
----
 

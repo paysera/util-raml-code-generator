@@ -1,7 +1,7 @@
 
 ## vendor-transfer-surveillance-client
 
-Provides methods to manipulate `TransferSurveillance` API.
+Provides methods to manipulate `TransferSurveillanceClient` API.
 It automatically authenticates all requests and maps required data structure for you.
 
 #### Usage
@@ -9,7 +9,7 @@ It automatically authenticates all requests and maps required data structure for
 This library provides `ClientFactory` class, which you should use to get the API client itself:
 
 ```php
-use Paysera\Test\TestClient\ClientFactory;
+use Paysera\Test\TransferSurveillanceClient\ClientFactory;
 
 $clientFactory = ClientFactory::create([
     'base_url' => 'http://example.com/transfer-surveillance/rest/v1/', // optional, in case you need a custom one.
@@ -39,7 +39,7 @@ Mark Inspection as accepted. Allow transfer to complete
 
 
 ```php
-use Paysera\Test\TestClient\Entity as Entities;
+use Paysera\Test\TransferSurveillanceClient\Entity as Entities;
 
 $review = new Entities\Review();
 
@@ -56,7 +56,7 @@ Mark Inspection as cancelled/rejected. Do not allow the transfer to complete
 
 
 ```php
-use Paysera\Test\TestClient\Entity as Entities;
+use Paysera\Test\TransferSurveillanceClient\Entity as Entities;
 
 $review = new Entities\Review();
 
@@ -73,7 +73,7 @@ Mark Inspection as audited.
 
 
 ```php
-use Paysera\Test\TestClient\Entity as Entities;
+use Paysera\Test\TransferSurveillanceClient\Entity as Entities;
 
 $review = new Entities\Review();
 
@@ -90,7 +90,7 @@ Mark Inspection as need additional info from user about the transfer.
 
 
 ```php
-use Paysera\Test\TestClient\Entity as Entities;
+use Paysera\Test\TransferSurveillanceClient\Entity as Entities;
 
 $review = new Entities\Review();
 
@@ -107,7 +107,7 @@ Mark Inspection as received additional info from user about the transfer.
 
 
 ```php
-use Paysera\Test\TestClient\Entity as Entities;
+use Paysera\Test\TransferSurveillanceClient\Entity as Entities;
 
 $review = new Entities\Review();
 
@@ -155,7 +155,7 @@ Update MatchCriteria
 
 
 ```php
-use Paysera\Test\TestClient\Entity as Entities;
+use Paysera\Test\TransferSurveillanceClient\Entity as Entities;
 
 $matchCriteria = new Entities\MatchCriteria();
 
@@ -183,7 +183,7 @@ Create MatchCriteria
 
 
 ```php
-use Paysera\Test\TestClient\Entity as Entities;
+use Paysera\Test\TransferSurveillanceClient\Entity as Entities;
 
 $matchCriteria = new Entities\MatchCriteria();
 
@@ -223,7 +223,7 @@ Get a single whitelist
 
 ```php
 
-$result = $transferSurveillanceClient->getRuleWhitelistProfileLists($id, $whitelistId);
+$result = $transferSurveillanceClient->getRuleWhitelistProfileList($id, $whitelistId);
 ```
 ---
 
@@ -231,7 +231,7 @@ Update whitelist
 
 
 ```php
-use Paysera\Test\TestClient\Entity as Entities;
+use Paysera\Test\TransferSurveillanceClient\Entity as Entities;
 
 $whitelist = new Entities\Whitelist();
 
@@ -261,7 +261,7 @@ Update whitelist
 
 
 ```php
-use Paysera\Test\TestClient\Entity as Entities;
+use Paysera\Test\TransferSurveillanceClient\Entity as Entities;
 
 $whitelist = new Entities\Whitelist();
 
@@ -300,7 +300,7 @@ Add whitelist to a rule
 
 
 ```php
-use Paysera\Test\TestClient\Entity as Entities;
+use Paysera\Test\TransferSurveillanceClient\Entity as Entities;
 
 $whitelist = new Entities\Whitelist();
 
@@ -330,7 +330,7 @@ Update rule
 
 
 ```php
-use Paysera\Test\TestClient\Entity as Entities;
+use Paysera\Test\TransferSurveillanceClient\Entity as Entities;
 
 $rule = new Entities\Rule();
 
@@ -363,7 +363,7 @@ Standard SQL-style Result filtering
 
 
 ```php
-use Paysera\Test\TestClient\Entity as Entities;
+use Paysera\Test\TransferSurveillanceClient\Entity as Entities;
 
 $ruleFilter = new Entities\RuleFilter();
 
@@ -377,7 +377,7 @@ Create a rule
 
 
 ```php
-use Paysera\Test\TestClient\Entity as Entities;
+use Paysera\Test\TransferSurveillanceClient\Entity as Entities;
 
 $rule = new Entities\Rule();
 

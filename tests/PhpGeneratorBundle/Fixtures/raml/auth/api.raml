@@ -15,13 +15,7 @@ types:
   ScopeChallenge: !include types/scope-challenge.raml
   Challenge: !include types/challenge.raml
 
-traits:
-  TokenFilter: !include traits/token-filter.raml
-
 /tokens:
-  get:
-    is:
-      - TokenFilter
   /auth:
     post:
       description: Create auth token

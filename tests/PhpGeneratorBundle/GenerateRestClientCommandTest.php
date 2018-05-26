@@ -2,6 +2,7 @@
 
 namespace Tests\PhpGeneratorBundle;
 
+use Doctrine\Common\Util\Inflector;
 use Paysera\Bundle\PhpGeneratorBundle\Command\GenerateRestClientCommand;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
@@ -35,8 +36,6 @@ class GenerateRestClientCommandTest extends KernelTestCase
 
         $commandInstance = new GenerateRestClientCommand(
             $container->get('paysera_code_generator.code_generator'),
-            __DIR__ . '/Fixtures/raml',
-            __DIR__ . '/Fixtures/generated',
             $container->get('twig')
         );
 
@@ -57,8 +56,9 @@ class GenerateRestClientCommandTest extends KernelTestCase
     {
         $this->removeTargetDir($apiName);
         $this->commandTester->execute([
-            'api_name' => $apiName,
-            'namespace' => 'Paysera\\Test\\TestClient'
+            'raml_file' => sprintf('%s/Fixtures/raml/%s/api.raml', __DIR__, $apiName),
+            'output_dir' => sprintf('%s/Fixtures/generated/%s', __DIR__, $apiName),
+            'namespace' => sprintf('Paysera\\Test\\%sClient', Inflector::classify($apiName))
         ]);
 
         $this->ensureDirectoryTreeMatches($apiName);
@@ -68,12 +68,12 @@ class GenerateRestClientCommandTest extends KernelTestCase
     {
         return [
             ['account'],
+            ['inheritance'],
             ['category'],
             ['transfer'],
             ['transfer-surveillance'],
             ['auth'],
             ['user-info'],
-            ['inheritance'],
         ];
     }
 

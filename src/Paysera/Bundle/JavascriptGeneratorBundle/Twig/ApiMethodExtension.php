@@ -17,6 +17,7 @@ use Paysera\Component\StringHelper;
 use Paysera\Component\TypeHelper;
 use Raml\Method;
 use Raml\Resource;
+use Raml\Types\ArrayType;
 use Twig_Extension;
 use Twig_SimpleFunction;
 
@@ -50,24 +51,24 @@ class ApiMethodExtension extends Twig_Extension
         ];
     }
 
-    public function getClientName(string $name): string
+    public function getClientName(ApiDefinition $api): string
     {
-        return sprintf('%sClient', $this->stringConverter->convertSlugToClassName($name));
+        return sprintf('%s', $this->stringConverter->convertSlugToClassName($api->getName()));
     }
 
     public function getPackageName(string $vendor, ApiDefinition $api): string
     {
-        return sprintf('%s-%s-client', $vendor, StringHelper::kebabCase($api->getNamespace()));
+        return sprintf('%s-%s', $vendor, StringHelper::kebabCase($api->getName()));
     }
 
     public function getAngularJsModuleName(string $vendor, string $apiName) : string
     {
-        return sprintf('%s.http.%s', $vendor, $apiName);
+        return sprintf('%s.http.%s', $vendor, StringHelper::kebabCase($apiName));
     }
 
     public function getAngularJsFactoryClassName(string $vendor, string $apiName) : string
     {
-        return sprintf('%sHttp%sClientFactory', $vendor, ucfirst(Inflector::classify($apiName)));
+        return sprintf('%sHttp%sFactory', $vendor, ucfirst(Inflector::classify($apiName)));
     }
 
     public function generateUri(Resource $resource) : string
@@ -94,14 +95,25 @@ class ApiMethodExtension extends Twig_Extension
             return 'null;';
         }
 
-        $bodyType = $body->getType()->getName();
+        $bodyType = $body->getType();
+        $bodyTypeName = $bodyType->getName();
 
-        if ($body->getType() !== null && $api->getType($bodyType) !== null) {
-            $type = $api->getType($bodyType);
+        if ($api->getType($bodyTypeName) !== null) {
+            $type = $api->getType($bodyTypeName);
             if ($type instanceof ResultTypeDefinition) {
-                return sprintf('new %s(data, \'%s\');', $bodyType, $type->getDataKey());
+                return sprintf('new %s(data, \'%s\');', $bodyTypeName, $type->getDataKey());
             }
-            return sprintf('new %s(data);', $bodyType);
+            return sprintf('new %s(data);', $bodyTypeName);
+        }
+        if ($bodyType instanceof ArrayType) {
+            if ($api->getType($bodyType->getItems()->getName()) !== null) {
+                return sprintf(
+                    'data.map(item => new %s(item))',
+                    $bodyType->getItems()->getName()
+                );
+            } else {
+                return 'data;';
+            }
         }
 
         return 'null;';
@@ -115,15 +127,17 @@ class ApiMethodExtension extends Twig_Extension
             return 'null';
         }
 
-        $bodyType = $body->getType()->getName();
+        $bodyType = $body->getType();
+        $bodyTypeName = $bodyType->getName();
 
-        if ($body->getType() !== null) {
-            if ($api->getType($bodyType) !== null) {
-                return $bodyType;
-            }
-            if (TypeHelper::isPrimitiveType($bodyType)) {
-                return $bodyType;
-            }
+        if ($api->getType($bodyTypeName) !== null) {
+            return $bodyTypeName;
+        }
+        if ($bodyType instanceof ArrayType) {
+            return sprintf('%s[]', $bodyType->getItems()->getName());
+        }
+        if (TypeHelper::isPrimitiveType($bodyTypeName)) {
+            return $bodyTypeName;
         }
 
         return 'null';

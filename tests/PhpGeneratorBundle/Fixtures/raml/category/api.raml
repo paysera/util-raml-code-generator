@@ -20,6 +20,13 @@ traits:
     description: Get categories list
     is:
       - CategoryFilter
+    responses:
+      200:
+        body:
+          application/json:
+            type: array
+            items:
+              type: Category
   post:
     description: Create category
     body:

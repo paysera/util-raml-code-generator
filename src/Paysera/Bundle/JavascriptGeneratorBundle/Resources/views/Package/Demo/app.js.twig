@@ -44,7 +44,7 @@
             });
         }
 
-        /** {{ ('{' ~ js_get_client_name(api.name) ~ '}')|raw }} client */
+        /** {{ ('{' ~ js_get_client_name(api) ~ '}')|raw }} client */
         let client = payseraHttpAccountClientFactory.getClient({
             baseUrl: 'http://localhost:3000',
             scope: 'some:scope',
@@ -52,6 +52,6 @@
             refreshTokenProvider: refreshTokenProvider
         });
 
-        // check out src/service/{{ js_get_client_name(api.name) }}.js for available methods
+        // check out src/service/{{ js_get_client_name(api) }}.js for available methods
     }
 })();

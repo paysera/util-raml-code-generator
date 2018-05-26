@@ -2,6 +2,7 @@
 
 namespace Tests\JavascriptGeneratorBundle;
 
+use Doctrine\Common\Util\Inflector;
 use Paysera\Bundle\JavascriptGeneratorBundle\Command\GeneratePackageCommand;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
@@ -36,8 +37,6 @@ class GeneratePackageCommandTest extends KernelTestCase
         $commandInstance = new GeneratePackageCommand(
             $container->get('paysera_code_generator.code_generator'),
             $container->get('filesystem'),
-            __DIR__ . '/Fixtures/raml',
-            __DIR__ . '/Fixtures/generated',
             $container->getParameter('vendor_prefix'),
             $container->get('twig')
         );
@@ -60,11 +59,9 @@ class GeneratePackageCommandTest extends KernelTestCase
         $this->removeTargetDir($apiName);
         $this->commandTester->execute(
             [
-                'api_name' => $apiName,
-                'client_name' => ucfirst($apiName),
-            ],
-            [
-                'interactive' => false
+                'raml_file' => sprintf('%s/Fixtures/raml/%s/api.raml', __DIR__, $apiName),
+                'output_dir' => sprintf('%s/Fixtures/generated/%s', __DIR__, $apiName),
+                'client_name' => Inflector::classify($apiName) . 'Client',
             ]
         );
 

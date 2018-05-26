@@ -39,6 +39,6 @@ ${{ argument.name|to_variable_name }}->{{ php_generate_setter_name(propertyDefin
     {% endif %}
 {% endfor %}
 
-{{ return_value }}${{ api.name|to_variable_name }}Client->{{ generate_method_name(method, resource) }}({{ get_argument_names(arguments)|length > 0 ? '$' ~ get_argument_names(arguments)|join(', $') : '' }});
+{{ return_value }}${{ api.name|to_variable_name }}->{{ generate_method_name(method, resource, api) }}({{ get_argument_names(arguments)|length > 0 ? '$' ~ get_argument_names(arguments)|join(', $') : '' }});
 ```
 ---

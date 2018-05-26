@@ -20,6 +20,7 @@ use Paysera\Bundle\CodeGeneratorBundle\Service\ResourceTypeDetector;
 use Paysera\Bundle\CodeGeneratorBundle\Service\StringConverter;
 use Paysera\Bundle\CodeGeneratorBundle\Service\TypeConfigurationProviderStorage;
 use Paysera\Bundle\CodeGeneratorBundle\Service\UsedTypesResolver;
+use Paysera\Component\StringHelper;
 use Raml\Body;
 use Raml\Method;
 use Raml\Resource;
@@ -61,6 +62,7 @@ class BaseExtension extends Twig_Extension
             new Twig_SimpleFilter('to_variable_name', [$this->stringConverter, 'convertSlugToVariableName']),
             new Twig_SimpleFilter('to_class_name', [$this->stringConverter, 'convertSlugToClassName']),
             new Twig_SimpleFilter('extract_type_name', [$this, 'extractTypeName']),
+            new Twig_SimpleFilter('to_kebab_case', [StringHelper::class, 'kebabCase']),
 
         ];
     }
@@ -265,11 +267,12 @@ class BaseExtension extends Twig_Extension
     /**
      * @param Method $method
      * @param Resource $resource
+     * @param ApiDefinition $api
      *
      * @return string
      * @throws InvalidDefinitionException
      */
-    public function generateMethodName(Method $method, Resource $resource) : string
+    public function generateMethodName(Method $method, Resource $resource, ApiDefinition $api) : string
     {
         $name = $this->methodNameBuilder->getNamePrefix($method->getType());
         $nameParts = $this->methodNameBuilder->getNameParts($resource->getUri());
@@ -278,8 +281,8 @@ class BaseExtension extends Twig_Extension
             return $this->methodNameBuilder->buildBinaryMethodName($resource->getUri());
         }
 
-        if ($this->resourceTypeDetector->isSingularResource($resource, $method)) {
-            return $this->methodNameBuilder->buildSingularMethodName($resource->getUri(), $name);
+        if ($this->resourceTypeDetector->isSingularResource($resource, $method, $api, $nameParts)) {
+            return $this->methodNameBuilder->buildSingularMethodName($resource, $method, $api, $name);
         }
 
         if ($this->resourceTypeDetector->isPluralResource($resource, $method)) {

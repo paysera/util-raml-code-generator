@@ -36,7 +36,7 @@ class ClientGenerator implements GeneratorInterface
 
         $item = (new SourceCode())
             ->setFilepath(sprintf(
-                '%s/service/%sClient.js',
+                '%s/service/%s.js',
                 $this->sourceDir,
                 $this->converter->convertSlugToClassName($definition->getName())
             ))

@@ -4,11 +4,21 @@ namespace Paysera\Bundle\CodeGeneratorBundle\Service;
 
 use Doctrine\Common\Inflector\Inflector;
 use Fig\Http\Message\RequestMethodInterface;
+use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\ApiDefinition;
 use Paysera\Bundle\CodeGeneratorBundle\Entity\UriNameParts;
 use Paysera\Bundle\CodeGeneratorBundle\Exception\InvalidDefinitionException;
+use Raml\Method;
+use Raml\Resource;
 
 class MethodNameBuilder
 {
+    private $bodyResolver;
+
+    public function __construct(BodyResolver $bodyResolver)
+    {
+        $this->bodyResolver = $bodyResolver;
+    }
+
     public function getNamePrefix(string $method) : string
     {
         switch ($method) {
@@ -47,16 +57,23 @@ class MethodNameBuilder
     }
 
     /**
-     * @param string $uri
+     * @param Resource $resource
+     * @param Method $method
+     * @param ApiDefinition $api
      * @param string $prefix
      * @return string
      */
-    public function buildSingularMethodName($uri, $prefix)
+    public function buildSingularMethodName(Resource $resource, Method $method, ApiDefinition $api, $prefix)
     {
-        $nameParts = $this->getNameParts($uri);
+        $nameParts = $this->getNameParts($resource->getUri());
         $paths = $this->buildSingularPaths($nameParts);
         if (!$nameParts->hasPlaceholder()) {
             $paths = array_reverse($paths);
+            if ($method->getType() === RequestMethodInterface::METHOD_GET) {
+                if (!$this->bodyResolver->isIterableResponse($method, $api)) {
+                    $paths = array_reverse($paths);
+                }
+            }
         }
 
         return $prefix . Inflector::classify(implode('', $paths));

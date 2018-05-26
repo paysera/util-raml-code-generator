@@ -6,9 +6,9 @@
      {%- for argument in arguments -%}
      * @param {{ ('{' ~ argument.type|extract_type_name ~ '}')|raw }} {{ argument.name|to_variable_name }}
      {% endfor -%}
-     * @return {Promise.<{{ js_get_return_type(method, api) }}>}
+     * @return {Promise.<{{ js_get_return_type(method, api)|raw }}>}
      */
-    {{ generate_method_name(method, resource) }}({{ get_argument_names(arguments)|join(', ')|raw }}) {
+    {{ generate_method_name(method, resource, api) }}({{ get_argument_names(arguments)|join(', ')|raw }}) {
         const request = RequestFactory.create(
             '{{ method.type }}',
             '{{ js_generate_uri(resource)|raw }}',

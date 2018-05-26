@@ -1,0 +1,34 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="paysera_phar.updater"
+                 class="Humbug\SelfUpdate\Updater">
+            <argument>null</argument>
+            <argument>false</argument>
+            <call method="setStrategyObject">
+                <argument type="service">
+                    <service class="Humbug\SelfUpdate\Strategy\GithubStrategy">
+                        <call method="setPackageName">
+                            <argument>%paysera_phar.package_name%</argument>
+                        </call>
+                        <call method="setPharName">
+                            <argument>%paysera_phar.phar_name%</argument>
+                        </call>
+                        <call method="setCurrentLocalVersion">
+                            <argument>%paysera_phar.current_version%</argument>
+                        </call>
+                    </service>
+                </argument>
+            </call>
+        </service>
+
+        <service id="paysera_phar.changelog_parser"
+                 class="Paysera\Bundle\PharBundle\Service\ChangelogParser">
+            <argument>%paysera_phar.phar_name%</argument>
+        </service>
+    </services>
+</container>

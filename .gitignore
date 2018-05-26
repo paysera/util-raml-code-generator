@@ -1,5 +1,6 @@
 /.web-server-pid
 /app/config/parameters.yml
+/app/config/publish_parameters.yml
 /app/Resources/sqlite-31.db
 /build/
 /phpunit.xml
@@ -26,3 +27,6 @@ generated/
 bin/
 !bin/console
 !bin/symfony_requirements
+!bin/publish-release
+box.phar
+raml-code-generator.phar

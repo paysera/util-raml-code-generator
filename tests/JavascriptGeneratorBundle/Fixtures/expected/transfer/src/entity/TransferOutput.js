@@ -7,7 +7,7 @@ import TransferInput from './TransferInput';
 import DateFactory from '../service/DateFactory';
 
 class TransferOutput extends TransferInput {
-    constructor(data = []) {
+    constructor(data = {}) {
         super(data);
     }
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Paysera\Test\TestClient\Entity;
+namespace Paysera\Test\InheritanceClient\Entity;
 
 class UserLegalFilter extends UserFilter
 {

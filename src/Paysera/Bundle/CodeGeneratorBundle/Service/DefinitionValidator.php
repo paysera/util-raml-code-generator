@@ -11,6 +11,7 @@ use Raml\Body;
 use Raml\Resource;
 use Raml\Types\ArrayType;
 use Raml\Types\LazyProxyType;
+use Raml\Types\ObjectType;
 use Raml\Types\UnionType;
 
 class DefinitionValidator
@@ -74,6 +75,9 @@ class DefinitionValidator
         }
         if ($type instanceof LazyProxyType) {
             $type = $type->getResolvedObject()->getName();
+        }
+        if ($type instanceof ObjectType) {
+            $type = $type->getName();
         }
         if ($type instanceof UnionType) {
             throw new UnrecognizedTypeException('UnionType currently is not supported');

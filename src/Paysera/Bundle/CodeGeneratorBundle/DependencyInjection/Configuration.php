@@ -22,12 +22,6 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
-                ->scalarNode('raml_dir')
-                    ->defaultValue('%kernel.root_dir%/../raml')
-                ->end()
-                ->scalarNode('output_dir')
-                    ->defaultValue('%kernel.root_dir%/../generated')
-                ->end()
                 ->scalarNode('vendor_prefix')
                     ->isRequired()
                     ->cannotBeEmpty()

@@ -1,12 +1,11 @@
 # Javascript package generation
 
-1. Copy `raml` specification to `raml/{api_name}` directory. 
-`api_name` acts as root directory for given RAML is part of package name you're going to generate.
-2. Run `bin/console paysera:js-generator:package {api_name} {client_name}`.
-    * `api_name` is directory name from step 1.
-    * `client_name` is the part of your main javascript client name
-3. Check the dumped output to `generated/{api_name}` directory.
-4. See additional command options with `bin/console paysera:js-generator:package --help`
+1. Run `bin/console js-generator:package {path_to_raml} {output_dir} {client_name}`.
+    * `path_to_raml` path to `raml` file.
+    * `output_dir` directory where to put generated files.
+    * `client_name` is the name of your main javascript client. 
+1. Check the dumped output to `{output_dir}` directory.
+1. See additional command options with `bin/console js-generator:package --help`
 
 ## Examples
 

@@ -1,9 +1,9 @@
 {
     "name": "vendor/lib-transfer-client",
-    "description": "Transfer Client",
+    "description": "TransferClient",
     "autoload": {
         "psr-4": {
-            "Paysera\\Test\\TestClient\\": "src"
+            "Paysera\\Test\\TransferClient\\": "src"
         }
     },
     "require": {

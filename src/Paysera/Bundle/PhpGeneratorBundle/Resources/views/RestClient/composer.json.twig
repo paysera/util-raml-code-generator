@@ -1,6 +1,6 @@
 {
-    "name": "{{ vendor_prefix }}/lib-{{ api.name }}-client",
-    "description": "{{ api.name|to_class_name ~ ' Client' }}",
+    "name": "{{ vendor_prefix }}/lib-{{ api.name|to_kebab_case }}",
+    "description": "{{ api.name|to_class_name }}",
     "autoload": {
         "psr-4": {
             "{{ (api.namespace ~ '\\')|replace({'\\':'\\\\'}) }}": "src"

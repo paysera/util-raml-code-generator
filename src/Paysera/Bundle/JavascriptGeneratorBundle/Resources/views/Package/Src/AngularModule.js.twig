@@ -25,7 +25,7 @@ import {{ typeConfig.typeName|extract_type_name }} from './entity/{{ typeConfig.
 
 import DateFactory from './service/DateFactory';
 import ClientFactory from './service/ClientFactory';
-import {{ js_get_client_name(api.name) }} from './service/{{ js_get_client_name(api.name) }}';
+import {{ js_get_client_name(api) }} from './service/{{ js_get_client_name(api) }}';
 
 export {
 {% for typeConfig in get_all_used_types(api) %}
@@ -33,7 +33,7 @@ export {
 {% endfor %}
     DateFactory,
     ClientFactory,
-    {{ js_get_client_name(api.name) }},
+    {{ js_get_client_name(api) }},
 };
 
 class AngularClientFactory {
@@ -43,7 +43,7 @@ class AngularClientFactory {
 
     /**
      * @param {object|null} config
-     * @returns {{ ('{' ~ js_get_client_name(api.name) ~ '}')|raw }}
+     * @returns {{ ('{' ~ js_get_client_name(api) ~ '}')|raw }}
      */
     getClient(config) {
         const factoryConfig = {};
@@ -65,13 +65,13 @@ class AngularClientFactory {
         }
 
         return this.wrapQ(
-            ClientFactory.create(factoryConfig).get{{ js_get_client_name(api.name) }}(tokenProvider)
+            ClientFactory.create(factoryConfig).get{{ js_get_client_name(api) }}(tokenProvider)
         );
     }
 
     /**
-     * @param {{ ('{' ~ js_get_client_name(api.name) ~ '}')|raw }} client
-     * @returns {{ ('{' ~ js_get_client_name(api.name) ~ '}')|raw }}
+     * @param {{ ('{' ~ js_get_client_name(api) ~ '}')|raw }} client
+     * @returns {{ ('{' ~ js_get_client_name(api) ~ '}')|raw }}
      */
     wrapQ(client) {
 {% for resource in api.ramlDefinition.resources -%}

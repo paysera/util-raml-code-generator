@@ -80,7 +80,7 @@ class AngularClientFactory {
 AngularClientFactory.$inject = ['$q'];
 
 export default angular
-    .module('vendor.http.account', [])
+    .module('vendor.http.account-client', [])
     .service('vendorHttpAccountClientFactory', AngularClientFactory)
     .name
 ;

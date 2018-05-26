@@ -23,7 +23,7 @@
     "repositories": [
         {
             "type": "vcs",
-            "url": "https://github.com/paysera/fork-elama-php-raml-parser"
+            "url": "https://github.com/paysera/fork-raml-org-raml-php-parser"
         }
     ],
     "require": {
@@ -31,10 +31,11 @@
         "ext-sqlite3": "*",
         "doctrine/dbal": "^2.5",
         "doctrine/inflector": "^1.1",
-        "elama/php-raml-parser": "^3.4",
         "fig/http-message-util": "^1.0",
         "incenteev/composer-parameter-handler": "^2.0",
+        "padraic/phar-updater": "^1.0",
         "paysera/lib-dependency-injection": "^1.0",
+        "raml-org/raml-php-parser": "^4.1",
         "sensio/distribution-bundle": "^5.0.19",
         "sensio/framework-extra-bundle": "^3.0.2",
         "symfony/monolog-bundle": "^3.1.0",
@@ -44,7 +45,10 @@
     },
     "require-dev": {
         "evp/money": "^1.0",
+        "knplabs/github-api": "^2.8",
+        "lcobucci/jwt": "^3.2",
         "paysera/lib-rest-client-common": "^1.0",
+        "php-http/guzzle6-adapter": "^1.1",
         "phpunit/phpunit": "^6.0",
         "sensio/generator-bundle": "^3.0",
         "symfony/phpunit-bridge": "^3.0"
@@ -56,11 +60,23 @@
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile"
         ],
+        "build": [
+            "php -dphar.readonly=0 box.phar build"
+        ],
+        "install-box": [
+            "curl -LSs https://box-project.github.io/box2/installer.php | php"
+        ],
+        "release": [
+            "bin/publish-release"
+        ],
+
         "post-install-cmd": [
-            "@symfony-scripts"
+            "@symfony-scripts",
+            "@install-box"
         ],
         "post-update-cmd": [
-            "@symfony-scripts"
+            "@symfony-scripts",
+            "@install-box"
         ]
     },
     "config": {
@@ -73,9 +89,17 @@
         "symfony-var-dir": "var",
         "symfony-web-dir": "web",
         "symfony-tests-dir": "tests",
-        "incenteev-parameters": {
-            "file": "app/config/parameters.yml"
-        },
+        "incenteev-parameters": [
+            {
+                "file": "app/config/parameters.yml"
+            },
+            {
+                "file": "app/config/publish_parameters.yml"
+            }
+        ],
         "branch-alias": null
-    }
+    },
+    "bin": [
+        "raml-code-generator.phar"
+    ]
 }

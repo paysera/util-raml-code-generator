@@ -1,8 +1,8 @@
 <?php
 
-namespace Paysera\Test\TestClient;
+namespace Paysera\Test\CategoryClient;
 
-use Paysera\Test\TestClient\Entity as Entities;
+use Paysera\Test\CategoryClient\Entity as Entities;
 use Fig\Http\Message\RequestMethodInterface;
 use Paysera\Component\RestClientCommon\Client\ApiClient;
 
@@ -92,7 +92,7 @@ class CategoryClient
      * GET /categories
      *
      * @param Entities\CategoryFilter $categoryFilter
-     * @return null
+     * @return Entities\Category[]
      */
     public function getCategories(Entities\CategoryFilter $categoryFilter)
     {
@@ -103,7 +103,7 @@ class CategoryClient
         );
         $data = $this->apiClient->makeRequest($request);
 
-        return null;
+        return array_map(function ($item) { return new Entities\Category($item); }, $data);
     }
     /**
      * Create category

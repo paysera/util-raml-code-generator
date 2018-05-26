@@ -14,21 +14,15 @@ class GenerateRestClientCommand extends Command
     const LANGUAGE = 'php';
 
     private $codeGenerator;
-    private $ramlDir;
-    private $outputDir;
     private $twigEnvironment;
 
     public function __construct(
         CodeGenerator $codeGenerator,
-        string $ramlDir,
-        string $outputDir,
         Twig_Environment $twigEnvironment
     ) {
         parent::__construct();
 
         $this->codeGenerator = $codeGenerator;
-        $this->ramlDir = $ramlDir;
-        $this->outputDir = $outputDir;
         $this->twigEnvironment = $twigEnvironment;
     }
 
@@ -37,9 +31,10 @@ class GenerateRestClientCommand extends Command
         parent::configure();
 
         $this
-            ->setName('paysera:php-generator:rest-client')
+            ->setName('php-generator:rest-client')
             ->setDescription('Generates RESTful Php Client from given RAML definition')
-            ->addArgument('api_name', InputArgument::REQUIRED, 'The name of API definition to look for in \'raml\' directory')
+            ->addArgument('raml_file', InputArgument::REQUIRED, 'Full path to RAML file')
+            ->addArgument('output_dir', InputArgument::REQUIRED, 'Where to put generated code')
             ->addArgument('namespace', InputArgument::REQUIRED, 'Namespace of generated library, i.e.: Acme\\\\Client\\\\AcmeClient')
             ->setHelp('You must provide the API name and its namespace')
         ;
@@ -49,20 +44,21 @@ class GenerateRestClientCommand extends Command
     {
         $this->twigEnvironment->addGlobal('language', self::LANGUAGE);
 
+        $namespaceParts = explode('\\', $input->getArgument('namespace'));
+        $outputDir = $input->getArgument('output_dir');
+
         $this->codeGenerator->generateCode(
             self::LANGUAGE,
-            $input->getArgument('api_name'),
+            end($namespaceParts),
             $input->getArgument('namespace'),
-            $this->ramlDir,
-            $this->outputDir
+            $input->getArgument('raml_file'),
+            $outputDir
         );
 
         $output->writeln('');
         $output->writeln(sprintf(
-            '<info>Code successfully generated to "%s%s%s" directory</info>',
-            $this->outputDir,
-            DIRECTORY_SEPARATOR,
-            $input->getArgument('api_name')
+            '<info>Code successfully generated to <comment>%s</comment> directory</info>',
+            $outputDir
         ));
         $output->writeln('');
     }

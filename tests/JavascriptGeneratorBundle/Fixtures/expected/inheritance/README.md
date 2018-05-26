@@ -1,8 +1,8 @@
 # vendor-inheritance-client
 
-`vendor-inheritance-client` package provides means to interact with Vendor Inheritance REST API.
+`vendor-inheritance-client` package provides means to interact with Vendor InheritanceClient REST API.
 Package source code is written in ES6 syntax ant is transpiled to ES5 using babel.
-Additional Angular JS module `vendor.http.inheritance` with `vendorHttpInheritanceClientFactory` service is also provided.
+Additional Angular JS module `vendor.http.inheritance-client` with `vendorHttpInheritanceClientFactory` service is also provided.
 
 ## Installing
 Using npm:

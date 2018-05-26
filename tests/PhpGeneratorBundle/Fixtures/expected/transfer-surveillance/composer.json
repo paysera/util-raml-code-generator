@@ -1,9 +1,9 @@
 {
     "name": "vendor/lib-transfer-surveillance-client",
-    "description": "TransferSurveillance Client",
+    "description": "TransferSurveillanceClient",
     "autoload": {
         "psr-4": {
-            "Paysera\\Test\\TestClient\\": "src"
+            "Paysera\\Test\\TransferSurveillanceClient\\": "src"
         }
     },
     "require": {

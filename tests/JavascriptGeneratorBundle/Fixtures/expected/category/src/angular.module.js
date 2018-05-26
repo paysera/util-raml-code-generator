@@ -94,7 +94,7 @@ class AngularClientFactory {
 AngularClientFactory.$inject = ['$q'];
 
 export default angular
-    .module('vendor.http.category', [])
+    .module('vendor.http.category-client', [])
     .service('vendorHttpCategoryClientFactory', AngularClientFactory)
     .name
 ;

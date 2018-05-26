@@ -1,8 +1,8 @@
 <?php
 
-namespace Paysera\Test\TestClient;
+namespace Paysera\Test\AuthClient;
 
-use Paysera\Test\TestClient\Entity as Entities;
+use Paysera\Test\AuthClient\Entity as Entities;
 use Fig\Http\Message\RequestMethodInterface;
 use Paysera\Component\RestClientCommon\Client\ApiClient;
 
@@ -85,23 +85,5 @@ class AuthClient
         $data = $this->apiClient->makeRequest($request);
 
         return new Entities\SystemTokenResponse($data);
-    }
-    /**
-     * 
-     * GET /tokens
-     *
-     * @param Entities\TokenFilter $tokenFilter
-     * @return null
-     */
-    public function getTokens(Entities\TokenFilter $tokenFilter)
-    {
-        $request = $this->apiClient->createRequest(
-            RequestMethodInterface::METHOD_GET,
-            'tokens',
-            $tokenFilter
-        );
-        $data = $this->apiClient->makeRequest($request);
-
-        return null;
     }
 }

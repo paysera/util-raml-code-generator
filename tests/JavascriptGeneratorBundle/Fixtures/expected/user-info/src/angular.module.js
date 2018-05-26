@@ -82,7 +82,7 @@ class AngularClientFactory {
 AngularClientFactory.$inject = ['$q'];
 
 export default angular
-    .module('vendor.http.user-info', [])
+    .module('vendor.http.user-info-client', [])
     .service('vendorHttpUserInfoClientFactory', AngularClientFactory)
     .name
 ;

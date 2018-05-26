@@ -1,9 +1,9 @@
 {
     "name": "vendor/lib-category-client",
-    "description": "Category Client",
+    "description": "CategoryClient",
     "autoload": {
         "psr-4": {
-            "Paysera\\Test\\TestClient\\": "src"
+            "Paysera\\Test\\CategoryClient\\": "src"
         }
     },
     "require": {

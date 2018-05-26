@@ -3,7 +3,7 @@ import User from './User';
 import DateFactory from '../service/DateFactory';
 
 class UserNatural extends User {
-    constructor(data = []) {
+    constructor(data = {}) {
         super(data);
     }
 

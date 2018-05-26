@@ -1,10 +1,9 @@
 ## How to:
-1. Copy `raml` specification to `raml/{api_name}` directory. 
-`api_name` acts as root directory for given raml and should match the name of API you're going to generate.
-2. Run `bin/console paysera:php-generator:rest-client {api_name} {namespace}`.
-    * `api_name` is same name as in step 1.
+1. Run `bin/console php-generator:rest-client {path_to_raml} {output_dir} {namespace}`.
+    * `path_to_raml` path to `raml` file.
+    * `output_dir` directory where to put generated files.
     * `namespace` is the namespace of your PHP library. 
-3. Check the dumped output to `generated/{api_name}` directory.
+1. Check the dumped output to `{output_dir}` directory.
 
 ## Example:
 

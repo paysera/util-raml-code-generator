@@ -68,17 +68,17 @@ class AngularClientFactory {
      * @returns {InheritanceClient}
      */
     wrapQ(client) {
-        const getUserNaturalsOriginal = client.getUserNaturals.bind(client);
-        client.getUserNaturals = (...args) => {
-            return this.$q.when(getUserNaturalsOriginal(...args));
+        const getUserNaturalOriginal = client.getUserNatural.bind(client);
+        client.getUserNatural = (...args) => {
+            return this.$q.when(getUserNaturalOriginal(...args));
         };
         const createNaturalUserOriginal = client.createNaturalUser.bind(client);
         client.createNaturalUser = (...args) => {
             return this.$q.when(createNaturalUserOriginal(...args));
         };
-        const getUserLegalsOriginal = client.getUserLegals.bind(client);
-        client.getUserLegals = (...args) => {
-            return this.$q.when(getUserLegalsOriginal(...args));
+        const getUserLegalOriginal = client.getUserLegal.bind(client);
+        client.getUserLegal = (...args) => {
+            return this.$q.when(getUserLegalOriginal(...args));
         };
         const createLegalUserOriginal = client.createLegalUser.bind(client);
         client.createLegalUser = (...args) => {
@@ -100,7 +100,7 @@ class AngularClientFactory {
 AngularClientFactory.$inject = ['$q'];
 
 export default angular
-    .module('vendor.http.inheritance', [])
+    .module('vendor.http.inheritance-client', [])
     .service('vendorHttpInheritanceClientFactory', AngularClientFactory)
     .name
 ;

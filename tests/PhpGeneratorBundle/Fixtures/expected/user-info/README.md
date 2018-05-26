@@ -1,7 +1,7 @@
 
 ## vendor-user-info-client
 
-Provides methods to manipulate `UserInfo` API.
+Provides methods to manipulate `UserInfoClient` API.
 It automatically authenticates all requests and maps required data structure for you.
 
 #### Usage
@@ -9,7 +9,7 @@ It automatically authenticates all requests and maps required data structure for
 This library provides `ClientFactory` class, which you should use to get the API client itself:
 
 ```php
-use Paysera\Test\TestClient\ClientFactory;
+use Paysera\Test\UserInfoClient\ClientFactory;
 
 $clientFactory = ClientFactory::create([
     'base_url' => 'https://example.com/user/rest/v1', // optional, in case you need a custom one.
@@ -39,7 +39,7 @@ Creates Legal User
 
 
 ```php
-use Paysera\Test\TestClient\Entity as Entities;
+use Paysera\Test\UserInfoClient\Entity as Entities;
 
 $legal = new Entities\Legal();
 
@@ -56,7 +56,7 @@ Creates Natural User
 
 
 ```php
-use Paysera\Test\TestClient\Entity as Entities;
+use Paysera\Test\UserInfoClient\Entity as Entities;
 
 $natural = new Entities\Natural();
 
@@ -81,7 +81,7 @@ Updates user resource
 
 
 ```php
-use Paysera\Test\TestClient\Entity as Entities;
+use Paysera\Test\UserInfoClient\Entity as Entities;
 
 $userInfo = new Entities\UserInfo();
 

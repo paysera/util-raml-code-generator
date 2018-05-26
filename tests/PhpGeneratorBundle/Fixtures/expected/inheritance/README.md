@@ -1,7 +1,7 @@
 
 ## vendor-inheritance-client
 
-Provides methods to manipulate `Inheritance` API.
+Provides methods to manipulate `InheritanceClient` API.
 It automatically authenticates all requests and maps required data structure for you.
 
 #### Usage
@@ -9,7 +9,7 @@ It automatically authenticates all requests and maps required data structure for
 This library provides `ClientFactory` class, which you should use to get the API client itself:
 
 ```php
-use Paysera\Test\TestClient\ClientFactory;
+use Paysera\Test\InheritanceClient\ClientFactory;
 
 $clientFactory = ClientFactory::create([
     'base_url' => 'https://example.com/user/rest/v1', // optional, in case you need a custom one.
@@ -39,14 +39,14 @@ User Natural Filter
 
 
 ```php
-use Paysera\Test\TestClient\Entity as Entities;
+use Paysera\Test\InheritanceClient\Entity as Entities;
 
 $userNaturalFilter = new Entities\UserNaturalFilter();
 
 $userNaturalFilter->setFirstName($firstName);
 $userNaturalFilter->setLastName($lastName);
     
-$result = $inheritanceClient->getUserNaturals($userNaturalFilter);
+$result = $inheritanceClient->getUserNatural($userNaturalFilter);
 ```
 ---
 
@@ -54,7 +54,7 @@ Creates Natural user
 
 
 ```php
-use Paysera\Test\TestClient\Entity as Entities;
+use Paysera\Test\InheritanceClient\Entity as Entities;
 
 $userNatural = new Entities\UserNatural();
 
@@ -70,13 +70,13 @@ Standard SQL-style Result filtering
 
 
 ```php
-use Paysera\Test\TestClient\Entity as Entities;
+use Paysera\Test\InheritanceClient\Entity as Entities;
 
 $userLegalFilter = new Entities\UserLegalFilter();
 
 $userLegalFilter->setCompanyName($companyName);
     
-$result = $inheritanceClient->getUserLegals($userLegalFilter);
+$result = $inheritanceClient->getUserLegal($userLegalFilter);
 ```
 ---
 
@@ -84,7 +84,7 @@ Creates Legal user
 
 
 ```php
-use Paysera\Test\TestClient\Entity as Entities;
+use Paysera\Test\InheritanceClient\Entity as Entities;
 
 $userLegal = new Entities\UserLegal();
 
@@ -101,7 +101,7 @@ Standard SQL-style Result filtering
 
 
 ```php
-use Paysera\Test\TestClient\Entity as Entities;
+use Paysera\Test\InheritanceClient\Entity as Entities;
 
 $userFilter = new Entities\UserFilter();
 
@@ -116,7 +116,7 @@ Creates Basic user
 
 
 ```php
-use Paysera\Test\TestClient\Entity as Entities;
+use Paysera\Test\InheritanceClient\Entity as Entities;
 
 $userBasic = new Entities\UserBasic();
 

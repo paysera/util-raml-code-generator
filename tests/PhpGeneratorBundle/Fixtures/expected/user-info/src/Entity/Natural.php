@@ -1,6 +1,6 @@
 <?php
 
-namespace Paysera\Test\TestClient\Entity;
+namespace Paysera\Test\UserInfoClient\Entity;
 
 class Natural extends UserInfo
 {

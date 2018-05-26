@@ -166,7 +166,7 @@ class AngularClientFactory {
 AngularClientFactory.$inject = ['$q'];
 
 export default angular
-    .module('vendor.http.transfer', [])
+    .module('vendor.http.transfer-client', [])
     .service('vendorHttpTransferClientFactory', AngularClientFactory)
     .name
 ;

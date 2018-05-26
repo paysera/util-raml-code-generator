@@ -1,6 +1,6 @@
 <?php
 
-namespace Paysera\Test\TestClient\Entity;
+namespace Paysera\Test\TransferClient\Entity;
 
 use Evp\Component\Money\Money;
 use Paysera\Component\RestClientCommon\Entity\Entity;

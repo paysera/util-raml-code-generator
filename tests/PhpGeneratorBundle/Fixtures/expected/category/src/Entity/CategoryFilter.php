@@ -1,6 +1,6 @@
 <?php
 
-namespace Paysera\Test\TestClient\Entity;
+namespace Paysera\Test\CategoryClient\Entity;
 
 use Paysera\Component\RestClientCommon\Entity\Filter;
 

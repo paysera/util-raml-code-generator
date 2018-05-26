@@ -29,6 +29,10 @@ class AppKernel extends Kernel
             }
         }
 
+        if (in_array($this->getEnvironment(), ['phar'], true)) {
+            $bundles[] = new Paysera\Bundle\PharBundle\PayseraPharBundle();
+        }
+
         return $bundles;
     }
 

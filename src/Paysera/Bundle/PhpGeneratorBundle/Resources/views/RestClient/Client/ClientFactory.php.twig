@@ -16,8 +16,8 @@ class ClientFactory extends ClientFactoryAbstract
         $this->apiClient = $apiClient;
     }
 
-    public function get{{ api.name|to_class_name }}Client()
+    public function get{{ api.name|to_class_name }}()
     {
-        return new {{ api.name|to_class_name }}Client($this->apiClient);
+        return new {{ api.name|to_class_name }}($this->apiClient);
     }
 }

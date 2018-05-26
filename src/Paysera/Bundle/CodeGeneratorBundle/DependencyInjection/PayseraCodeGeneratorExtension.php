@@ -22,8 +22,6 @@ class PayseraCodeGeneratorExtension extends Extension
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
 
-        $container->setParameter('paysera_code_generator.raml_dir', $config['raml_dir']);
-        $container->setParameter('paysera_code_generator.output_dir', $config['output_dir']);
         $container->setParameter('paysera_code_generator.vendor_prefix', $config['vendor_prefix']);
 
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));

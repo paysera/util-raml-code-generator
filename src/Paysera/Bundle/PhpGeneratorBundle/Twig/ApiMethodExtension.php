@@ -15,6 +15,7 @@ use Paysera\Bundle\PhpGeneratorBundle\Service\NamespaceHelper;
 use Paysera\Component\TypeHelper;
 use Raml\Method;
 use Raml\Resource;
+use Raml\Types\ArrayType;
 use Twig_Extension;
 use Twig_SimpleFunction;
 
@@ -60,15 +61,21 @@ class ApiMethodExtension extends Twig_Extension
             return 'null';
         }
 
-        $bodyType = $body->getType()->getName();
+        $bodyType = $body->getType();
+        $bodyTypeName = $bodyType->getName();
 
-        if ($body->getType() !== null) {
-            if ($api->getType($bodyType) !== null) {
-                return sprintf('Entities\%s', $bodyType);
+        if ($api->getType($bodyTypeName) !== null) {
+            return sprintf('Entities\%s', $bodyTypeName);
+        }
+        if ($bodyType instanceof ArrayType) {
+            if ($api->getType($bodyType->getItems()->getName()) !== null) {
+                return sprintf('Entities\%s[]', $bodyType->getItems()->getName());
+            } else {
+                return sprintf('%s[]', $bodyType->getItems()->getName());
             }
-            if (TypeHelper::isPrimitiveType($bodyType)) {
-                return $bodyType;
-            }
+        }
+        if (TypeHelper::isPrimitiveType($bodyTypeName)) {
+            return $bodyTypeName;
         }
 
         return 'null';
@@ -140,14 +147,26 @@ class ApiMethodExtension extends Twig_Extension
             return 'null;';
         }
 
-        $bodyType = $body->getType()->getName();
+        $bodyType = $body->getType();
+        $bodyTypeName = $bodyType->getName();
 
-        if ($body->getType() !== null && $api->getType($bodyType) !== null) {
-            $type = $api->getType($bodyType);
+        if ($api->getType($bodyTypeName) !== null) {
+            $type = $api->getType($bodyTypeName);
             if ($type instanceof ResultTypeDefinition) {
-                return sprintf('new Entities\%s($data, \'%s\');', $bodyType, $type->getDataKey());
+                return sprintf('new Entities\%s($data, \'%s\');', $bodyTypeName, $type->getDataKey());
             }
-            return sprintf('new Entities\%s($data);', $bodyType);
+            return sprintf('new Entities\%s($data);', $bodyTypeName);
+        }
+
+        if ($bodyType instanceof ArrayType) {
+            if ($api->getType($bodyType->getItems()->getName()) !== null) {
+                return sprintf(
+                    'array_map(function ($item) { return new Entities\%s($item); }, $data);',
+                    $bodyType->getItems()->getName()
+                );
+            } else {
+                return '$data;';
+            }
         }
 
         return 'null;';

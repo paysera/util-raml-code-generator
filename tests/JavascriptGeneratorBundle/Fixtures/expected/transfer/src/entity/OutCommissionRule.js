@@ -4,7 +4,7 @@ import { Entity } from 'paysera-http-client-common';
 import DateFactory from '../service/DateFactory';
 
 class OutCommissionRule extends Entity {
-    constructor(data = []) {
+    constructor(data = {}) {
         super(data);
     }
 

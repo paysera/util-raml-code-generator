@@ -1,8 +1,8 @@
 <?php
 
-namespace Paysera\Test\TestClient;
+namespace Paysera\Test\InheritanceClient;
 
-use Paysera\Test\TestClient\Entity as Entities;
+use Paysera\Test\InheritanceClient\Entity as Entities;
 use Fig\Http\Message\RequestMethodInterface;
 use Paysera\Component\RestClientCommon\Client\ApiClient;
 
@@ -22,7 +22,7 @@ class InheritanceClient
      * @param Entities\UserNaturalFilter $userNaturalFilter
      * @return Entities\UserNatural
      */
-    public function getUserNaturals(Entities\UserNaturalFilter $userNaturalFilter)
+    public function getUserNatural(Entities\UserNaturalFilter $userNaturalFilter)
     {
         $request = $this->apiClient->createRequest(
             RequestMethodInterface::METHOD_GET,
@@ -58,7 +58,7 @@ class InheritanceClient
      * @param Entities\UserLegalFilter $userLegalFilter
      * @return Entities\UserLegal
      */
-    public function getUserLegals(Entities\UserLegalFilter $userLegalFilter)
+    public function getUserLegal(Entities\UserLegalFilter $userLegalFilter)
     {
         $request = $this->apiClient->createRequest(
             RequestMethodInterface::METHOD_GET,
@@ -92,7 +92,7 @@ class InheritanceClient
      * GET /users
      *
      * @param Entities\UserFilter $userFilter
-     * @return array
+     * @return Entities\UserBasic[]
      */
     public function getUsers(Entities\UserFilter $userFilter)
     {
@@ -103,7 +103,7 @@ class InheritanceClient
         );
         $data = $this->apiClient->makeRequest($request);
 
-        return null;
+        return array_map(function ($item) { return new Entities\UserBasic($item); }, $data);
     }
     /**
      * Creates Basic user

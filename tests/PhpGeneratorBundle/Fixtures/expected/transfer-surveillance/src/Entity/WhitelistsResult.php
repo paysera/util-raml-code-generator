@@ -1,6 +1,6 @@
 <?php
 
-namespace Paysera\Test\TestClient\Entity;
+namespace Paysera\Test\TransferSurveillanceClient\Entity;
 
 use Paysera\Component\RestClientCommon\Entity\Result;
 

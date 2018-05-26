@@ -2,10 +2,11 @@
 
 namespace Paysera\Bundle\CodeGeneratorBundle\Service;
 
-use Doctrine\Common\Util\Inflector;
 use Fig\Http\Message\RequestMethodInterface;
+use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\ApiDefinition;
 use Paysera\Bundle\CodeGeneratorBundle\Entity\UriNameParts;
 use Paysera\Bundle\WordNetBundle\Service\PartOfSpeechResolver;
+use Paysera\Component\StringHelper;
 use Raml\Method;
 use Raml\Resource;
 
@@ -20,10 +21,14 @@ class ResourceTypeDetector
     const PATTERN_WORD_SEPARATOR = '#_|-#';
 
     private $partOfSpeechResolver;
+    private $bodyResolver;
 
-    public function __construct(PartOfSpeechResolver $partOfSpeechResolver)
-    {
+    public function __construct(
+        PartOfSpeechResolver $partOfSpeechResolver,
+        BodyResolver $bodyResolver
+    ) {
         $this->partOfSpeechResolver = $partOfSpeechResolver;
+        $this->bodyResolver = $bodyResolver;
     }
 
     public function isBinaryResource(Resource $resource, Method $method, UriNameParts $nameParts)
@@ -46,11 +51,15 @@ class ResourceTypeDetector
         ;
     }
 
-    public function isSingularResource(Resource $resource, Method $method)
+    public function isSingularResource(Resource $resource, Method $method, ApiDefinition $api, UriNameParts $nameParts)
     {
         return
             preg_match(self::PATTERN_SINGULAR_RESOURCE, $resource->getUri()) === 1
             || $method->getType() !== RequestMethodInterface::METHOD_GET
+            || (
+                !$this->bodyResolver->isIterableResponse($method, $api)
+                && !StringHelper::isPlural($nameParts->getLastPart()->getPartName())
+            )
         ;
     }
 

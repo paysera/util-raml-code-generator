@@ -1,8 +1,8 @@
 # vendor-user-info-client
 
-`vendor-user-info-client` package provides means to interact with Vendor User-info REST API.
+`vendor-user-info-client` package provides means to interact with Vendor UserInfoClient REST API.
 Package source code is written in ES6 syntax ant is transpiled to ES5 using babel.
-Additional Angular JS module `vendor.http.user-info` with `vendorHttpUserInfoClientFactory` service is also provided.
+Additional Angular JS module `vendor.http.user-info-client` with `vendorHttpUserInfoClientFactory` service is also provided.
 
 ## Installing
 Using npm:

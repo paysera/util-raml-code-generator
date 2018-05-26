@@ -10,4 +10,9 @@ class StringHelper
     {
         return strtr(Inflector::tableize($string), ['_' => '-']);
     }
+
+    public static function isPlural($word)
+    {
+        return Inflector::pluralize($word) === $word;
+    }
 }

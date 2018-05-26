@@ -19,17 +19,13 @@ class GeneratePackageCommand extends Command
     const LANGUAGE = 'js';
 
     private $codeGenerator;
-    private $outputDir;
     private $vendorPrefix;
     private $filesystem;
-    private $ramlDir;
     private $twigEnvironment;
 
     public function __construct(
         CodeGenerator $codeGenerator,
         Filesystem $filesystem,
-        string $ramlDir,
-        string $outputDir,
         string $vendorPrefix,
         Twig_Environment $twigEnvironment
     ) {
@@ -37,8 +33,6 @@ class GeneratePackageCommand extends Command
 
         $this->codeGenerator = $codeGenerator;
         $this->filesystem = $filesystem;
-        $this->ramlDir = $ramlDir;
-        $this->outputDir = $outputDir;
         $this->vendorPrefix = $vendorPrefix;
         $this->twigEnvironment = $twigEnvironment;
     }
@@ -48,9 +42,10 @@ class GeneratePackageCommand extends Command
         parent::configure();
 
         $this
-            ->setName('paysera:js-generator:package')
+            ->setName('js-generator:package')
             ->setDescription('Generates Javascript package with Client from given RAML definition')
-            ->addArgument('api_name', InputArgument::REQUIRED, 'The name of API definition to look for')
+            ->addArgument('raml_file', InputArgument::REQUIRED, 'Full path to RAML file')
+            ->addArgument('output_dir', InputArgument::REQUIRED, 'Where to put generated code')
             ->addArgument('client_name', InputArgument::REQUIRED, 'Name of the main client class')
             ->addOption(
                 'build-dependencies',
@@ -65,27 +60,25 @@ class GeneratePackageCommand extends Command
     {
         $this->twigEnvironment->addGlobal('language', self::LANGUAGE);
 
-        $directory = $this->outputDir . DIRECTORY_SEPARATOR . $input->getArgument('api_name');
-        if (!$this->filesystem->exists($directory)) {
-            $this->filesystem->mkdir($directory);
-        }
-
-        $directory = realpath($directory);
+        $outputDir = $input->getArgument('output_dir');
 
         $this->codeGenerator->generateCode(
             self::LANGUAGE,
-            $input->getArgument('api_name'),
             $input->getArgument('client_name'),
-            $this->ramlDir,
-            $this->outputDir
+            $input->getArgument('client_name'),
+            $input->getArgument('raml_file'),
+            $outputDir
         );
 
         $output->writeln('');
-        $output->writeln(sprintf('Code successfully generated to <info>%s</info> directory', $directory));
+        $output->writeln(sprintf(
+            '<info>Code successfully generated to <comment>%s</comment> directory</info>',
+            $outputDir
+        ));
 
         if ($input->getOption('build-dependencies')) {
-            $this->runNpmInstall($output, $directory);
-            $this->runNpmBuild($output, $directory);
+            $this->runNpmInstall($output, $outputDir);
+            $this->runNpmBuild($output, $outputDir);
         }
 
         $output->writeln('');

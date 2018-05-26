@@ -3,7 +3,7 @@ import UserInfo from './UserInfo';
 import DateFactory from '../service/DateFactory';
 
 class Natural extends UserInfo {
-    constructor(data = []) {
+    constructor(data = {}) {
         super(data);
         this.setType('natural');
     }

@@ -41,7 +41,7 @@ class CodeGenerator
      * @param string $language
      * @param string $apiName
      * @param string $namespace
-     * @param string $ramlDir
+     * @param string $ramlFile
      * @param string $outputDir
      *
      * @throws InvalidApiNameException
@@ -51,14 +51,13 @@ class CodeGenerator
         string $language,
         string $apiName,
         string $namespace,
-        string $ramlDir,
+        string $ramlFile,
         string $outputDir
     ) {
         if (!isset($this->generators[$language])) {
             throw new UnrecognizedTypeException(sprintf('Cannot generate Code in %s language', $language));
         }
 
-        $ramlFile = sprintf('%s/%s/api.raml', $ramlDir, $apiName);
         if (!$this->filesystem->exists($ramlFile)) {
             throw new InvalidApiNameException(sprintf('Cannot find "%s" file', $ramlFile));
         }
@@ -73,7 +72,7 @@ class CodeGenerator
 
         foreach ($sourceFiles as $item) {
             $this->filesystem->dumpFile(
-                sprintf('%s/%s/%s', $outputDir, $apiName, $item->getFilepath()),
+                sprintf('%s/%s', $outputDir, $item->getFilepath()),
                 $item->getContents()
             );
         }

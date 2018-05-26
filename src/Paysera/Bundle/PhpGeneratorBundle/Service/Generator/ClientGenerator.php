@@ -32,7 +32,7 @@ class ClientGenerator implements GeneratorInterface
         );
 
         $item = (new SourceCode())
-            ->setFilepath(sprintf('src/%sClient.php', $this->converter->convertSlugToClassName($definition->getName())))
+            ->setFilepath(sprintf('src/%s.php', $this->converter->convertSlugToClassName($definition->getName())))
             ->setContents($code)
         ;
 

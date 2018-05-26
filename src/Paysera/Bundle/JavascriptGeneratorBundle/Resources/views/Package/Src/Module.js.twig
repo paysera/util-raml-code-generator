@@ -8,7 +8,7 @@ import {{ typeConfig.typeName|extract_type_name }} from './entity/{{ typeConfig.
 
 import DateFactory from './service/DateFactory';
 import ClientFactory from './service/ClientFactory';
-import {{ js_get_client_name(api.name) }} from './service/{{ js_get_client_name(api.name) }}';
+import {{ js_get_client_name(api) }} from './service/{{ js_get_client_name(api) }}';
 
 export {
 {% for typeConfig in get_all_used_types(api) %}
@@ -16,5 +16,5 @@ export {
 {% endfor %}
     DateFactory,
     ClientFactory,
-    {{ js_get_client_name(api.name) }},
+    {{ js_get_client_name(api) }},
 };

@@ -1,6 +1,6 @@
 <?php
 
-namespace Paysera\Test\TestClient;
+namespace Paysera\Test\CategoryClient;
 
 use Paysera\Component\RestClientCommon\Client\ApiClient;
 use Paysera\Component\RestClientCommon\Util\ClientFactoryAbstract;

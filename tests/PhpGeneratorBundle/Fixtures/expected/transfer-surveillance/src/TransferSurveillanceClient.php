@@ -1,8 +1,8 @@
 <?php
 
-namespace Paysera\Test\TestClient;
+namespace Paysera\Test\TransferSurveillanceClient;
 
-use Paysera\Test\TestClient\Entity as Entities;
+use Paysera\Test\TransferSurveillanceClient\Entity as Entities;
 use Fig\Http\Message\RequestMethodInterface;
 use Paysera\Component\RestClientCommon\Client\ApiClient;
 
@@ -261,7 +261,7 @@ class TransferSurveillanceClient
      * @param string $whitelistId
      * @return Entities\Whitelist
      */
-    public function getRuleWhitelistProfileLists($id, $whitelistId)
+    public function getRuleWhitelistProfileList($id, $whitelistId)
     {
         $request = $this->apiClient->createRequest(
             RequestMethodInterface::METHOD_GET,

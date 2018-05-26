@@ -11,7 +11,7 @@ module.exports = {
         path: path.resolve(__dirname, '../dist'),
         filename: '[name].js',
         libraryTarget: 'umd',
-        library: '{{ vendor_prefix }}{{ js_get_client_name(api.name) }}'
+        library: '{{ vendor_prefix }}{{ js_get_client_name(api) }}'
     },
     module: {
         rules: [

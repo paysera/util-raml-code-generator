@@ -23,7 +23,7 @@ class InheritanceClient {
      * @param {UserNaturalFilter} userNaturalFilter
      * @return {Promise.<UserNatural>}
      */
-    getUserNaturals(userNaturalFilter) {
+    getUserNatural(userNaturalFilter) {
         const request = RequestFactory.create(
             'GET',
             'users/natural',
@@ -66,7 +66,7 @@ class InheritanceClient {
      * @param {UserLegalFilter} userLegalFilter
      * @return {Promise.<UserLegal>}
      */
-    getUserLegals(userLegalFilter) {
+    getUserLegal(userLegalFilter) {
         const request = RequestFactory.create(
             'GET',
             'users/legal',
@@ -107,7 +107,7 @@ class InheritanceClient {
      * GET /users
      *
      * @param {UserFilter} userFilter
-     * @return {Promise.<array>}
+     * @return {Promise.<UserBasic[]>}
      */
     getUsers(userFilter) {
         const request = RequestFactory.create(
@@ -119,7 +119,7 @@ class InheritanceClient {
         return this.client
             .performRequest(request)
             .then((data) => {
-                return null;
+                return data.map(item => new UserBasic(item))
             })
         ;
     }

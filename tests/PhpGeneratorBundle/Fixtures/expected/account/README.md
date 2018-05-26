@@ -1,7 +1,7 @@
 
 ## vendor-account-client
 
-Provides methods to manipulate `Account` API.
+Provides methods to manipulate `AccountClient` API.
 It automatically authenticates all requests and maps required data structure for you.
 
 #### Usage
@@ -9,7 +9,7 @@ It automatically authenticates all requests and maps required data structure for
 This library provides `ClientFactory` class, which you should use to get the API client itself:
 
 ```php
-use Paysera\Test\TestClient\ClientFactory;
+use Paysera\Test\AccountClient\ClientFactory;
 
 $clientFactory = ClientFactory::create([
     'base_url' => 'https://my-api.example.com/rest/v1', // optional, in case you need a custom one.
@@ -49,7 +49,7 @@ Standard SQL-style Result filtering
 
 
 ```php
-use Paysera\Test\TestClient\Entity as Entities;
+use Paysera\Test\AccountClient\Entity as Entities;
 
 $accountFilter = new Entities\AccountFilter();
 

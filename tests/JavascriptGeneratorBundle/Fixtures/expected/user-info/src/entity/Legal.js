@@ -3,7 +3,7 @@ import UserInfo from './UserInfo';
 import DateFactory from '../service/DateFactory';
 
 class Legal extends UserInfo {
-    constructor(data = []) {
+    constructor(data = {}) {
         super(data);
         this.setType('legal');
     }
