@@ -22,9 +22,29 @@ class PayseraWordNetExtension extends Extension
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
 
-        $container->setParameter('paysera_word_net.sqlite_file', $config['sqlite_file']);
+        $sqliteFile = $config['sqlite_file'];
+        if ($container->getParameter('kernel.environment') === 'phar') {
+            $sqliteFile = $this->copySqliteDb($sqliteFile);
+        }
+        $container->setParameter('paysera_word_net.sqlite_file', $sqliteFile);
 
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.xml');
+    }
+
+    /**
+     * @param string $sqliteFile
+     * @return string
+     */
+    private function copySqliteDb($sqliteFile)
+    {
+        $tmpDir = sys_get_temp_dir();
+        $targetFile = $tmpDir . '/' . basename($sqliteFile);
+
+        if (!file_exists($targetFile)) {
+            copy($sqliteFile, $targetFile);
+        }
+
+        return $targetFile;
     }
 }
