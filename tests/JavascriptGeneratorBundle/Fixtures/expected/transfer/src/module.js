@@ -8,7 +8,7 @@ import FinalBeneficiary from './entity/FinalBeneficiary';
 import Identifiers from './entity/Identifiers';
 import OutCommissionRule from './entity/OutCommissionRule';
 import Payer from './entity/Payer';
-import Money from './entity/Money';
+import { Money } from '@paysera/money/src/Money';
 import { Result } from 'paysera-http-client-common';
 import PayseraAccount from './entity/PayseraAccount';
 import PayzaAccount from './entity/PayzaAccount';

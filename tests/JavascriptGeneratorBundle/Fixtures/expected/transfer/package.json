@@ -12,6 +12,7 @@
     "author": "vendor",
     "license": "ISC",
     "dependencies": {
+        "@paysera/money": "git+https://github.com/paysera/js-lib-money.git",
         "paysera-http-client-common": "^1.0",
         "angular": "1.4.9"
     },

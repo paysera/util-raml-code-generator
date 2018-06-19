@@ -1,6 +1,6 @@
 import FinalBeneficiary from './FinalBeneficiary';
 import Payer from './Payer';
-import Money from './Money';
+import { Money } from '@paysera/money/src/Money';
 import TransferBeneficiary from './TransferBeneficiary';
 import TransferNotifications from './TransferNotifications';
 import TransferPassword34 from './TransferPassword34';
@@ -18,14 +18,15 @@ class TransferInput extends Entity {
      * @return {Money}
      */
     getAmount() {
-        return new Money(this.get('amount'));
+        return new Money(this.get('amount_amount'), this.get('amount_currency'));
     }
 
     /**
      * @param {Money} amount
      */
     setAmount(amount) {
-        this.set('amount', amount.getData());
+        this.set('amount_amount', amount.getAmount());
+        this.set('amount_currency', amount.getCurrency());
     }
 
     /**

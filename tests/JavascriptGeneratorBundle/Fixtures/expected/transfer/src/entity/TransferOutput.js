@@ -1,4 +1,4 @@
-import Money from './Money';
+import { Money } from '@paysera/money/src/Money';
 import TransferAdditionalData from './TransferAdditionalData';
 import TransferFailureStatus from './TransferFailureStatus';
 import TransferInitiator from './TransferInitiator';
@@ -105,17 +105,18 @@ class TransferOutput extends TransferInput {
      * @return {Money}|null
      */
     getOutCommission() {
-        if (this.get('out_commission') == null) {
+        if (this.get('out_commission_amount') == null && this.get('out_commission_currency') == null) {
             return null;
         }
-        return new Money(this.get('out_commission'));
+        return new Money(this.get('out_commission_amount'), this.get('out_commission_currency'));
     }
 
     /**
      * @param {Money} outCommission
      */
     setOutCommission(outCommission) {
-        this.set('out_commission', outCommission.getData());
+        this.set('out_commission_amount', outCommission.getAmount());
+        this.set('out_commission_currency', outCommission.getCurrency());
     }
 
     /**

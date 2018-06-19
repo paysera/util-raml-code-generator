@@ -1,4 +1,4 @@
-import Money from './Money';
+import { Money } from '@paysera/money/src/Money';
 import { Entity } from 'paysera-http-client-common';
 
 import DateFactory from '../service/DateFactory';
@@ -26,51 +26,54 @@ class OutCommissionRule extends Entity {
      * @return {Money}|null
      */
     getMin() {
-        if (this.get('min') == null) {
+        if (this.get('min_amount') == null && this.get('min_currency') == null) {
             return null;
         }
-        return new Money(this.get('min'));
+        return new Money(this.get('min_amount'), this.get('min_currency'));
     }
 
     /**
      * @param {Money} min
      */
     setMin(min) {
-        this.set('min', min.getData());
+        this.set('min_amount', min.getAmount());
+        this.set('min_currency', min.getCurrency());
     }
 
     /**
      * @return {Money}|null
      */
     getMax() {
-        if (this.get('max') == null) {
+        if (this.get('max_amount') == null && this.get('max_currency') == null) {
             return null;
         }
-        return new Money(this.get('max'));
+        return new Money(this.get('max_amount'), this.get('max_currency'));
     }
 
     /**
      * @param {Money} max
      */
     setMax(max) {
-        this.set('max', max.getData());
+        this.set('max_amount', max.getAmount());
+        this.set('max_currency', max.getCurrency());
     }
 
     /**
      * @return {Money}|null
      */
     getFix() {
-        if (this.get('fix') == null) {
+        if (this.get('fix_amount') == null && this.get('fix_currency') == null) {
             return null;
         }
-        return new Money(this.get('fix'));
+        return new Money(this.get('fix_amount'), this.get('fix_currency'));
     }
 
     /**
      * @param {Money} fix
      */
     setFix(fix) {
-        this.set('fix', fix.getData());
+        this.set('fix_amount', fix.getAmount());
+        this.set('fix_currency', fix.getCurrency());
     }
 }
 

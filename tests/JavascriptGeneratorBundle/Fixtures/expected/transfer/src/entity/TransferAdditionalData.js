@@ -1,5 +1,5 @@
 import OutCommissionRule from './OutCommissionRule';
-import Money from './Money';
+import { Money } from '@paysera/money/src/Money';
 import { Entity } from 'paysera-http-client-common';
 
 import DateFactory from '../service/DateFactory';
@@ -47,17 +47,18 @@ class TransferAdditionalData extends Entity {
      * @return {Money}|null
      */
     getOriginalOutCommission() {
-        if (this.get('original_out_commission') == null) {
+        if (this.get('original_out_commission_amount') == null && this.get('original_out_commission_currency') == null) {
             return null;
         }
-        return new Money(this.get('original_out_commission'));
+        return new Money(this.get('original_out_commission_amount'), this.get('original_out_commission_currency'));
     }
 
     /**
      * @param {Money} originalOutCommission
      */
     setOriginalOutCommission(originalOutCommission) {
-        this.set('original_out_commission', originalOutCommission.getData());
+        this.set('original_out_commission_amount', originalOutCommission.getAmount());
+        this.set('original_out_commission_currency', originalOutCommission.getCurrency());
     }
 
     /**
