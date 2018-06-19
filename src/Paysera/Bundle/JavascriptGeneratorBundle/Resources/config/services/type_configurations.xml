@@ -153,7 +153,7 @@
                             <argument>\.money$</argument>
                         </call>
                         <call method="setImportString">
-                            <argument type="string">{ Money } from '@paysera/money/src/Money'</argument>
+                            <argument type="string">{ Money } from '@paysera/money'</argument>
                         </call>
                         <call method="setLibraryConfiguration">
                             <argument type="service">
@@ -162,7 +162,7 @@
                                         <argument type="string">@paysera/money</argument>
                                     </call>
                                     <call method="setVersion">
-                                        <argument type="string">git+https://github.com/paysera/js-lib-money.git</argument>
+                                        <argument type="string">^1.0</argument>
                                     </call>
                                 </service>
                             </argument>

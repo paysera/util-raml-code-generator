@@ -1,6 +1,6 @@
 import FinalBeneficiary from './FinalBeneficiary';
 import Payer from './Payer';
-import { Money } from '@paysera/money/src/Money';
+import { Money } from '@paysera/money';
 import TransferBeneficiary from './TransferBeneficiary';
 import TransferNotifications from './TransferNotifications';
 import TransferPassword34 from './TransferPassword34';

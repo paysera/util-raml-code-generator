@@ -45,8 +45,9 @@ module.exports = {
     context: path.resolve(__dirname, '../'),
     target: 'web',
     externals: {
-        angular: 'angular',
-        'paysera-http-client-common': 'paysera-http-client-common'
+        '@paysera/money': '@paysera/money',
+        'paysera-http-client-common': 'paysera-http-client-common',
+        angular: 'angular'
     },
     plugins: [
         new webpack.optimize.UglifyJsPlugin({

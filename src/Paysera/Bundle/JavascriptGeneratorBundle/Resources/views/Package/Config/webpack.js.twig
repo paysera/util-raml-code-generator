@@ -45,8 +45,10 @@ module.exports = {
     context: path.resolve(__dirname, '../'),
     target: 'web',
     externals: {
-        angular: 'angular',
-        'paysera-http-client-common': 'paysera-http-client-common'
+        {% for libraryConfig in get_external_libraries(api) -%}
+        '{{ libraryConfig.name|raw }}': '{{ libraryConfig.name|raw }}',
+        {% endfor -%}
+        angular: 'angular'
     },
     plugins: [
         new webpack.optimize.UglifyJsPlugin({

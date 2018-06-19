@@ -1,4 +1,4 @@
-import { Money } from '@paysera/money/src/Money';
+import { Money } from '@paysera/money';
 import TransferAdditionalData from './TransferAdditionalData';
 import TransferFailureStatus from './TransferFailureStatus';
 import TransferInitiator from './TransferInitiator';
