@@ -55,10 +55,10 @@ class TransferAdditionalData extends Entity
      */
     public function getOriginalOutCommission()
     {
-        if ($this->get('original_out_commission_amount') === null && $this->get('original_out_commission_currency') === null) {
+        if (!isset($this->get('original_out_commission')['amount']) || !isset($this->get('original_out_commission')['currency'])) {
             return null;
         }
-        return new Money($this->get('original_out_commission_amount'), $this->get('original_out_commission_currency'));
+        return new Money($this->get('original_out_commission')['amount'], $this->get('original_out_commission')['currency']);
     }
     /**
      * @param Money $originalOutCommission
@@ -66,8 +66,7 @@ class TransferAdditionalData extends Entity
      */
     public function setOriginalOutCommission(Money $originalOutCommission)
     {
-        $this->set('original_out_commission_amount', $originalOutCommission->getAmount());
-        $this->set('original_out_commission_currency', $originalOutCommission->getCurrency());
+        $this->set('original_out_commission', ['amount' => $originalOutCommission->getAmount(), 'currency' => $originalOutCommission->getCurrency()]);
         return $this;
     }
     /**

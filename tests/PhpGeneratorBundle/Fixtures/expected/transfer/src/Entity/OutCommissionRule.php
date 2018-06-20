@@ -33,10 +33,10 @@ class OutCommissionRule extends Entity
      */
     public function getMin()
     {
-        if ($this->get('min_amount') === null && $this->get('min_currency') === null) {
+        if (!isset($this->get('min')['amount']) || !isset($this->get('min')['currency'])) {
             return null;
         }
-        return new Money($this->get('min_amount'), $this->get('min_currency'));
+        return new Money($this->get('min')['amount'], $this->get('min')['currency']);
     }
     /**
      * @param Money $min
@@ -44,8 +44,7 @@ class OutCommissionRule extends Entity
      */
     public function setMin(Money $min)
     {
-        $this->set('min_amount', $min->getAmount());
-        $this->set('min_currency', $min->getCurrency());
+        $this->set('min', ['amount' => $min->getAmount(), 'currency' => $min->getCurrency()]);
         return $this;
     }
     /**
@@ -53,10 +52,10 @@ class OutCommissionRule extends Entity
      */
     public function getMax()
     {
-        if ($this->get('max_amount') === null && $this->get('max_currency') === null) {
+        if (!isset($this->get('max')['amount']) || !isset($this->get('max')['currency'])) {
             return null;
         }
-        return new Money($this->get('max_amount'), $this->get('max_currency'));
+        return new Money($this->get('max')['amount'], $this->get('max')['currency']);
     }
     /**
      * @param Money $max
@@ -64,8 +63,7 @@ class OutCommissionRule extends Entity
      */
     public function setMax(Money $max)
     {
-        $this->set('max_amount', $max->getAmount());
-        $this->set('max_currency', $max->getCurrency());
+        $this->set('max', ['amount' => $max->getAmount(), 'currency' => $max->getCurrency()]);
         return $this;
     }
     /**
@@ -73,10 +71,10 @@ class OutCommissionRule extends Entity
      */
     public function getFix()
     {
-        if ($this->get('fix_amount') === null && $this->get('fix_currency') === null) {
+        if (!isset($this->get('fix')['amount']) || !isset($this->get('fix')['currency'])) {
             return null;
         }
-        return new Money($this->get('fix_amount'), $this->get('fix_currency'));
+        return new Money($this->get('fix')['amount'], $this->get('fix')['currency']);
     }
     /**
      * @param Money $fix
@@ -84,8 +82,7 @@ class OutCommissionRule extends Entity
      */
     public function setFix(Money $fix)
     {
-        $this->set('fix_amount', $fix->getAmount());
-        $this->set('fix_currency', $fix->getCurrency());
+        $this->set('fix', ['amount' => $fix->getAmount(), 'currency' => $fix->getCurrency()]);
         return $this;
     }
 }
