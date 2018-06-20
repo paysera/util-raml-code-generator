@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## 7.0.2
+### Fixed
+- `Money` properties now are stored as arrays of `amount` and `currency`, not as two separate properties for `amount` and `currency`.
+
+
 ## 7.0.1
 ### Fixed
 - `SQLSTATE[HY000] [14] unable to open database file` is not fixed - `sqlite://phar://raml-code-generator.phar/app/Resources/word_net_sqlite-31.db`
