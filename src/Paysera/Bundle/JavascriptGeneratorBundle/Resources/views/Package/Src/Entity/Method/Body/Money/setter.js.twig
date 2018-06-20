@@ -1,2 +1,1 @@
-this.set('{{ property.name }}_amount', {{ property.name|to_variable_name }}.getAmount());
-        this.set('{{ property.name }}_currency', {{ property.name|to_variable_name }}.getCurrency());
+this.set('{{ property.name }}', {'amount':{{ property.name|to_variable_name }}.getAmount(), 'currency':{{ property.name|to_variable_name }}.getCurrency()});

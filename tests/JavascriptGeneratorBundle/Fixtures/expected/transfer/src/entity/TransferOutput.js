@@ -105,18 +105,17 @@ class TransferOutput extends TransferInput {
      * @return {Money}|null
      */
     getOutCommission() {
-        if (this.get('out_commission_amount') == null && this.get('out_commission_currency') == null) {
+        if (this.get('out_commission')['amount'] == null && this.get('out_commission')['currency'] == null) {
             return null;
         }
-        return new Money(this.get('out_commission_amount'), this.get('out_commission_currency'));
+        return new Money(this.get('out_commission')['amount'], this.get('out_commission')['currency']);
     }
 
     /**
      * @param {Money} outCommission
      */
     setOutCommission(outCommission) {
-        this.set('out_commission_amount', outCommission.getAmount());
-        this.set('out_commission_currency', outCommission.getCurrency());
+        this.set('out_commission', {'amount':outCommission.getAmount(), 'currency':outCommission.getCurrency()});
     }
 
     /**

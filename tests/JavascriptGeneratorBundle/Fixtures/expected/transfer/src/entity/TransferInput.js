@@ -18,15 +18,14 @@ class TransferInput extends Entity {
      * @return {Money}
      */
     getAmount() {
-        return new Money(this.get('amount_amount'), this.get('amount_currency'));
+        return new Money(this.get('amount')['amount'], this.get('amount')['currency']);
     }
 
     /**
      * @param {Money} amount
      */
     setAmount(amount) {
-        this.set('amount_amount', amount.getAmount());
-        this.set('amount_currency', amount.getCurrency());
+        this.set('amount', {'amount':amount.getAmount(), 'currency':amount.getCurrency()});
     }
 
     /**

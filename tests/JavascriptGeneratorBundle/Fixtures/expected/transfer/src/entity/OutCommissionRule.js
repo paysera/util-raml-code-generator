@@ -26,54 +26,51 @@ class OutCommissionRule extends Entity {
      * @return {Money}|null
      */
     getMin() {
-        if (this.get('min_amount') == null && this.get('min_currency') == null) {
+        if (this.get('min')['amount'] == null && this.get('min')['currency'] == null) {
             return null;
         }
-        return new Money(this.get('min_amount'), this.get('min_currency'));
+        return new Money(this.get('min')['amount'], this.get('min')['currency']);
     }
 
     /**
      * @param {Money} min
      */
     setMin(min) {
-        this.set('min_amount', min.getAmount());
-        this.set('min_currency', min.getCurrency());
+        this.set('min', {'amount':min.getAmount(), 'currency':min.getCurrency()});
     }
 
     /**
      * @return {Money}|null
      */
     getMax() {
-        if (this.get('max_amount') == null && this.get('max_currency') == null) {
+        if (this.get('max')['amount'] == null && this.get('max')['currency'] == null) {
             return null;
         }
-        return new Money(this.get('max_amount'), this.get('max_currency'));
+        return new Money(this.get('max')['amount'], this.get('max')['currency']);
     }
 
     /**
      * @param {Money} max
      */
     setMax(max) {
-        this.set('max_amount', max.getAmount());
-        this.set('max_currency', max.getCurrency());
+        this.set('max', {'amount':max.getAmount(), 'currency':max.getCurrency()});
     }
 
     /**
      * @return {Money}|null
      */
     getFix() {
-        if (this.get('fix_amount') == null && this.get('fix_currency') == null) {
+        if (this.get('fix')['amount'] == null && this.get('fix')['currency'] == null) {
             return null;
         }
-        return new Money(this.get('fix_amount'), this.get('fix_currency'));
+        return new Money(this.get('fix')['amount'], this.get('fix')['currency']);
     }
 
     /**
      * @param {Money} fix
      */
     setFix(fix) {
-        this.set('fix_amount', fix.getAmount());
-        this.set('fix_currency', fix.getCurrency());
+        this.set('fix', {'amount':fix.getAmount(), 'currency':fix.getCurrency()});
     }
 }
 
