@@ -1,0 +1,62 @@
+<?php
+
+namespace {{ api.namespace }}\Normalizer;
+
+{% if get_parent_type_config(type) == null -%}
+use Paysera\Component\Serializer\Normalizer\DenormalizerInterface;
+use Paysera\Component\Serializer\Normalizer\NormalizerInterface;
+{% else %}
+use Paysera\Component\Serializer\Normalizer\FilterNormalizer;
+{% endif %}
+use {{ api.namespace }}\Entity\{{ type.name|extract_type_name }};
+
+class {{ type.name|extract_type_name }}Normalizer{{ get_parent_type_config(type) != null ? ' extends FilterNormalizer' : ' implements NormalizerInterface, DenormalizerInterface' }}
+{
+    /**
+     * @param array $data
+     *
+     * @return {{ type.name|extract_type_name }}
+     */
+    public function mapToEntity($data)
+    {
+        $entity = new {{ type.name|extract_type_name }}();
+        {% if get_parent_type_config(type) != null -%}
+        $this->mapBaseKeys($data, $entity);
+
+        {% endif -%}
+        {% for property in type.properties -%}
+        {% include get_property_denormalizer_template(property) with { 'property': property } only %}
+        {% endfor %}
+
+        return $entity;
+    }
+
+    /**
+     * @param {{ type.name|extract_type_name }} $entity
+     *
+     * @return array
+     */
+    public function mapFromEntity($entity)
+    {
+        {% if get_parent_type_config(type) != null -%}
+        $data = parent::mapFromEntity($entity);
+        return array_merge(
+            $data,
+            [
+                {% for property in type.properties -%}
+                {% include get_property_normalizer_template(property) with { 'property': property } only %}
+                {% endfor %}
+
+            ]
+        );
+        {% else -%}
+        return [
+            {% for property in type.properties -%}
+            {% include get_property_normalizer_template(property) with { 'property': property } only %}
+            {% endfor %}
+
+        ];
+        {% endif %}
+
+    }
+}

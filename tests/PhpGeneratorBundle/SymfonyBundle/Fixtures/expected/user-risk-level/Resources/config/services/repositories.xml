@@ -1,0 +1,40 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="vendor_user_risk_level_api.repository.audit_record"
+                 class="Vendor\Test\UserRiskLevelApiBundle\Repository\AuditRecordRepository"
+                 lazy="true">
+            <factory service="doctrine.orm.entity_manager" method="getRepository"/>
+            <argument>VendorUserRiskLevelApiBundle:AuditRecord</argument>
+        </service>
+        <service id="vendor_user_risk_level_api.repository.auditable_manual_rule"
+                 class="Vendor\Test\UserRiskLevelApiBundle\Repository\AuditableManualRuleRepository"
+                 lazy="true">
+            <factory service="doctrine.orm.entity_manager" method="getRepository"/>
+            <argument>VendorUserRiskLevelApiBundle:AuditableManualRule</argument>
+        </service>
+        <service id="vendor_user_risk_level_api.repository.manual_rule"
+                 class="Vendor\Test\UserRiskLevelApiBundle\Repository\ManualRuleRepository"
+                 lazy="true">
+            <factory service="doctrine.orm.entity_manager" method="getRepository"/>
+            <argument>VendorUserRiskLevelApiBundle:ManualRule</argument>
+        </service>
+        <service id="vendor_user_risk_level_api.repository.risk_level"
+                 class="Vendor\Test\UserRiskLevelApiBundle\Repository\RiskLevelRepository"
+                 lazy="true">
+            <factory service="doctrine.orm.entity_manager" method="getRepository"/>
+            <argument>VendorUserRiskLevelApiBundle:RiskLevel</argument>
+        </service>
+        <service id="vendor_user_risk_level_api.repository.risk_rule"
+                 class="Vendor\Test\UserRiskLevelApiBundle\Repository\RiskRuleRepository"
+                 lazy="true">
+            <factory service="doctrine.orm.entity_manager" method="getRepository"/>
+            <argument>VendorUserRiskLevelApiBundle:RiskRule</argument>
+        </service>
+        
+    </services>
+</container>

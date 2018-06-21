@@ -1,0 +1,8 @@
+{% spaceless %}
+    {% if property.itemsType not in property.scalarTypes %}
+        {{ property.itemsType }}[]|ArrayCollection
+    {% else %}
+        {{ property.itemsType }}[]
+    {% endif %}
+{% endspaceless %}
+

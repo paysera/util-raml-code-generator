@@ -146,10 +146,6 @@ class AngularClientFactory {
         client.deleteTransfer = (...args) => {
             return this.$q.when(deleteTransferOriginal(...args));
         };
-        const createTransferOriginal = client.createTransfer.bind(client);
-        client.createTransfer = (...args) => {
-            return this.$q.when(createTransferOriginal(...args));
-        };
         const reserveTransfersOriginal = client.reserveTransfers.bind(client);
         client.reserveTransfers = (...args) => {
             return this.$q.when(reserveTransfersOriginal(...args));
@@ -157,6 +153,10 @@ class AngularClientFactory {
         const getTransfersOriginal = client.getTransfers.bind(client);
         client.getTransfers = (...args) => {
             return this.$q.when(getTransfersOriginal(...args));
+        };
+        const createTransferOriginal = client.createTransfer.bind(client);
+        client.createTransfer = (...args) => {
+            return this.$q.when(createTransferOriginal(...args));
         };
 
         return client;

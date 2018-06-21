@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+    <entity repository-class="Vendor\Test\TransferApiBundle\Repository\TransferAdditionalDataRepository"
+            name="Vendor\Test\TransferApiBundle\Entity\TransferAdditionalData" table="transfer_api_transfer_additional_datas">
+
+        <id name="id" type="integer" column="id">
+            <generator strategy="IDENTITY"/>
+        </id>
+        <field name="estimatedProcessingDate" column="estimated_processing_date" nullable="true" type="datetime"/>
+        <!--TODO: generated_code <field name="outCommissionRule" column="out_commission_rule" nullable="true" type="reference"/>-->
+        <field name="originalOutCommissionAmount" column="original_out_commission_amount" nullable="true" type="decimal" precision="16" scale="6"/>
+        <field name="originalOutCommissionCurrency" column="original_out_commission_currency" nullable="true" type="string"/>
+        <field name="correspondentBankFeesMayApply" column="correspondent_bank_fees_may_apply" nullable="true" type="boolean"/>
+        
+    </entity>
+</doctrine-mapping>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+    <entity repository-class="Vendor\Test\TransferApiBundle\Repository\TransferOutputRepository"
+            name="Vendor\Test\TransferApiBundle\Entity\TransferOutput" table="transfer_api_transfer_outputs">
+
+        <id name="id" type="integer" column="id">
+            <generator strategy="IDENTITY"/>
+        </id>
+        <field name="status" column="status" nullable="false" type="string"/>
+        <!--TODO: generated_code <field name="initiator" column="initiator" nullable="false" type="reference"/>-->
+        <field name="createdAt" column="created_at" nullable="false" type="datetime"/>
+        <field name="performedAt" column="performed_at" nullable="true" type="datetime"/>
+        <!--TODO: generated_code <field name="failureStatus" column="failure_status" nullable="true" type="reference"/>-->
+        <field name="outCommissionAmount" column="out_commission_amount" nullable="true" type="decimal" precision="16" scale="6"/>
+        <field name="outCommissionCurrency" column="out_commission_currency" nullable="true" type="string"/>
+        <!--TODO: generated_code <field name="additionalInformation" column="additional_information" nullable="true" type="reference"/>-->
+        
+    </entity>
+</doctrine-mapping>

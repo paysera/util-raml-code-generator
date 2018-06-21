@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+    <entity repository-class="Vendor\Test\TransferApiBundle\Repository\TransfersBatchResultRepository"
+            name="Vendor\Test\TransferApiBundle\Entity\TransfersBatchResult" table="transfer_api_transfers_batch_results">
+
+        <id name="id" type="integer" column="id">
+            <generator strategy="IDENTITY"/>
+        </id>
+        <!--TODO: generated_code non-scalar property <field name="revokedTransfers" column="revoked_transfers" nullable="true" type="array"/>-->
+        <!--TODO: generated_code non-scalar property <field name="reservedTransfers" column="reserved_transfers" nullable="true" type="array"/>-->
+        
+    </entity>
+</doctrine-mapping>

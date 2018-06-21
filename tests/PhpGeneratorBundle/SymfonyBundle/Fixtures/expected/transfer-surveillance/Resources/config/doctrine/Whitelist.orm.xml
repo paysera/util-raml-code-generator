@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+    <entity repository-class="Vendor\Test\TransferSurveillanceApiBundle\Repository\WhitelistRepository"
+            name="Vendor\Test\TransferSurveillanceApiBundle\Entity\Whitelist" table="transfer_surveillance_api_whitelists">
+
+        <id name="id" type="integer" column="id">
+            <generator strategy="IDENTITY"/>
+        </id>
+        <field name="payerCovenanteeId" column="payer_covenantee_id" nullable="true" type="string"/>
+        <field name="payerAccountIdentifier" column="payer_account_identifier" nullable="true" type="string"/>
+        <field name="beneficiaryCovenanteeId" column="beneficiary_covenantee_id" nullable="true" type="string"/>
+        <field name="beneficiaryAccountIdentifier" column="beneficiary_account_identifier" nullable="true" type="string"/>
+        <field name="maxAmountAmount" column="max_amount_amount" nullable="true" type="decimal" precision="16" scale="6"/>
+        <field name="maxAmountCurrency" column="max_amount_currency" nullable="true" type="string"/>
+        <!--TODO: generated_code non-scalar property <field name="profiles" column="profiles" nullable="true" type="array"/>-->
+        
+    </entity>
+</doctrine-mapping>

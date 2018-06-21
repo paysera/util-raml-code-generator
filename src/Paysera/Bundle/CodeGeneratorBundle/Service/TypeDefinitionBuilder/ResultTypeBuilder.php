@@ -28,10 +28,14 @@ class ResultTypeBuilder implements TypeDefinitionBuilderInterface
             throw new InvalidDefinitionException('ResultType definition must contain "properties" list');
         }
 
-        $dataKey = array_diff(array_keys($definition['properties']), ['_metadata'])[0];
+        $possibleKeys = array_diff(array_keys($definition['properties']), ['_metadata']);
         $itemsType = null;
-        if (isset($definition['properties'][$dataKey]['items'])) {
-            $itemsType = $definition['properties'][$dataKey]['items']['type'];
+        $dataKey = null;
+        if (count($possibleKeys) > 0) {
+            $dataKey = $possibleKeys[0];
+            if (isset($definition['properties'][$dataKey]['items'])) {
+                $itemsType = $definition['properties'][$dataKey]['items']['type'];
+            }
         }
 
         $type

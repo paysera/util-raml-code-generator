@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+    <entity repository-class="Vendor\Test\TransferSurveillanceApiBundle\Repository\RuleRepository"
+            name="Vendor\Test\TransferSurveillanceApiBundle\Entity\Rule" table="transfer_surveillance_api_rules">
+
+        <id name="id" type="integer" column="id">
+            <generator strategy="IDENTITY"/>
+        </id>
+        <field name="matcherIdentifier" column="matcher_identifier" nullable="false" type="string"/>
+        <field name="title" column="title" nullable="false" type="string"/>
+        <field name="action" column="action" nullable="false" type="string"/>
+        <field name="type" column="type" nullable="false" type="string"/>
+        <field name="status" column="status" nullable="true" type="string"/>
+        <field name="amlDetailsNeeded" column="aml_details_needed" nullable="true" type="boolean"/>
+        <field name="relatedBankAccountsAllowed" column="related_bank_accounts_allowed" nullable="true" type="boolean"/>
+        <field name="description" column="description" nullable="true" type="string"/>
+        <field name="informPrevention" column="inform_prevention" nullable="true" type="boolean"/>
+        
+    </entity>
+</doctrine-mapping>

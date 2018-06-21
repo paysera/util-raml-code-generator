@@ -1,0 +1,145 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="vendor_transfer_api.normalizer.address"
+                 class="Vendor\Test\TransferApiBundle\Normalizer\AddressNormalizer">
+        </service>
+        <service id="vendor_transfer_api.normalizer.bank_account"
+                 class="Vendor\Test\TransferApiBundle\Normalizer\BankAccountNormalizer">
+            <argument type="service" id="vendor_transfer_api.normalizer.address"/>
+            <argument type="service" id="vendor_transfer_api.normalizer.correspondent_bank"/>
+        </service>
+        <service id="vendor_transfer_api.normalizer.convert_currency"
+                 class="Vendor\Test\TransferApiBundle\Normalizer\ConvertCurrencyNormalizer">
+        </service>
+        <service id="vendor_transfer_api.normalizer.correspondent_bank"
+                 class="Vendor\Test\TransferApiBundle\Normalizer\CorrespondentBankNormalizer">
+        </service>
+        <service id="vendor_transfer_api.normalizer.details_options"
+                 class="Vendor\Test\TransferApiBundle\Normalizer\DetailsOptionsNormalizer">
+        </service>
+        <service id="vendor_transfer_api.normalizer.filtered_transfers_result"
+                 class="Paysera\Component\Serializer\Normalizer\ResultNormalizer"
+                 parent="paysera_rest.normalizer.result">
+            <argument>items</argument>
+            <argument type="service" id="vendor_transfer_api.normalizer.transfer_output"/>
+        </service>
+        <service id="vendor_transfer_api.normalizer.final_beneficiary"
+                 class="Vendor\Test\TransferApiBundle\Normalizer\FinalBeneficiaryNormalizer">
+            <argument type="service" id="vendor_transfer_api.normalizer.identifiers"/>
+        </service>
+        <service id="vendor_transfer_api.normalizer.identifiers"
+                 class="Vendor\Test\TransferApiBundle\Normalizer\IdentifiersNormalizer">
+        </service>
+        <service id="vendor_transfer_api.normalizer.out_commission_rule"
+                 class="Vendor\Test\TransferApiBundle\Normalizer\OutCommissionRuleNormalizer">
+            <argument type="service" id="vendor_transfer_api.normalizer.money"/>
+        </service>
+        <service id="vendor_transfer_api.normalizer.payer"
+                 class="Vendor\Test\TransferApiBundle\Normalizer\PayerNormalizer">
+        </service>
+        <service id="vendor_transfer_api.normalizer.money"
+                 class="Evp\Component\Money\MoneyNormalizer">
+        </service>
+        <service id="vendor_transfer_api.normalizer.paysera_account"
+                 class="Vendor\Test\TransferApiBundle\Normalizer\PayseraAccountNormalizer">
+        </service>
+        <service id="vendor_transfer_api.normalizer.payza_account"
+                 class="Vendor\Test\TransferApiBundle\Normalizer\PayzaAccountNormalizer">
+        </service>
+        <service id="vendor_transfer_api.normalizer.tax_account"
+                 class="Vendor\Test\TransferApiBundle\Normalizer\TaxAccountNormalizer">
+        </service>
+        <service id="vendor_transfer_api.normalizer.transfer_additional_data"
+                 class="Vendor\Test\TransferApiBundle\Normalizer\TransferAdditionalDataNormalizer">
+            <argument type="service" id="vendor_transfer_api.normalizer.out_commission_rule"/>
+            <argument type="service" id="vendor_transfer_api.normalizer.money"/>
+        </service>
+        <service id="vendor_transfer_api.normalizer.transfer_beneficiary"
+                 class="Vendor\Test\TransferApiBundle\Normalizer\TransferBeneficiaryNormalizer">
+            <argument type="service" id="vendor_transfer_api.normalizer.identifiers"/>
+            <argument type="service" id="vendor_transfer_api.normalizer.bank_account"/>
+            <argument type="service" id="vendor_transfer_api.normalizer.tax_account"/>
+            <argument type="service" id="vendor_transfer_api.normalizer.paysera_account"/>
+            <argument type="service" id="vendor_transfer_api.normalizer.payza_account"/>
+            <argument type="service" id="vendor_transfer_api.normalizer.webmoney_account"/>
+        </service>
+        <service id="vendor_transfer_api.normalizer.transfer_failure_status"
+                 class="Vendor\Test\TransferApiBundle\Normalizer\TransferFailureStatusNormalizer">
+        </service>
+        <service id="vendor_transfer_api.normalizer.transfer_initiator"
+                 class="Vendor\Test\TransferApiBundle\Normalizer\TransferInitiatorNormalizer">
+        </service>
+        <service id="vendor_transfer_api.normalizer.transfer_input"
+                 class="Vendor\Test\TransferApiBundle\Normalizer\TransferInputNormalizer">
+            <argument type="service" id="vendor_transfer_api.normalizer.money"/>
+            <argument type="service" id="vendor_transfer_api.normalizer.transfer_beneficiary"/>
+            <argument type="service" id="vendor_transfer_api.normalizer.payer"/>
+            <argument type="service" id="vendor_transfer_api.normalizer.final_beneficiary"/>
+            <argument type="service" id="vendor_transfer_api.normalizer.transfer_notifications"/>
+            <argument type="service" id="vendor_transfer_api.normalizer.transfer_purpose"/>
+            <argument type="service" id="vendor_transfer_api.normalizer.transfer_password34"/>
+        </service>
+        <service id="vendor_transfer_api.normalizer.transfer_notifcation"
+                 class="Vendor\Test\TransferApiBundle\Normalizer\TransferNotifcationNormalizer">
+        </service>
+        <service id="vendor_transfer_api.normalizer.transfer_notifications"
+                 class="Vendor\Test\TransferApiBundle\Normalizer\TransferNotificationsNormalizer">
+            <argument type="service" id="vendor_transfer_api.normalizer.transfer_notifcation"/>
+        </service>
+        <service id="vendor_transfer_api.normalizer.transfer_output"
+                 class="Vendor\Test\TransferApiBundle\Normalizer\TransferOutputNormalizer">
+            <argument type="service" id="vendor_transfer_api.normalizer.transfer_initiator"/>
+            <argument type="service" id="vendor_transfer_api.normalizer.transfer_failure_status"/>
+            <argument type="service" id="vendor_transfer_api.normalizer.money"/>
+            <argument type="service" id="vendor_transfer_api.normalizer.transfer_additional_data"/>
+        </service>
+        <service id="vendor_transfer_api.normalizer.transfer_password"
+                 class="Vendor\Test\TransferApiBundle\Normalizer\TransferPasswordNormalizer">
+        </service>
+        <service id="vendor_transfer_api.normalizer.transfer_password34"
+                 class="Vendor\Test\TransferApiBundle\Normalizer\TransferPassword34Normalizer">
+        </service>
+        <service id="vendor_transfer_api.normalizer.transfer_purpose"
+                 class="Vendor\Test\TransferApiBundle\Normalizer\TransferPurposeNormalizer">
+            <argument type="service" id="vendor_transfer_api.normalizer.details_options"/>
+        </service>
+        <service id="vendor_transfer_api.normalizer.transfer_registration_parameters"
+                 class="Vendor\Test\TransferApiBundle\Normalizer\TransferRegistrationParametersNormalizer">
+            <argument type="service" id="vendor_transfer_api.normalizer.convert_currency.array"/>
+        </service>
+        <service id="vendor_transfer_api.normalizer.transfers_batch"
+                 class="Vendor\Test\TransferApiBundle\Normalizer\TransfersBatchNormalizer">
+            <argument type="service" id="vendor_transfer_api.normalizer.convert_currency.array"/>
+        </service>
+        <service id="vendor_transfer_api.normalizer.transfers_batch_result"
+                 class="Vendor\Test\TransferApiBundle\Normalizer\TransfersBatchResultNormalizer">
+            <argument type="service" id="vendor_transfer_api.normalizer.revoked_transfers.array"/>
+            <argument type="service" id="vendor_transfer_api.normalizer.reserved_transfers.array"/>
+        </service>
+        <service id="vendor_transfer_api.normalizer.transfers_filter"
+                 class="Vendor\Test\TransferApiBundle\Normalizer\TransfersFilterNormalizer">
+        </service>
+        <service id="vendor_transfer_api.normalizer.webmoney_account"
+                 class="Vendor\Test\TransferApiBundle\Normalizer\WebmoneyAccountNormalizer">
+        </service>
+        
+        <service id="vendor_transfer_api.normalizer.convert_currency.array"
+                 class="Paysera\Component\Serializer\Normalizer\ArrayNormalizer">
+            <argument type="service" id="vendor_transfer_api.normalizer.convert_currency"/>
+        </service>
+        <service id="vendor_transfer_api.normalizer.revoked_transfers.array"
+                 class="Paysera\Component\Serializer\Normalizer\ArrayNormalizer">
+            <argument type="service" id="vendor_transfer_api.normalizer.transfer_output"/>
+        </service>
+        <service id="vendor_transfer_api.normalizer.reserved_transfers.array"
+                 class="Paysera\Component\Serializer\Normalizer\ArrayNormalizer">
+            <argument type="service" id="vendor_transfer_api.normalizer.transfer_output"/>
+        </service>
+        
+    </services>
+</container>

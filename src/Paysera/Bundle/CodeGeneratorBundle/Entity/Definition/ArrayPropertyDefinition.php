@@ -30,6 +30,6 @@ class ArrayPropertyDefinition extends PropertyDefinition
 
     public function isSimpleType()
     {
-        return in_array($this->itemsType, self::$simpleTypes, true);
+        return in_array($this->itemsType, self::$scalarTypes, true);
     }
 }

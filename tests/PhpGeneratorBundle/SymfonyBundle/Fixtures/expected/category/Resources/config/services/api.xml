@@ -1,0 +1,102 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="vendor_category_api.api.category"
+                 class="Paysera\Bundle\RestBundle\RestApi">
+            <tag name="paysera_rest.api" api_key="vendor_category_api.category"/>
+            <argument type="service" id="service_container"/>
+            <argument type="service" id="logger"/>
+                                
+
+            <call method="addRequestQueryMapper">
+                <argument>vendor_category_api.normalizer.category_filter</argument>
+                <argument>vendor_category_api.controller.category_api:getCategories</argument>
+                <argument>categoryFilter</argument>
+            </call>
+                        
+
+            <call method="addRequestMapper">
+                <argument>vendor_category_api.normalizer.category</argument>
+                <argument>vendor_category_api.controller.category_api:createCategory</argument>
+                <argument>category</argument>
+            </call>
+            <call method="addResponseMapper">
+                <argument>vendor_category_api.normalizer.category</argument>
+                <argument>vendor_category_api.controller.category_api:createCategory</argument>
+            </call>
+                                    
+
+            <call method="addRequestAttributeResolver">
+                <argument>vendor_category_api.entity_resolver.category_by_id</argument>
+                <argument>vendor_category_api.controller.category_api:updateCategory</argument>
+                <argument>id</argument>
+                <argument>originalCategory</argument>
+            </call>
+            <call method="addRequestMapper">
+                <argument>vendor_category_api.normalizer.category</argument>
+                <argument>vendor_category_api.controller.category_api:updateCategory</argument>
+                <argument>updatedCategory</argument>
+            </call>
+            <call method="addResponseMapper">
+                <argument>vendor_category_api.normalizer.category</argument>
+                <argument>vendor_category_api.controller.category_api:updateCategory</argument>
+            </call>
+                        
+
+            <call method="addRequestAttributeResolver">
+                <argument>vendor_category_api.entity_resolver.category_by_id</argument>
+                <argument>vendor_category_api.controller.category_api:deleteCategory</argument>
+                <argument>id</argument>
+                <argument>category</argument>
+            </call>
+                                    
+
+            <call method="addRequestAttributeResolver">
+                <argument>vendor_category_api.entity_resolver.category_by_id</argument>
+                <argument>vendor_category_api.controller.category_api:enableCategory</argument>
+                <argument>id</argument>
+                <argument>category</argument>
+            </call>
+            <call method="addResponseMapper">
+                <argument>vendor_category_api.normalizer.category</argument>
+                <argument>vendor_category_api.controller.category_api:enableCategory</argument>
+            </call>
+                                    
+
+            <call method="addRequestAttributeResolver">
+                <argument>vendor_category_api.entity_resolver.category_by_id</argument>
+                <argument>vendor_category_api.controller.category_api:disableCategory</argument>
+                <argument>id</argument>
+                <argument>category</argument>
+            </call>
+            <call method="addResponseMapper">
+                <argument>vendor_category_api.normalizer.category</argument>
+                <argument>vendor_category_api.controller.category_api:disableCategory</argument>
+            </call>
+            
+        </service>
+        <service id="vendor_category_api.api.keyword"
+                 class="Paysera\Bundle\RestBundle\RestApi">
+            <tag name="paysera_rest.api" api_key="vendor_category_api.keyword"/>
+            <argument type="service" id="service_container"/>
+            <argument type="service" id="logger"/>
+                                
+
+            <call method="addRequestQueryMapper">
+                <argument>vendor_category_api.normalizer.paysera.filter</argument>
+                <argument>vendor_category_api.controller.keyword_api:getKeywords</argument>
+                <argument>filter</argument>
+            </call>
+            <call method="addResponseMapper">
+                <argument>vendor_category_api.normalizer.keyword</argument>
+                <argument>vendor_category_api.controller.keyword_api:getKeywords</argument>
+            </call>
+            
+        </service>
+        
+    </services>
+</container>

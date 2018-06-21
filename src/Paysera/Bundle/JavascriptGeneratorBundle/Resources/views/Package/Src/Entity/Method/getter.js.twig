@@ -1,7 +1,0 @@
-
-    /**
-     * @return {% include get_method_return_type_template(property) with { 'property': property } only %}
-     */
-    {{ js_generate_getter_name(property) }}() {
-        {%- include get_method_body_getter_template(property) with { 'property': property } only %}
-    }

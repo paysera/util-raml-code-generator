@@ -7,7 +7,8 @@
     <imports>
         <import resource="services/services.xml"/>
         <import resource="services/twig.xml"/>
-        <import resource="services/generators.xml"/>
+        <import resource="services/php_client_generators.xml"/>
+        <import resource="services/symfony_bundle_generators.xml"/>
         <import resource="services/commands.xml"/>
         <import resource="services/type_configurations.xml"/>
     </imports>

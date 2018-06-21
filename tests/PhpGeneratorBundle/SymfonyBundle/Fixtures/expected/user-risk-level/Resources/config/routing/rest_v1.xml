@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<routes xmlns="http://symfony.com/schema/routing"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
+
+    <route id="vendor_user_risk_level_api.get_user_risk_level" methods="GET" path="/users/{userId}/risk-level">
+        <default key="_controller">vendor_user_risk_level_api.controller.user_api:getUserRiskLevel</default>
+        <default key="api_key">vendor_user_risk_level_api.user</default>
+        <option key="expose">true</option>
+    </route>
+    <route id="vendor_user_risk_level_api.delete_user_manual_rule" methods="DELETE" path="/users/{userId}/manual-rules/{ruleId}">
+        <default key="_controller">vendor_user_risk_level_api.controller.user_api:deleteUserManualRule</default>
+        <default key="api_key">vendor_user_risk_level_api.user</default>
+        <option key="expose">true</option>
+    </route>
+    <route id="vendor_user_risk_level_api.get_user_manual_rules" methods="GET" path="/users/{userId}/manual-rules">
+        <default key="_controller">vendor_user_risk_level_api.controller.user_api:getUserManualRules</default>
+        <default key="api_key">vendor_user_risk_level_api.user</default>
+        <option key="expose">true</option>
+    </route>
+    <route id="vendor_user_risk_level_api.create_user_manual_rule" methods="POST" path="/users/{userId}/manual-rules">
+        <default key="_controller">vendor_user_risk_level_api.controller.user_api:createUserManualRule</default>
+        <default key="api_key">vendor_user_risk_level_api.user</default>
+        <option key="expose">true</option>
+    </route>
+    <route id="vendor_user_risk_level_api.get_manual_rules" methods="GET" path="/manual-rules">
+        <default key="_controller">vendor_user_risk_level_api.controller.manual_rule_api:getManualRules</default>
+        <default key="api_key">vendor_user_risk_level_api.manual_rule</default>
+        <option key="expose">true</option>
+    </route>
+</routes>

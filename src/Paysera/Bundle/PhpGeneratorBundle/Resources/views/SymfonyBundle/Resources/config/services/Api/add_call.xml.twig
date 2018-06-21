@@ -1,0 +1,31 @@
+{% set arguments = symfony_bundle_generate_method_arguments(method, resource, api) %}
+
+
+            {% for argument in arguments if argument.type not in argument.scalarTypes -%}
+                {% if method.type == 'GET' -%}
+            <call method="addRequestQueryMapper">
+                <argument>{{ vendor_name|to_snake_case }}_{{ api.name|to_snake_case }}.normalizer.{{ argument.name|to_snake_case }}</argument>
+                <argument>{{ vendor_name|to_snake_case }}_{{ api.name|to_snake_case }}.controller.{{ get_method_entity_name(resource)|to_class_name|to_snake_case }}_api:{{ generate_method_name(method, resource, api) }}</argument>
+                <argument>{{ (argument.renamedName ? argument.renamedName : argument.name)|to_variable_name }}</argument>
+            {% else -%}
+                    {% if argument.originalPlaceholder is not null -%}
+            <call method="addRequestAttributeResolver">
+                <argument>{{ vendor_name|to_snake_case }}_{{ api.name|to_snake_case }}.entity_resolver.{{ argument.name|to_class_name|to_snake_case }}_by_{{ argument.originalPlaceholder|to_snake_case }}</argument>
+                <argument>{{ vendor_name|to_snake_case }}_{{ api.name|to_snake_case }}.controller.{{ get_method_entity_name(resource)|to_class_name|to_snake_case }}_api:{{ generate_method_name(method, resource, api) }}</argument>
+                <argument>{{ argument.originalPlaceholder }}</argument>
+                <argument>{{ (argument.renamedName ? argument.renamedName : argument.name)|to_variable_name }}</argument>
+            {% else -%}
+            <call method="addRequestMapper">
+                <argument>{{ vendor_name|to_snake_case }}_{{ api.name|to_snake_case }}.normalizer.{{ argument.name|to_snake_case }}</argument>
+                <argument>{{ vendor_name|to_snake_case }}_{{ api.name|to_snake_case }}.controller.{{ get_method_entity_name(resource)|to_class_name|to_snake_case }}_api:{{ generate_method_name(method, resource, api) }}</argument>
+                <argument>{{ (argument.renamedName ? argument.renamedName : argument.name)|to_variable_name }}</argument>
+            {% endif -%}
+            {% endif -%}
+            </call>
+            {% endfor -%}
+            {% if symfony_bundle_get_response_type(method, api) != null -%}
+            <call method="addResponseMapper">
+                <argument>{{ vendor_name|to_snake_case }}_{{ api.name|to_snake_case }}.normalizer.{{ symfony_bundle_get_response_type(method, api).name|extract_type_name|to_snake_case }}</argument>
+                <argument>{{ vendor_name|to_snake_case }}_{{ api.name|to_snake_case }}.controller.{{ get_method_entity_name(resource)|to_class_name|to_snake_case }}_api:{{ generate_method_name(method, resource, api) }}</argument>
+            </call>
+            {% endif -%}

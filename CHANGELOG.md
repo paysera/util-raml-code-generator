@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## 9.0.0
+### Added
+- `php-generator:symfony-bundle` command now generates Symfony Bundle with most of API-specific classes configured.
+### Changed
+- paths like `/resources/{id}/{verb-ish-word}` are treated as verbs if word can have verb meaning in WordNet db.
+
 ## 8.0.0
 ### Added
 - Generated Javascript clients for `Money` type are using the `@paysera/money` library now. 
@@ -11,7 +17,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## 7.0.2
 ### Fixed
 - `Money` properties now are stored as arrays of `amount` and `currency`, not as two separate properties for `amount` and `currency`.
-
 
 ## 7.0.1
 ### Fixed

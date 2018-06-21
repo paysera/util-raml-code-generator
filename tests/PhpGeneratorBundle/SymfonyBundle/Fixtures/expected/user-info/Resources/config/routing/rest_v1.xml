@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<routes xmlns="http://symfony.com/schema/routing"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
+
+    <route id="vendor_user_info_api.create_legal_user" methods="POST" path="/users/legal">
+        <default key="_controller">vendor_user_info_api.controller.user_api:createLegalUser</default>
+        <default key="api_key">vendor_user_info_api.user</default>
+        <option key="expose">true</option>
+    </route>
+    <route id="vendor_user_info_api.create_natural_user" methods="POST" path="/users/natural">
+        <default key="_controller">vendor_user_info_api.controller.user_api:createNaturalUser</default>
+        <default key="api_key">vendor_user_info_api.user</default>
+        <option key="expose">true</option>
+    </route>
+    <route id="vendor_user_info_api.get_user_information" methods="GET" path="/users/{id}/information">
+        <default key="_controller">vendor_user_info_api.controller.user_api:getUserInformation</default>
+        <default key="api_key">vendor_user_info_api.user</default>
+        <option key="expose">true</option>
+    </route>
+    <route id="vendor_user_info_api.update_user_information" methods="PUT" path="/users/{id}/information">
+        <default key="_controller">vendor_user_info_api.controller.user_api:updateUserInformation</default>
+        <default key="api_key">vendor_user_info_api.user</default>
+        <option key="expose">true</option>
+    </route>
+</routes>

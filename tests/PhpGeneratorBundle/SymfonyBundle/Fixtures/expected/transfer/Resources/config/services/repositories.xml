@@ -1,0 +1,172 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="vendor_transfer_api.repository.address"
+                 class="Vendor\Test\TransferApiBundle\Repository\AddressRepository"
+                 lazy="true">
+            <factory service="doctrine.orm.entity_manager" method="getRepository"/>
+            <argument>VendorTransferApiBundle:Address</argument>
+        </service>
+        <service id="vendor_transfer_api.repository.bank_account"
+                 class="Vendor\Test\TransferApiBundle\Repository\BankAccountRepository"
+                 lazy="true">
+            <factory service="doctrine.orm.entity_manager" method="getRepository"/>
+            <argument>VendorTransferApiBundle:BankAccount</argument>
+        </service>
+        <service id="vendor_transfer_api.repository.convert_currency"
+                 class="Vendor\Test\TransferApiBundle\Repository\ConvertCurrencyRepository"
+                 lazy="true">
+            <factory service="doctrine.orm.entity_manager" method="getRepository"/>
+            <argument>VendorTransferApiBundle:ConvertCurrency</argument>
+        </service>
+        <service id="vendor_transfer_api.repository.correspondent_bank"
+                 class="Vendor\Test\TransferApiBundle\Repository\CorrespondentBankRepository"
+                 lazy="true">
+            <factory service="doctrine.orm.entity_manager" method="getRepository"/>
+            <argument>VendorTransferApiBundle:CorrespondentBank</argument>
+        </service>
+        <service id="vendor_transfer_api.repository.details_options"
+                 class="Vendor\Test\TransferApiBundle\Repository\DetailsOptionsRepository"
+                 lazy="true">
+            <factory service="doctrine.orm.entity_manager" method="getRepository"/>
+            <argument>VendorTransferApiBundle:DetailsOptions</argument>
+        </service>
+        <service id="vendor_transfer_api.repository.final_beneficiary"
+                 class="Vendor\Test\TransferApiBundle\Repository\FinalBeneficiaryRepository"
+                 lazy="true">
+            <factory service="doctrine.orm.entity_manager" method="getRepository"/>
+            <argument>VendorTransferApiBundle:FinalBeneficiary</argument>
+        </service>
+        <service id="vendor_transfer_api.repository.identifiers"
+                 class="Vendor\Test\TransferApiBundle\Repository\IdentifiersRepository"
+                 lazy="true">
+            <factory service="doctrine.orm.entity_manager" method="getRepository"/>
+            <argument>VendorTransferApiBundle:Identifiers</argument>
+        </service>
+        <service id="vendor_transfer_api.repository.out_commission_rule"
+                 class="Vendor\Test\TransferApiBundle\Repository\OutCommissionRuleRepository"
+                 lazy="true">
+            <factory service="doctrine.orm.entity_manager" method="getRepository"/>
+            <argument>VendorTransferApiBundle:OutCommissionRule</argument>
+        </service>
+        <service id="vendor_transfer_api.repository.payer"
+                 class="Vendor\Test\TransferApiBundle\Repository\PayerRepository"
+                 lazy="true">
+            <factory service="doctrine.orm.entity_manager" method="getRepository"/>
+            <argument>VendorTransferApiBundle:Payer</argument>
+        </service>
+        <service id="vendor_transfer_api.repository.paysera_account"
+                 class="Vendor\Test\TransferApiBundle\Repository\PayseraAccountRepository"
+                 lazy="true">
+            <factory service="doctrine.orm.entity_manager" method="getRepository"/>
+            <argument>VendorTransferApiBundle:PayseraAccount</argument>
+        </service>
+        <service id="vendor_transfer_api.repository.payza_account"
+                 class="Vendor\Test\TransferApiBundle\Repository\PayzaAccountRepository"
+                 lazy="true">
+            <factory service="doctrine.orm.entity_manager" method="getRepository"/>
+            <argument>VendorTransferApiBundle:PayzaAccount</argument>
+        </service>
+        <service id="vendor_transfer_api.repository.tax_account"
+                 class="Vendor\Test\TransferApiBundle\Repository\TaxAccountRepository"
+                 lazy="true">
+            <factory service="doctrine.orm.entity_manager" method="getRepository"/>
+            <argument>VendorTransferApiBundle:TaxAccount</argument>
+        </service>
+        <service id="vendor_transfer_api.repository.transfer_additional_data"
+                 class="Vendor\Test\TransferApiBundle\Repository\TransferAdditionalDataRepository"
+                 lazy="true">
+            <factory service="doctrine.orm.entity_manager" method="getRepository"/>
+            <argument>VendorTransferApiBundle:TransferAdditionalData</argument>
+        </service>
+        <service id="vendor_transfer_api.repository.transfer_beneficiary"
+                 class="Vendor\Test\TransferApiBundle\Repository\TransferBeneficiaryRepository"
+                 lazy="true">
+            <factory service="doctrine.orm.entity_manager" method="getRepository"/>
+            <argument>VendorTransferApiBundle:TransferBeneficiary</argument>
+        </service>
+        <service id="vendor_transfer_api.repository.transfer_failure_status"
+                 class="Vendor\Test\TransferApiBundle\Repository\TransferFailureStatusRepository"
+                 lazy="true">
+            <factory service="doctrine.orm.entity_manager" method="getRepository"/>
+            <argument>VendorTransferApiBundle:TransferFailureStatus</argument>
+        </service>
+        <service id="vendor_transfer_api.repository.transfer_initiator"
+                 class="Vendor\Test\TransferApiBundle\Repository\TransferInitiatorRepository"
+                 lazy="true">
+            <factory service="doctrine.orm.entity_manager" method="getRepository"/>
+            <argument>VendorTransferApiBundle:TransferInitiator</argument>
+        </service>
+        <service id="vendor_transfer_api.repository.transfer_input"
+                 class="Vendor\Test\TransferApiBundle\Repository\TransferInputRepository"
+                 lazy="true">
+            <factory service="doctrine.orm.entity_manager" method="getRepository"/>
+            <argument>VendorTransferApiBundle:TransferInput</argument>
+        </service>
+        <service id="vendor_transfer_api.repository.transfer_notifcation"
+                 class="Vendor\Test\TransferApiBundle\Repository\TransferNotifcationRepository"
+                 lazy="true">
+            <factory service="doctrine.orm.entity_manager" method="getRepository"/>
+            <argument>VendorTransferApiBundle:TransferNotifcation</argument>
+        </service>
+        <service id="vendor_transfer_api.repository.transfer_notifications"
+                 class="Vendor\Test\TransferApiBundle\Repository\TransferNotificationsRepository"
+                 lazy="true">
+            <factory service="doctrine.orm.entity_manager" method="getRepository"/>
+            <argument>VendorTransferApiBundle:TransferNotifications</argument>
+        </service>
+        <service id="vendor_transfer_api.repository.transfer_output"
+                 class="Vendor\Test\TransferApiBundle\Repository\TransferOutputRepository"
+                 lazy="true">
+            <factory service="doctrine.orm.entity_manager" method="getRepository"/>
+            <argument>VendorTransferApiBundle:TransferOutput</argument>
+        </service>
+        <service id="vendor_transfer_api.repository.transfer_password"
+                 class="Vendor\Test\TransferApiBundle\Repository\TransferPasswordRepository"
+                 lazy="true">
+            <factory service="doctrine.orm.entity_manager" method="getRepository"/>
+            <argument>VendorTransferApiBundle:TransferPassword</argument>
+        </service>
+        <service id="vendor_transfer_api.repository.transfer_password34"
+                 class="Vendor\Test\TransferApiBundle\Repository\TransferPassword34Repository"
+                 lazy="true">
+            <factory service="doctrine.orm.entity_manager" method="getRepository"/>
+            <argument>VendorTransferApiBundle:TransferPassword34</argument>
+        </service>
+        <service id="vendor_transfer_api.repository.transfer_purpose"
+                 class="Vendor\Test\TransferApiBundle\Repository\TransferPurposeRepository"
+                 lazy="true">
+            <factory service="doctrine.orm.entity_manager" method="getRepository"/>
+            <argument>VendorTransferApiBundle:TransferPurpose</argument>
+        </service>
+        <service id="vendor_transfer_api.repository.transfer_registration_parameters"
+                 class="Vendor\Test\TransferApiBundle\Repository\TransferRegistrationParametersRepository"
+                 lazy="true">
+            <factory service="doctrine.orm.entity_manager" method="getRepository"/>
+            <argument>VendorTransferApiBundle:TransferRegistrationParameters</argument>
+        </service>
+        <service id="vendor_transfer_api.repository.transfers_batch"
+                 class="Vendor\Test\TransferApiBundle\Repository\TransfersBatchRepository"
+                 lazy="true">
+            <factory service="doctrine.orm.entity_manager" method="getRepository"/>
+            <argument>VendorTransferApiBundle:TransfersBatch</argument>
+        </service>
+        <service id="vendor_transfer_api.repository.transfers_batch_result"
+                 class="Vendor\Test\TransferApiBundle\Repository\TransfersBatchResultRepository"
+                 lazy="true">
+            <factory service="doctrine.orm.entity_manager" method="getRepository"/>
+            <argument>VendorTransferApiBundle:TransfersBatchResult</argument>
+        </service>
+        <service id="vendor_transfer_api.repository.webmoney_account"
+                 class="Vendor\Test\TransferApiBundle\Repository\WebmoneyAccountRepository"
+                 lazy="true">
+            <factory service="doctrine.orm.entity_manager" method="getRepository"/>
+            <argument>VendorTransferApiBundle:WebmoneyAccount</argument>
+        </service>
+        
+    </services>
+</container>

@@ -1,0 +1,5 @@
+{% if property.required %}
+'{{ property.name|to_snake_case }}' => $entity->{{ php_generate_getter_name(property) }}()->getTimestamp(),
+{% else %}
+'{{ property.name|to_snake_case }}' => $entity->{{ php_generate_getter_name(property) }}() !== null ? $entity->{{ php_generate_getter_name(property) }}()->getTimestamp() : null,
+{% endif %}

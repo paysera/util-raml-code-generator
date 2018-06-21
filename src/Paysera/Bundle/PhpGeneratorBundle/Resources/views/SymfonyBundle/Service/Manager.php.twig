@@ -1,0 +1,49 @@
+{%- import _self as macros %}
+{%- macro render_methods(resource, api) -%}
+    {%- for subResource in resource.resources -%}
+        {{ _self.render_methods(subResource, api) }}
+    {%- endfor %}
+    {%- for method in resource.methods -%}
+        {%- include '@PayseraPhpGenerator/SymfonyBundle/Service/Method/api_method.php.twig' with {
+            'resource': resource,
+            'method': method,
+            'api': api
+        } only -%}
+    {%- endfor -%}
+{% endmacro %}
+<?php
+
+namespace {{ api.namespace }}\Service;
+
+{% for typeConfig in symfony_bundle_get_directly_used_types_in_sub_resource(api, argument.name) %}
+{% if typeConfig.importString is not null and 'Result' not in typeConfig.importString %}
+use {{ typeConfig.importString|raw }};
+{% endif %}
+{% endfor %}
+use {{ api.namespace }}\Entity as Entities;
+use {{ api.namespace }}\Repository\{{ argument.name|extract_type_name|to_class_name }}Repository;
+use Doctrine\ORM\EntityManager;
+
+class {{ argument.name|extract_type_name|to_class_name }}Manager
+{
+{% if is_type_defined(argument.name, api) %}
+    private ${{ argument.name|extract_type_name|to_variable_name }}Repository;
+{% endif %}
+    private $entityManager;
+
+    public function __construct(
+{% if is_type_defined(argument.name, api) %}
+        {{ argument.name|extract_type_name|to_class_name }}Repository ${{ argument.name|extract_type_name|to_variable_name }}Repository,
+{% endif %}
+        EntityManager $entityManager
+    ) {
+{% if is_type_defined(argument.name, api) %}
+        $this->{{ argument.name|extract_type_name|to_variable_name }}Repository = ${{ argument.name|extract_type_name|to_variable_name }}Repository;
+{% endif %}
+        $this->entityManager = $entityManager;
+    }
+
+{% for resource in api.ramlDefinition.resources if get_method_entity_name(resource) == argument.name -%}
+    {{- macros.render_methods(resource, api) -}}
+{% endfor %}
+}

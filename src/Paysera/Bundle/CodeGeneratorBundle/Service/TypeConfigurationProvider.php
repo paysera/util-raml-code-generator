@@ -14,11 +14,14 @@ class TypeConfigurationProvider
      */
     private $config;
     private $default;
+    /**
+     * @var TypeConfiguration|null
+     */
     private $entityTypeConfiguration;
 
     public function __construct(
         TypeConfiguration $default,
-        TypeConfiguration $entityTypeConfiguration
+        TypeConfiguration $entityTypeConfiguration = null
     ) {
         $this->default = $default;
         $this->entityTypeConfiguration = $entityTypeConfiguration;

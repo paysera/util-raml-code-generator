@@ -1,0 +1,107 @@
+#!/usr/bin/env php
+<?php
+
+use Github\Client as GithubClient;
+use Github\HttpClient\Builder as ClientBuilder;
+use Http\Adapter\Guzzle6\Client as GuzzleClient;
+use Lcobucci\JWT\Builder;
+use Lcobucci\JWT\Signer\Key;
+use Lcobucci\JWT\Signer\Rsa\Sha256;
+use Symfony\Component\Yaml\Yaml;
+
+include __DIR__ . '/../vendor/autoload.php';
+
+class ReleasePublisher
+{
+    private $appId;
+    private $privateKey;
+    private $installationId;
+    private $owner;
+    private $repository;
+
+    /**
+     * @var GithubClient
+     */
+    private $client;
+
+    public function __construct()
+    {
+        $parameters = Yaml::parse(file_get_contents(__DIR__ . '/../app/config/publish_parameters.yml'))['parameters'];
+
+        $this->appId = $parameters['github_app_id'];
+        $this->privateKey = $parameters['github_private_key'];
+        $this->installationId = $parameters['github_installation_id'];
+
+        $data = explode('/', json_decode(file_get_contents(__DIR__ . '/../composer.json'), true)['name']);
+        $this->owner = $data[0];
+        $this->repository = $data[1];
+    }
+
+    /**
+     * @param string $version
+     * @return array
+     */
+    public function publishRelease($version)
+    {
+        /** @var \Github\Api\Repo $reposApi */
+        $reposApi = $this->buildClient()->api('repos');
+
+        $payload = [
+            'tag_name' => $version,
+            'target_commitish' => 'master',
+            'name' => $version,
+        ];
+
+        return $reposApi->releases()->create($this->owner, $this->repository, $payload);
+    }
+
+    /**
+     * @param string $releaseId
+     * @param string $filepath
+     * @return array
+     */
+    public function addZipFile($releaseId, $filepath)
+    {
+        /** @var \Github\Api\Repo $reposApi */
+        $reposApi = $this->buildClient()->api('repos');
+
+        return $reposApi->releases()->assets()->create(
+            $this->owner,
+            $this->repository,
+            $releaseId,
+            basename($filepath),
+            'application/zip',
+            file_get_contents($filepath)
+        );
+    }
+
+    private function buildClient()
+    {
+        if ($this->client === null) {
+            $builder = new ClientBuilder(new GuzzleClient());
+            $github = new GithubClient($builder, 'machine-man-preview');
+
+            $jwt = (new Builder())
+                ->setIssuer($this->appId)
+                ->setIssuedAt(time())
+                ->setExpiration(time() + 60)
+                ->sign(new Sha256(),  new Key($this->privateKey))
+                ->getToken();
+            $github->authenticate($jwt, null, GithubClient::AUTH_JWT);
+
+            /** @var \Github\Api\Apps $appsApi */
+            $appsApi = $github->api('apps');
+            $token = $appsApi->createInstallationToken($this->installationId);
+            $github->authenticate($token['token'], null, Github\Client::AUTH_HTTP_TOKEN);
+
+            $this->client = $github;
+        }
+
+        return $this->client;
+    }
+}
+
+
+$publisher = new ReleasePublisher();
+$releaseData = $publisher->publishRelease(trim(exec('git describe --tags')));
+$publisher->addZipFile($releaseData['id'], __DIR__ . '/../raml-code-generator.phar');

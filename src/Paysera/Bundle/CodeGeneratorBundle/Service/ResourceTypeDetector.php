@@ -33,14 +33,19 @@ class ResourceTypeDetector
 
     public function isBinaryResource(Resource $resource, Method $method, UriNameParts $nameParts)
     {
-        return
-            $method->getType() === RequestMethodInterface::METHOD_PUT
-            && preg_match(self::PATTERN_SINGULAR_RESOURCE, $resource->getUri()) === 0
-            && (
-                preg_match(self::PATTERN_WORD_SEPARATOR, $nameParts->getLastPart()->getPartName()) === 0
-                || $this->firstWordIsVerb($nameParts->getLastPart()->getPartName())
-            )
-        ;
+        $lastPartName = $nameParts->getLastPart()->getPartName();
+        if ($method->getType() === RequestMethodInterface::METHOD_PUT) {
+            if (preg_match(self::PATTERN_SINGULAR_RESOURCE, $resource->getUri()) === 0) {
+                if (preg_match(self::PATTERN_WORD_SEPARATOR, $lastPartName) === 0) {
+                    if (count($this->getWords($lastPartName)) === 1) {
+                        return $this->partOfSpeechResolver->canBeVerb($lastPartName);
+                    }
+                    return false;
+                }
+                return $this->firstWordIsVerb($lastPartName);
+            }
+        }
+        return false;
     }
 
     public function isPluralResource(Resource $resource, Method $method)
@@ -65,7 +70,12 @@ class ResourceTypeDetector
 
     private function firstWordIsVerb($part)
     {
-        $words = preg_split(self::PATTERN_WORD_SEPARATOR, $part);
+        $words = $this->getWords($part);
         return $this->partOfSpeechResolver->isVerb($words[0]);
+    }
+
+    private function getWords($string)
+    {
+        return preg_split(self::PATTERN_WORD_SEPARATOR, $string);
     }
 }

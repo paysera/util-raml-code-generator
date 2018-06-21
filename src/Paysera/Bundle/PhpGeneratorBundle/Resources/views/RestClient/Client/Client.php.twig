@@ -18,6 +18,11 @@ namespace {{ api.namespace }};
 use {{ api.namespace }}\Entity as Entities;
 use Fig\Http\Message\RequestMethodInterface;
 use Paysera\Component\RestClientCommon\Client\ApiClient;
+{% for typeConfig in get_directly_used_types(api) %}
+{% if typeConfig.importString is not null %}
+use {{ typeConfig.importString|raw }};
+{% endif %}
+{% endfor %}
 
 class {{ api.name|to_class_name }}
 {

@@ -1,0 +1,71 @@
+#%RAML 1.0
+title: User RiskLevel
+version: 1.0
+baseUri: https://test.com/rest/v1
+mediaType: application/json
+protocols: [ HTTPS ]
+
+annotationTypes:
+  datetime_timestamp: nil
+
+uses:
+  Paysera: ../__library/rest.raml
+
+types:
+  RiskLevel: !include types/risk-level.raml
+  RiskRule: !include types/risk-rule.raml
+  ManualRule: !include types/manual-rule.raml
+  AuditRecord: !include types/audit-record.raml
+  AuditableManualRule: !include types/auditable-manual-rule.raml
+  ManualRuleResult: !include types/manual-rule-result.raml
+
+/users:
+  /{userId}:
+    uriParameters:
+      userId:
+        required: true
+        type: string
+    /risk-level:
+      get:
+        description: Get user Risk Level
+        responses:
+          200:
+            body:
+              application/json:
+                type: RiskLevel
+    /manual-rules:
+      /{ruleId}:
+        delete:
+          description: Delete Manual Rule for User
+          body:
+            application/json:
+              type: AuditRecord
+          responses:
+            204:
+              body: null
+      get:
+        description: Get Manual Rules applied for User
+        responses:
+          200:
+            body:
+              application/json:
+                type: ManualRuleResult
+      post:
+        description: Create Manual Rule for User
+        body:
+          application/json:
+            type: AuditableManualRule
+        responses:
+          200:
+            body:
+              application/json:
+                type: ManualRule
+
+/manual-rules:
+  get:
+    description: Get available Manual Rules
+    responses:
+      200:
+        body:
+          application/json:
+            type: ManualRuleResult

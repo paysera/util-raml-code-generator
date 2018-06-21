@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+    <entity repository-class="Vendor\Test\TransferApiBundle\Repository\OutCommissionRuleRepository"
+            name="Vendor\Test\TransferApiBundle\Entity\OutCommissionRule" table="transfer_api_out_commission_rules">
+
+        <id name="id" type="integer" column="id">
+            <generator strategy="IDENTITY"/>
+        </id>
+        <field name="percent" column="percent" nullable="true" type="string"/>
+        <field name="minAmount" column="min_amount" nullable="true" type="decimal" precision="16" scale="6"/>
+        <field name="minCurrency" column="min_currency" nullable="true" type="string"/>
+        <field name="maxAmount" column="max_amount" nullable="true" type="decimal" precision="16" scale="6"/>
+        <field name="maxCurrency" column="max_currency" nullable="true" type="string"/>
+        <field name="fixAmount" column="fix_amount" nullable="true" type="decimal" precision="16" scale="6"/>
+        <field name="fixCurrency" column="fix_currency" nullable="true" type="string"/>
+        
+    </entity>
+</doctrine-mapping>

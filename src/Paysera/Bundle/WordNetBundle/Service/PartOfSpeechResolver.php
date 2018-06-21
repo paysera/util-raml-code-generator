@@ -49,4 +49,13 @@ class PartOfSpeechResolver
         );
     }
 
+    /**
+     * @param string $word
+     * @return bool
+     */
+    public function canBeVerb($word)
+    {
+        $parts = $this->partOfSpeechRepository->getPartsOfSpeech($word);
+        return count($parts->getVerbDomains()) > 0;
+    }
 }

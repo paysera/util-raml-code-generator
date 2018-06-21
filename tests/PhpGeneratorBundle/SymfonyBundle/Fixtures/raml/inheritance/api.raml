@@ -1,0 +1,80 @@
+#%RAML 1.0
+title: User Info
+version: 1.0
+baseUri: https://example.com/user/rest/v1
+mediaType: application/json
+protocols: [ HTTPS ]
+
+uses:
+  Paysera: ../__library/rest.raml
+
+types:
+  User: !include types/user.raml
+  UserLegal: !include types/user-legal.raml
+  UserNatural: !include types/user-natural.raml
+  UserBasic: !include types/user-basic.raml
+traits:
+  UserLegalFilter: !include traits/user-legal-filter.raml
+  UserNaturalFilter: !include traits/user-natural-filter.raml
+  UserFilter: !include traits/user-filter.raml
+
+/users:
+  get:
+    is:
+      - UserFilter
+    responses:
+      200:
+        body:
+          application/json:
+            type: array
+            items:
+              type: UserBasic
+  post:
+    description: Creates Basic user
+    body:
+      application/json:
+        type: UserBasic
+    responses:
+      200:
+        body:
+          application/json:
+            type: UserBasic
+
+  /natural:
+    get:
+      is:
+        - UserNaturalFilter
+      responses:
+        200:
+          body:
+            application/json:
+              type: UserNatural
+    post:
+      description: Creates Natural user
+      body:
+        application/json:
+          type: UserNatural
+      responses:
+        200:
+          body:
+            application/json:
+              type: UserNatural
+  /legal:
+    get:
+      is:
+        - UserLegalFilter
+      responses:
+        200:
+          body:
+            application/json:
+              type: UserLegal
+    post:
+      description: Creates Legal user
+      body:
+        application/json:
+          type: UserLegal
+      responses:
+        200:
+          body:
+            application/json:
+              type: UserLegal

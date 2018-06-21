@@ -11,8 +11,15 @@ class PayseraPhpGeneratorBundle extends Bundle
     public function build(ContainerBuilder $container)
     {
         $container->addCompilerPass(new AddTaggedCompilerPass(
-            'paysera_php_generator.language_code_generator',
-            'paysera_php_generator',
+            'paysera_php_generator.code_generator.php_client',
+            'paysera_php_generator.php_client',
+            'addGenerator',
+            ['position']
+        ));
+
+        $container->addCompilerPass(new AddTaggedCompilerPass(
+            'paysera_php_generator.code_generator.symfony_bundle',
+            'paysera_php_generator.symfony_bundle',
             'addGenerator',
             ['position']
         ));

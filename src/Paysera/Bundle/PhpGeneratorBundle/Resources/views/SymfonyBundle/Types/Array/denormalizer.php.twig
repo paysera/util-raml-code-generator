@@ -1,0 +1,9 @@
+{% if property.itemsType in property.scalarTypes -%}
+    if (isset($data['{{ property.name|to_snake_case }}'])) {
+            $entity->{{ php_generate_setter_name(property) }}($data['{{ property.name|to_snake_case }}']);
+        }
+{% else %}
+if (isset($data['{{ property.name|to_snake_case }}'])) {
+            $entity->{{ php_generate_setter_name(property) }}($this->{{ property.name|to_variable_name }}Normalizer->mapToEntity($data['{{ property.name|to_snake_case }}']));
+        }
+{% endif %}

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+    <entity repository-class="Vendor\Test\TransferApiBundle\Repository\TransferInputRepository"
+            name="Vendor\Test\TransferApiBundle\Entity\TransferInput" table="transfer_api_transfer_inputs">
+
+        <id name="id" type="integer" column="id">
+            <generator strategy="IDENTITY"/>
+        </id>
+        <field name="amountAmount" column="amount_amount" nullable="false" type="decimal" precision="16" scale="6"/>
+        <field name="amountCurrency" column="amount_currency" nullable="false" type="string"/>
+        <!--TODO: generated_code <field name="beneficiary" column="beneficiary" nullable="false" type="reference"/>-->
+        <!--TODO: generated_code <field name="payer" column="payer" nullable="false" type="reference"/>-->
+        <!--TODO: generated_code <field name="finalBeneficiary" column="final_beneficiary" nullable="true" type="reference"/>-->
+        <field name="performAt" column="perform_at" nullable="true" type="datetime"/>
+        <field name="chargeType" column="charge_type" nullable="true" type="string"/>
+        <field name="urgency" column="urgency" nullable="true" type="string"/>
+        <!--TODO: generated_code <field name="notifications" column="notifications" nullable="true" type="reference"/>-->
+        <!--TODO: generated_code <field name="purpose" column="purpose" nullable="false" type="reference"/>-->
+        <!--TODO: generated_code <field name="password" column="password" nullable="true" type="reference"/>-->
+        <field name="cancelable" column="cancelable" nullable="true" type="boolean"/>
+        <field name="autoCurrencyConvert" column="auto_currency_convert" nullable="true" type="boolean"/>
+        <field name="autoChargeRelatedCard" column="auto_charge_related_card" nullable="true" type="boolean"/>
+        <field name="reserveUntil" column="reserve_until" nullable="true" type="datetime"/>
+        
+    </entity>
+</doctrine-mapping>

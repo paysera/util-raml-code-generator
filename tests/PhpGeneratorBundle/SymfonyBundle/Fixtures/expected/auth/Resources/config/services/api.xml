@@ -1,0 +1,52 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="vendor_auth_api.api.token"
+                 class="Paysera\Bundle\RestBundle\RestApi">
+            <tag name="paysera_rest.api" api_key="vendor_auth_api.token"/>
+            <argument type="service" id="service_container"/>
+            <argument type="service" id="logger"/>
+                                            
+
+            <call method="addRequestMapper">
+                <argument>vendor_auth_api.normalizer.credentials</argument>
+                <argument>vendor_auth_api.controller.token_api:createAuthToken</argument>
+                <argument>credentials</argument>
+            </call>
+            <call method="addResponseMapper">
+                <argument>vendor_auth_api.normalizer.auth_token_response</argument>
+                <argument>vendor_auth_api.controller.token_api:createAuthToken</argument>
+            </call>
+                        
+
+                                                
+
+            <call method="addRequestMapper">
+                <argument>vendor_auth_api.normalizer.system_token_request</argument>
+                <argument>vendor_auth_api.controller.token_api:createOptionalSystemToken</argument>
+                <argument>systemTokenRequest</argument>
+            </call>
+            <call method="addResponseMapper">
+                <argument>vendor_auth_api.normalizer.system_token</argument>
+                <argument>vendor_auth_api.controller.token_api:createOptionalSystemToken</argument>
+            </call>
+                                    
+
+            <call method="addRequestMapper">
+                <argument>vendor_auth_api.normalizer.system_token_request</argument>
+                <argument>vendor_auth_api.controller.token_api:createStrictSystemToken</argument>
+                <argument>systemTokenRequest</argument>
+            </call>
+            <call method="addResponseMapper">
+                <argument>vendor_auth_api.normalizer.system_token_response</argument>
+                <argument>vendor_auth_api.controller.token_api:createStrictSystemToken</argument>
+            </call>
+            
+        </service>
+        
+    </services>
+</container>

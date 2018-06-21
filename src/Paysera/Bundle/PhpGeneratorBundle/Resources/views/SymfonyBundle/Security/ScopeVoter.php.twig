@@ -1,0 +1,28 @@
+<?php
+
+namespace {{ api.namespace }}\Voter;
+
+use {{ api.namespace }}\{{ entity_name|to_class_name }}Permissions;
+use Paysera\Bundle\SecurityBundle\Security\ContextAwareScopeVoter;
+use Paysera\Bundle\SecurityBundle\Entity\AccessedBy;
+
+class {{ entity_name|to_class_name }}ScopeVoter extends ContextAwareScopeVoter
+{
+    public function getPermissionScopeMap()
+    {
+        return [
+    {% for sub_resource in flatten_sub_resources(resource) -%}
+    {% for method in sub_resource.methods %}
+        {{ entity_name|to_class_name }}Permissions::{{ generate_method_name(method, sub_resource, api)|to_snake_case|upper }} => [
+                // TODO: generated_code
+            ],
+    {% endfor -%}
+    {% endfor %}
+    ];
+    }
+
+    public function checkAccessRights(AccessedBy $accessedBy, $permission, $subject)
+    {
+        // TODO: generated_code
+    }
+}

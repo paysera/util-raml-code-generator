@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<routes xmlns="http://symfony.com/schema/routing"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
+
+    <route id="vendor_auth_api.create_auth_token" methods="POST" path="/tokens/auth">
+        <default key="_controller">vendor_auth_api.controller.token_api:createAuthToken</default>
+        <default key="api_key">vendor_auth_api.token</default>
+        <option key="expose">true</option>
+    </route>
+    <route id="vendor_auth_api.delete_auth_token" methods="DELETE" path="/tokens/auth">
+        <default key="_controller">vendor_auth_api.controller.token_api:deleteAuthToken</default>
+        <default key="api_key">vendor_auth_api.token</default>
+        <option key="expose">true</option>
+    </route>
+    <route id="vendor_auth_api.create_optional_system_token" methods="POST" path="/tokens/system/optional">
+        <default key="_controller">vendor_auth_api.controller.token_api:createOptionalSystemToken</default>
+        <default key="api_key">vendor_auth_api.token</default>
+        <option key="expose">true</option>
+    </route>
+    <route id="vendor_auth_api.create_strict_system_token" methods="POST" path="/tokens/system/strict">
+        <default key="_controller">vendor_auth_api.controller.token_api:createStrictSystemToken</default>
+        <default key="api_key">vendor_auth_api.token</default>
+        <option key="expose">true</option>
+    </route>
+</routes>

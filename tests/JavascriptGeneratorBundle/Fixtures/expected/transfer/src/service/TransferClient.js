@@ -198,29 +198,6 @@ class TransferClient {
     }
 
     /**
-     * Create transfer in the system. Created transfer is invisible and will be deleted if no more actions are performed.
-
-     * POST /transfer
-     *
-     * @param {TransferInput} transferInput
-     * @return {Promise.<TransferOutput>}
-     */
-    createTransfer(transferInput) {
-        const request = RequestFactory.create(
-            'POST',
-            'transfer',
-            transferInput,
-        );
-
-        return this.client
-            .performRequest(request)
-            .then((data) => {
-                return new TransferOutput(data);
-            })
-        ;
-    }
-
-    /**
      * Reserve all transfers in a transaction. Possibly revoke other given transfers in same transaction. Possibly make currency convertions in in same transaction.
      * PUT /transfers/reserve
      *
@@ -260,6 +237,29 @@ class TransferClient {
             .performRequest(request)
             .then((data) => {
                 return new FilteredTransfersResult(data, 'transfers');
+            })
+        ;
+    }
+
+    /**
+     * Create transfer in the system. Created transfer is invisible and will be deleted if no more actions are performed.
+
+     * POST /transfer
+     *
+     * @param {TransferInput} transferInput
+     * @return {Promise.<TransferOutput>}
+     */
+    createTransfer(transferInput) {
+        const request = RequestFactory.create(
+            'POST',
+            'transfer',
+            transferInput,
+        );
+
+        return this.client
+            .performRequest(request)
+            .then((data) => {
+                return new TransferOutput(data);
             })
         ;
     }

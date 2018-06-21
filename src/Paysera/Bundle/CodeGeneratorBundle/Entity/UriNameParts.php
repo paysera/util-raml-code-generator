@@ -145,4 +145,17 @@ class UriNameParts
 
         return false;
     }
+
+    public function getAllPlaceholders()
+    {
+        $list = [$this->getPlaceholder()];
+
+        $it = $this;
+        while ($it->getSubName() !== null) {
+            $it = $it->getSubName();
+            $list[] = $it->getPlaceholder();
+        }
+
+        return array_filter($list);
+    }
 }

@@ -1,0 +1,830 @@
+#%RAML 1.0
+title: Transfer API
+version: 1.0
+baseUri: https://my-api.example.com/rest/v1
+
+uses:
+  Paysera: ../__library/rest.raml
+
+types:
+  TransfersBatchResult:
+    displayName: Result of TransfersBatch
+    type: object
+    (entity_type):
+    properties:
+      revoked_transfers:
+        type: array
+        items:
+          type: TransferOutput
+      reserved_transfers:
+        type: array
+        items:
+          type: TransferOutput
+  TransfersBatch:
+    displayName: Allows to make batch actions on Transfers
+    type: object
+    properties:
+      revoked_transfers:
+        type: array
+        items:
+          type: string
+      reserved_transfers:
+        type: array
+        items:
+          type: string
+      convert_currency:
+        type: array
+        items:
+          type: ConvertCurrency
+  TransferRegistrationParameters:
+    displayName: Transfer registration parameters
+    type: object
+    properties:
+      convert_currency:
+        required: false
+        type: array
+        items:
+          type: ConvertCurrency
+  ConvertCurrency:
+    displayName: Convert currency
+    type: object
+    properties:
+      from_currency:
+        required: true
+        displayName: from_currency
+        description: Currency to convert from
+        type: string
+      to_currency:
+        required: true
+        displayName: to_currency
+        description: Currency to convert to
+        type: string
+      to_amount:
+        required: false
+        displayName: to_amount
+        description: From amount
+        type: string
+      from_amount:
+        required: false
+        displayName: from_amount
+        description: From amount
+        type: string
+      min_to_amount:
+        required: false
+        displayName: min_to_amount
+        description: Min to amount
+        type: string
+      max_from_amount:
+        required: false
+        displayName: max_from_amount
+        description: Max from amount
+        type: string
+      account_number:
+        required: false
+        displayName: account_number
+        description: Account number
+        type: string
+  TransferPassword:
+    displayName: Transfer password
+    type: object
+    properties:
+      password:
+        required: true
+        displayName: password
+        description: Password value
+        type: string
+  TransferInput:
+    displayName: Transfer input
+    type: object
+    properties:
+      amount:
+        required: true
+        displayName: amount
+        description: Amount to transfer
+        type: Paysera.Money
+      beneficiary:
+        required: true
+        displayName: beneficiary
+        type: TransferBeneficiary
+      payer:
+        required: true
+        displayName: payer
+        type: Payer
+      final_beneficiary:
+        required: false
+        displayName: final_beneficiary
+        type: FinalBeneficiary
+      perform_at:
+        (datetime_timestamp):
+        required: false
+        displayName: perform_at
+        description: Timestamp when Transfer should be perfomed
+        type: integer
+        format: int32
+      charge_type:
+        required: false
+        displayName: charge_type
+        description: Transfer charge type
+        type: string
+        enum:
+        - SHA
+        - OUR
+      urgency:
+        required: false
+        displayName: urgency
+        description: Transfer urgency
+        type: string
+        enum:
+        - standard
+        - urgent
+      notifications:
+        required: false
+        displayName: notifications
+        type: TransferNotifications
+      purpose:
+        required: true
+        displayName: purpose
+        type: TransferPurpose
+      password:
+        required: false
+        displayName: password
+        type: TransferPassword34
+      cancelable:
+        required: false
+        displayName: cancelable
+        description: Indicates if transfer can be cancelled
+        type: boolean
+      auto_currency_convert:
+        required: false
+        displayName: auto_currency_convert
+        description: Indicates if currency convert could be used
+        type: boolean
+      auto_charge_related_card:
+        required: false
+        displayName: auto_charge_related_card
+        description: Indicates if related card can be charged
+        type: boolean
+      reserve_until:
+        (datetime_timestamp):
+        required: false
+        displayName: reserve_until
+        description: Timestamp until Transfer must be reserved
+        type: integer
+        format: int32
+  TransferBeneficiary:
+    displayName: Transfer beneficiary
+    type: object
+    properties:
+      type:
+        required: true
+        displayName: type
+        description: Beneficiary type
+        type: string
+        enum:
+        - paysera
+        - payza
+        - webmoney
+        - tax
+        - bank
+      identifiers:
+        required: false
+        displayName: identifiers
+        type: Identifiers
+      name:
+        required: true
+        displayName: name
+        description: Beneficiary name
+        type: string
+      person_type:
+        required: false
+        displayName: person_type
+        description: Person type
+        type: string
+        enum:
+        - natural
+        - legal
+      bank_account:
+        required: false
+        displayName: bank_account
+        type: BankAccount
+      tax_account:
+        required: false
+        displayName: tax_account
+        type: TaxAccount
+      paysera_account:
+        required: false
+        displayName: paysera_account
+        type: PayseraAccount
+      payza_account:
+        required: false
+        displayName: payza_account
+        type: PayzaAccount
+      webmoney_account:
+        required: false
+        displayName: webmoney_account
+        type: WebmoneyAccount
+  Identifiers:
+    displayName: Identifiers
+    type: object
+    properties:
+      general:
+        required: false
+        displayName: general
+        description: General identifier
+        type: string
+      personal_code:
+        required: false
+        displayName: personal_code
+        description: Personal code
+        type: string
+      legal_code:
+        required: false
+        displayName: legal_code
+        description: Legal code
+        type: string
+      tax_code:
+        required: false
+        displayName: tax_code
+        description: Tax code - VAT code or INN code
+        type: string
+      kpp_code:
+        required: false
+        displayName: kpp_code
+        description: KPP code
+        type: string
+  BankAccount:
+    displayName: Bank account
+    type: object
+    properties:
+      iban:
+        required: false
+        displayName: iban
+        description: IBAN number
+        type: string
+      account_number:
+        required: false
+        displayName: account_number
+        description: Account number
+        type: string
+      country_code:
+        required: false
+        displayName: country_code
+        description: Country code
+        type: string
+      bic:
+        required: false
+        displayName: bic
+        description: BIC
+        type: string
+      bank_code:
+        required: false
+        displayName: bank_code
+        description: Bank code
+        type: string
+      bank_address:
+        required: false
+        displayName: bank_address
+        type: Address
+      bank_title:
+        required: false
+        displayName: bank_title
+        description: Bank title
+        type: string
+      correspondent_bank:
+        required: false
+        displayName: correspondent_bank
+        type: CorrespondentBank
+  Address:
+    displayName: Address
+    type: object
+    properties:
+      country_code:
+        required: false
+        displayName: country_code
+        description: Country code
+        type: string
+      address_line:
+        required: false
+        displayName: address_line
+        description: Address line
+        type: string
+  CorrespondentBank:
+    displayName: Correspondent bank
+    type: object
+    properties:
+      bank_title:
+        required: false
+        displayName: bank_title
+        description: Bank title
+        type: string
+      account_number:
+        required: false
+        displayName: account_number
+        description: Account number
+        type: string
+      bank_code:
+        required: false
+        displayName: bank_code
+        description: Bank code
+        type: string
+  TaxAccount:
+    displayName: Tax account
+    type: object
+    properties:
+      identifier:
+        required: true
+        displayName: identifier
+        description: Tax identifier
+        type: string
+  PayseraAccount:
+    displayName: Paysera account
+    type: object
+    properties:
+      account_number:
+        required: false
+        displayName: account_number
+        description: Paysera account number
+        type: string
+      email:
+        required: false
+        displayName: email
+        description: Email
+        type: string
+      phone:
+        required: false
+        displayName: phone
+        description: Phone
+        type: string
+  PayzaAccount:
+    displayName: Payza account
+    type: object
+    properties:
+      email:
+        required: true
+        displayName: email
+        description: Payza email
+        type: string
+  WebmoneyAccount:
+    displayName: Webmoney account
+    type: object
+    properties:
+      purse:
+        required: true
+        displayName: purse
+        description: Webmoney purse identificator
+        type: string
+  Payer:
+    displayName: Payer
+    type: object
+    properties:
+      account_number:
+        required: true
+        displayName: account_number
+        description: EVP account number
+        type: string
+      reference:
+        required: false
+        displayName: reference
+        description: Reference - used for tax transfers; also as reference to beneficiary
+        type: string
+  FinalBeneficiary:
+    displayName: Final beneficiary
+    type: object
+    properties:
+      name:
+        required: false
+        displayName: name
+        description: Beneficiary name
+        type: string
+      identifiers:
+        required: false
+        displayName: identifiers
+        type: Identifiers
+      person_type:
+        required: false
+        displayName: person_type
+        description: Person type
+        type: string
+        enum:
+        - natural
+        - legal
+  TransferNotifications:
+    displayName: Transfer notifications
+    type: object
+    properties:
+      done:
+        required: false
+        displayName: done
+        type: TransferNotifcation
+  TransferNotifcation:
+    displayName: Transfer notifcation
+    type: object
+    properties:
+      locale:
+        required: true
+        displayName: locale
+        description: ISO 639-1 2 letter code
+        type: string
+      email:
+        required: true
+        displayName: email
+        description: Notifcation email
+        type: string
+  TransferPurpose:
+    displayName: Transfer purpose
+    type: object
+    properties:
+      details:
+        required: false
+        displayName: details
+        description: Transfer purpose details
+        type: string
+      reference:
+        required: false
+        displayName: reference
+        description: Transfer purpose reference
+        type: string
+      vo_code:
+        required: false
+        displayName: vo_code
+        description: Transfer purpose vo code
+        type: string
+      ocr_code:
+        required: false
+        displayName: ocr_code
+        description: Transfer purpose ocr code
+        type: string
+      details_options:
+        required: false
+        displayName: details_options
+        type: DetailsOptions
+      code:
+        required: false
+        displayName: code
+        description: Transfer purpose code
+        type: string
+        enum:
+        - cash_in
+        - cash_out
+        - payment
+        - app_transfer
+  DetailsOptions:
+    displayName: Details options
+    type: object
+    properties:
+      preserve:
+        required: false
+        displayName: preserve
+        description: Indicates if details should be preserved as given
+        type: boolean
+  TransferPassword34:
+    displayName: Transfer password34
+    type: object
+    properties:
+      status:
+        required: false
+        displayName: status
+        description: Password status
+        type: string
+        enum:
+        - pending
+        - unlocked
+      value:
+        required: true
+        displayName: value
+        description: Password value
+        type: string
+  TransferOutput:
+    displayName: Transfer output
+    type: TransferInput
+    properties:
+      id:
+        required: true
+        displayName: id
+        description: Transfer id
+        type: string
+      status:
+        required: true
+        displayName: status
+        description: Transfer status
+        type: string
+        enum:
+        - new
+        - registered
+        - waiting_funds
+        - waiting_registration
+        - waiting_password
+        - reserved
+        - frozen
+        - processing
+        - done
+        - rejected
+        - revoked
+        - failed
+      initiator:
+        required: true
+        displayName: initiator
+        type: TransferInitiator
+      created_at:
+        (datetime_timestamp):
+        required: true
+        displayName: created_at
+        description: Timestamp when Transfer was created
+        type: integer
+        format: int32
+      performed_at:
+        (datetime_timestamp):
+        required: false
+        displayName: performed_at
+        description: Timestamp when Transfer was performed
+        type: integer
+        format: int32
+      failure_status:
+        required: false
+        displayName: failure_status
+        type: TransferFailureStatus
+      out_commission:
+        required: false
+        displayName: out_commission
+        description: Transfer out commission amount
+        type: Paysera.Money
+      additional_information:
+        required: false
+        displayName: additional_information
+        type: TransferAdditionalData
+  TransferInitiator:
+    displayName: Transfer initiator
+    type: object
+    properties:
+      user_id:
+        required: false
+        displayName: user_id
+        description: Initiator user id
+        type: string
+      client_id:
+        required: false
+        displayName: client_id
+        description: Initiator client id
+        type: string
+  TransferFailureStatus:
+    displayName: Transfer failure status
+    type: object
+    properties:
+      code:
+        required: false
+        displayName: code
+        description: Status code
+        type: string
+      message:
+        required: false
+        displayName: message
+        description: Failure message
+        type: string
+  TransferAdditionalData:
+    displayName: Transfer additional data
+    type: object
+    properties:
+      estimated_processing_date:
+        (datetime_timestamp):
+        required: false
+        displayName: estimated_processing_date
+        description: Timestamp of estimated Transfer processing date
+        type: integer
+        format: int32
+      out_commission_rule:
+        required: false
+        displayName: out_commission_rule
+        type: OutCommissionRule
+      original_out_commission:
+        required: false
+        displayName: original_out_commission
+        type: Paysera.Money
+      correspondent_bank_fees_may_apply:
+        required: false
+        displayName: correspondent_bank_fees_may_apply
+        description: Indicated if correspondent bank fees may apply
+        type: boolean
+  OutCommissionRule:
+    displayName: Out commission rule
+    type: object
+    properties:
+      percent:
+        required: false
+        displayName: percent
+        description: Commission percent
+        type: string
+      min:
+        required: false
+        displayName: min
+        description: Minimum commission
+        type: Paysera.Money
+      max:
+        required: false
+        displayName: max
+        description: Maximum commission
+        type: Paysera.Money
+      fix:
+        required: false
+        displayName: fix
+        description: Fixed commission
+        type: Paysera.Money
+  FilteredTransfersResult:
+    displayName: Filtered Transfers result
+    type: Paysera.Result
+    properties:
+      transfers:
+        required: false
+        displayName: transfers
+        type: array
+        items:
+          type: TransferOutput
+
+traits:
+  TransfersFilter:
+    displayName: Transfers filter
+    is:
+      - Paysera.Filter
+    queryParameters:
+      created_date_from:
+        (datetime_timestamp):
+        required: false
+        displayName: created_date_from
+        description: Timestamp when Transfer was created from
+        type: integer
+        format: int32
+      created_date_to:
+        (datetime_timestamp):
+        required: false
+        displayName: created_date_to
+        description: Timestamp when Transfer was created to
+        type: integer
+        format: int32
+      credit_account_number:
+        required: false
+        displayName: credit_account_number
+        description: Credit account number
+        type: string
+      debit_account_number:
+        required: false
+        displayName: debit_account_number
+        description: Debit account number
+        type: string
+      statuses:
+        required: false
+        displayName: statuses
+        description: Transfers statuses
+        type: array
+        items:
+          type: string
+/transfer:
+  post:
+    displayName: Transfer
+    description: >
+      Create transfer in the system. Created transfer is invisible and will be deleted if no more actions are performed.
+    body:
+      application/json:
+        displayName: body
+        type: TransferInput
+    responses:
+      200:
+        description: Success
+        body:
+          application/json:
+            displayName: response
+            type: TransferOutput
+  /{id}:
+    uriParameters:
+      id:
+        required: true
+        displayName: id
+        type: string
+    get:
+      displayName: TransferById
+      description: Get transfer.
+      responses:
+        200:
+          description: Success
+          body:
+            application/json:
+              displayName: response
+              type: TransferOutput
+    delete:
+      displayName: TransferById
+      description: Revoke transfer.
+      responses:
+        200:
+          description: Success
+          body:
+            application/json:
+              displayName: response
+              type: TransferOutput
+    /sign:
+      put:
+        displayName: TransferSignById
+        description: Sign the transfer, even if no funds available.
+        body:
+          application/json:
+            displayName: body
+            type: TransferRegistrationParameters
+        responses:
+          200:
+            description: Success
+            body:
+              application/json:
+                displayName: response
+                type: TransferOutput
+    /reserve:
+      put:
+        displayName: TransferReserveById
+        description: Sign and reserve money for transfer. Returns error if no funds available.
+        body:
+          application/json:
+            displayName: body
+            type: TransferRegistrationParameters
+        responses:
+          200:
+            description: Success
+            body:
+              application/json:
+                displayName: response
+                type: TransferOutput
+    /provide-password:
+      put:
+        displayName: TransferProvidePasswordById
+        description: Provide password for Transfer. Available only for internal transfers.
+        body:
+          application/json:
+            displayName: body
+            type: TransferPassword
+        responses:
+          200:
+            description: Success
+            body:
+              application/json:
+                displayName: response
+                type: TransferOutput
+    /freeze:
+      put:
+        displayName: TransferFreezeById
+        description: Freeze transfer. Available only for `reserved` transfers. Same as completing transfer but beneficiary cannot spend funds - they are reserved. Revoking transfer is possible after freezing.
+        responses:
+          200:
+            description: Success
+            body:
+              application/json:
+                displayName: response
+                type: TransferOutput
+    /complete:
+      put:
+        displayName: TransferCompleteById
+        description: Complete transfer. Available for `reserved` and `freezed` transfers.
+        responses:
+          200:
+            description: Success
+            body:
+              application/json:
+                displayName: response
+                type: TransferOutput
+    /register:
+      put:
+        displayName: TransferRegisterById
+        description: Make transfer visible in frontend for signing. If currency convert operations are related to transfer, they are done when transfer becomes `reserved`. If there are expectations in currency convert requests, transfer becomes `failed` together with related conversion request(s) if those expectations fails.
+        body:
+          application/json:
+            displayName: body
+            type: TransferRegistrationParameters
+        responses:
+          200:
+            description: Success
+            body:
+              application/json:
+                displayName: response
+                type: TransferOutput
+/transfers:
+  get:
+    displayName: Transfers
+    description: Get list of transfers by filter
+    is:
+      - TransfersFilter
+    responses:
+      200:
+        description: Success
+        body:
+          application/json:
+            displayName: response
+            type: FilteredTransfersResult
+  /reserve:
+    put:
+      displayName: TransfersReserve
+      description: Reserve all transfers in a transaction. Possibly revoke other given transfers in same transaction. Possibly make currency convertions in in same transaction.
+      body:
+        application/json:
+          displayName: body
+          type: TransfersBatch
+      responses:
+        200:
+          description: Success
+          body:
+            application/json:
+              displayName: response
+              type: TransfersBatchResult

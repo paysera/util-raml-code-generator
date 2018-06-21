@@ -1,0 +1,52 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        {% for manager in managers -%}
+        <service id="{{ vendor_name|to_snake_case ~ '_' ~ api.name|to_snake_case }}.{{ manager.name|to_class_name|to_snake_case }}_manager"
+                 class="{{ api.namespace }}\Service\{{ manager.name|to_class_name }}Manager">
+    {% if is_type_defined(manager.name, api) %}
+        <argument type="service" id="{{ vendor_name|to_snake_case ~ '_' ~ api.name|to_snake_case }}.repository.{{ manager.name|to_class_name|to_snake_case }}"/>
+    {% endif %}
+        <argument type="service" id="doctrine.orm.entity_manager"/>
+        </service>
+        <service id="{{ vendor_name|to_snake_case ~ '_' ~ api.name|to_snake_case }}.voter.{{ manager.name|to_class_name|to_snake_case }}_scope"
+                 class="{{ api.namespace }}\Voter\{{ manager.name|to_class_name|to_class_name }}ScopeVoter"
+                 parent="paysera_security.security.context_aware_scope_voter"
+                 public="false">
+            <tag name="security.voter"/>
+        </service>
+        {% endfor %}
+
+        {% set generated_entity_resolvers = [] -%}
+        {% set generated_result_providers = [] -%}
+        {% for resource in flatten_resources(api) -%}
+        {% for method in resource.methods -%}
+        {% set arguments = symfony_bundle_generate_method_arguments(method, resource, api) -%}
+        {% set result_provider_id = vendor_name|to_snake_case ~ '_' ~ api.name|to_snake_case ~ '.' ~ get_method_entity_name(resource)|to_class_name|to_snake_case ~ '_result_provider' -%}
+        {% if method_returns_result(method, api) and extract_filter_from_arguments(arguments) is not null and result_provider_id not in generated_result_providers -%}
+        <service id="{{ result_provider_id }}"
+                 class="Paysera\Bundle\RestBundle\Repository\ResultProvider">
+            <argument type="service" id="{{ vendor_name|to_snake_case ~ '_' ~ api.name|to_snake_case }}.repository.{{ get_method_entity_name(resource)|to_class_name|to_snake_case }}"/>
+        </service>
+            {% set generated_result_providers = generated_result_providers|merge([result_provider_id]) -%}
+        {% endif -%}
+        {% for argument in arguments -%}
+        {% set entity_resolver_id = vendor_name|to_snake_case ~ '_' ~ api.name|to_snake_case ~ '.entity_resolver.' ~ argument.name|to_class_name|to_snake_case ~ '_by_' ~ argument.originalPlaceholder|to_snake_case -%}
+        {% if argument.originalPlaceholder is not null and entity_resolver_id not in generated_entity_resolvers -%}
+        <service id="{{ entity_resolver_id }}"
+                 class="Paysera\Bundle\RestBundle\Resolver\RepositoryAwareEntityResolver">
+            <argument type="service" id="{{ vendor_name|to_snake_case }}_{{ api.name|to_snake_case }}.repository.{{ argument.name|to_class_name|to_snake_case }}"/>
+            <argument>{{ argument.originalPlaceholder }}</argument>
+        </service>
+            {% set generated_entity_resolvers = generated_entity_resolvers|merge([entity_resolver_id]) -%}
+        {% endif -%}
+        {% endfor -%}
+        {% endfor -%}
+        {% endfor %}
+
+    </services>
+</container>

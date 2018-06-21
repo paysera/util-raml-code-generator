@@ -1,0 +1,72 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="vendor_transfer_surveillance_api.transfer_manager"
+                 class="Vendor\Test\TransferSurveillanceApiBundle\Service\TransferManager">
+            <argument type="service" id="doctrine.orm.entity_manager"/>
+        </service>
+        <service id="vendor_transfer_surveillance_api.voter.transfer_scope"
+                 class="Vendor\Test\TransferSurveillanceApiBundle\Voter\TransferScopeVoter"
+                 parent="paysera_security.security.context_aware_scope_voter"
+                 public="false">
+            <tag name="security.voter"/>
+        </service>
+        <service id="vendor_transfer_surveillance_api.matcher_manager"
+                 class="Vendor\Test\TransferSurveillanceApiBundle\Service\MatcherManager">
+            <argument type="service" id="vendor_transfer_surveillance_api.repository.matcher"/>
+            <argument type="service" id="doctrine.orm.entity_manager"/>
+        </service>
+        <service id="vendor_transfer_surveillance_api.voter.matcher_scope"
+                 class="Vendor\Test\TransferSurveillanceApiBundle\Voter\MatcherScopeVoter"
+                 parent="paysera_security.security.context_aware_scope_voter"
+                 public="false">
+            <tag name="security.voter"/>
+        </service>
+        <service id="vendor_transfer_surveillance_api.criterion_manager"
+                 class="Vendor\Test\TransferSurveillanceApiBundle\Service\CriterionManager">
+            <argument type="service" id="doctrine.orm.entity_manager"/>
+        </service>
+        <service id="vendor_transfer_surveillance_api.voter.criterion_scope"
+                 class="Vendor\Test\TransferSurveillanceApiBundle\Voter\CriterionScopeVoter"
+                 parent="paysera_security.security.context_aware_scope_voter"
+                 public="false">
+            <tag name="security.voter"/>
+        </service>
+        <service id="vendor_transfer_surveillance_api.rule_manager"
+                 class="Vendor\Test\TransferSurveillanceApiBundle\Service\RuleManager">
+            <argument type="service" id="vendor_transfer_surveillance_api.repository.rule"/>
+            <argument type="service" id="doctrine.orm.entity_manager"/>
+        </service>
+        <service id="vendor_transfer_surveillance_api.voter.rule_scope"
+                 class="Vendor\Test\TransferSurveillanceApiBundle\Voter\RuleScopeVoter"
+                 parent="paysera_security.security.context_aware_scope_voter"
+                 public="false">
+            <tag name="security.voter"/>
+        </service>
+        
+        <service id="vendor_transfer_surveillance_api.entity_resolver.match_criteria_by_id"
+                 class="Paysera\Bundle\RestBundle\Resolver\RepositoryAwareEntityResolver">
+            <argument type="service" id="vendor_transfer_surveillance_api.repository.match_criteria"/>
+            <argument>id</argument>
+        </service>
+            <service id="vendor_transfer_surveillance_api.rule_result_provider"
+                 class="Paysera\Bundle\RestBundle\Repository\ResultProvider">
+            <argument type="service" id="vendor_transfer_surveillance_api.repository.rule"/>
+        </service>
+            <service id="vendor_transfer_surveillance_api.entity_resolver.rule_by_id"
+                 class="Paysera\Bundle\RestBundle\Resolver\RepositoryAwareEntityResolver">
+            <argument type="service" id="vendor_transfer_surveillance_api.repository.rule"/>
+            <argument>id</argument>
+        </service>
+            <service id="vendor_transfer_surveillance_api.entity_resolver.whitelist_by_whitelist_id"
+                 class="Paysera\Bundle\RestBundle\Resolver\RepositoryAwareEntityResolver">
+            <argument type="service" id="vendor_transfer_surveillance_api.repository.whitelist"/>
+            <argument>whitelistId</argument>
+        </service>
+            
+    </services>
+</container>

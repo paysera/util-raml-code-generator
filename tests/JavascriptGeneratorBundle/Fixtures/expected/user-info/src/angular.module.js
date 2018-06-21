@@ -70,9 +70,9 @@ class AngularClientFactory {
         client.getUserInformation = (...args) => {
             return this.$q.when(getUserInformationOriginal(...args));
         };
-        const informationUserOriginal = client.informationUser.bind(client);
-        client.informationUser = (...args) => {
-            return this.$q.when(informationUserOriginal(...args));
+        const updateUserInformationOriginal = client.updateUserInformation.bind(client);
+        client.updateUserInformation = (...args) => {
+            return this.$q.when(updateUserInformationOriginal(...args));
         };
 
         return client;

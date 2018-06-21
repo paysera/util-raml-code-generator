@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+    <entity repository-class="Vendor\Test\AccountApiBundle\Repository\UndescribedTypeRepository"
+            name="Vendor\Test\AccountApiBundle\Entity\UndescribedType" table="account_api_undescribed_types">
+
+        <id name="id" type="integer" column="id">
+            <generator strategy="IDENTITY"/>
+        </id>
+        <field name="age" column="age" nullable="false" type="integer"/>
+        <field name="name" column="name" nullable="false" type="string"/>
+        
+    </entity>
+</doctrine-mapping>

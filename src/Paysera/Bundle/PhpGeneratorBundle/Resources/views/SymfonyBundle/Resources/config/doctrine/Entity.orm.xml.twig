@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+    <entity repository-class="{{ api.namespace }}\Repository\{{ type.name|extract_type_name }}Repository"
+            name="{{ api.namespace }}\Entity\{{ type.name|extract_type_name }}" table="{{ api.name|to_snake_case ~ '_' ~ type.name|extract_type_name|to_plural|to_snake_case }}">
+
+        {% if is_discriminated(type) -%}
+        <!--TODO: generated_code this entity uses Inheritance, you should map parent fields manually-->
+        {% endif -%}
+        <id name="id" type="integer" column="id">
+            <generator strategy="IDENTITY"/>
+        </id>
+        {% for property in type.properties %}
+        {%- if property.name != 'id' -%}
+        {% include get_orm_field_template(property) with { 'property': property } only %}
+        {% endif -%}
+        {% endfor %}
+
+    </entity>
+</doctrine-mapping>

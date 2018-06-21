@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="vendor_user_risk_level_api.controller.user_api"
+                 class="Vendor\Test\UserRiskLevelApiBundle\Controller\UserApiController">
+            <argument type="service" id="vendor_user_risk_level_api.user_manager"/>
+            <argument type="service" id="paysera_security.service.authorization_checker"/>
+            <argument type="service" id="doctrine.orm.entity_manager"/>
+        </service>
+        <service id="vendor_user_risk_level_api.controller.manual_rule_api"
+                 class="Vendor\Test\UserRiskLevelApiBundle\Controller\ManualRuleApiController">
+            <argument type="service" id="vendor_user_risk_level_api.manual_rule_manager"/>
+            <argument type="service" id="paysera_security.service.authorization_checker"/>
+            <argument type="service" id="doctrine.orm.entity_manager"/>
+        </service>
+        
+    </services>
+</container>

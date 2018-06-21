@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+    <entity repository-class="Vendor\Test\TransferApiBundle\Repository\BankAccountRepository"
+            name="Vendor\Test\TransferApiBundle\Entity\BankAccount" table="transfer_api_bank_accounts">
+
+        <id name="id" type="integer" column="id">
+            <generator strategy="IDENTITY"/>
+        </id>
+        <field name="iban" column="iban" nullable="true" type="string"/>
+        <field name="accountNumber" column="account_number" nullable="true" type="string"/>
+        <field name="countryCode" column="country_code" nullable="true" type="string"/>
+        <field name="bic" column="bic" nullable="true" type="string"/>
+        <field name="bankCode" column="bank_code" nullable="true" type="string"/>
+        <!--TODO: generated_code <field name="bankAddress" column="bank_address" nullable="true" type="reference"/>-->
+        <field name="bankTitle" column="bank_title" nullable="true" type="string"/>
+        <!--TODO: generated_code <field name="correspondentBank" column="correspondent_bank" nullable="true" type="reference"/>-->
+        
+    </entity>
+</doctrine-mapping>

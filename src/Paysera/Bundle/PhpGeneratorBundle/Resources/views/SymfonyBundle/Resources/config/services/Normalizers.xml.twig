@@ -1,0 +1,45 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        {% for type in types -%}
+        {% if is_result_type(type) -%}
+        <service id="{{ vendor_name|to_snake_case ~ '_' ~ api.name|to_snake_case }}.normalizer.{{ type.name|extract_type_name|to_snake_case }}"
+                 class="Paysera\Component\Serializer\Normalizer\ResultNormalizer"
+                 parent="paysera_rest.normalizer.result">
+            <argument>{{ type.parent.dataKey }}</argument>
+            <argument type="service" id="{{ vendor_name|to_snake_case ~ '_' ~ api.name|to_snake_case }}.normalizer.{{ type.itemsType|extract_type_name|to_snake_case }}"/>
+        </service>
+        {% else -%}
+        {%- if get_type_configuration(type).normalizerImportString is not null -%}
+            {%- set class_name = get_type_configuration(type).normalizerImportString -%}
+        {%- else -%}
+            {%- set class_name = api.namespace ~ '\\Normalizer\\' ~ type.name|extract_type_name|to_class_name ~ 'Normalizer' -%}
+        {% endif -%}
+        <service id="{{ vendor_name|to_snake_case ~ '_' ~ api.name|to_snake_case }}.normalizer.{{ type.name|extract_type_name|to_snake_case }}"
+                 class="{{ class_name }}">
+        {% for arg in symfony_bundle_get_normalizer_constructor_args(type) -%}
+        {% if arg.type != constant('TYPE_ARRAY', arg) %}
+    <argument type="service" id="{{ vendor_name|to_snake_case ~ '_' ~ api.name|to_snake_case }}.normalizer.{{ arg.type|extract_type_name|to_snake_case }}"/>
+        {% else %}
+    <argument type="service" id="{{ vendor_name|to_snake_case ~ '_' ~ api.name|to_snake_case }}.normalizer.{{ arg.name|extract_type_name|to_snake_case }}.array"/>
+        {% endif -%}
+        {% endfor -%}
+        </service>
+        {% endif -%}
+        {% endfor %}
+
+        {% for arg in types|symfony_bundle_unique_array_types -%}
+        {% if arg.type == constant('TYPE_ARRAY', arg) -%}
+        <service id="{{ vendor_name|to_snake_case ~ '_' ~ api.name|to_snake_case }}.normalizer.{{ arg.name|extract_type_name|to_snake_case }}.array"
+                 class="Paysera\Component\Serializer\Normalizer\ArrayNormalizer">
+            <argument type="service" id="{{ vendor_name|to_snake_case ~ '_' ~ api.name|to_snake_case }}.normalizer.{{ arg.innerType|extract_type_name|to_snake_case }}"/>
+        </service>
+        {% endif -%}
+        {% endfor %}
+
+    </services>
+</container>

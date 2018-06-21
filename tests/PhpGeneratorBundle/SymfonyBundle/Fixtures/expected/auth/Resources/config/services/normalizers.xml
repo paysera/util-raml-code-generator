@@ -1,0 +1,39 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="vendor_auth_api.normalizer.auth_token"
+                 class="Vendor\Test\AuthApiBundle\Normalizer\AuthTokenNormalizer">
+        </service>
+        <service id="vendor_auth_api.normalizer.auth_token_response"
+                 class="Vendor\Test\AuthApiBundle\Normalizer\AuthTokenResponseNormalizer">
+            <argument type="service" id="vendor_auth_api.normalizer.challenge"/>
+            <argument type="service" id="vendor_auth_api.normalizer.auth_token"/>
+        </service>
+        <service id="vendor_auth_api.normalizer.challenge"
+                 class="Vendor\Test\AuthApiBundle\Normalizer\ChallengeNormalizer">
+        </service>
+        <service id="vendor_auth_api.normalizer.credentials"
+                 class="Vendor\Test\AuthApiBundle\Normalizer\CredentialsNormalizer">
+        </service>
+        <service id="vendor_auth_api.normalizer.scope_challenge"
+                 class="Vendor\Test\AuthApiBundle\Normalizer\ScopeChallengeNormalizer">
+        </service>
+        <service id="vendor_auth_api.normalizer.system_token"
+                 class="Vendor\Test\AuthApiBundle\Normalizer\SystemTokenNormalizer">
+        </service>
+        <service id="vendor_auth_api.normalizer.system_token_request"
+                 class="Vendor\Test\AuthApiBundle\Normalizer\SystemTokenRequestNormalizer">
+        </service>
+        <service id="vendor_auth_api.normalizer.system_token_response"
+                 class="Vendor\Test\AuthApiBundle\Normalizer\SystemTokenResponseNormalizer">
+            <argument type="service" id="vendor_auth_api.normalizer.scope_challenge"/>
+            <argument type="service" id="vendor_auth_api.normalizer.system_token"/>
+        </service>
+        
+        
+    </services>
+</container>

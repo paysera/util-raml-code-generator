@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+    <entity repository-class="Vendor\Test\AuthApiBundle\Repository\SystemTokenRequestRepository"
+            name="Vendor\Test\AuthApiBundle\Entity\SystemTokenRequest" table="auth_api_system_token_requests">
+
+        <id name="id" type="integer" column="id">
+            <generator strategy="IDENTITY"/>
+        </id>
+        <field name="scope" column="scope" nullable="false" type="string"/>
+        <field name="audience" column="audience" nullable="false" type="string"/>
+        
+    </entity>
+</doctrine-mapping>

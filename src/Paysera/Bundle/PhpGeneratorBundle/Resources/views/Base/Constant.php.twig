@@ -1,0 +1,10 @@
+{% set constantsExists = false %}
+{% for properties in type.properties %}
+{%- for constant in properties.constants %}
+    const {{ constant.name }} = '{{ constant.value }}';
+{% set constantsExists = true %}
+{% endfor %}
+{% endfor %}
+{% if constantsExists %}
+
+{% endif %}

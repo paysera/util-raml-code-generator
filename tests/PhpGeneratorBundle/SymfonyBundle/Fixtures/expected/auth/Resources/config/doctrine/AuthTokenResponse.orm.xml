@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+    <entity repository-class="Vendor\Test\AuthApiBundle\Repository\AuthTokenResponseRepository"
+            name="Vendor\Test\AuthApiBundle\Entity\AuthTokenResponse" table="auth_api_auth_token_responses">
+
+        <id name="id" type="integer" column="id">
+            <generator strategy="IDENTITY"/>
+        </id>
+        <field name="type" column="type" nullable="false" type="string"/>
+        <!--TODO: generated_code <field name="challenge" column="challenge" nullable="true" type="reference"/>-->
+        <!--TODO: generated_code <field name="authToken" column="auth_token" nullable="true" type="reference"/>-->
+        
+    </entity>
+</doctrine-mapping>

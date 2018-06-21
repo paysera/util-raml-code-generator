@@ -1,0 +1,31 @@
+    /**
+     * {{ method.description|raw }}
+     * {{ method.type }} {{ resource.uri|raw }}
+     *
+{% set arguments = symfony_bundle_generate_method_arguments(method, resource, api) %}
+{% for argument in arguments %}
+     * @param {{ argument.importedType != null ? argument.importedType : argument.namespacedType }} ${{ (argument.renamedName ? argument.renamedName : argument.name)|to_variable_name }}
+{% endfor %}
+     * @return {{ symfony_bundle_get_return_type(method, api) }}
+     */
+    public function {{ generate_method_name(method, resource, api) }}({{ php_inline_arguments(arguments) }})
+    {
+        $this->authorizationChecker->check({{ get_method_entity_name(resource)|to_class_name }}Permissions::{{ generate_method_name(method, resource, api)|to_snake_case|upper }});
+        {% if method_returns_result(method, api) and extract_filter_from_arguments(arguments) is not null -%}
+        return $this->{{ get_method_entity_name(resource)|to_variable_name }}ResultProvider->getResult(${{ extract_filter_from_arguments(arguments).name }});
+    {% else -%}
+        {% if method_changes_state(method) -%}
+        {% if symfony_bundle_get_return_type(method, api) == 'null' -%}
+        $this->{{ get_method_entity_name(resource)|to_variable_name }}Manager->{{ generate_method_name(method, resource, api) }}({{ php_inline_arguments_no_typehint(arguments) }});
+        $this->entityManager->flush();
+        return null;
+    {% else -%}
+        $result = $this->{{ get_method_entity_name(resource)|to_variable_name }}Manager->{{ generate_method_name(method, resource, api) }}({{ php_inline_arguments_no_typehint(arguments) }});
+        $this->entityManager->flush();
+        return $result;
+    {% endif -%}
+    {% else -%}
+        return $this->{{ get_method_entity_name(resource)|to_variable_name }}Manager->{{ generate_method_name(method, resource, api) }}({{ php_inline_arguments_no_typehint(arguments) }});
+    {% endif -%}
+    {% endif -%}
+    }

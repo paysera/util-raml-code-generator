@@ -1,0 +1,13 @@
+    public function __construct()
+    {
+    {% if is_discriminated(type) %}
+    parent::__construct();
+    {% endif -%}
+{%- for property in type.properties %}
+    {% if property.type == constant('TYPE_ARRAY', property) %}
+
+        $this->{{ property.name|to_variable_name }} = {{ property.isSimpleType ? '[]' : 'new ArrayCollection()' }};
+    {%- endif %}
+{% endfor %}
+
+    }

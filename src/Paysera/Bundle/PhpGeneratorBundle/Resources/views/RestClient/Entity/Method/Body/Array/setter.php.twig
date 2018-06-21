@@ -1,9 +1,17 @@
-{% if property.itemsType in property.simpleTypes -%}
+    /**
+     * @param {% include get_method_argument_type_template(property) with { 'property': property } only %}
+     * @return $this
+     */
+    public function {{ php_generate_setter_name(property) }}({% include get_method_argument_typehint_template(property) with { 'property': property } only %})
+    {
+    {% if property.itemsType in property.simpleTypes %}
     $this->set('{{ property.name }}', ${{ property.name|to_variable_name }});
-{% else -%}
+    {% else %}
     $data = [];
         foreach(${{ property.name|to_variable_name }} as $item) {
             $data[] = $item->getDataByReference();
         }
         $this->setByReference('{{ property.name }}', $data);
-{% endif %}
+    {% endif %}
+    return $this;
+    }

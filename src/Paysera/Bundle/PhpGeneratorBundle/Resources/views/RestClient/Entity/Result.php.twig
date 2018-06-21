@@ -1,15 +1,4 @@
-<?php
-
-namespace {{ api.namespace }}\Entity;
-
-{% set importsExists = false %}
-{% for type in get_related_types_config(type, api) if type.importString is not null %}
-{% set importsExists = true %}
-use {{ type.importString }};
-{% endfor %}
-{% if importsExists == true %}
-
-{% endif %}
+{% include 'PayseraPhpGeneratorBundle:Base:Entity.php.twig' %}
 class {{ type.name|extract_type_name }} extends {{ get_parent_type_config(type).typeName }}
 {
     protected function createItem(array $data)

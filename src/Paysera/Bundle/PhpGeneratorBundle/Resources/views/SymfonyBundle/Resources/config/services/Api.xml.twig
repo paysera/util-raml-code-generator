@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        {% for entity_name, resource in resources -%}
+        <service id="{{ vendor_name|to_snake_case }}_{{ api.name|to_snake_case }}.api.{{ entity_name|to_class_name|to_snake_case }}"
+                 class="Paysera\Bundle\RestBundle\RestApi">
+            <tag name="paysera_rest.api" api_key="{{ vendor_name|to_snake_case }}_{{ api.name|to_snake_case }}.{{ entity_name|to_class_name|to_snake_case }}"/>
+            <argument type="service" id="service_container"/>
+            <argument type="service" id="logger"/>
+        {% for sub_resource in flatten_sub_resources(resource) %}
+            {% for method in sub_resource.methods %}
+            {% include '@PayseraPhpGenerator/SymfonyBundle/Resources/config/services/Api/add_call.xml.twig' with {
+                'resource': sub_resource,
+                'method': method,
+                'api': api,
+                'vendor_name': vendor_name
+            } only -%}
+            {% endfor -%}
+        {% endfor %}
+
+        </service>
+        {% endfor %}
+
+    </services>
+</container>

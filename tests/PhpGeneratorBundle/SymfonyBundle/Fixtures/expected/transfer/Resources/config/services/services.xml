@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="vendor_transfer_api.transfer_manager"
+                 class="Vendor\Test\TransferApiBundle\Service\TransferManager">
+            <argument type="service" id="doctrine.orm.entity_manager"/>
+        </service>
+        <service id="vendor_transfer_api.voter.transfer_scope"
+                 class="Vendor\Test\TransferApiBundle\Voter\TransferScopeVoter"
+                 parent="paysera_security.security.context_aware_scope_voter"
+                 public="false">
+            <tag name="security.voter"/>
+        </service>
+        
+        <service id="vendor_transfer_api.entity_resolver.transfer_input_by_id"
+                 class="Paysera\Bundle\RestBundle\Resolver\RepositoryAwareEntityResolver">
+            <argument type="service" id="vendor_transfer_api.repository.transfer_input"/>
+            <argument>id</argument>
+        </service>
+            <service id="vendor_transfer_api.transfer_result_provider"
+                 class="Paysera\Bundle\RestBundle\Repository\ResultProvider">
+            <argument type="service" id="vendor_transfer_api.repository.transfer"/>
+        </service>
+            
+    </services>
+</container>

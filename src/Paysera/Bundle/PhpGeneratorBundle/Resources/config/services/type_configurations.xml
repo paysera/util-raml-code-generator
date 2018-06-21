@@ -5,9 +5,9 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <service id="paysera_php_generator.type_configuration_provider"
+        <service id="paysera_php_generator.type_configuration_provider.php_client"
                  class="Paysera\Bundle\CodeGeneratorBundle\Service\TypeConfigurationProvider">
-            <tag name="paysera_code_generator.type_configuration_provider" language="php"/>
+            <tag name="paysera_code_generator.type_configuration_provider" type="php_client"/>
             <argument type="service">
                 <service class="Paysera\Bundle\CodeGeneratorBundle\Entity\TypeConfiguration">
                     <call method="setGetterTemplate">
@@ -194,6 +194,242 @@
                     </service>
                 </argument>
             </call>
+        </service>
+
+        <service id="paysera_php_generator.type_configuration_provider.symfony_bundle"
+                 class="Paysera\Bundle\CodeGeneratorBundle\Service\TypeConfigurationProvider">
+            <tag name="paysera_code_generator.type_configuration_provider" type="symfony_bundle"/>
+            <argument type="service">
+                <service class="Paysera\Bundle\CodeGeneratorBundle\Entity\TypeConfiguration">
+                    <call method="setGetterTemplate">
+                        <argument type="string">@PayseraPhpGenerator/SymfonyBundle/Types/Default/getter.php.twig</argument>
+                    </call>
+                    <call method="setSetterTemplate">
+                        <argument type="string">@PayseraPhpGenerator/SymfonyBundle/Types/Default/setter.php.twig</argument>
+                    </call>
+                    <call method="setArgumentTypeTemplate">
+                        <argument type="string">@PayseraPhpGenerator/SymfonyBundle/Types/Default/argument_type.php.twig</argument>
+                    </call>
+                    <call method="setReturnTypeTemplate">
+                        <argument type="string">@PayseraPhpGenerator/SymfonyBundle/Types/Default/return_type.php.twig</argument>
+                    </call>
+                    <call method="setArgumentTypeHintTemplate">
+                        <argument type="string">@PayseraPhpGenerator/SymfonyBundle/Types/Default/typehint.php.twig</argument>
+                    </call>
+                    <call method="setNormalizerTemplate">
+                        <argument type="string">@PayseraPhpGenerator/SymfonyBundle/Types/Default/normalizer.php.twig</argument>
+                    </call>
+                    <call method="setDenormalizerTemplate">
+                        <argument type="string">@PayseraPhpGenerator/SymfonyBundle/Types/Default/denormalizer.php.twig</argument>
+                    </call>
+                    <call method="setEntityFieldTemplate">
+                        <argument type="string">@PayseraPhpGenerator/SymfonyBundle/Types/Default/entity_field.php.twig</argument>
+                    </call>
+                    <call method="setOrmFieldTemplate">
+                        <argument type="string">@PayseraPhpGenerator/SymfonyBundle/Types/Default/orm_field.xml.twig</argument>
+                    </call>
+                </service>
+            </argument>
+            <argument>null</argument>
+
+            <call method="addTypeConfiguration">
+                <argument type="service">
+                    <service class="Paysera\Bundle\CodeGeneratorBundle\Entity\TypeConfiguration">
+                        <call method="setMatchRegex">
+                            <argument type="string">^array$</argument>
+                        </call>
+                        <call method="setGetterTemplate">
+                            <argument type="string">@PayseraPhpGenerator/SymfonyBundle/Types/Array/getter.php.twig</argument>
+                        </call>
+                        <call method="setSetterTemplate">
+                            <argument type="string">@PayseraPhpGenerator/SymfonyBundle/Types/Array/setter.php.twig</argument>
+                        </call>
+                        <call method="setArgumentTypeTemplate">
+                            <argument type="string">@PayseraPhpGenerator/SymfonyBundle/Types/Array/argument_type.php.twig</argument>
+                        </call>
+                        <call method="setReturnTypeTemplate">
+                            <argument type="string">@PayseraPhpGenerator/SymfonyBundle/Types/Array/return_type.php.twig</argument>
+                        </call>
+                        <call method="setArgumentTypeHintTemplate">
+                            <argument type="string">@PayseraPhpGenerator/SymfonyBundle/Types/Array/typehint.php.twig</argument>
+                        </call>
+                        <call method="setNormalizerTemplate">
+                            <argument type="string">@PayseraPhpGenerator/SymfonyBundle/Types/Array/normalizer.php.twig</argument>
+                        </call>
+                        <call method="setDenormalizerTemplate">
+                            <argument type="string">@PayseraPhpGenerator/SymfonyBundle/Types/Array/denormalizer.php.twig</argument>
+                        </call>
+                        <call method="setEntityFieldTemplate">
+                            <argument type="string">@PayseraPhpGenerator/SymfonyBundle/Types/Default/entity_field.php.twig</argument>
+                        </call>
+                        <call method="setOrmFieldTemplate">
+                            <argument type="string">@PayseraPhpGenerator/SymfonyBundle/Types/Array/orm_field.xml.twig</argument>
+                        </call>
+                    </service>
+                </argument>
+            </call>
+            <call method="addTypeConfiguration">
+                <argument type="service">
+                    <service class="Paysera\Bundle\CodeGeneratorBundle\Entity\TypeConfiguration">
+                        <call method="setMatchRegex">
+                            <argument type="string">^datetime$</argument>
+                        </call>
+                        <call method="setGetterTemplate">
+                            <argument type="string">@PayseraPhpGenerator/SymfonyBundle/Types/Default/getter.php.twig</argument>
+                        </call>
+                        <call method="setSetterTemplate">
+                            <argument type="string">@PayseraPhpGenerator/SymfonyBundle/Types/Default/setter.php.twig</argument>
+                        </call>
+                        <call method="setArgumentTypeTemplate">
+                            <argument type="string">@PayseraPhpGenerator/SymfonyBundle/Types/DateTime/argument_type.php.twig</argument>
+                        </call>
+                        <call method="setReturnTypeTemplate">
+                            <argument type="string">@PayseraPhpGenerator/SymfonyBundle/Types/DateTime/return_type.php.twig</argument>
+                        </call>
+                        <call method="setArgumentTypeHintTemplate">
+                            <argument type="string">@PayseraPhpGenerator/SymfonyBundle/Types/DateTime/typehint.php.twig</argument>
+                        </call>
+                        <call method="setNormalizerTemplate">
+                            <argument type="string">@PayseraPhpGenerator/SymfonyBundle/Types/DateTime/normalizer.php.twig</argument>
+                        </call>
+                        <call method="setDenormalizerTemplate">
+                            <argument type="string">@PayseraPhpGenerator/SymfonyBundle/Types/DateTime/denormalizer.php.twig</argument>
+                        </call>
+                        <call method="setEntityFieldTemplate">
+                            <argument type="string">@PayseraPhpGenerator/SymfonyBundle/Types/Default/entity_field.php.twig</argument>
+                        </call>
+                        <call method="setOrmFieldTemplate">
+                            <argument type="string">@PayseraPhpGenerator/SymfonyBundle/Types/DateTime/orm_field.xml.twig</argument>
+                        </call>
+                    </service>
+                </argument>
+            </call>
+            <call method="addTypeConfiguration">
+                <argument type="service">
+                    <service class="Paysera\Bundle\CodeGeneratorBundle\Entity\TypeConfiguration">
+                        <call method="setTypeName">
+                            <argument>Money</argument>
+                        </call>
+                        <call method="setMatchRegex">
+                            <argument type="string">\.money$</argument>
+                        </call>
+                        <call method="setGetterTemplate">
+                            <argument type="string">@PayseraPhpGenerator/SymfonyBundle/Types/Money/getter.php.twig</argument>
+                        </call>
+                        <call method="setSetterTemplate">
+                            <argument type="string">@PayseraPhpGenerator/SymfonyBundle/Types/Money/setter.php.twig</argument>
+                        </call>
+                        <call method="setArgumentTypeTemplate">
+                            <argument type="string">@PayseraPhpGenerator/SymfonyBundle/Types/Money/argument_type.php.twig</argument>
+                        </call>
+                        <call method="setReturnTypeTemplate">
+                            <argument type="string">@PayseraPhpGenerator/SymfonyBundle/Types/Money/return_type.php.twig</argument>
+                        </call>
+                        <call method="setArgumentTypeHintTemplate">
+                            <argument type="string">@PayseraPhpGenerator/SymfonyBundle/Types/Money/typehint.php.twig</argument>
+                        </call>
+                        <call method="setNormalizerTemplate">
+                            <argument type="string">@PayseraPhpGenerator/SymfonyBundle/Types/Default/normalizer.php.twig</argument>
+                        </call>
+                        <call method="setDenormalizerTemplate">
+                            <argument type="string">@PayseraPhpGenerator/SymfonyBundle/Types/Default/denormalizer.php.twig</argument>
+                        </call>
+                        <call method="setEntityFieldTemplate">
+                            <argument type="string">@PayseraPhpGenerator/SymfonyBundle/Types/Money/entity_field.php.twig</argument>
+                        </call>
+                        <call method="setOrmFieldTemplate">
+                            <argument type="string">@PayseraPhpGenerator/SymfonyBundle/Types/Money/orm_field.xml.twig</argument>
+                        </call>
+                        <call method="setImportString">
+                            <argument type="string">Evp\Component\Money\Money</argument>
+                        </call>
+                        <call method="setNormalizerImportString">
+                            <argument type="string">Evp\Component\Money\MoneyNormalizer</argument>
+                        </call>
+                        <call method="setLibraryConfiguration">
+                            <argument type="service">
+                                <service class="Paysera\Bundle\CodeGeneratorBundle\Entity\LibraryConfiguration">
+                                    <call method="setName">
+                                        <argument type="string">evp/money</argument>
+                                    </call>
+                                    <call method="setVersion">
+                                        <argument type="string">^1.0</argument>
+                                    </call>
+                                </service>
+                            </argument>
+                        </call>
+                    </service>
+                </argument>
+            </call>
+            <call method="addTypeConfiguration">
+                <argument type="service">
+                    <service class="Paysera\Bundle\CodeGeneratorBundle\Entity\TypeConfiguration">
+                        <call method="setTypeName">
+                            <argument>Filter</argument>
+                        </call>
+                        <call method="setMatchRegex">
+                            <argument type="string">\.filter$</argument>
+                        </call>
+                        <call method="setImportString">
+                            <argument type="string">Paysera\Component\Serializer\Entity\Filter</argument>
+                        </call>
+                        <call method="setLibraryConfiguration">
+                            <argument type="service">
+                                <service class="Paysera\Bundle\CodeGeneratorBundle\Entity\LibraryConfiguration">
+                                    <call method="setName">
+                                        <argument type="string">paysera/lib-serializer</argument>
+                                    </call>
+                                    <call method="setVersion">
+                                        <argument type="string">^2.0</argument>
+                                    </call>
+                                </service>
+                            </argument>
+                        </call>
+                    </service>
+                </argument>
+            </call>
+            <call method="addTypeConfiguration">
+                <argument type="service">
+                    <service class="Paysera\Bundle\CodeGeneratorBundle\Entity\TypeConfiguration">
+                        <call method="setTypeName">
+                            <argument>Result</argument>
+                        </call>
+                        <call method="setMatchRegex">
+                            <argument type="string">\.result$</argument>
+                        </call>
+                        <call method="setImportString">
+                            <argument type="string">Paysera\Component\Serializer\Entity\Result</argument>
+                        </call>
+                        <call method="setLibraryConfiguration">
+                            <argument type="service">
+                                <service class="Paysera\Bundle\CodeGeneratorBundle\Entity\LibraryConfiguration">
+                                    <call method="setName">
+                                        <argument type="string">paysera/lib-serializer</argument>
+                                    </call>
+                                    <call method="setVersion">
+                                        <argument type="string">^2.0</argument>
+                                    </call>
+                                </service>
+                            </argument>
+                        </call>
+                    </service>
+                </argument>
+            </call>
+            <!--<call method="addTypeConfiguration">-->
+                <!--<argument type="service">-->
+                    <!--<service class="Paysera\Bundle\CodeGeneratorBundle\Entity\TypeConfiguration">-->
+                        <!--<call method="setTypeName">-->
+                            <!--<argument>Result</argument>-->
+                        <!--</call>-->
+                        <!--<call method="setMatchRegex">-->
+                            <!--<argument type="string">\w*result$</argument>-->
+                        <!--</call>-->
+                        <!--<call method="setImportString">-->
+                            <!--<argument type="string">Paysera\Component\Serializer\Entity\Result</argument>-->
+                        <!--</call>-->
+                    <!--</service>-->
+                <!--</argument>-->
+            <!--</call>-->
         </service>
     </services>
 </container>

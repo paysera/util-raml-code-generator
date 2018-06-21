@@ -16,7 +16,7 @@ use Twig_Environment;
 
 class GeneratePackageCommand extends Command
 {
-    const LANGUAGE = 'js';
+    const CODE_TYPE = 'js_package';
 
     private $codeGenerator;
     private $vendorPrefix;
@@ -58,12 +58,12 @@ class GeneratePackageCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $this->twigEnvironment->addGlobal('language', self::LANGUAGE);
+        $this->twigEnvironment->addGlobal('code_type', self::CODE_TYPE);
 
         $outputDir = $input->getArgument('output_dir');
 
         $this->codeGenerator->generateCode(
-            self::LANGUAGE,
+            self::CODE_TYPE,
             $input->getArgument('client_name'),
             $input->getArgument('client_name'),
             $input->getArgument('raml_file'),

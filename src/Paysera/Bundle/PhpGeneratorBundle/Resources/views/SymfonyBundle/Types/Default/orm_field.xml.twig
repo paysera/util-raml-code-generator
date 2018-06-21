@@ -1,0 +1,5 @@
+{% if property.type == constant('TYPE_REFERENCE', property) %}
+<!--TODO: generated_code <field name="{{ property.name|to_variable_name }}" column="{{ property.name|to_snake_case }}" nullable="{{ property.required ? 'false' : 'true' }}" type="{{ property.type }}"/>-->
+{% else %}
+<field name="{{ property.name|to_variable_name }}" column="{{ property.name|to_snake_case }}" nullable="{{ property.required ? 'false' : 'true' }}" type="{{ property.type }}"/>
+{% endif %}

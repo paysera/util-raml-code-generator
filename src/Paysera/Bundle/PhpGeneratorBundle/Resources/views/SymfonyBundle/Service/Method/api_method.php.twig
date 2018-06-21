@@ -1,0 +1,14 @@
+{% set arguments = symfony_bundle_generate_method_arguments(method, resource, api) %}
+{% if method_returns_result(method, api) and extract_filter_from_arguments(arguments) is not null -%}
+{% else %}
+    /**
+{% for argument in arguments %}
+     * @param {{ argument.importedType != null ? argument.importedType : argument.namespacedType }} ${{ argument.name|to_variable_name }}
+{% endfor %}
+     * @return {{ symfony_bundle_get_return_type(method, api) }}
+     */
+    public function {{ generate_method_name(method, resource, api) }}({{ php_inline_arguments(arguments) }})
+    {
+        //TODO: generated_code
+    }
+{% endif %}

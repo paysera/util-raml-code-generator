@@ -1,0 +1,12 @@
+{% include 'PayseraPhpGeneratorBundle:Base:Entity.php.twig' %}
+class {{ type.name|extract_type_name }}{{ get_parent_type_config(type) != null ? (' extends ' ~ get_parent_type_config(type).typeName) : '' }}
+{
+{% for property in type.properties %}
+    private ${{ property.name|to_variable_name }};
+{% endfor %}
+
+{% for property in type.properties %}
+{% include get_getter_method_template(property) with { 'property': property } only %}
+{% include get_setter_method_template(property) with { 'property': property } only %}
+{% endfor %}
+}

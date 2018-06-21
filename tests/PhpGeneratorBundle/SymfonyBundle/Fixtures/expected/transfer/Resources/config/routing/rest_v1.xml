@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<routes xmlns="http://symfony.com/schema/routing"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
+
+    <route id="vendor_transfer_api.sign_transfer" methods="PUT" path="/transfer/{id}/sign">
+        <default key="_controller">vendor_transfer_api.controller.transfer_api:signTransfer</default>
+        <default key="api_key">vendor_transfer_api.transfer</default>
+        <option key="expose">true</option>
+    </route>
+    <route id="vendor_transfer_api.reserve_transfer" methods="PUT" path="/transfer/{id}/reserve">
+        <default key="_controller">vendor_transfer_api.controller.transfer_api:reserveTransfer</default>
+        <default key="api_key">vendor_transfer_api.transfer</default>
+        <option key="expose">true</option>
+    </route>
+    <route id="vendor_transfer_api.provide_transfer_password" methods="PUT" path="/transfer/{id}/provide-password">
+        <default key="_controller">vendor_transfer_api.controller.transfer_api:provideTransferPassword</default>
+        <default key="api_key">vendor_transfer_api.transfer</default>
+        <option key="expose">true</option>
+    </route>
+    <route id="vendor_transfer_api.freeze_transfer" methods="PUT" path="/transfer/{id}/freeze">
+        <default key="_controller">vendor_transfer_api.controller.transfer_api:freezeTransfer</default>
+        <default key="api_key">vendor_transfer_api.transfer</default>
+        <option key="expose">true</option>
+    </route>
+    <route id="vendor_transfer_api.complete_transfer" methods="PUT" path="/transfer/{id}/complete">
+        <default key="_controller">vendor_transfer_api.controller.transfer_api:completeTransfer</default>
+        <default key="api_key">vendor_transfer_api.transfer</default>
+        <option key="expose">true</option>
+    </route>
+    <route id="vendor_transfer_api.register_transfer" methods="PUT" path="/transfer/{id}/register">
+        <default key="_controller">vendor_transfer_api.controller.transfer_api:registerTransfer</default>
+        <default key="api_key">vendor_transfer_api.transfer</default>
+        <option key="expose">true</option>
+    </route>
+    <route id="vendor_transfer_api.get_transfer" methods="GET" path="/transfer/{id}">
+        <default key="_controller">vendor_transfer_api.controller.transfer_api:getTransfer</default>
+        <default key="api_key">vendor_transfer_api.transfer</default>
+        <option key="expose">true</option>
+    </route>
+    <route id="vendor_transfer_api.delete_transfer" methods="DELETE" path="/transfer/{id}">
+        <default key="_controller">vendor_transfer_api.controller.transfer_api:deleteTransfer</default>
+        <default key="api_key">vendor_transfer_api.transfer</default>
+        <option key="expose">true</option>
+    </route>
+    <route id="vendor_transfer_api.reserve_transfers" methods="PUT" path="/transfers/reserve">
+        <default key="_controller">vendor_transfer_api.controller.transfer_api:reserveTransfers</default>
+        <default key="api_key">vendor_transfer_api.transfer</default>
+        <option key="expose">true</option>
+    </route>
+    <route id="vendor_transfer_api.get_transfers" methods="GET" path="/transfers">
+        <default key="_controller">vendor_transfer_api.controller.transfer_api:getTransfers</default>
+        <default key="api_key">vendor_transfer_api.transfer</default>
+        <option key="expose">true</option>
+    </route>
+    <route id="vendor_transfer_api.create_transfer" methods="POST" path="/transfer">
+        <default key="_controller">vendor_transfer_api.controller.transfer_api:createTransfer</default>
+        <default key="api_key">vendor_transfer_api.transfer</default>
+        <option key="expose">true</option>
+    </route>
+</routes>

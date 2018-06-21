@@ -1,8 +1,12 @@
 
-{% if property.itemsType in property.simpleTypes %}
-        return this.get('{{ property.name }}');
-{% else %}
-        let data = this.get('{{ property.name }}');
+    /**
+     * @return {% include get_method_return_type_template(property) with { 'property': property } only %}
+     */
+    {{ js_generate_getter_name(property) }}() {
+    {% if property.itemsType in property.simpleTypes %}
+    return this.get('{{ property.name }}');
+    {% else %}
+    let data = this.get('{{ property.name }}');
         if (data === null) {
             return [];
         }
@@ -13,4 +17,5 @@
         }
 
         return collection;
-{% endif %}
+    {% endif %}
+}

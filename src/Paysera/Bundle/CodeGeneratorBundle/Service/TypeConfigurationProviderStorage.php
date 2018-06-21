@@ -15,13 +15,13 @@ class TypeConfigurationProviderStorage
         $this->typeConfigurationProviders = [];
     }
 
-    public function addTypeConfigurationProvider(TypeConfigurationProvider $configurationProvider, string $language)
+    public function addTypeConfigurationProvider(TypeConfigurationProvider $configurationProvider, string $type)
     {
-        $this->typeConfigurationProviders[$language] = $configurationProvider;
+        $this->typeConfigurationProviders[$type] = $configurationProvider;
     }
 
-    public function getTypeConfigurationProvider(string $language): TypeConfigurationProvider
+    public function getTypeConfigurationProvider(string $type): TypeConfigurationProvider
     {
-        return $this->typeConfigurationProviders[$language];
+        return $this->typeConfigurationProviders[$type];
     }
 }

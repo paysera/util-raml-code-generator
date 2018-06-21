@@ -5,8 +5,10 @@ namespace Paysera\Bundle\CodeGeneratorBundle\Service;
 use Doctrine\Common\Inflector\Inflector;
 use Fig\Http\Message\RequestMethodInterface;
 use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\ApiDefinition;
+use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\ResultTypeDefinition;
 use Paysera\Bundle\CodeGeneratorBundle\Entity\UriNameParts;
 use Paysera\Bundle\CodeGeneratorBundle\Exception\InvalidDefinitionException;
+use Paysera\Component\StringHelper;
 use Raml\Method;
 use Raml\Resource;
 
@@ -170,5 +172,20 @@ class MethodNameBuilder
         }
 
         return $namePart;
+    }
+
+    public function getMethodEntityName(Resource $resource)
+    {
+        return StringHelper::singular($this->getNameParts($resource->getUri())->getPartName());
+    }
+
+    public function methodReturnsResult(Method $method, ApiDefinition $api)
+    {
+        $body = $this->bodyResolver->getResponseBody($method);
+        if ($body === null) {
+            return false;
+        }
+        $typeName = $body->getType()->getName();
+        return $api->getType($typeName) instanceof ResultTypeDefinition;
     }
 }

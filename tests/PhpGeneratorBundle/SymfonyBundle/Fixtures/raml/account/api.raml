@@ -1,0 +1,83 @@
+#%RAML 1.0
+title: Client API
+version: 1.0
+baseUri: https://my-api.example.com/accounts/rest/v1
+
+uses:
+  Paysera: ../__library/rest.raml
+
+traits:
+  AccountFilter: !include traits/account-filter.raml
+
+types:
+  AccountResult:
+    displayName: Account Result
+    type: Paysera.Result
+    properties:
+      accounts:
+        required: false
+        displayName: accounts
+        type: array
+        items:
+          type: Account
+  Account:
+    displayName: Account
+    type: object
+    properties:
+      created_at:
+        (datetime_timestamp):
+        required: true
+        displayName: created_at
+        description: Timestamp when Account was created
+        type: integer
+        format: int32
+      number:
+        required: true
+        displayName: number
+        description: The unique identifier for a Account
+        type: string
+      active:
+        required: true
+        displayName: active
+        description: Is Account active
+        type: boolean
+      client_id:
+        required: true
+        displayName: client_id
+        description: Client id, who owns the Account
+        type: integer
+        format: int32
+      closed:
+        required: true
+        displayName: closed
+        description: Is Account closed
+        type: boolean
+      type:
+        required: true
+        displayName: type
+        description: The type of Account
+        type: string
+      undescribed:
+        required: true
+        type: Paysera.UndescribedType
+/accounts:
+  get:
+    displayName: Accounts
+    description: Retrieve Accounts by Filter
+    is:
+      - AccountFilter
+    responses:
+      200:
+        description: Success
+        body:
+          application/json:
+            displayName: response
+            type: AccountResult
+  /scripts:
+    get:
+      description: Generated JS code
+      responses:
+        200:
+          body:
+            application/javascript:
+              description: Generated JS code

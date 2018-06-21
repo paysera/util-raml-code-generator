@@ -1,0 +1,76 @@
+<?php
+
+namespace {{ api.namespace }}\Normalizer;
+
+{% for type in get_related_types_config(type, api) if type.importString is not null and type.normalizerImportString is null %}
+use {{ type.importString }};
+{% endfor %}
+{% for arg in symfony_bundle_get_normalizer_constructor_args(type)|symfony_bundle_unique_arguments -%}
+{% if arg.namespacedType is not null -%}
+use {{ arg.namespacedType }};
+{% endif %}
+{% endfor %}
+use Paysera\Component\Serializer\Normalizer\DenormalizerInterface;
+use Paysera\Component\Serializer\Normalizer\NormalizerInterface;
+use {{ api.namespace }}\Entity\{{ type.name|extract_type_name }};
+
+class {{ type.name|extract_type_name }}Normalizer implements NormalizerInterface, DenormalizerInterface
+{
+    {% if symfony_bundle_get_normalizer_constructor_args(type)|length > 0 -%}
+    {% for arg in symfony_bundle_get_normalizer_constructor_args(type) -%}
+    private ${{ arg.name|to_variable_name }}Normalizer;
+    {% endfor %}
+
+    public function __construct(
+    {% for arg in symfony_bundle_get_normalizer_constructor_args(type) %}
+    {{ arg.type|extract_type_name|to_class_name }}Normalizer ${{ arg.name|to_variable_name }}Normalizer{{ loop.last ? '' : ',' }}
+    {% endfor -%}
+    ) {
+    {% for arg in symfony_bundle_get_normalizer_constructor_args(type) %}
+    $this->{{ arg.name|to_variable_name }}Normalizer = ${{ arg.name|to_variable_name }}Normalizer;
+    {% endfor -%}
+    }
+    {% endif %}
+
+    /**
+     * @param array $data
+     *
+     * @return {{ type.name|extract_type_name }}
+     */
+    public function mapToEntity($data)
+    {
+        {% if is_discriminated(type) -%}
+        // TODO: generated_code this entity uses Inheritance, you should map parent fields manually
+        {% endif -%}
+        $entity = new {{ type.name|extract_type_name }}();
+
+        {% for property in type.properties %}
+        {%- if property.name != 'id' -%}
+        {% include get_property_denormalizer_template(property) with { 'property': property } only %}
+        {% endif -%}
+        {% endfor %}
+
+        return $entity;
+    }
+
+    /**
+     * @param {{ type.name|extract_type_name }} $entity
+     *
+     * @return array
+     */
+    public function mapFromEntity($entity)
+    {
+        {% if is_discriminated(type) -%}
+        // TODO: generated_code this entity uses Inheritance, you should map parent fields manually
+        {% endif -%}
+        return [
+            'id' => $entity->getId(),
+            {% for property in type.properties %}
+            {%- if property.name != 'id' -%}
+            {% include get_property_normalizer_template(property) with { 'property': property } only %}
+            {% endif -%}
+            {% endfor %}
+
+        ];
+    }
+}

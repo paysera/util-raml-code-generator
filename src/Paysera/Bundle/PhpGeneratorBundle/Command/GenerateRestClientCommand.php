@@ -11,7 +11,7 @@ use Twig_Environment;
 
 class GenerateRestClientCommand extends Command
 {
-    const LANGUAGE = 'php';
+    const CODE_TYPE = 'php_client';
 
     private $codeGenerator;
     private $twigEnvironment;
@@ -42,13 +42,13 @@ class GenerateRestClientCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $this->twigEnvironment->addGlobal('language', self::LANGUAGE);
+        $this->twigEnvironment->addGlobal('code_type', self::CODE_TYPE);
 
         $namespaceParts = explode('\\', $input->getArgument('namespace'));
         $outputDir = $input->getArgument('output_dir');
 
         $this->codeGenerator->generateCode(
-            self::LANGUAGE,
+            self::CODE_TYPE,
             end($namespaceParts),
             $input->getArgument('namespace'),
             $input->getArgument('raml_file'),

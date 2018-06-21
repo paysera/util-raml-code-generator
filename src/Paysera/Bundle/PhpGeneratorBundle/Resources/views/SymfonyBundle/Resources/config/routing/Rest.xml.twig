@@ -1,0 +1,24 @@
+{%- import _self as macros %}
+{%- macro render_methods(resource, api, vendor_name) -%}
+    {%- for subResource in resource.resources -%}
+        {{ _self.render_methods(subResource, api, vendor_name) }}
+    {%- endfor %}
+    {%- for method in resource.methods -%}
+        {%- include '@PayseraPhpGenerator/SymfonyBundle/Resources/config/routing/Route/route.xml.twig' with {
+            'resource': resource,
+            'method': method,
+            'api': api,
+            'vendor_name': vendor_name
+        } only -%}
+    {%- endfor -%}
+{% endmacro %}
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<routes xmlns="http://symfony.com/schema/routing"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
+
+{% for resource in api.ramlDefinition.resources -%}
+    {{- macros.render_methods(resource, api, vendor_name) -}}
+{% endfor %}
+</routes>

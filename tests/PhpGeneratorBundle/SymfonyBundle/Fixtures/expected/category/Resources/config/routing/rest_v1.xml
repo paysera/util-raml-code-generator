@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<routes xmlns="http://symfony.com/schema/routing"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
+
+    <route id="vendor_category_api.enable_category" methods="PUT" path="/categories/{id}/enable">
+        <default key="_controller">vendor_category_api.controller.category_api:enableCategory</default>
+        <default key="api_key">vendor_category_api.category</default>
+        <option key="expose">true</option>
+    </route>
+    <route id="vendor_category_api.disable_category" methods="PUT" path="/categories/{id}/disable">
+        <default key="_controller">vendor_category_api.controller.category_api:disableCategory</default>
+        <default key="api_key">vendor_category_api.category</default>
+        <option key="expose">true</option>
+    </route>
+    <route id="vendor_category_api.update_category" methods="PUT" path="/categories/{id}">
+        <default key="_controller">vendor_category_api.controller.category_api:updateCategory</default>
+        <default key="api_key">vendor_category_api.category</default>
+        <option key="expose">true</option>
+    </route>
+    <route id="vendor_category_api.delete_category" methods="DELETE" path="/categories/{id}">
+        <default key="_controller">vendor_category_api.controller.category_api:deleteCategory</default>
+        <default key="api_key">vendor_category_api.category</default>
+        <option key="expose">true</option>
+    </route>
+    <route id="vendor_category_api.get_categories" methods="GET" path="/categories">
+        <default key="_controller">vendor_category_api.controller.category_api:getCategories</default>
+        <default key="api_key">vendor_category_api.category</default>
+        <option key="expose">true</option>
+    </route>
+    <route id="vendor_category_api.create_category" methods="POST" path="/categories">
+        <default key="_controller">vendor_category_api.controller.category_api:createCategory</default>
+        <default key="api_key">vendor_category_api.category</default>
+        <option key="expose">true</option>
+    </route>
+    <route id="vendor_category_api.get_keywords" methods="GET" path="/keywords">
+        <default key="_controller">vendor_category_api.controller.keyword_api:getKeywords</default>
+        <default key="api_key">vendor_category_api.keyword</default>
+        <option key="expose">true</option>
+    </route>
+</routes>

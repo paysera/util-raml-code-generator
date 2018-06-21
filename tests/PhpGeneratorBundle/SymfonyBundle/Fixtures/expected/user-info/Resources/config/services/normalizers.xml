@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="vendor_user_info_api.normalizer.legal"
+                 class="Vendor\Test\UserInfoApiBundle\Normalizer\LegalNormalizer">
+        </service>
+        <service id="vendor_user_info_api.normalizer.natural"
+                 class="Vendor\Test\UserInfoApiBundle\Normalizer\NaturalNormalizer">
+        </service>
+        <service id="vendor_user_info_api.normalizer.user_info"
+                 class="Vendor\Test\UserInfoApiBundle\Normalizer\UserInfoNormalizer">
+        </service>
+        
+        
+    </services>
+</container>

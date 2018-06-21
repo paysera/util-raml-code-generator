@@ -7,7 +7,7 @@
     <services>
         <service id="paysera_javascript_generator.type_configuration_provider"
                  class="Paysera\Bundle\CodeGeneratorBundle\Service\TypeConfigurationProvider">
-            <tag name="paysera_code_generator.type_configuration_provider" language="js"/>
+            <tag name="paysera_code_generator.type_configuration_provider" type="js_package"/>
             <argument type="service">
                 <service class="Paysera\Bundle\CodeGeneratorBundle\Entity\TypeConfiguration">
                     <call method="setGetterTemplate">

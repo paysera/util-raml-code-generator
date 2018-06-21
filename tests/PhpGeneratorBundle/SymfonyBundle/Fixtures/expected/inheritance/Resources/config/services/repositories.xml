@@ -1,0 +1,34 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="vendor_inheritance_api.repository.user"
+                 class="Vendor\Test\InheritanceApiBundle\Repository\UserRepository"
+                 lazy="true">
+            <factory service="doctrine.orm.entity_manager" method="getRepository"/>
+            <argument>VendorInheritanceApiBundle:User</argument>
+        </service>
+        <service id="vendor_inheritance_api.repository.user_basic"
+                 class="Vendor\Test\InheritanceApiBundle\Repository\UserBasicRepository"
+                 lazy="true">
+            <factory service="doctrine.orm.entity_manager" method="getRepository"/>
+            <argument>VendorInheritanceApiBundle:UserBasic</argument>
+        </service>
+        <service id="vendor_inheritance_api.repository.user_legal"
+                 class="Vendor\Test\InheritanceApiBundle\Repository\UserLegalRepository"
+                 lazy="true">
+            <factory service="doctrine.orm.entity_manager" method="getRepository"/>
+            <argument>VendorInheritanceApiBundle:UserLegal</argument>
+        </service>
+        <service id="vendor_inheritance_api.repository.user_natural"
+                 class="Vendor\Test\InheritanceApiBundle\Repository\UserNaturalRepository"
+                 lazy="true">
+            <factory service="doctrine.orm.entity_manager" method="getRepository"/>
+            <argument>VendorInheritanceApiBundle:UserNatural</argument>
+        </service>
+        
+    </services>
+</container>

@@ -1,0 +1,65 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="vendor_transfer_surveillance_api.normalizer.match_criteria"
+                 class="Vendor\Test\TransferSurveillanceApiBundle\Normalizer\MatchCriteriaNormalizer">
+        </service>
+        <service id="vendor_transfer_surveillance_api.normalizer.match_criterias_result"
+                 class="Paysera\Component\Serializer\Normalizer\ResultNormalizer"
+                 parent="paysera_rest.normalizer.result">
+            <argument>items</argument>
+            <argument type="service" id="vendor_transfer_surveillance_api.normalizer.match_criteria"/>
+        </service>
+        <service id="vendor_transfer_surveillance_api.normalizer.matcher"
+                 class="Vendor\Test\TransferSurveillanceApiBundle\Normalizer\MatcherNormalizer">
+        </service>
+        <service id="vendor_transfer_surveillance_api.normalizer.matchers_result"
+                 class="Paysera\Component\Serializer\Normalizer\ResultNormalizer"
+                 parent="paysera_rest.normalizer.result">
+            <argument>items</argument>
+            <argument type="service" id="vendor_transfer_surveillance_api.normalizer.matcher"/>
+        </service>
+        <service id="vendor_transfer_surveillance_api.normalizer.money"
+                 class="Evp\Component\Money\MoneyNormalizer">
+        </service>
+        <service id="vendor_transfer_surveillance_api.normalizer.review"
+                 class="Vendor\Test\TransferSurveillanceApiBundle\Normalizer\ReviewNormalizer">
+        </service>
+        <service id="vendor_transfer_surveillance_api.normalizer.rule"
+                 class="Vendor\Test\TransferSurveillanceApiBundle\Normalizer\RuleNormalizer">
+        </service>
+        <service id="vendor_transfer_surveillance_api.normalizer.rule_filter"
+                 class="Vendor\Test\TransferSurveillanceApiBundle\Normalizer\RuleFilterNormalizer">
+        </service>
+        <service id="vendor_transfer_surveillance_api.normalizer.rules_result"
+                 class="Paysera\Component\Serializer\Normalizer\ResultNormalizer"
+                 parent="paysera_rest.normalizer.result">
+            <argument>items</argument>
+            <argument type="service" id="vendor_transfer_surveillance_api.normalizer.rule"/>
+        </service>
+        <service id="vendor_transfer_surveillance_api.normalizer.whitelist"
+                 class="Vendor\Test\TransferSurveillanceApiBundle\Normalizer\WhitelistNormalizer">
+            <argument type="service" id="vendor_transfer_surveillance_api.normalizer.money"/>
+            <argument type="service" id="vendor_transfer_surveillance_api.normalizer.profiles.array"/>
+        </service>
+        <service id="vendor_transfer_surveillance_api.normalizer.whitelist_profile"
+                 class="Vendor\Test\TransferSurveillanceApiBundle\Normalizer\WhitelistProfileNormalizer">
+        </service>
+        <service id="vendor_transfer_surveillance_api.normalizer.whitelists_result"
+                 class="Paysera\Component\Serializer\Normalizer\ResultNormalizer"
+                 parent="paysera_rest.normalizer.result">
+            <argument>items</argument>
+            <argument type="service" id="vendor_transfer_surveillance_api.normalizer.whitelist"/>
+        </service>
+        
+        <service id="vendor_transfer_surveillance_api.normalizer.profiles.array"
+                 class="Paysera\Component\Serializer\Normalizer\ArrayNormalizer">
+            <argument type="service" id="vendor_transfer_surveillance_api.normalizer.whitelist_profile"/>
+        </service>
+        
+    </services>
+</container>

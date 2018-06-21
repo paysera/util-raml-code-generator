@@ -1,0 +1,62 @@
+{%- import _self as macros %}
+{%- macro render_methods(resource, api) -%}
+    {%- for subResource in resource.resources -%}
+        {{ _self.render_methods(subResource, api) }}
+    {%- endfor %}
+    {%- for method in resource.methods -%}
+        {%- include '@PayseraPhpGenerator/SymfonyBundle/Controller/Method/api_method.php.twig' with {
+            'resource': resource,
+            'method': method,
+            'api': api
+        } only -%}
+    {%- endfor -%}
+{% endmacro %}
+<?php
+
+namespace {{ api.namespace }}\Controller;
+
+use {{ api.namespace }}\Entity as Entities;
+{% for typeConfig in symfony_bundle_get_directly_used_types_in_sub_resource(api, entity_name) %}
+{% if typeConfig.importString is not null %}
+use {{ typeConfig.importString|raw }};
+{% endif %}
+{% endfor %}
+{% for arg in symfony_bundle_get_controller_constructor_args(resource, api)|php_unique_arguments_by_namespace -%}
+{% if arg.namespacedType is not null %}
+use {{ arg.namespacedType }};
+{% else %}
+use {{ api.namespace }}\Service\{{ arg.type|to_class_name }};
+{% endif %}
+{% endfor %}
+use {{ api.namespace }}\{{ entity_name|to_class_name }}Permissions;
+use Paysera\Bundle\SecurityBundle\Service\AuthorizationChecker;
+use Doctrine\ORM\EntityManager;
+
+class {{ entity_name|to_class_name }}ApiController
+{
+    private $authorizationChecker;
+    private $entityManager;
+    {% for arg in symfony_bundle_get_controller_constructor_args(resource, api) -%}
+    private ${{ arg.type|to_variable_name }};
+    {% endfor %}
+
+    public function __construct(
+        {% for arg in symfony_bundle_get_controller_constructor_args(resource, api) -%}
+            {% if arg.importedType is not null -%}
+            {{ arg.importedType|to_class_name }} ${{ arg.type|to_variable_name }},
+        {% else -%}
+            {{ arg.type|to_class_name }} ${{ arg.type|to_variable_name }},
+        {% endif -%}
+        {% endfor -%}
+        AuthorizationChecker $authorizationChecker,
+        EntityManager $entityManager
+    ) {
+        {% for arg in symfony_bundle_get_controller_constructor_args(resource, api) -%}
+        $this->{{ arg.type|to_variable_name }} = ${{ arg.type|to_variable_name }};
+        {% endfor -%}
+        $this->authorizationChecker = $authorizationChecker;
+        $this->entityManager = $entityManager;
+    }
+
+{{ macros.render_methods(resource, api) -}}
+}

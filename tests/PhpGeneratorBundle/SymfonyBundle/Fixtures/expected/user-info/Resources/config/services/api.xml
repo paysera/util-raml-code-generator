@@ -1,0 +1,48 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="vendor_user_info_api.api.user"
+                 class="Paysera\Bundle\RestBundle\RestApi">
+            <tag name="paysera_rest.api" api_key="vendor_user_info_api.user"/>
+            <argument type="service" id="service_container"/>
+            <argument type="service" id="logger"/>
+                                            
+
+            <call method="addRequestMapper">
+                <argument>vendor_user_info_api.normalizer.legal</argument>
+                <argument>vendor_user_info_api.controller.user_api:createLegalUser</argument>
+                <argument>legal</argument>
+            </call>
+                                    
+
+            <call method="addRequestMapper">
+                <argument>vendor_user_info_api.normalizer.natural</argument>
+                <argument>vendor_user_info_api.controller.user_api:createNaturalUser</argument>
+                <argument>natural</argument>
+            </call>
+                                                
+
+            <call method="addResponseMapper">
+                <argument>vendor_user_info_api.normalizer.user_info</argument>
+                <argument>vendor_user_info_api.controller.user_api:getUserInformation</argument>
+            </call>
+                        
+
+            <call method="addRequestMapper">
+                <argument>vendor_user_info_api.normalizer.user_info</argument>
+                <argument>vendor_user_info_api.controller.user_api:updateUserInformation</argument>
+                <argument>userInfo</argument>
+            </call>
+            <call method="addResponseMapper">
+                <argument>vendor_user_info_api.normalizer.user_info</argument>
+                <argument>vendor_user_info_api.controller.user_api:updateUserInformation</argument>
+            </call>
+            
+        </service>
+        
+    </services>
+</container>

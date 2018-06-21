@@ -1,0 +1,18 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        {% for type in types -%}
+        <service id="{{ vendor_name|to_snake_case ~ '_' ~ api.name|to_snake_case }}.repository.{{ type.name|extract_type_name|to_snake_case }}"
+                 class="{{ api.namespace }}\Repository\{{ type.name|extract_type_name|to_class_name }}Repository"
+                 lazy="true">
+            <factory service="doctrine.orm.entity_manager" method="getRepository"/>
+            <argument>{{ vendor_name|to_class_name }}{{ api.name }}Bundle:{{ type.name|extract_type_name|to_class_name }}</argument>
+        </service>
+        {% endfor %}
+
+    </services>
+</container>

@@ -1,0 +1,19 @@
+#%RAML 1.0 Trait
+usage: Used where Result filtering is provided
+description: Used where Result filtering is provided
+is:
+  - Paysera.Filter
+queryParameters:
+  order_by:
+    displayName: order_by
+    type: string
+    default: id
+    example: matcherIdentifier
+    required: false
+    enum:
+      - 'id'
+      - 'matcherIdentifier'
+      - 'action'
+      - 'title'
+      - 'type'
+      - 'status'

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+    <entity repository-class="Vendor\Test\TransferApiBundle\Repository\ConvertCurrencyRepository"
+            name="Vendor\Test\TransferApiBundle\Entity\ConvertCurrency" table="transfer_api_convert_currencies">
+
+        <id name="id" type="integer" column="id">
+            <generator strategy="IDENTITY"/>
+        </id>
+        <field name="fromCurrency" column="from_currency" nullable="false" type="string"/>
+        <field name="toCurrency" column="to_currency" nullable="false" type="string"/>
+        <field name="toAmount" column="to_amount" nullable="true" type="string"/>
+        <field name="fromAmount" column="from_amount" nullable="true" type="string"/>
+        <field name="minToAmount" column="min_to_amount" nullable="true" type="string"/>
+        <field name="maxFromAmount" column="max_from_amount" nullable="true" type="string"/>
+        <field name="accountNumber" column="account_number" nullable="true" type="string"/>
+        
+    </entity>
+</doctrine-mapping>

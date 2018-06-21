@@ -1,0 +1,26 @@
+#%RAML 1.0 DataType
+description: Risk Level
+properties:
+  id:
+    type: integer
+    required: false
+  user_id:
+    type: string
+    required: true
+    description: User Id
+  level:
+    type: string
+    enum:
+      - 'low'
+      - 'medium'
+      - 'high'
+    description: Risk level
+  calculated_at:
+    (datetime_timestamp):
+    type: integer
+    required: true
+    description: When this Level was calculated
+  risk_rules:
+    type: array
+    items:
+      type: RiskRule

@@ -5,16 +5,24 @@ namespace Paysera\Bundle\PharBundle\Service;
 
 class ChangelogParser
 {
-    private $pharName;
+    private $packageName;
+    private $version;
 
-    public function __construct(string $pharName)
-    {
-        $this->pharName = $pharName;
+    public function __construct(
+        string $packageName,
+        string $version
+    ) {
+        $this->packageName = $packageName;
+        $this->version = $version;
     }
 
     public function getParsedChangelog()
     {
-        $contents = file_get_contents(sprintf('phar://%s/CHANGELOG.md', $this->pharName));
+        $contents = file_get_contents(sprintf(
+            'https://raw.githubusercontent.com/%s/%s/CHANGELOG.md',
+            $this->packageName,
+            $this->version
+        ));
         if ($contents === false) {
             return null;
         }

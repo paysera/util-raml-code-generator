@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="vendor_category_api.repository.category"
+                 class="Vendor\Test\CategoryApiBundle\Repository\CategoryRepository"
+                 lazy="true">
+            <factory service="doctrine.orm.entity_manager" method="getRepository"/>
+            <argument>VendorCategoryApiBundle:Category</argument>
+        </service>
+        <service id="vendor_category_api.repository.keyword"
+                 class="Vendor\Test\CategoryApiBundle\Repository\KeywordRepository"
+                 lazy="true">
+            <factory service="doctrine.orm.entity_manager" method="getRepository"/>
+            <argument>VendorCategoryApiBundle:Keyword</argument>
+        </service>
+        
+    </services>
+</container>

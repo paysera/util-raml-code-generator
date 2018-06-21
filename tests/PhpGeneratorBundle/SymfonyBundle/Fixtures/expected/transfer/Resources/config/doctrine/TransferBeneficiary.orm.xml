@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+    <entity repository-class="Vendor\Test\TransferApiBundle\Repository\TransferBeneficiaryRepository"
+            name="Vendor\Test\TransferApiBundle\Entity\TransferBeneficiary" table="transfer_api_transfer_beneficiaries">
+
+        <id name="id" type="integer" column="id">
+            <generator strategy="IDENTITY"/>
+        </id>
+        <field name="type" column="type" nullable="false" type="string"/>
+        <!--TODO: generated_code <field name="identifiers" column="identifiers" nullable="true" type="reference"/>-->
+        <field name="name" column="name" nullable="false" type="string"/>
+        <field name="personType" column="person_type" nullable="true" type="string"/>
+        <!--TODO: generated_code <field name="bankAccount" column="bank_account" nullable="true" type="reference"/>-->
+        <!--TODO: generated_code <field name="taxAccount" column="tax_account" nullable="true" type="reference"/>-->
+        <!--TODO: generated_code <field name="payseraAccount" column="paysera_account" nullable="true" type="reference"/>-->
+        <!--TODO: generated_code <field name="payzaAccount" column="payza_account" nullable="true" type="reference"/>-->
+        <!--TODO: generated_code <field name="webmoneyAccount" column="webmoney_account" nullable="true" type="reference"/>-->
+        
+    </entity>
+</doctrine-mapping>

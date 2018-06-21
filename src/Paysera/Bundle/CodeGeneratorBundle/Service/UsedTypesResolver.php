@@ -34,14 +34,21 @@ class UsedTypesResolver
 
     public function resolveDirectlyUsedTypes(ApiDefinition $api)
     {
+        $directTypes = $this->resolveDirectlyUsedTypesUnfiltered($api);
+        $types = $this->filterOutTypes($api, $directTypes);
+        sort($types);
+        return $types;
+    }
+
+    public function resolveDirectlyUsedTypesUnfiltered(ApiDefinition $api)
+    {
         $directTypes = [];
         foreach ($api->getRamlDefinition()->getResources() as $resource) {
             $directTypes = $this->getDirectlyUsedTypes($resource, $directTypes);
         }
 
-        $types = $this->filterOutTypes($api, $directTypes);
-        sort($types);
-        return $types;
+        sort($directTypes);
+        return array_unique($directTypes);
     }
 
     public function resolveRelatedTypes(TypeDefinition $type, ApiDefinition $api)
@@ -110,7 +117,7 @@ class UsedTypesResolver
         return $types;
     }
 
-    private function getDirectlyUsedTypes(Resource $resource, array $types)
+    public function getDirectlyUsedTypes(Resource $resource, array $types)
     {
         foreach ($resource->getTraits() as $resourceTrait) {
             if (count($resourceTrait->getQueryParameters()) > 0) {
@@ -129,7 +136,11 @@ class UsedTypesResolver
             foreach ($method->getResponses() as $response) {
                 /** @var Body $responseBody */
                 foreach ($response->getBodies() as $responseBody) {
-                    $types[] = $responseBody->getType()->getName();
+                    if ($responseBody->getType()->getType() !== null) {
+                        $types[] = $responseBody->getType()->getName();
+                    } elseif (in_array($response->getStatusCode(), [200], true)) {
+                        $types[] = null;
+                    }
                 }
             }
             /** @var Body $requestBody */

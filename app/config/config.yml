@@ -14,7 +14,7 @@ twig:
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
     globals:
-        language: null
+        code_type: null
 
 paysera_code_generator:
     vendor_prefix: '%vendor_prefix%'

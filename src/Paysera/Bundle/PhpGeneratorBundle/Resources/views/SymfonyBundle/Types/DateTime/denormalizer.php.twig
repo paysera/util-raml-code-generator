@@ -1,0 +1,3 @@
+if (isset($data['{{ property.name|to_snake_case }}'])) {
+            $entity->{{ php_generate_setter_name(property) }}((new \DateTime())->setTimestamp($data['{{ property.name|to_snake_case }}']));
+        }

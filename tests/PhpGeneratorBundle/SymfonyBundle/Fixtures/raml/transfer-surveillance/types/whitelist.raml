@@ -1,0 +1,32 @@
+#%RAML 1.0 DataType
+description: Transfer Inspection Rule Whitelist item
+properties:
+  id:
+    type: integer
+    required: false
+  payer_covenantee_id:
+    description: Covenantee Id of payer (not applicable for incoming transfers)
+    type: string
+    required: false
+  payer_account_identifier:
+    description: IBAN / email / purse / number / identifier
+    type: string
+    required: false
+  beneficiary_covenantee_id:
+    description: Covenantee Id of payer (not applicable for outgoing transfer)
+    type: string
+    required: false
+  beneficiary_account_identifier:
+    description: IBAN / email / purse / number / identifier
+    type: string
+    required: false
+  max_amount:
+    description: The maximum transfer amount that this whitelist can be applied to
+    type: Paysera.Money
+    required: false
+  profiles:
+    description: Whitelisted profiles (for blacklist rule checking only, required at least one profile)
+    required: false
+    type: array
+    items:
+      type: WhitelistProfile

@@ -1,0 +1,165 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="vendor_transfer_api.api.transfer"
+                 class="Paysera\Bundle\RestBundle\RestApi">
+            <tag name="paysera_rest.api" api_key="vendor_transfer_api.transfer"/>
+            <argument type="service" id="service_container"/>
+            <argument type="service" id="logger"/>
+                                
+
+            <call method="addRequestMapper">
+                <argument>vendor_transfer_api.normalizer.transfer_input</argument>
+                <argument>vendor_transfer_api.controller.transfer_api:createTransfer</argument>
+                <argument>transferInput</argument>
+            </call>
+            <call method="addResponseMapper">
+                <argument>vendor_transfer_api.normalizer.transfer_output</argument>
+                <argument>vendor_transfer_api.controller.transfer_api:createTransfer</argument>
+            </call>
+                                    
+
+            <call method="addRequestQueryMapper">
+                <argument>vendor_transfer_api.normalizer.transfer_input</argument>
+                <argument>vendor_transfer_api.controller.transfer_api:getTransfer</argument>
+                <argument>transferInput</argument>
+            </call>
+            <call method="addResponseMapper">
+                <argument>vendor_transfer_api.normalizer.transfer_output</argument>
+                <argument>vendor_transfer_api.controller.transfer_api:getTransfer</argument>
+            </call>
+                        
+
+            <call method="addRequestAttributeResolver">
+                <argument>vendor_transfer_api.entity_resolver.transfer_input_by_id</argument>
+                <argument>vendor_transfer_api.controller.transfer_api:deleteTransfer</argument>
+                <argument>id</argument>
+                <argument>transferInput</argument>
+            </call>
+            <call method="addResponseMapper">
+                <argument>vendor_transfer_api.normalizer.transfer_output</argument>
+                <argument>vendor_transfer_api.controller.transfer_api:deleteTransfer</argument>
+            </call>
+                                    
+
+            <call method="addRequestAttributeResolver">
+                <argument>vendor_transfer_api.entity_resolver.transfer_input_by_id</argument>
+                <argument>vendor_transfer_api.controller.transfer_api:signTransfer</argument>
+                <argument>id</argument>
+                <argument>transferInput</argument>
+            </call>
+            <call method="addRequestMapper">
+                <argument>vendor_transfer_api.normalizer.transfer_registration_parameters</argument>
+                <argument>vendor_transfer_api.controller.transfer_api:signTransfer</argument>
+                <argument>transferRegistrationParameters</argument>
+            </call>
+            <call method="addResponseMapper">
+                <argument>vendor_transfer_api.normalizer.transfer_output</argument>
+                <argument>vendor_transfer_api.controller.transfer_api:signTransfer</argument>
+            </call>
+                                    
+
+            <call method="addRequestAttributeResolver">
+                <argument>vendor_transfer_api.entity_resolver.transfer_input_by_id</argument>
+                <argument>vendor_transfer_api.controller.transfer_api:reserveTransfer</argument>
+                <argument>id</argument>
+                <argument>transferInput</argument>
+            </call>
+            <call method="addRequestMapper">
+                <argument>vendor_transfer_api.normalizer.transfer_registration_parameters</argument>
+                <argument>vendor_transfer_api.controller.transfer_api:reserveTransfer</argument>
+                <argument>transferRegistrationParameters</argument>
+            </call>
+            <call method="addResponseMapper">
+                <argument>vendor_transfer_api.normalizer.transfer_output</argument>
+                <argument>vendor_transfer_api.controller.transfer_api:reserveTransfer</argument>
+            </call>
+                                    
+
+            <call method="addRequestAttributeResolver">
+                <argument>vendor_transfer_api.entity_resolver.transfer_input_by_id</argument>
+                <argument>vendor_transfer_api.controller.transfer_api:provideTransferPassword</argument>
+                <argument>id</argument>
+                <argument>transferInput</argument>
+            </call>
+            <call method="addRequestMapper">
+                <argument>vendor_transfer_api.normalizer.transfer_password</argument>
+                <argument>vendor_transfer_api.controller.transfer_api:provideTransferPassword</argument>
+                <argument>transferPassword</argument>
+            </call>
+            <call method="addResponseMapper">
+                <argument>vendor_transfer_api.normalizer.transfer_output</argument>
+                <argument>vendor_transfer_api.controller.transfer_api:provideTransferPassword</argument>
+            </call>
+                                    
+
+            <call method="addRequestAttributeResolver">
+                <argument>vendor_transfer_api.entity_resolver.transfer_input_by_id</argument>
+                <argument>vendor_transfer_api.controller.transfer_api:freezeTransfer</argument>
+                <argument>id</argument>
+                <argument>transferInput</argument>
+            </call>
+            <call method="addResponseMapper">
+                <argument>vendor_transfer_api.normalizer.transfer_output</argument>
+                <argument>vendor_transfer_api.controller.transfer_api:freezeTransfer</argument>
+            </call>
+                                    
+
+            <call method="addRequestAttributeResolver">
+                <argument>vendor_transfer_api.entity_resolver.transfer_input_by_id</argument>
+                <argument>vendor_transfer_api.controller.transfer_api:completeTransfer</argument>
+                <argument>id</argument>
+                <argument>transferInput</argument>
+            </call>
+            <call method="addResponseMapper">
+                <argument>vendor_transfer_api.normalizer.transfer_output</argument>
+                <argument>vendor_transfer_api.controller.transfer_api:completeTransfer</argument>
+            </call>
+                                    
+
+            <call method="addRequestAttributeResolver">
+                <argument>vendor_transfer_api.entity_resolver.transfer_input_by_id</argument>
+                <argument>vendor_transfer_api.controller.transfer_api:registerTransfer</argument>
+                <argument>id</argument>
+                <argument>transferInput</argument>
+            </call>
+            <call method="addRequestMapper">
+                <argument>vendor_transfer_api.normalizer.transfer_registration_parameters</argument>
+                <argument>vendor_transfer_api.controller.transfer_api:registerTransfer</argument>
+                <argument>transferRegistrationParameters</argument>
+            </call>
+            <call method="addResponseMapper">
+                <argument>vendor_transfer_api.normalizer.transfer_output</argument>
+                <argument>vendor_transfer_api.controller.transfer_api:registerTransfer</argument>
+            </call>
+                                    
+
+            <call method="addRequestQueryMapper">
+                <argument>vendor_transfer_api.normalizer.transfers_filter</argument>
+                <argument>vendor_transfer_api.controller.transfer_api:getTransfers</argument>
+                <argument>transfersFilter</argument>
+            </call>
+            <call method="addResponseMapper">
+                <argument>vendor_transfer_api.normalizer.filtered_transfers_result</argument>
+                <argument>vendor_transfer_api.controller.transfer_api:getTransfers</argument>
+            </call>
+                                    
+
+            <call method="addRequestMapper">
+                <argument>vendor_transfer_api.normalizer.transfers_batch</argument>
+                <argument>vendor_transfer_api.controller.transfer_api:reserveTransfers</argument>
+                <argument>transfersBatch</argument>
+            </call>
+            <call method="addResponseMapper">
+                <argument>vendor_transfer_api.normalizer.transfers_batch_result</argument>
+                <argument>vendor_transfer_api.controller.transfer_api:reserveTransfers</argument>
+            </call>
+            
+        </service>
+        
+    </services>
+</container>

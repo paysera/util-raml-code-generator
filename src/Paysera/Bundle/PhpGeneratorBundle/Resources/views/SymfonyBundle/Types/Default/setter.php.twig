@@ -1,0 +1,9 @@
+    /**
+     * @param {% include get_method_argument_type_template(property) with { 'property': property } only %}
+     * @return $this
+     */
+    public function {{ php_generate_setter_name(property) }}({% include get_method_argument_typehint_template(property) with { 'property': property } only %})
+    {
+        $this->{{ property.name|to_variable_name }} = ${{ property.name|to_variable_name }};
+        return $this;
+    }

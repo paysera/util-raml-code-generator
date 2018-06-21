@@ -13,8 +13,8 @@ class PayseraCodeGeneratorBundle extends Bundle
         $container->addCompilerPass(new AddTaggedCompilerPass(
             'paysera_code_generator.code_generator',
             'paysera_code_generator',
-            'addLanguageCodeGenerator',
-            ['language']
+            'addCodeGenerator',
+            ['type']
         ));
 
         $container->addCompilerPass(new AddTaggedCompilerPass(
@@ -28,7 +28,7 @@ class PayseraCodeGeneratorBundle extends Bundle
             'paysera_code_generator.type_configuration_provider_storage',
             'paysera_code_generator.type_configuration_provider',
             'addTypeConfigurationProvider',
-            ['language']
+            ['type']
         ));
     }
 }

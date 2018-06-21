@@ -1,0 +1,48 @@
+{% spaceless -%}
+    {% set is_result_provider = false %}
+    {% for resource in flatten_resources(api) %}
+        {% if get_method_entity_name(resource)|to_class_name == type.name|to_class_name %}
+            {% for method in resource.methods %}
+                {% set arguments = symfony_bundle_generate_method_arguments(method, resource, api) %}
+                {% if method_returns_result(method, api) and extract_filter_from_arguments(arguments) is not null -%}
+                    {% set is_result_provider = true %}
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    {% endfor %}
+{% endspaceless -%}
+<?php
+
+namespace {{ api.namespace }}\Repository;
+
+use Doctrine\ORM\EntityRepository;
+{% if is_result_provider -%}
+use Paysera\Bundle\RestBundle\Repository\FilterAwareRepositoryInterface;
+use {{ api.namespace }}\Entity\{{ type.name|extract_type_name|to_class_name }};
+use {{ api.namespace }}\Entity\{{ type.name|extract_type_name|to_class_name }}Filter;
+{% endif %}
+
+class {{ type.name|extract_type_name|to_class_name }}Repository extends EntityRepository{{ is_result_provider ? ' implements FilterAwareRepositoryInterface' : '' }}
+{
+{% if is_result_provider %}
+    /**
+     * @param {{ type.name|extract_type_name|to_class_name }}Filter $filter
+     *
+     * @return {{ type.name|extract_type_name|to_class_name }}[]
+     */
+    public function findByFilter($filter)
+    {
+        //TODO: generated_code
+    }
+
+    /**
+    * @param {{ type.name|extract_type_name|to_class_name }}Filter $filter
+    *
+    * @return int
+    */
+    public function findCountByFilter($filter)
+    {
+        //TODO: generated_code
+    }
+{% endif %}
+}

@@ -10,8 +10,8 @@ import {{ typeConfig.typeName|extract_type_name }} from './{{ typeConfig.typeNam
 {% endif %}
 class {{ type.name|extract_type_name }} extends {{ get_parent_type_config(type).typeName }} {
 {%- for property in type.properties %}
-{% include '@PayseraJavascriptGenerator/Package/Src/Entity/Method/getter.js.twig' with { 'property': property } only %}
-{% include '@PayseraJavascriptGenerator/Package/Src/Entity/Method/setter.js.twig' with { 'property': property } only %}
+{% include get_getter_method_template(property) with { 'property': property } only %}
+{% include get_setter_method_template(property) with { 'property': property } only %}
 {% endfor %}
 }
 

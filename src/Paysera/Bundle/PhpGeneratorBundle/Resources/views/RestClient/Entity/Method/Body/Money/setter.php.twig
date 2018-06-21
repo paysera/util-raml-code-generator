@@ -1,1 +1,9 @@
-$this->set('{{ property.name }}', ['amount' => ${{ property.name|to_variable_name }}->getAmount(), 'currency' => ${{ property.name|to_variable_name }}->getCurrency()]);
+    /**
+     * @param {% include get_method_argument_type_template(property) with { 'property': property } only %}
+     * @return $this
+     */
+    public function {{ php_generate_setter_name(property) }}({% include get_method_argument_typehint_template(property) with { 'property': property } only %})
+    {
+        $this->set('{{ property.name }}', ['amount' => ${{ property.name|to_variable_name }}->getAmount(), 'currency' => ${{ property.name|to_variable_name }}->getCurrency()]);
+        return $this;
+    }

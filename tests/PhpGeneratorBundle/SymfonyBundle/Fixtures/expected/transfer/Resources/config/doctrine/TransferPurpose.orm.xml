@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+    <entity repository-class="Vendor\Test\TransferApiBundle\Repository\TransferPurposeRepository"
+            name="Vendor\Test\TransferApiBundle\Entity\TransferPurpose" table="transfer_api_transfer_purposes">
+
+        <id name="id" type="integer" column="id">
+            <generator strategy="IDENTITY"/>
+        </id>
+        <field name="details" column="details" nullable="true" type="string"/>
+        <field name="reference" column="reference" nullable="true" type="string"/>
+        <field name="voCode" column="vo_code" nullable="true" type="string"/>
+        <field name="ocrCode" column="ocr_code" nullable="true" type="string"/>
+        <!--TODO: generated_code <field name="detailsOptions" column="details_options" nullable="true" type="reference"/>-->
+        <field name="code" column="code" nullable="true" type="string"/>
+        
+    </entity>
+</doctrine-mapping>

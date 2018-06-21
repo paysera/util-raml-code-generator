@@ -1,8 +1,12 @@
-
-{% if property.itemsType in property.simpleTypes %}
-        return $this->get('{{ property.name }}');
-{% else %}
-        $items = $this->getByReference('{{ property.name }}');
+    /**
+     * @return {% include get_method_return_type_template(property) with { 'property': property } only %}
+     */
+    public function {{ php_generate_getter_name(property) }}()
+    {
+    {% if property.itemsType in property.simpleTypes %}
+    return $this->get('{{ property.name }}');
+    {% else %}
+    $items = $this->getByReference('{{ property.name }}');
         if ($items === null) {
             return [];
         }
@@ -13,4 +17,5 @@
         }
 
         return $list;
-{% endif %}
+    {% endif %}
+}

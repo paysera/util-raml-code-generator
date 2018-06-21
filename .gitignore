@@ -20,9 +20,6 @@
 
 .arcconfig
 generated/
-!generated/.gitkeep
-/raml/
-!raml/.gitkeep
 
 bin/
 !bin/console

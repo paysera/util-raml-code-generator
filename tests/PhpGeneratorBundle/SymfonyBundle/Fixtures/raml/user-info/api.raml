@@ -1,0 +1,49 @@
+#%RAML 1.0
+title: User Info
+version: 1.0
+baseUri: https://example.com/user/rest/v1
+mediaType: application/json
+protocols: [ HTTPS ]
+
+types:
+  UserInfo: !include types/user-info.raml
+  Legal: !include types/legal.raml
+  Natural: !include types/natural.raml
+
+/users:
+  /legal:
+    post:
+      description: Creates Legal User
+      body:
+        application/json:
+          type: Legal
+  /natural:
+    post:
+      description: Creates Natural User
+      body:
+        application/json:
+          type: Natural
+  /{id}:
+    uriParameters:
+      id:
+        required: true
+        type: string
+
+    /information:
+      get:
+        description: Get user by it's id
+        responses:
+          200:
+            body:
+              application/json:
+                type: UserInfo
+      put:
+        description: Updates user resource
+        body:
+          application/json:
+            type: UserInfo
+        responses:
+          200:
+            body:
+              application/json:
+                type: UserInfo

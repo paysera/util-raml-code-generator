@@ -1,0 +1,46 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="vendor_transfer_surveillance_api.repository.match_criteria"
+                 class="Vendor\Test\TransferSurveillanceApiBundle\Repository\MatchCriteriaRepository"
+                 lazy="true">
+            <factory service="doctrine.orm.entity_manager" method="getRepository"/>
+            <argument>VendorTransferSurveillanceApiBundle:MatchCriteria</argument>
+        </service>
+        <service id="vendor_transfer_surveillance_api.repository.matcher"
+                 class="Vendor\Test\TransferSurveillanceApiBundle\Repository\MatcherRepository"
+                 lazy="true">
+            <factory service="doctrine.orm.entity_manager" method="getRepository"/>
+            <argument>VendorTransferSurveillanceApiBundle:Matcher</argument>
+        </service>
+        <service id="vendor_transfer_surveillance_api.repository.review"
+                 class="Vendor\Test\TransferSurveillanceApiBundle\Repository\ReviewRepository"
+                 lazy="true">
+            <factory service="doctrine.orm.entity_manager" method="getRepository"/>
+            <argument>VendorTransferSurveillanceApiBundle:Review</argument>
+        </service>
+        <service id="vendor_transfer_surveillance_api.repository.rule"
+                 class="Vendor\Test\TransferSurveillanceApiBundle\Repository\RuleRepository"
+                 lazy="true">
+            <factory service="doctrine.orm.entity_manager" method="getRepository"/>
+            <argument>VendorTransferSurveillanceApiBundle:Rule</argument>
+        </service>
+        <service id="vendor_transfer_surveillance_api.repository.whitelist"
+                 class="Vendor\Test\TransferSurveillanceApiBundle\Repository\WhitelistRepository"
+                 lazy="true">
+            <factory service="doctrine.orm.entity_manager" method="getRepository"/>
+            <argument>VendorTransferSurveillanceApiBundle:Whitelist</argument>
+        </service>
+        <service id="vendor_transfer_surveillance_api.repository.whitelist_profile"
+                 class="Vendor\Test\TransferSurveillanceApiBundle\Repository\WhitelistProfileRepository"
+                 lazy="true">
+            <factory service="doctrine.orm.entity_manager" method="getRepository"/>
+            <argument>VendorTransferSurveillanceApiBundle:WhitelistProfile</argument>
+        </service>
+        
+    </services>
+</container>

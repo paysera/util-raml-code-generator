@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+    <entity repository-class="Vendor\Test\AuthApiBundle\Repository\ScopeChallengeRepository"
+            name="Vendor\Test\AuthApiBundle\Entity\ScopeChallenge" table="auth_api_scope_challenges">
+
+        <id name="id" type="integer" column="id">
+            <generator strategy="IDENTITY"/>
+        </id>
+        <field name="challengeId" column="challenge_id" nullable="false" type="string"/>
+        
+    </entity>
+</doctrine-mapping>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<routes xmlns="http://symfony.com/schema/routing"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
+
+    <route id="vendor_inheritance_api.get_user_natural" methods="GET" path="/users/natural">
+        <default key="_controller">vendor_inheritance_api.controller.user_api:getUserNatural</default>
+        <default key="api_key">vendor_inheritance_api.user</default>
+        <option key="expose">true</option>
+    </route>
+    <route id="vendor_inheritance_api.create_natural_user" methods="POST" path="/users/natural">
+        <default key="_controller">vendor_inheritance_api.controller.user_api:createNaturalUser</default>
+        <default key="api_key">vendor_inheritance_api.user</default>
+        <option key="expose">true</option>
+    </route>
+    <route id="vendor_inheritance_api.get_user_legal" methods="GET" path="/users/legal">
+        <default key="_controller">vendor_inheritance_api.controller.user_api:getUserLegal</default>
+        <default key="api_key">vendor_inheritance_api.user</default>
+        <option key="expose">true</option>
+    </route>
+    <route id="vendor_inheritance_api.create_legal_user" methods="POST" path="/users/legal">
+        <default key="_controller">vendor_inheritance_api.controller.user_api:createLegalUser</default>
+        <default key="api_key">vendor_inheritance_api.user</default>
+        <option key="expose">true</option>
+    </route>
+    <route id="vendor_inheritance_api.get_users" methods="GET" path="/users">
+        <default key="_controller">vendor_inheritance_api.controller.user_api:getUsers</default>
+        <default key="api_key">vendor_inheritance_api.user</default>
+        <option key="expose">true</option>
+    </route>
+    <route id="vendor_inheritance_api.create_user" methods="POST" path="/users">
+        <default key="_controller">vendor_inheritance_api.controller.user_api:createUser</default>
+        <default key="api_key">vendor_inheritance_api.user</default>
+        <option key="expose">true</option>
+    </route>
+</routes>

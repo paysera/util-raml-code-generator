@@ -86,7 +86,7 @@ class UserInfoClient {
      * @param {UserInfo} userInfo
      * @return {Promise.<UserInfo>}
      */
-    informationUser(id, userInfo) {
+    updateUserInformation(id, userInfo) {
         const request = RequestFactory.create(
             'PUT',
             'users/' + encodeURIComponent(id) + '/information',

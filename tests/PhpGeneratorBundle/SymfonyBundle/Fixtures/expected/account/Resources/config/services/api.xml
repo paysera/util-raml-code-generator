@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="vendor_account_api.api.account"
+                 class="Paysera\Bundle\RestBundle\RestApi">
+            <tag name="paysera_rest.api" api_key="vendor_account_api.account"/>
+            <argument type="service" id="service_container"/>
+            <argument type="service" id="logger"/>
+                                
+
+            <call method="addRequestQueryMapper">
+                <argument>vendor_account_api.normalizer.account_filter</argument>
+                <argument>vendor_account_api.controller.account_api:getAccounts</argument>
+                <argument>accountFilter</argument>
+            </call>
+            <call method="addResponseMapper">
+                <argument>vendor_account_api.normalizer.account_result</argument>
+                <argument>vendor_account_api.controller.account_api:getAccounts</argument>
+            </call>
+                                    
+
+            
+        </service>
+        
+    </services>
+</container>

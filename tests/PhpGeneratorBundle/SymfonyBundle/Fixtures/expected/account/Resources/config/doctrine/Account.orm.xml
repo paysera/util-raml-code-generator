@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+    <entity repository-class="Vendor\Test\AccountApiBundle\Repository\AccountRepository"
+            name="Vendor\Test\AccountApiBundle\Entity\Account" table="account_api_accounts">
+
+        <id name="id" type="integer" column="id">
+            <generator strategy="IDENTITY"/>
+        </id>
+        <field name="createdAt" column="created_at" nullable="false" type="datetime"/>
+        <field name="number" column="number" nullable="false" type="string"/>
+        <field name="active" column="active" nullable="false" type="boolean"/>
+        <field name="clientId" column="client_id" nullable="false" type="integer"/>
+        <field name="closed" column="closed" nullable="false" type="boolean"/>
+        <field name="type" column="type" nullable="false" type="string"/>
+        <!--TODO: generated_code <field name="undescribed" column="undescribed" nullable="false" type="reference"/>-->
+        
+    </entity>
+</doctrine-mapping>

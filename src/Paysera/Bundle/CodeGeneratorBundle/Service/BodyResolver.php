@@ -21,6 +21,20 @@ class BodyResolver
      * @return null|Body
      * @throws \Exception
      */
+    public function getRequestBody(Method $method)
+    {
+        try {
+            return $method->getBodyByType(self::BODY_JSON);
+        } catch (Exception $exception) {
+            return null;
+        }
+    }
+
+    /**
+     * @param Method $method
+     * @return null|Body
+     * @throws \Exception
+     */
     public function getResponseBody(Method $method)
     {
         $okResponse = $method->getResponse(StatusCodeInterface::STATUS_OK);

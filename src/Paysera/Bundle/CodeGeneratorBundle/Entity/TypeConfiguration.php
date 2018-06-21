@@ -50,6 +50,31 @@ class TypeConfiguration
     private $importString;
 
     /**
+     * @var string
+     */
+    private $normalizerTemplate;
+
+    /**
+     * @var string
+     */
+    private $denormalizerTemplate;
+
+    /**
+     * @var string
+     */
+    private $entityFieldTemplate;
+
+    /**
+     * @var string
+     */
+    private $ormFieldTemplate;
+
+    /**
+     * @var string
+     */
+    private $normalizerImportString;
+
+    /**
      * @return string
      */
     public function getMatchRegex()
@@ -217,6 +242,101 @@ class TypeConfiguration
     public function setImportString($importString)
     {
         $this->importString = $importString;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getNormalizerTemplate()
+    {
+        return $this->normalizerTemplate;
+    }
+
+    /**
+     * @param string $normalizerTemplate
+     *
+     * @return $this
+     */
+    public function setNormalizerTemplate($normalizerTemplate)
+    {
+        $this->normalizerTemplate = $normalizerTemplate;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDenormalizerTemplate()
+    {
+        return $this->denormalizerTemplate;
+    }
+
+    /**
+     * @param string $denormalizerTemplate
+     *
+     * @return $this
+     */
+    public function setDenormalizerTemplate($denormalizerTemplate)
+    {
+        $this->denormalizerTemplate = $denormalizerTemplate;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEntityFieldTemplate()
+    {
+        return $this->entityFieldTemplate;
+    }
+
+    /**
+     * @param string $entityFieldTemplate
+     *
+     * @return $this
+     */
+    public function setEntityFieldTemplate($entityFieldTemplate)
+    {
+        $this->entityFieldTemplate = $entityFieldTemplate;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getOrmFieldTemplate()
+    {
+        return $this->ormFieldTemplate;
+    }
+
+    /**
+     * @param string $ormFieldTemplate
+     *
+     * @return $this
+     */
+    public function setOrmFieldTemplate($ormFieldTemplate)
+    {
+        $this->ormFieldTemplate = $ormFieldTemplate;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getNormalizerImportString()
+    {
+        return $this->normalizerImportString;
+    }
+
+    /**
+     * @param string $normalizerImportString
+     *
+     * @return $this
+     */
+    public function setNormalizerImportString($normalizerImportString)
+    {
+        $this->normalizerImportString = $normalizerImportString;
         return $this;
     }
 }

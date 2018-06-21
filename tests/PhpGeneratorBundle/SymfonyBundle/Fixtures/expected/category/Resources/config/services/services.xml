@@ -1,0 +1,38 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="vendor_category_api.category_manager"
+                 class="Vendor\Test\CategoryApiBundle\Service\CategoryManager">
+            <argument type="service" id="vendor_category_api.repository.category"/>
+            <argument type="service" id="doctrine.orm.entity_manager"/>
+        </service>
+        <service id="vendor_category_api.voter.category_scope"
+                 class="Vendor\Test\CategoryApiBundle\Voter\CategoryScopeVoter"
+                 parent="paysera_security.security.context_aware_scope_voter"
+                 public="false">
+            <tag name="security.voter"/>
+        </service>
+        <service id="vendor_category_api.keyword_manager"
+                 class="Vendor\Test\CategoryApiBundle\Service\KeywordManager">
+            <argument type="service" id="vendor_category_api.repository.keyword"/>
+            <argument type="service" id="doctrine.orm.entity_manager"/>
+        </service>
+        <service id="vendor_category_api.voter.keyword_scope"
+                 class="Vendor\Test\CategoryApiBundle\Voter\KeywordScopeVoter"
+                 parent="paysera_security.security.context_aware_scope_voter"
+                 public="false">
+            <tag name="security.voter"/>
+        </service>
+        
+        <service id="vendor_category_api.entity_resolver.category_by_id"
+                 class="Paysera\Bundle\RestBundle\Resolver\RepositoryAwareEntityResolver">
+            <argument type="service" id="vendor_category_api.repository.category"/>
+            <argument>id</argument>
+        </service>
+            
+    </services>
+</container>

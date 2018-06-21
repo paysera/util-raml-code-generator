@@ -1,0 +1,12 @@
+    /**
+     * @return {% include get_method_return_type_template(property) with { 'property': property } only %}
+     */
+    public function {{ php_generate_getter_name(property) }}()
+    {
+    {% if property.required == false %}
+    if ($this->{{ property.name|to_variable_name ~ 'Amount' }} === null && $this->{{ property.name|to_variable_name ~ 'Currency' }} === null) {
+            return null;
+        }
+    {% endif %}
+    return new Money($this->{{ property.name|to_variable_name ~ 'Amount' }}, $this->{{ property.name|to_variable_name ~ 'Currency' }});
+    }

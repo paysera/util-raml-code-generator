@@ -1,0 +1,44 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="paysera_php_generator.generator.php_client.entity"
+                 class="Paysera\Bundle\PhpGeneratorBundle\Service\Generator\PhpClient\EntityGenerator">
+            <argument type="service" id="templating"/>
+            <argument type="service" id="paysera_php_generator.type_configuration_provider.php_client"/>
+            <argument type="service" id="paysera_code_generator.used_types_resolver"/>
+            <argument type="service" id="paysera_code_generator.string_converter"/>
+            <tag name="paysera_php_generator.php_client" position="10"/>
+        </service>
+
+        <service id="paysera_php_generator.generator.php_client.client_factory"
+                 class="Paysera\Bundle\PhpGeneratorBundle\Service\Generator\PhpClient\ClientFactoryGenerator">
+            <argument type="service" id="templating"/>
+            <tag name="paysera_php_generator.php_client" position="20"/>
+        </service>
+
+        <service id="paysera_php_generator.generator.php_client.client"
+                 class="Paysera\Bundle\PhpGeneratorBundle\Service\Generator\PhpClient\ClientGenerator">
+            <argument type="service" id="paysera_code_generator.string_converter"/>
+            <argument type="service" id="templating"/>
+            <tag name="paysera_php_generator.php_client" position="30"/>
+        </service>
+
+        <service id="paysera_php_generator.generator.php_client.composer_json"
+                 class="Paysera\Bundle\PhpGeneratorBundle\Service\Generator\PhpClient\ComposerJsonGenerator">
+            <argument type="service" id="templating"/>
+            <argument>%paysera_code_generator.vendor_prefix%</argument>
+            <tag name="paysera_php_generator.php_client" position="40"/>
+        </service>
+
+        <service id="paysera_php_generator.generator.php_client.readme"
+                 class="Paysera\Bundle\PhpGeneratorBundle\Service\Generator\PhpClient\ReadmeGenerator">
+            <argument type="service" id="templating"/>
+            <argument>%paysera_code_generator.vendor_prefix%</argument>
+            <tag name="paysera_php_generator.php_client" position="50"/>
+        </service>
+    </services>
+</container>

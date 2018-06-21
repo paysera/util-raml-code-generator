@@ -1,0 +1,32 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="vendor_inheritance_api.normalizer.user"
+                 class="Vendor\Test\InheritanceApiBundle\Normalizer\UserNormalizer">
+        </service>
+        <service id="vendor_inheritance_api.normalizer.user_basic"
+                 class="Vendor\Test\InheritanceApiBundle\Normalizer\UserBasicNormalizer">
+        </service>
+        <service id="vendor_inheritance_api.normalizer.user_filter"
+                 class="Vendor\Test\InheritanceApiBundle\Normalizer\UserFilterNormalizer">
+        </service>
+        <service id="vendor_inheritance_api.normalizer.user_legal"
+                 class="Vendor\Test\InheritanceApiBundle\Normalizer\UserLegalNormalizer">
+        </service>
+        <service id="vendor_inheritance_api.normalizer.user_legal_filter"
+                 class="Vendor\Test\InheritanceApiBundle\Normalizer\UserLegalFilterNormalizer">
+        </service>
+        <service id="vendor_inheritance_api.normalizer.user_natural"
+                 class="Vendor\Test\InheritanceApiBundle\Normalizer\UserNaturalNormalizer">
+        </service>
+        <service id="vendor_inheritance_api.normalizer.user_natural_filter"
+                 class="Vendor\Test\InheritanceApiBundle\Normalizer\UserNaturalFilterNormalizer">
+        </service>
+        
+        
+    </services>
+</container>

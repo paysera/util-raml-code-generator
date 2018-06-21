@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+    <entity repository-class="Vendor\Test\UserRiskLevelApiBundle\Repository\RiskRuleRepository"
+            name="Vendor\Test\UserRiskLevelApiBundle\Entity\RiskRule" table="user_risk_level_api_risk_rules">
+
+        <id name="id" type="integer" column="id">
+            <generator strategy="IDENTITY"/>
+        </id>
+        <field name="name" column="name" nullable="false" type="string"/>
+        <field name="applied" column="applied" nullable="false" type="boolean"/>
+        
+    </entity>
+</doctrine-mapping>

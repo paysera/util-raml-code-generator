@@ -1,0 +1,47 @@
+    {% if property.itemsType not in property.scalarTypes -%}
+    {% set propertyName = property.name|to_variable_name %}
+    /**
+     * @param {% include get_method_argument_type_template(property) with { 'property': property } only %}
+     * @return $this
+     */
+    public function {{ php_generate_setter_name(property) }}({% include get_method_argument_typehint_template(property) with { 'property': property } only %})
+    {
+        foreach($this->{{ propertyName }} as $item) {
+            $this->remove{{ propertyName|to_singular|to_class_name }}($item);
+        }
+        foreach(${{ property.name|to_variable_name }} as $item) {
+            $this->add{{ propertyName|to_singular|to_class_name }}($item);
+        }
+        return $this;
+    }
+    /**
+     * @param {{ property.itemsType|extract_type_name }} ${{ propertyName|to_singular }}
+     * @return $this
+     */
+    public function add{{ propertyName|to_singular|to_class_name }}(${{ propertyName|to_singular }})
+    {
+        if(!$this->{{ propertyName }}->contains(${{ propertyName|to_singular }})) {
+            $this->{{ propertyName }}->add(${{ propertyName|to_singular }});
+        }
+        return $this;
+    }
+    /**
+     * @param {{ property.itemsType|extract_type_name }} ${{ propertyName|to_singular }}
+     * @return $this
+     */
+    public function remove{{ propertyName|to_singular|to_class_name }}(${{ propertyName|to_singular }})
+    {
+        $this->{{ propertyName }}->removeElement(${{ propertyName|to_singular }});
+        return $this;
+    }
+    {% else -%}
+    /**
+     * @param {% include get_method_argument_type_template(property) with { 'property': property } only %}
+     * @return $this
+     */
+    public function {{ php_generate_setter_name(property) }}({% include get_method_argument_typehint_template(property) with { 'property': property } only %})
+    {
+        $this->{{ property.name|to_variable_name }} = ${{ property.name|to_variable_name }};
+        return $this;
+    }
+{% endif -%}

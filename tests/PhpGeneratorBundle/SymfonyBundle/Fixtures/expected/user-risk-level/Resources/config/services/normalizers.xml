@@ -1,0 +1,39 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="vendor_user_risk_level_api.normalizer.audit_record"
+                 class="Vendor\Test\UserRiskLevelApiBundle\Normalizer\AuditRecordNormalizer">
+        </service>
+        <service id="vendor_user_risk_level_api.normalizer.auditable_manual_rule"
+                 class="Vendor\Test\UserRiskLevelApiBundle\Normalizer\AuditableManualRuleNormalizer">
+            <argument type="service" id="vendor_user_risk_level_api.normalizer.manual_rule"/>
+            <argument type="service" id="vendor_user_risk_level_api.normalizer.audit_record"/>
+        </service>
+        <service id="vendor_user_risk_level_api.normalizer.manual_rule"
+                 class="Vendor\Test\UserRiskLevelApiBundle\Normalizer\ManualRuleNormalizer">
+        </service>
+        <service id="vendor_user_risk_level_api.normalizer.manual_rule_result"
+                 class="Paysera\Component\Serializer\Normalizer\ResultNormalizer"
+                 parent="paysera_rest.normalizer.result">
+            <argument>items</argument>
+            <argument type="service" id="vendor_user_risk_level_api.normalizer.manual_rule"/>
+        </service>
+        <service id="vendor_user_risk_level_api.normalizer.risk_level"
+                 class="Vendor\Test\UserRiskLevelApiBundle\Normalizer\RiskLevelNormalizer">
+            <argument type="service" id="vendor_user_risk_level_api.normalizer.risk_rules.array"/>
+        </service>
+        <service id="vendor_user_risk_level_api.normalizer.risk_rule"
+                 class="Vendor\Test\UserRiskLevelApiBundle\Normalizer\RiskRuleNormalizer">
+        </service>
+        
+        <service id="vendor_user_risk_level_api.normalizer.risk_rules.array"
+                 class="Paysera\Component\Serializer\Normalizer\ArrayNormalizer">
+            <argument type="service" id="vendor_user_risk_level_api.normalizer.risk_rule"/>
+        </service>
+        
+    </services>
+</container>

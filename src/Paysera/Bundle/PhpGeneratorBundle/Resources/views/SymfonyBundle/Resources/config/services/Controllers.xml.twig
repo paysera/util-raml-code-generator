@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        {% for entity_name, resource in resources -%}
+        <service id="{{ vendor_name|to_snake_case ~ '_' ~ api.name|to_snake_case }}.controller.{{ entity_name|to_class_name|to_snake_case }}_api"
+                 class="{{ api.namespace }}\Controller\{{ entity_name|to_class_name }}ApiController">
+            {% for arg in symfony_bundle_get_controller_constructor_args(resource, api) -%}
+            <argument type="service" id="{{ vendor_name|to_snake_case ~ '_' ~ api.name|to_snake_case }}.{{ arg.type|to_class_name|to_snake_case }}"/>
+            {% endfor -%}
+            <argument type="service" id="paysera_security.service.authorization_checker"/>
+            <argument type="service" id="doctrine.orm.entity_manager"/>
+        </service>
+        {% endfor %}
+
+    </services>
+</container>

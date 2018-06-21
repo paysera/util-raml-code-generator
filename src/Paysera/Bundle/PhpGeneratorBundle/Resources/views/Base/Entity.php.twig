@@ -1,0 +1,12 @@
+<?php
+
+namespace {{ api.namespace }}\Entity;
+
+{% set importsExists = false %}
+{% for type in get_related_types_config(type, api) if type.importString is not null %}
+{% set importsExists = true %}
+use {{ type.importString }};
+{% endfor %}
+{% if importsExists == true %}
+
+{% endif %}

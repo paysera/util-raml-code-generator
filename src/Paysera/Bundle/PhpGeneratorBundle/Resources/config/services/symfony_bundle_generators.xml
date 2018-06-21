@@ -1,0 +1,96 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="paysera_php_generator.generator.symfony_bundle.entity"
+                 class="Paysera\Bundle\PhpGeneratorBundle\Service\Generator\SymfonyBundle\EntityGenerator">
+            <argument type="service" id="templating"/>
+            <argument type="service" id="paysera_php_generator.type_configuration_provider.symfony_bundle"/>
+            <argument type="service" id="paysera_code_generator.used_types_resolver"/>
+            <argument type="service" id="paysera_code_generator.string_converter"/>
+            <tag name="paysera_php_generator.symfony_bundle" position="10"/>
+        </service>
+
+        <service id="paysera_php_generator.generator.symfony_bundle.bundle"
+                 class="Paysera\Bundle\PhpGeneratorBundle\Service\Generator\SymfonyBundle\BundleGenerator">
+            <argument type="service" id="templating"/>
+            <argument type="service" id="paysera_code_generator.string_converter"/>
+            <tag name="paysera_php_generator.symfony_bundle" position="20"/>
+        </service>
+
+        <service id="paysera_php_generator.generator.symfony_bundle.repository"
+                 class="Paysera\Bundle\PhpGeneratorBundle\Service\Generator\SymfonyBundle\RepositoryGenerator">
+            <argument type="service" id="templating"/>
+            <argument type="service" id="paysera_php_generator.type_configuration_provider.symfony_bundle"/>
+            <argument type="service" id="paysera_code_generator.used_types_resolver"/>
+            <argument type="service" id="paysera_code_generator.string_converter"/>
+            <tag name="paysera_php_generator.symfony_bundle" position="30"/>
+        </service>
+
+        <service id="paysera_php_generator.generator.symfony_bundle.doctrine_mapping"
+                 class="Paysera\Bundle\PhpGeneratorBundle\Service\Generator\SymfonyBundle\DoctrineMappingGenerator">
+            <argument type="service" id="templating"/>
+            <argument type="service" id="paysera_php_generator.type_configuration_provider.symfony_bundle"/>
+            <argument type="service" id="paysera_code_generator.used_types_resolver"/>
+            <argument type="service" id="paysera_code_generator.string_converter"/>
+            <tag name="paysera_php_generator.symfony_bundle" position="40"/>
+        </service>
+
+        <service id="paysera_php_generator.generator.symfony_bundle.normalizer"
+                 class="Paysera\Bundle\PhpGeneratorBundle\Service\Generator\SymfonyBundle\NormalizerGenerator">
+            <argument type="service" id="templating"/>
+            <argument type="service" id="paysera_php_generator.type_configuration_provider.symfony_bundle"/>
+            <argument type="service" id="paysera_code_generator.used_types_resolver"/>
+            <argument type="service" id="paysera_code_generator.string_converter"/>
+            <tag name="paysera_php_generator.symfony_bundle" position="50"/>
+        </service>
+
+        <service id="paysera_php_generator.generator.symfony_bundle.controller"
+                 class="Paysera\Bundle\PhpGeneratorBundle\Service\Generator\SymfonyBundle\ControllerGenerator">
+            <argument type="service" id="templating"/>
+            <argument type="service" id="paysera_code_generator.method_name_builder"/>
+            <argument type="service" id="paysera_code_generator.string_converter"/>
+            <tag name="paysera_php_generator.symfony_bundle" position="60"/>
+        </service>
+
+        <service id="paysera_php_generator.generator.symfony_bundle.services"
+                 class="Paysera\Bundle\PhpGeneratorBundle\Service\Generator\SymfonyBundle\ServicesGenerator">
+            <argument type="service" id="templating"/>
+            <argument type="service" id="paysera_php_generator.twig_extension.bundle"/>
+            <argument type="service" id="paysera_code_generator.string_converter"/>
+            <tag name="paysera_php_generator.symfony_bundle" position="70"/>
+        </service>
+
+        <service id="paysera_php_generator.generator.symfony_bundle.routing"
+                 class="Paysera\Bundle\PhpGeneratorBundle\Service\Generator\SymfonyBundle\RoutingGenerator">
+            <argument type="service" id="templating"/>
+            <tag name="paysera_php_generator.symfony_bundle" position="80"/>
+        </service>
+
+        <service id="paysera_php_generator.generator.symfony_bundle.api"
+                 class="Paysera\Bundle\PhpGeneratorBundle\Service\Generator\SymfonyBundle\ApiGenerator">
+            <argument type="service" id="templating"/>
+            <argument type="service" id="paysera_code_generator.method_name_builder"/>
+            <tag name="paysera_php_generator.symfony_bundle" position="90"/>
+        </service>
+
+        <service id="paysera_php_generator.generator.symfony_bundle.permissions"
+                 class="Paysera\Bundle\PhpGeneratorBundle\Service\Generator\SymfonyBundle\PermissionsGenerator">
+            <argument type="service" id="templating"/>
+            <argument type="service" id="paysera_code_generator.method_name_builder"/>
+            <argument type="service" id="paysera_code_generator.string_converter"/>
+            <tag name="paysera_php_generator.symfony_bundle" position="100"/>
+        </service>
+
+        <service id="paysera_php_generator.generator.symfony_bundle.scope_voter"
+                 class="Paysera\Bundle\PhpGeneratorBundle\Service\Generator\SymfonyBundle\ScopeVoterGenerator">
+            <argument type="service" id="templating"/>
+            <argument type="service" id="paysera_code_generator.method_name_builder"/>
+            <argument type="service" id="paysera_code_generator.string_converter"/>
+            <tag name="paysera_php_generator.symfony_bundle" position="110"/>
+        </service>
+    </services>
+</container>

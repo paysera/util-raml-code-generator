@@ -11,5 +11,13 @@
             <argument type="service" id="twig"/>
             <tag name="console.command"/>
         </service>
+
+
+        <service id="paysera_php_generator.command.generate_symfony_bundle"
+                 class="Paysera\Bundle\PhpGeneratorBundle\Command\GenerateSymfonyBundleCommand">
+            <argument type="service" id="paysera_code_generator.code_generator"/>
+            <argument type="service" id="twig"/>
+            <tag name="console.command"/>
+        </service>
     </services>
 </container>

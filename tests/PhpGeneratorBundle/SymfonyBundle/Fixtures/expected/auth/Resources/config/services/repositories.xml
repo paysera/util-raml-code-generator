@@ -1,0 +1,58 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="vendor_auth_api.repository.auth_token"
+                 class="Vendor\Test\AuthApiBundle\Repository\AuthTokenRepository"
+                 lazy="true">
+            <factory service="doctrine.orm.entity_manager" method="getRepository"/>
+            <argument>VendorAuthApiBundle:AuthToken</argument>
+        </service>
+        <service id="vendor_auth_api.repository.auth_token_response"
+                 class="Vendor\Test\AuthApiBundle\Repository\AuthTokenResponseRepository"
+                 lazy="true">
+            <factory service="doctrine.orm.entity_manager" method="getRepository"/>
+            <argument>VendorAuthApiBundle:AuthTokenResponse</argument>
+        </service>
+        <service id="vendor_auth_api.repository.challenge"
+                 class="Vendor\Test\AuthApiBundle\Repository\ChallengeRepository"
+                 lazy="true">
+            <factory service="doctrine.orm.entity_manager" method="getRepository"/>
+            <argument>VendorAuthApiBundle:Challenge</argument>
+        </service>
+        <service id="vendor_auth_api.repository.credentials"
+                 class="Vendor\Test\AuthApiBundle\Repository\CredentialsRepository"
+                 lazy="true">
+            <factory service="doctrine.orm.entity_manager" method="getRepository"/>
+            <argument>VendorAuthApiBundle:Credentials</argument>
+        </service>
+        <service id="vendor_auth_api.repository.scope_challenge"
+                 class="Vendor\Test\AuthApiBundle\Repository\ScopeChallengeRepository"
+                 lazy="true">
+            <factory service="doctrine.orm.entity_manager" method="getRepository"/>
+            <argument>VendorAuthApiBundle:ScopeChallenge</argument>
+        </service>
+        <service id="vendor_auth_api.repository.system_token"
+                 class="Vendor\Test\AuthApiBundle\Repository\SystemTokenRepository"
+                 lazy="true">
+            <factory service="doctrine.orm.entity_manager" method="getRepository"/>
+            <argument>VendorAuthApiBundle:SystemToken</argument>
+        </service>
+        <service id="vendor_auth_api.repository.system_token_request"
+                 class="Vendor\Test\AuthApiBundle\Repository\SystemTokenRequestRepository"
+                 lazy="true">
+            <factory service="doctrine.orm.entity_manager" method="getRepository"/>
+            <argument>VendorAuthApiBundle:SystemTokenRequest</argument>
+        </service>
+        <service id="vendor_auth_api.repository.system_token_response"
+                 class="Vendor\Test\AuthApiBundle\Repository\SystemTokenResponseRepository"
+                 lazy="true">
+            <factory service="doctrine.orm.entity_manager" method="getRepository"/>
+            <argument>VendorAuthApiBundle:SystemTokenResponse</argument>
+        </service>
+        
+    </services>
+</container>

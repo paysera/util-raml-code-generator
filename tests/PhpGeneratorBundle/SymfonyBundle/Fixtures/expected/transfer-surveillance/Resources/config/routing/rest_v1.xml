@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<routes xmlns="http://symfony.com/schema/routing"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
+
+    <route id="vendor_transfer_surveillance_api.accept_transfer_inspection" methods="PUT" path="/transfer/inspection/{transferId}/accept">
+        <default key="_controller">vendor_transfer_surveillance_api.controller.transfer_api:acceptTransferInspection</default>
+        <default key="api_key">vendor_transfer_surveillance_api.transfer</default>
+        <option key="expose">true</option>
+    </route>
+    <route id="vendor_transfer_surveillance_api.cancel_transfer_inspection" methods="PUT" path="/transfer/inspection/{transferId}/cancel">
+        <default key="_controller">vendor_transfer_surveillance_api.controller.transfer_api:cancelTransferInspection</default>
+        <default key="api_key">vendor_transfer_surveillance_api.transfer</default>
+        <option key="expose">true</option>
+    </route>
+    <route id="vendor_transfer_surveillance_api.audit_transfer_inspection" methods="PUT" path="/transfer/inspection/{transferId}/audit">
+        <default key="_controller">vendor_transfer_surveillance_api.controller.transfer_api:auditTransferInspection</default>
+        <default key="api_key">vendor_transfer_surveillance_api.transfer</default>
+        <option key="expose">true</option>
+    </route>
+    <route id="vendor_transfer_surveillance_api.request_transfer_inspection_user_info" methods="PUT" path="/transfer/inspection/{transferId}/request-user-info">
+        <default key="_controller">vendor_transfer_surveillance_api.controller.transfer_api:requestTransferInspectionUserInfo</default>
+        <default key="api_key">vendor_transfer_surveillance_api.transfer</default>
+        <option key="expose">true</option>
+    </route>
+    <route id="vendor_transfer_surveillance_api.receive_transfer_inspection_user_info" methods="PUT" path="/transfer/inspection/{transferId}/receive-user-info">
+        <default key="_controller">vendor_transfer_surveillance_api.controller.transfer_api:receiveTransferInspectionUserInfo</default>
+        <default key="api_key">vendor_transfer_surveillance_api.transfer</default>
+        <option key="expose">true</option>
+    </route>
+    <route id="vendor_transfer_surveillance_api.get_matchers" methods="GET" path="/matchers">
+        <default key="_controller">vendor_transfer_surveillance_api.controller.matcher_api:getMatchers</default>
+        <default key="api_key">vendor_transfer_surveillance_api.matcher</default>
+        <option key="expose">true</option>
+    </route>
+    <route id="vendor_transfer_surveillance_api.delete_criterion" methods="DELETE" path="/criteria/{id}">
+        <default key="_controller">vendor_transfer_surveillance_api.controller.criterion_api:deleteCriterion</default>
+        <default key="api_key">vendor_transfer_surveillance_api.criterion</default>
+        <option key="expose">true</option>
+    </route>
+    <route id="vendor_transfer_surveillance_api.get_criterion" methods="GET" path="/criteria/{id}">
+        <default key="_controller">vendor_transfer_surveillance_api.controller.criterion_api:getCriterion</default>
+        <default key="api_key">vendor_transfer_surveillance_api.criterion</default>
+        <option key="expose">true</option>
+    </route>
+    <route id="vendor_transfer_surveillance_api.update_criterion" methods="PUT" path="/criteria/{id}">
+        <default key="_controller">vendor_transfer_surveillance_api.controller.criterion_api:updateCriterion</default>
+        <default key="api_key">vendor_transfer_surveillance_api.criterion</default>
+        <option key="expose">true</option>
+    </route>
+    <route id="vendor_transfer_surveillance_api.get_criterias" methods="GET" path="/criteria">
+        <default key="_controller">vendor_transfer_surveillance_api.controller.criterion_api:getCriterias</default>
+        <default key="api_key">vendor_transfer_surveillance_api.criterion</default>
+        <option key="expose">true</option>
+    </route>
+    <route id="vendor_transfer_surveillance_api.create_criterion" methods="POST" path="/criteria">
+        <default key="_controller">vendor_transfer_surveillance_api.controller.criterion_api:createCriterion</default>
+        <default key="api_key">vendor_transfer_surveillance_api.criterion</default>
+        <option key="expose">true</option>
+    </route>
+    <route id="vendor_transfer_surveillance_api.enable_rule" methods="PUT" path="/rules/{id}/enable">
+        <default key="_controller">vendor_transfer_surveillance_api.controller.rule_api:enableRule</default>
+        <default key="api_key">vendor_transfer_surveillance_api.rule</default>
+        <option key="expose">true</option>
+    </route>
+    <route id="vendor_transfer_surveillance_api.disable_rule" methods="PUT" path="/rules/{id}/disable">
+        <default key="_controller">vendor_transfer_surveillance_api.controller.rule_api:disableRule</default>
+        <default key="api_key">vendor_transfer_surveillance_api.rule</default>
+        <option key="expose">true</option>
+    </route>
+    <route id="vendor_transfer_surveillance_api.get_rule_whitelist_profile_list" methods="GET" path="/rules/{id}/whitelists/{whitelist_id}/profile-list">
+        <default key="_controller">vendor_transfer_surveillance_api.controller.rule_api:getRuleWhitelistProfileList</default>
+        <default key="api_key">vendor_transfer_surveillance_api.rule</default>
+        <option key="expose">true</option>
+    </route>
+    <route id="vendor_transfer_surveillance_api.update_rule_whitelist_profile_list" methods="PUT" path="/rules/{id}/whitelists/{whitelist_id}/profile-list">
+        <default key="_controller">vendor_transfer_surveillance_api.controller.rule_api:updateRuleWhitelistProfileList</default>
+        <default key="api_key">vendor_transfer_surveillance_api.rule</default>
+        <option key="expose">true</option>
+    </route>
+    <route id="vendor_transfer_surveillance_api.get_rule_whitelist" methods="GET" path="/rules/{id}/whitelists/{whitelist_id}">
+        <default key="_controller">vendor_transfer_surveillance_api.controller.rule_api:getRuleWhitelist</default>
+        <default key="api_key">vendor_transfer_surveillance_api.rule</default>
+        <option key="expose">true</option>
+    </route>
+    <route id="vendor_transfer_surveillance_api.update_rule_whitelist" methods="PUT" path="/rules/{id}/whitelists/{whitelist_id}">
+        <default key="_controller">vendor_transfer_surveillance_api.controller.rule_api:updateRuleWhitelist</default>
+        <default key="api_key">vendor_transfer_surveillance_api.rule</default>
+        <option key="expose">true</option>
+    </route>
+    <route id="vendor_transfer_surveillance_api.delete_rule_whitelist" methods="DELETE" path="/rules/{id}/whitelists/{whitelist_id}">
+        <default key="_controller">vendor_transfer_surveillance_api.controller.rule_api:deleteRuleWhitelist</default>
+        <default key="api_key">vendor_transfer_surveillance_api.rule</default>
+        <option key="expose">true</option>
+    </route>
+    <route id="vendor_transfer_surveillance_api.get_rule_whitelists" methods="GET" path="/rules/{id}/whitelists">
+        <default key="_controller">vendor_transfer_surveillance_api.controller.rule_api:getRuleWhitelists</default>
+        <default key="api_key">vendor_transfer_surveillance_api.rule</default>
+        <option key="expose">true</option>
+    </route>
+    <route id="vendor_transfer_surveillance_api.create_rule_whitelist" methods="POST" path="/rules/{id}/whitelists">
+        <default key="_controller">vendor_transfer_surveillance_api.controller.rule_api:createRuleWhitelist</default>
+        <default key="api_key">vendor_transfer_surveillance_api.rule</default>
+        <option key="expose">true</option>
+    </route>
+    <route id="vendor_transfer_surveillance_api.get_rule" methods="GET" path="/rules/{id}">
+        <default key="_controller">vendor_transfer_surveillance_api.controller.rule_api:getRule</default>
+        <default key="api_key">vendor_transfer_surveillance_api.rule</default>
+        <option key="expose">true</option>
+    </route>
+    <route id="vendor_transfer_surveillance_api.update_rule" methods="PUT" path="/rules/{id}">
+        <default key="_controller">vendor_transfer_surveillance_api.controller.rule_api:updateRule</default>
+        <default key="api_key">vendor_transfer_surveillance_api.rule</default>
+        <option key="expose">true</option>
+    </route>
+    <route id="vendor_transfer_surveillance_api.delete_rule" methods="DELETE" path="/rules/{id}">
+        <default key="_controller">vendor_transfer_surveillance_api.controller.rule_api:deleteRule</default>
+        <default key="api_key">vendor_transfer_surveillance_api.rule</default>
+        <option key="expose">true</option>
+    </route>
+    <route id="vendor_transfer_surveillance_api.get_rules" methods="GET" path="/rules">
+        <default key="_controller">vendor_transfer_surveillance_api.controller.rule_api:getRules</default>
+        <default key="api_key">vendor_transfer_surveillance_api.rule</default>
+        <option key="expose">true</option>
+    </route>
+    <route id="vendor_transfer_surveillance_api.create_rule" methods="POST" path="/rules">
+        <default key="_controller">vendor_transfer_surveillance_api.controller.rule_api:createRule</default>
+        <default key="api_key">vendor_transfer_surveillance_api.rule</default>
+        <option key="expose">true</option>
+    </route>
+</routes>

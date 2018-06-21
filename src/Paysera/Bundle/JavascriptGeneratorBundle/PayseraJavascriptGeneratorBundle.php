@@ -12,7 +12,7 @@ class PayseraJavascriptGeneratorBundle extends Bundle
     public function build(ContainerBuilder $container)
     {
         $container->addCompilerPass(new AddTaggedCompilerPass(
-            'paysera_javascript_generator.language_code_generator',
+            'paysera_javascript_generator.code_generator',
             'paysera_js_generator',
             'addGenerator',
             ['position']

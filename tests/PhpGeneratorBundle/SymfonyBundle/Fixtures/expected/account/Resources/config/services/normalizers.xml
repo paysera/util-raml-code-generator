@@ -1,0 +1,27 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="vendor_account_api.normalizer.account"
+                 class="Vendor\Test\AccountApiBundle\Normalizer\AccountNormalizer">
+            <argument type="service" id="vendor_account_api.normalizer.undescribed_type"/>
+        </service>
+        <service id="vendor_account_api.normalizer.account_filter"
+                 class="Vendor\Test\AccountApiBundle\Normalizer\AccountFilterNormalizer">
+        </service>
+        <service id="vendor_account_api.normalizer.account_result"
+                 class="Paysera\Component\Serializer\Normalizer\ResultNormalizer"
+                 parent="paysera_rest.normalizer.result">
+            <argument>items</argument>
+            <argument type="service" id="vendor_account_api.normalizer.account"/>
+        </service>
+        <service id="vendor_account_api.normalizer.undescribed_type"
+                 class="Vendor\Test\AccountApiBundle\Normalizer\UndescribedTypeNormalizer">
+        </service>
+        
+        
+    </services>
+</container>

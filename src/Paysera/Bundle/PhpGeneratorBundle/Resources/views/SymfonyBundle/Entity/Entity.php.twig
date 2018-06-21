@@ -1,0 +1,32 @@
+{% include 'PayseraPhpGeneratorBundle:Base:Entity.php.twig' %}
+{% if symfony_bundle_type_has_collection(type) %}
+use Doctrine\Common\Collections\ArrayCollection;
+
+{% endif %}
+class {{ type.name|extract_type_name }}{{ get_parent_type_config(type) != null ? (' extends ' ~ get_parent_type_config(type).typeName) : '' }}
+{
+{% include 'PayseraPhpGeneratorBundle:Base:Constant.php.twig' with { 'type': type } only %}
+    private $id;
+{% for property in type.properties %}
+{% if property.name != 'id' %}
+{% include get_entity_field_template(property) with { 'property': property } only %}
+{% endif %}
+{% endfor %}
+
+{% include '@PayseraPhpGenerator/SymfonyBundle/Entity/Method/constructor.php.twig' with { 'type': type } only %}
+
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+{% for property in type.properties -%}
+    {% if property.name != 'id' %}
+{%- include get_getter_method_template(property) with { 'property': property } only %}
+{% include get_setter_method_template(property) with { 'property': property } only -%}
+    {% endif %}
+{% endfor %}
+
+}

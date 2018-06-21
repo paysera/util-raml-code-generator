@@ -1,1 +1,7 @@
-this.set('{{ property.name }}', {'amount':{{ property.name|to_variable_name }}.getAmount(), 'currency':{{ property.name|to_variable_name }}.getCurrency()});
+
+    /**
+     * @param {% include get_method_argument_type_template(property) with { 'property': property } only %}
+     */
+    {{ js_generate_setter_name(property) }}({{ property.name|to_variable_name }}) {
+        this.set('{{ property.name }}', {'amount':{{ property.name|to_variable_name }}.getAmount(), 'currency':{{ property.name|to_variable_name }}.getCurrency()});
+    }

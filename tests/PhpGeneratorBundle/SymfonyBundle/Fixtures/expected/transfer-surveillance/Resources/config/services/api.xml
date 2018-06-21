@@ -1,0 +1,326 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="vendor_transfer_surveillance_api.api.transfer"
+                 class="Paysera\Bundle\RestBundle\RestApi">
+            <tag name="paysera_rest.api" api_key="vendor_transfer_surveillance_api.transfer"/>
+            <argument type="service" id="service_container"/>
+            <argument type="service" id="logger"/>
+                                                                    
+
+            <call method="addRequestMapper">
+                <argument>vendor_transfer_surveillance_api.normalizer.review</argument>
+                <argument>vendor_transfer_surveillance_api.controller.transfer_api:acceptTransferInspection</argument>
+                <argument>review</argument>
+            </call>
+                                    
+
+            <call method="addRequestMapper">
+                <argument>vendor_transfer_surveillance_api.normalizer.review</argument>
+                <argument>vendor_transfer_surveillance_api.controller.transfer_api:cancelTransferInspection</argument>
+                <argument>review</argument>
+            </call>
+                                    
+
+            <call method="addRequestMapper">
+                <argument>vendor_transfer_surveillance_api.normalizer.review</argument>
+                <argument>vendor_transfer_surveillance_api.controller.transfer_api:auditTransferInspection</argument>
+                <argument>review</argument>
+            </call>
+                                    
+
+            <call method="addRequestMapper">
+                <argument>vendor_transfer_surveillance_api.normalizer.review</argument>
+                <argument>vendor_transfer_surveillance_api.controller.transfer_api:requestTransferInspectionUserInfo</argument>
+                <argument>review</argument>
+            </call>
+                                    
+
+            <call method="addRequestMapper">
+                <argument>vendor_transfer_surveillance_api.normalizer.review</argument>
+                <argument>vendor_transfer_surveillance_api.controller.transfer_api:receiveTransferInspectionUserInfo</argument>
+                <argument>review</argument>
+            </call>
+            
+        </service>
+        <service id="vendor_transfer_surveillance_api.api.matcher"
+                 class="Paysera\Bundle\RestBundle\RestApi">
+            <tag name="paysera_rest.api" api_key="vendor_transfer_surveillance_api.matcher"/>
+            <argument type="service" id="service_container"/>
+            <argument type="service" id="logger"/>
+                                
+
+            <call method="addResponseMapper">
+                <argument>vendor_transfer_surveillance_api.normalizer.matchers_result</argument>
+                <argument>vendor_transfer_surveillance_api.controller.matcher_api:getMatchers</argument>
+            </call>
+            
+        </service>
+        <service id="vendor_transfer_surveillance_api.api.criterion"
+                 class="Paysera\Bundle\RestBundle\RestApi">
+            <tag name="paysera_rest.api" api_key="vendor_transfer_surveillance_api.criterion"/>
+            <argument type="service" id="service_container"/>
+            <argument type="service" id="logger"/>
+                                
+
+            <call method="addResponseMapper">
+                <argument>vendor_transfer_surveillance_api.normalizer.match_criterias_result</argument>
+                <argument>vendor_transfer_surveillance_api.controller.criterion_api:getCriterias</argument>
+            </call>
+                        
+
+            <call method="addRequestMapper">
+                <argument>vendor_transfer_surveillance_api.normalizer.match_criteria</argument>
+                <argument>vendor_transfer_surveillance_api.controller.criterion_api:createCriterion</argument>
+                <argument>matchCriteria</argument>
+            </call>
+            <call method="addResponseMapper">
+                <argument>vendor_transfer_surveillance_api.normalizer.match_criteria</argument>
+                <argument>vendor_transfer_surveillance_api.controller.criterion_api:createCriterion</argument>
+            </call>
+                                    
+
+            <call method="addRequestAttributeResolver">
+                <argument>vendor_transfer_surveillance_api.entity_resolver.match_criteria_by_id</argument>
+                <argument>vendor_transfer_surveillance_api.controller.criterion_api:deleteCriterion</argument>
+                <argument>id</argument>
+                <argument>matchCriteria</argument>
+            </call>
+                        
+
+            <call method="addRequestQueryMapper">
+                <argument>vendor_transfer_surveillance_api.normalizer.match_criteria</argument>
+                <argument>vendor_transfer_surveillance_api.controller.criterion_api:getCriterion</argument>
+                <argument>matchCriteria</argument>
+            </call>
+            <call method="addResponseMapper">
+                <argument>vendor_transfer_surveillance_api.normalizer.match_criteria</argument>
+                <argument>vendor_transfer_surveillance_api.controller.criterion_api:getCriterion</argument>
+            </call>
+                        
+
+            <call method="addRequestAttributeResolver">
+                <argument>vendor_transfer_surveillance_api.entity_resolver.match_criteria_by_id</argument>
+                <argument>vendor_transfer_surveillance_api.controller.criterion_api:updateCriterion</argument>
+                <argument>id</argument>
+                <argument>originalMatchCriteria</argument>
+            </call>
+            <call method="addRequestMapper">
+                <argument>vendor_transfer_surveillance_api.normalizer.match_criteria</argument>
+                <argument>vendor_transfer_surveillance_api.controller.criterion_api:updateCriterion</argument>
+                <argument>updatedMatchCriteria</argument>
+            </call>
+            <call method="addResponseMapper">
+                <argument>vendor_transfer_surveillance_api.normalizer.match_criteria</argument>
+                <argument>vendor_transfer_surveillance_api.controller.criterion_api:updateCriterion</argument>
+            </call>
+            
+        </service>
+        <service id="vendor_transfer_surveillance_api.api.rule"
+                 class="Paysera\Bundle\RestBundle\RestApi">
+            <tag name="paysera_rest.api" api_key="vendor_transfer_surveillance_api.rule"/>
+            <argument type="service" id="service_container"/>
+            <argument type="service" id="logger"/>
+                                
+
+            <call method="addRequestQueryMapper">
+                <argument>vendor_transfer_surveillance_api.normalizer.rule_filter</argument>
+                <argument>vendor_transfer_surveillance_api.controller.rule_api:getRules</argument>
+                <argument>ruleFilter</argument>
+            </call>
+            <call method="addResponseMapper">
+                <argument>vendor_transfer_surveillance_api.normalizer.rules_result</argument>
+                <argument>vendor_transfer_surveillance_api.controller.rule_api:getRules</argument>
+            </call>
+                        
+
+            <call method="addRequestMapper">
+                <argument>vendor_transfer_surveillance_api.normalizer.rule</argument>
+                <argument>vendor_transfer_surveillance_api.controller.rule_api:createRule</argument>
+                <argument>rule</argument>
+            </call>
+            <call method="addResponseMapper">
+                <argument>vendor_transfer_surveillance_api.normalizer.rule</argument>
+                <argument>vendor_transfer_surveillance_api.controller.rule_api:createRule</argument>
+            </call>
+                                    
+
+            <call method="addRequestQueryMapper">
+                <argument>vendor_transfer_surveillance_api.normalizer.rule</argument>
+                <argument>vendor_transfer_surveillance_api.controller.rule_api:getRule</argument>
+                <argument>rule</argument>
+            </call>
+            <call method="addResponseMapper">
+                <argument>vendor_transfer_surveillance_api.normalizer.rule</argument>
+                <argument>vendor_transfer_surveillance_api.controller.rule_api:getRule</argument>
+            </call>
+                        
+
+            <call method="addRequestAttributeResolver">
+                <argument>vendor_transfer_surveillance_api.entity_resolver.rule_by_id</argument>
+                <argument>vendor_transfer_surveillance_api.controller.rule_api:updateRule</argument>
+                <argument>id</argument>
+                <argument>originalRule</argument>
+            </call>
+            <call method="addRequestMapper">
+                <argument>vendor_transfer_surveillance_api.normalizer.rule</argument>
+                <argument>vendor_transfer_surveillance_api.controller.rule_api:updateRule</argument>
+                <argument>updatedRule</argument>
+            </call>
+            <call method="addResponseMapper">
+                <argument>vendor_transfer_surveillance_api.normalizer.rule</argument>
+                <argument>vendor_transfer_surveillance_api.controller.rule_api:updateRule</argument>
+            </call>
+                        
+
+            <call method="addRequestAttributeResolver">
+                <argument>vendor_transfer_surveillance_api.entity_resolver.rule_by_id</argument>
+                <argument>vendor_transfer_surveillance_api.controller.rule_api:deleteRule</argument>
+                <argument>id</argument>
+                <argument>rule</argument>
+            </call>
+                                    
+
+            <call method="addRequestAttributeResolver">
+                <argument>vendor_transfer_surveillance_api.entity_resolver.rule_by_id</argument>
+                <argument>vendor_transfer_surveillance_api.controller.rule_api:enableRule</argument>
+                <argument>id</argument>
+                <argument>rule</argument>
+            </call>
+                                    
+
+            <call method="addRequestAttributeResolver">
+                <argument>vendor_transfer_surveillance_api.entity_resolver.rule_by_id</argument>
+                <argument>vendor_transfer_surveillance_api.controller.rule_api:disableRule</argument>
+                <argument>id</argument>
+                <argument>rule</argument>
+            </call>
+                                    
+
+            <call method="addRequestQueryMapper">
+                <argument>vendor_transfer_surveillance_api.normalizer.rule</argument>
+                <argument>vendor_transfer_surveillance_api.controller.rule_api:getRuleWhitelists</argument>
+                <argument>rule</argument>
+            </call>
+            <call method="addResponseMapper">
+                <argument>vendor_transfer_surveillance_api.normalizer.whitelists_result</argument>
+                <argument>vendor_transfer_surveillance_api.controller.rule_api:getRuleWhitelists</argument>
+            </call>
+                        
+
+            <call method="addRequestAttributeResolver">
+                <argument>vendor_transfer_surveillance_api.entity_resolver.rule_by_id</argument>
+                <argument>vendor_transfer_surveillance_api.controller.rule_api:createRuleWhitelist</argument>
+                <argument>id</argument>
+                <argument>rule</argument>
+            </call>
+            <call method="addRequestMapper">
+                <argument>vendor_transfer_surveillance_api.normalizer.whitelist</argument>
+                <argument>vendor_transfer_surveillance_api.controller.rule_api:createRuleWhitelist</argument>
+                <argument>whitelist</argument>
+            </call>
+            <call method="addResponseMapper">
+                <argument>vendor_transfer_surveillance_api.normalizer.whitelist</argument>
+                <argument>vendor_transfer_surveillance_api.controller.rule_api:createRuleWhitelist</argument>
+            </call>
+                                    
+
+            <call method="addRequestQueryMapper">
+                <argument>vendor_transfer_surveillance_api.normalizer.rule</argument>
+                <argument>vendor_transfer_surveillance_api.controller.rule_api:getRuleWhitelist</argument>
+                <argument>rule</argument>
+            </call>
+            <call method="addRequestQueryMapper">
+                <argument>vendor_transfer_surveillance_api.normalizer.whitelist</argument>
+                <argument>vendor_transfer_surveillance_api.controller.rule_api:getRuleWhitelist</argument>
+                <argument>whitelist</argument>
+            </call>
+            <call method="addResponseMapper">
+                <argument>vendor_transfer_surveillance_api.normalizer.whitelist</argument>
+                <argument>vendor_transfer_surveillance_api.controller.rule_api:getRuleWhitelist</argument>
+            </call>
+                        
+
+            <call method="addRequestAttributeResolver">
+                <argument>vendor_transfer_surveillance_api.entity_resolver.rule_by_id</argument>
+                <argument>vendor_transfer_surveillance_api.controller.rule_api:updateRuleWhitelist</argument>
+                <argument>id</argument>
+                <argument>rule</argument>
+            </call>
+            <call method="addRequestAttributeResolver">
+                <argument>vendor_transfer_surveillance_api.entity_resolver.whitelist_by_whitelist_id</argument>
+                <argument>vendor_transfer_surveillance_api.controller.rule_api:updateRuleWhitelist</argument>
+                <argument>whitelistId</argument>
+                <argument>originalWhitelist</argument>
+            </call>
+            <call method="addRequestMapper">
+                <argument>vendor_transfer_surveillance_api.normalizer.whitelist</argument>
+                <argument>vendor_transfer_surveillance_api.controller.rule_api:updateRuleWhitelist</argument>
+                <argument>updatedWhitelist</argument>
+            </call>
+            <call method="addResponseMapper">
+                <argument>vendor_transfer_surveillance_api.normalizer.whitelist</argument>
+                <argument>vendor_transfer_surveillance_api.controller.rule_api:updateRuleWhitelist</argument>
+            </call>
+                        
+
+            <call method="addRequestAttributeResolver">
+                <argument>vendor_transfer_surveillance_api.entity_resolver.rule_by_id</argument>
+                <argument>vendor_transfer_surveillance_api.controller.rule_api:deleteRuleWhitelist</argument>
+                <argument>id</argument>
+                <argument>rule</argument>
+            </call>
+            <call method="addRequestAttributeResolver">
+                <argument>vendor_transfer_surveillance_api.entity_resolver.whitelist_by_whitelist_id</argument>
+                <argument>vendor_transfer_surveillance_api.controller.rule_api:deleteRuleWhitelist</argument>
+                <argument>whitelistId</argument>
+                <argument>whitelist</argument>
+            </call>
+                                    
+
+            <call method="addRequestQueryMapper">
+                <argument>vendor_transfer_surveillance_api.normalizer.rule</argument>
+                <argument>vendor_transfer_surveillance_api.controller.rule_api:getRuleWhitelistProfileList</argument>
+                <argument>rule</argument>
+            </call>
+            <call method="addRequestQueryMapper">
+                <argument>vendor_transfer_surveillance_api.normalizer.whitelist</argument>
+                <argument>vendor_transfer_surveillance_api.controller.rule_api:getRuleWhitelistProfileList</argument>
+                <argument>whitelist</argument>
+            </call>
+            <call method="addResponseMapper">
+                <argument>vendor_transfer_surveillance_api.normalizer.whitelist</argument>
+                <argument>vendor_transfer_surveillance_api.controller.rule_api:getRuleWhitelistProfileList</argument>
+            </call>
+                        
+
+            <call method="addRequestAttributeResolver">
+                <argument>vendor_transfer_surveillance_api.entity_resolver.rule_by_id</argument>
+                <argument>vendor_transfer_surveillance_api.controller.rule_api:updateRuleWhitelistProfileList</argument>
+                <argument>id</argument>
+                <argument>rule</argument>
+            </call>
+            <call method="addRequestAttributeResolver">
+                <argument>vendor_transfer_surveillance_api.entity_resolver.whitelist_by_whitelist_id</argument>
+                <argument>vendor_transfer_surveillance_api.controller.rule_api:updateRuleWhitelistProfileList</argument>
+                <argument>whitelistId</argument>
+                <argument>originalWhitelist</argument>
+            </call>
+            <call method="addRequestMapper">
+                <argument>vendor_transfer_surveillance_api.normalizer.whitelist</argument>
+                <argument>vendor_transfer_surveillance_api.controller.rule_api:updateRuleWhitelistProfileList</argument>
+                <argument>updatedWhitelist</argument>
+            </call>
+            <call method="addResponseMapper">
+                <argument>vendor_transfer_surveillance_api.normalizer.whitelist</argument>
+                <argument>vendor_transfer_surveillance_api.controller.rule_api:updateRuleWhitelistProfileList</argument>
+            </call>
+            
+        </service>
+        
+    </services>
+</container>

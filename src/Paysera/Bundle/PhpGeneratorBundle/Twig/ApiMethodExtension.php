@@ -9,7 +9,7 @@ use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\ResultTypeDefinition;
 use Paysera\Bundle\CodeGeneratorBundle\ResourcePatterns;
 use Paysera\Bundle\CodeGeneratorBundle\Service\BodyResolver;
 use Paysera\Bundle\CodeGeneratorBundle\Service\StringConverter;
-use Paysera\Bundle\CodeGeneratorBundle\Service\TypeConfigurationProvider;
+use Paysera\Bundle\CodeGeneratorBundle\Service\TypeConfigurationProviderStorage;
 use Paysera\Bundle\CodeGeneratorBundle\Twig\BaseExtension;
 use Paysera\Bundle\PhpGeneratorBundle\Service\NamespaceHelper;
 use Paysera\Component\TypeHelper;
@@ -17,6 +17,7 @@ use Raml\Method;
 use Raml\Resource;
 use Raml\Types\ArrayType;
 use Twig_Extension;
+use Twig_SimpleFilter;
 use Twig_SimpleFunction;
 
 class ApiMethodExtension extends Twig_Extension
@@ -24,20 +25,20 @@ class ApiMethodExtension extends Twig_Extension
     private $bodyResolver;
     private $baseExtension;
     private $namespaceHelper;
-    private $typeConfigurationProvider;
+    private $typeConfigurationProviderStorage;
     private $stringConverter;
 
     public function __construct(
         BodyResolver $bodyResolver,
         BaseExtension $baseExtension,
         NamespaceHelper $namespaceHelper,
-        TypeConfigurationProvider $typeConfigurationProvider,
+        TypeConfigurationProviderStorage $typeConfigurationProviderStorage,
         StringConverter $stringConverter
     ) {
         $this->bodyResolver = $bodyResolver;
         $this->baseExtension = $baseExtension;
         $this->namespaceHelper = $namespaceHelper;
-        $this->typeConfigurationProvider = $typeConfigurationProvider;
+        $this->typeConfigurationProviderStorage = $typeConfigurationProviderStorage;
         $this->stringConverter = $stringConverter;
     }
 
@@ -47,10 +48,33 @@ class ApiMethodExtension extends Twig_Extension
             new Twig_SimpleFunction('php_generate_uri', [$this, 'generateUri'], ['is_safe' => ['html']]),
             new Twig_SimpleFunction('php_generate_result_populator', [$this, 'generateResultPopulator'], ['is_safe' => ['html']]),
             new Twig_SimpleFunction('php_inline_arguments', [$this, 'inlineArguments']),
+            new Twig_SimpleFunction('php_inline_arguments_no_typehint', [$this, 'inlineArgumentsNoTypehint']),
             new Twig_SimpleFunction('php_get_return_type', [$this, 'getReturnType']),
-            new Twig_SimpleFunction('php_generate_method_arguments', [$this, 'generateMethodArguments']),
+            new Twig_SimpleFunction('php_generate_method_arguments', [$this, 'generateMethodArguments'], ['needs_context' => true]),
             new Twig_SimpleFunction('php_inline_argument_names', [$this, 'getInlineArgumentNames']),
         ];
+    }
+
+    public function getFilters()
+    {
+        return [
+            new Twig_SimpleFilter('php_unique_arguments_by_namespace', [$this, 'getUniqueArgumentsByNamespace']),
+        ];
+    }
+
+    /**
+     * @param ArgumentDefinition[] $arguments
+     * @return ArgumentDefinition[]
+     */
+    public function getUniqueArgumentsByNamespace(array $arguments)
+    {
+        $unique = [];
+        foreach ($arguments as $argument) {
+            $key = $argument->getNamespacedType() !== null ? $argument->getNamespacedType() : $argument->getType();
+            $unique[$key] = $argument;
+        }
+
+        return $unique;
     }
 
     public function getReturnType(Method $method, ApiDefinition $api): string
@@ -82,18 +106,24 @@ class ApiMethodExtension extends Twig_Extension
     }
 
     /**
+     * @param array $context
      * @param Method $method
      * @param Resource $resource
      * @param ApiDefinition $api
      * @return ArgumentDefinition[]
      */
-    public function generateMethodArguments(Method $method, Resource $resource, ApiDefinition $api) : array
+    public function generateMethodArguments(array $context, Method $method, Resource $resource, ApiDefinition $api) : array
     {
         $arguments = $this->baseExtension->generateMethodArguments($method, $resource, $api);
+        $configurationProvider = $this->getTypeConfigurationProvider($context);
         foreach ($arguments as $argument) {
-            $typeConfig = $this->typeConfigurationProvider->getTypeConfiguration($argument->getType());
+            $typeConfig = $configurationProvider->getTypeConfiguration($argument->getType());
             if ($typeConfig->getImportString() !== null) {
-                $argument->setNamespacedType('\\' . $typeConfig->getImportString());
+                $argument
+                    ->setNamespacedType('\\' . $typeConfig->getImportString())
+                    ->setImportedType($typeConfig->getTypeName())
+
+                ;
             } else {
                 $argument->setNamespacedType($this->namespaceHelper->buildNamespace($argument->getType()));
             }
@@ -114,8 +144,29 @@ class ApiMethodExtension extends Twig_Extension
             } else {
                 $parts[] = sprintf(
                     '%s $%s',
-                    $argument->getNamespacedType(),
-                    $this->stringConverter->convertSlugToVariableName($argument->getName())
+                    $argument->getImportedType() !== null ? $argument->getImportedType() : $argument->getNamespacedType(),
+                    $this->stringConverter->convertSlugToVariableName(
+                        $argument->getRenamedName() !== null ? $argument->getRenamedName() : $argument->getName()
+                    )
+                );
+            }
+        }
+
+        return trim(implode(', ', $parts));
+    }
+
+    public function inlineArgumentsNoTypehint(array $arguments): string
+    {
+        $parts = [];
+        foreach ($arguments as $argument) {
+            if ($argument->getType() === ArgumentDefinition::TYPE_DEFAULT) {
+                $parts[] = '$' . $argument->getName();
+            } else {
+                $parts[] = sprintf(
+                    '$%s',
+                    $this->stringConverter->convertSlugToVariableName(
+                        $argument->getRenamedName() !== null ? $argument->getRenamedName() : $argument->getName()
+                    )
                 );
             }
         }
@@ -170,5 +221,10 @@ class ApiMethodExtension extends Twig_Extension
         }
 
         return 'null;';
+    }
+
+    private function getTypeConfigurationProvider(array $context)
+    {
+        return $this->typeConfigurationProviderStorage->getTypeConfigurationProvider($context['code_type']);
     }
 }

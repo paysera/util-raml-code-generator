@@ -1,0 +1,5 @@
+    <route id="{{ vendor_name|to_snake_case }}_{{ api.name|to_snake_case }}.{{ generate_method_name(method, resource, api)|to_snake_case }}" methods="{{ method.type }}" path="{{ resource.uri }}">
+        <default key="_controller">{{ vendor_name|to_snake_case }}_{{ api.name|to_snake_case }}.controller.{{ get_method_entity_name(resource, api)|to_class_name|to_snake_case }}_api:{{ generate_method_name(method, resource, api) }}</default>
+        <default key="api_key">{{ vendor_name|to_snake_case }}_{{ api.name|to_snake_case }}.{{ get_method_entity_name(resource)|to_class_name|to_snake_case }}</default>
+        <option key="expose">true</option>
+    </route>

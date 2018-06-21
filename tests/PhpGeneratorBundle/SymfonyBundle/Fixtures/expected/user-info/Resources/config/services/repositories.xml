@@ -1,0 +1,28 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="vendor_user_info_api.repository.legal"
+                 class="Vendor\Test\UserInfoApiBundle\Repository\LegalRepository"
+                 lazy="true">
+            <factory service="doctrine.orm.entity_manager" method="getRepository"/>
+            <argument>VendorUserInfoApiBundle:Legal</argument>
+        </service>
+        <service id="vendor_user_info_api.repository.natural"
+                 class="Vendor\Test\UserInfoApiBundle\Repository\NaturalRepository"
+                 lazy="true">
+            <factory service="doctrine.orm.entity_manager" method="getRepository"/>
+            <argument>VendorUserInfoApiBundle:Natural</argument>
+        </service>
+        <service id="vendor_user_info_api.repository.user_info"
+                 class="Vendor\Test\UserInfoApiBundle\Repository\UserInfoRepository"
+                 lazy="true">
+            <factory service="doctrine.orm.entity_manager" method="getRepository"/>
+            <argument>VendorUserInfoApiBundle:UserInfo</argument>
+        </service>
+        
+    </services>
+</container>

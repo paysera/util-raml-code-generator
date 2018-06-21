@@ -1,31 +1,11 @@
-<?php
-
-namespace {{ api.namespace }}\Entity;
-
-{% set importsExists = false %}
-{% for type in get_related_types_config(type, api) if type.importString is not null %}
-{% set importsExists = true %}
-use {{ type.importString }};
-{% endfor %}
-{% if importsExists == true %}
-
-{% endif %}
+{% include 'PayseraPhpGeneratorBundle:Base:Entity.php.twig' %}
 class {{ type.name|extract_type_name }} extends {{ get_parent_type_config(type).typeName }}
 {
-{% set constantsExists = false %}
-{%- for properties in type.properties -%}
-    {% for constant in properties.constants %}
-    {% include '@PayseraPhpGenerator/RestClient/Entity/Variable/constant.php.twig' with { 'constant': constant } only %}
-    {%- set constantsExists = true -%}
-    {% endfor %}
-{%- endfor -%}
-{% if constantsExists %}
-
-{% endif %}
+{% include 'PayseraPhpGeneratorBundle:Base:Constant.php.twig' with { 'type': type } only %}
 {% include '@PayseraPhpGenerator/RestClient/Entity/Method/constructor.php.twig' with { 'type': type } only %}
 
 {% for property in type.properties %}
-    {%- include '@PayseraPhpGenerator/RestClient/Entity/Method/getter.php.twig' with { 'property': property } only -%}
-    {%- include '@PayseraPhpGenerator/RestClient/Entity/Method/setter.php.twig' with { 'property': property } only -%}
+{% include get_getter_method_template(property) with { 'property': property } only %}
+{% include get_setter_method_template(property) with { 'property': property } only %}
 {% endfor %}
 }

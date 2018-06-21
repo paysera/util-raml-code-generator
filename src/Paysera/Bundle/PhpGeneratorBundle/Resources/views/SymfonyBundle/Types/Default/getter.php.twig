@@ -1,0 +1,7 @@
+    /**
+     * @return {% include get_method_return_type_template(property) with { 'property': property } only %}
+     */
+    public function {{ php_generate_getter_name(property) }}()
+    {
+        return $this->{{ property.name|to_variable_name }};
+    }

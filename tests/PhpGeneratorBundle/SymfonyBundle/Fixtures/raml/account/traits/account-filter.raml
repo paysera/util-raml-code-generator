@@ -1,0 +1,43 @@
+#%RAML 1.0 Trait
+usage: Used where Result filtering is provided
+description: Standard SQL-style Result filtering
+is:
+  - Paysera.Filter
+queryParameters:
+  type:
+    required: false
+    displayName: type
+    description: Type of Account
+    type: string
+    enum:
+    - local
+    - card
+    - technical
+  administered_by_user_id:
+    required: false
+    displayName: administered_by_user_id
+    description: Gets list of Accounts, where User has permission to Administrate
+    type: integer
+    format: int32
+  owned_by_user_id:
+    required: false
+    displayName: owned_by_user_id
+    description: Gets list of Accounts, where User is the Owner
+    type: integer
+    format: int32
+  closed:
+    required: false
+    displayName: closed
+    description: Includes closed Accounts to Result
+    type: boolean
+  readable_by_client_id:
+    required: false
+    displayName: readable_by_client_id
+    description: Gets list of Accounts, given Client has permission to read
+    type: integer
+    format: int32
+  active:
+    required: false
+    displayName: active
+    description: Includes User-disabled Accounts
+    type: boolean

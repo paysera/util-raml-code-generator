@@ -20,14 +20,14 @@ class DefinitionDecorator
         $this->typeDefinitionBuilder = $typeDefinitionBuilder;
     }
 
-    public function decorate(ApiDefinition $original, string $apiName, string $namespace) : DecoratedDefinition
+    public function decorate(ApiDefinition $original, string $name, string $namespace) : DecoratedDefinition
     {
         $apiDefinition = new DecoratedDefinition($original);
         $types = $this->typeDefinitionBuilder->buildTypeDefinitions($original);
 
         $apiDefinition
             ->setTypes($types)
-            ->setName($apiName)
+            ->setName($name)
             ->setNamespace($namespace)
         ;
 

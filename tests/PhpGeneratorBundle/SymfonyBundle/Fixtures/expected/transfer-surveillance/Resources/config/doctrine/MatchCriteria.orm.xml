@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+    <entity repository-class="Vendor\Test\TransferSurveillanceApiBundle\Repository\MatchCriteriaRepository"
+            name="Vendor\Test\TransferSurveillanceApiBundle\Entity\MatchCriteria" table="transfer_surveillance_api_match_criterias">
+
+        <id name="id" type="integer" column="id">
+            <generator strategy="IDENTITY"/>
+        </id>
+        <field name="matcherIdentifier" column="matcher_identifier" nullable="true" type="string"/>
+        <field name="query" column="query" nullable="false" type="string"/>
+        <field name="description" column="description" nullable="true" type="string"/>
+        <field name="parameters" column="parameters" nullable="false" type="string"/>
+        
+    </entity>
+</doctrine-mapping>

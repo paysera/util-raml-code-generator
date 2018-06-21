@@ -13,9 +13,8 @@ import DateFactory from '../service/DateFactory';
 class {{ type.name|extract_type_name }} extends {{ get_parent_type_config(type).typeName }} {
 {% include '@PayseraJavascriptGenerator/Package/Src/Entity/Method/constructor.js.twig' with { 'type': type } only %}
 {% for property in type.properties %}
-    {%- include '@PayseraJavascriptGenerator/Package/Src/Entity/Method/getter.js.twig' with { 'property': property } only -%}
-
-    {%- include '@PayseraJavascriptGenerator/Package/Src/Entity/Method/setter.js.twig' with { 'property': property } only -%}
+{% include get_getter_method_template(property) with { 'property': property } only %}
+{% include get_setter_method_template(property) with { 'property': property } only %}
 {% endfor %}
 }
 

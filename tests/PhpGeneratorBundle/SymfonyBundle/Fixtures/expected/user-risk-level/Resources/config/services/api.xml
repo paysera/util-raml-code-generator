@@ -1,0 +1,66 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="vendor_user_risk_level_api.api.user"
+                 class="Paysera\Bundle\RestBundle\RestApi">
+            <tag name="paysera_rest.api" api_key="vendor_user_risk_level_api.user"/>
+            <argument type="service" id="service_container"/>
+            <argument type="service" id="logger"/>
+                                                        
+
+            <call method="addResponseMapper">
+                <argument>vendor_user_risk_level_api.normalizer.risk_level</argument>
+                <argument>vendor_user_risk_level_api.controller.user_api:getUserRiskLevel</argument>
+            </call>
+                                    
+
+            <call method="addResponseMapper">
+                <argument>vendor_user_risk_level_api.normalizer.manual_rule_result</argument>
+                <argument>vendor_user_risk_level_api.controller.user_api:getUserManualRules</argument>
+            </call>
+                        
+
+            <call method="addRequestMapper">
+                <argument>vendor_user_risk_level_api.normalizer.auditable_manual_rule</argument>
+                <argument>vendor_user_risk_level_api.controller.user_api:createUserManualRule</argument>
+                <argument>auditableManualRule</argument>
+            </call>
+            <call method="addResponseMapper">
+                <argument>vendor_user_risk_level_api.normalizer.manual_rule</argument>
+                <argument>vendor_user_risk_level_api.controller.user_api:createUserManualRule</argument>
+            </call>
+                                    
+
+            <call method="addRequestAttributeResolver">
+                <argument>vendor_user_risk_level_api.entity_resolver.auditable_manual_rule_by_rule_id</argument>
+                <argument>vendor_user_risk_level_api.controller.user_api:deleteUserManualRule</argument>
+                <argument>ruleId</argument>
+                <argument>auditableManualRule</argument>
+            </call>
+            <call method="addRequestMapper">
+                <argument>vendor_user_risk_level_api.normalizer.audit_record</argument>
+                <argument>vendor_user_risk_level_api.controller.user_api:deleteUserManualRule</argument>
+                <argument>auditRecord</argument>
+            </call>
+            
+        </service>
+        <service id="vendor_user_risk_level_api.api.manual_rule"
+                 class="Paysera\Bundle\RestBundle\RestApi">
+            <tag name="paysera_rest.api" api_key="vendor_user_risk_level_api.manual_rule"/>
+            <argument type="service" id="service_container"/>
+            <argument type="service" id="logger"/>
+                                
+
+            <call method="addResponseMapper">
+                <argument>vendor_user_risk_level_api.normalizer.manual_rule_result</argument>
+                <argument>vendor_user_risk_level_api.controller.manual_rule_api:getManualRules</argument>
+            </call>
+            
+        </service>
+        
+    </services>
+</container>

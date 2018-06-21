@@ -1,0 +1,79 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="vendor_inheritance_api.api.user"
+                 class="Paysera\Bundle\RestBundle\RestApi">
+            <tag name="paysera_rest.api" api_key="vendor_inheritance_api.user"/>
+            <argument type="service" id="service_container"/>
+            <argument type="service" id="logger"/>
+                                
+
+            <call method="addRequestQueryMapper">
+                <argument>vendor_inheritance_api.normalizer.user_filter</argument>
+                <argument>vendor_inheritance_api.controller.user_api:getUsers</argument>
+                <argument>userFilter</argument>
+            </call>
+                        
+
+            <call method="addRequestMapper">
+                <argument>vendor_inheritance_api.normalizer.user_basic</argument>
+                <argument>vendor_inheritance_api.controller.user_api:createUser</argument>
+                <argument>userBasic</argument>
+            </call>
+            <call method="addResponseMapper">
+                <argument>vendor_inheritance_api.normalizer.user_basic</argument>
+                <argument>vendor_inheritance_api.controller.user_api:createUser</argument>
+            </call>
+                                    
+
+            <call method="addRequestQueryMapper">
+                <argument>vendor_inheritance_api.normalizer.user_natural_filter</argument>
+                <argument>vendor_inheritance_api.controller.user_api:getUserNatural</argument>
+                <argument>userNaturalFilter</argument>
+            </call>
+            <call method="addResponseMapper">
+                <argument>vendor_inheritance_api.normalizer.user_natural</argument>
+                <argument>vendor_inheritance_api.controller.user_api:getUserNatural</argument>
+            </call>
+                        
+
+            <call method="addRequestMapper">
+                <argument>vendor_inheritance_api.normalizer.user_natural</argument>
+                <argument>vendor_inheritance_api.controller.user_api:createNaturalUser</argument>
+                <argument>userNatural</argument>
+            </call>
+            <call method="addResponseMapper">
+                <argument>vendor_inheritance_api.normalizer.user_natural</argument>
+                <argument>vendor_inheritance_api.controller.user_api:createNaturalUser</argument>
+            </call>
+                                    
+
+            <call method="addRequestQueryMapper">
+                <argument>vendor_inheritance_api.normalizer.user_legal_filter</argument>
+                <argument>vendor_inheritance_api.controller.user_api:getUserLegal</argument>
+                <argument>userLegalFilter</argument>
+            </call>
+            <call method="addResponseMapper">
+                <argument>vendor_inheritance_api.normalizer.user_legal</argument>
+                <argument>vendor_inheritance_api.controller.user_api:getUserLegal</argument>
+            </call>
+                        
+
+            <call method="addRequestMapper">
+                <argument>vendor_inheritance_api.normalizer.user_legal</argument>
+                <argument>vendor_inheritance_api.controller.user_api:createLegalUser</argument>
+                <argument>userLegal</argument>
+            </call>
+            <call method="addResponseMapper">
+                <argument>vendor_inheritance_api.normalizer.user_legal</argument>
+                <argument>vendor_inheritance_api.controller.user_api:createLegalUser</argument>
+            </call>
+            
+        </service>
+        
+    </services>
+</container>

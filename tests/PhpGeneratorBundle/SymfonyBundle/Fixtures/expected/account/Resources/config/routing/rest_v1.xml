@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<routes xmlns="http://symfony.com/schema/routing"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
+
+    <route id="vendor_account_api.get_account_scripts" methods="GET" path="/accounts/scripts">
+        <default key="_controller">vendor_account_api.controller.account_api:getAccountScripts</default>
+        <default key="api_key">vendor_account_api.account</default>
+        <option key="expose">true</option>
+    </route>
+    <route id="vendor_account_api.get_accounts" methods="GET" path="/accounts">
+        <default key="_controller">vendor_account_api.controller.account_api:getAccounts</default>
+        <default key="api_key">vendor_account_api.account</default>
+        <option key="expose">true</option>
+    </route>
+</routes>

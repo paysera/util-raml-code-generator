@@ -3,9 +3,9 @@ declare(strict_types=1);
 
 namespace Paysera\Bundle\CodeGeneratorBundle\Twig;
 
+use Fig\Http\Message\RequestMethodInterface;
 use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\ApiDefinition;
 use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\ArgumentDefinition;
-use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\ArrayPropertyDefinition;
 use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\PropertyDefinition;
 use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\ResultTypeDefinition;
 use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\TypeDefinition;
@@ -63,6 +63,9 @@ class BaseExtension extends Twig_Extension
             new Twig_SimpleFilter('to_class_name', [$this->stringConverter, 'convertSlugToClassName']),
             new Twig_SimpleFilter('extract_type_name', [$this, 'extractTypeName']),
             new Twig_SimpleFilter('to_kebab_case', [StringHelper::class, 'kebabCase']),
+            new Twig_SimpleFilter('to_snake_case', [StringHelper::class, 'snakeCase']),
+            new Twig_SimpleFilter('to_plural', [StringHelper::class, 'plural']),
+            new Twig_SimpleFilter('to_singular', [StringHelper::class, 'singular']),
 
         ];
     }
@@ -72,18 +75,31 @@ class BaseExtension extends Twig_Extension
         return [
             new Twig_SimpleFunction('is_discriminated', [$this, 'isDiscriminated']),
             new Twig_SimpleFunction('get_constant_name', [$this, 'getConstantName']),
+            new Twig_SimpleFunction('is_result_type', [$this, 'isResultType']),
 
             new Twig_SimpleFunction('generate_method_name', [$this, 'generateMethodName']),
             new Twig_SimpleFunction('generate_method_arguments', [$this, 'generateMethodArguments']),
             new Twig_SimpleFunction('generate_body', [$this, 'generateBody']),
             new Twig_SimpleFunction('is_raw_response', [$this, 'isRawResponse']),
             new Twig_SimpleFunction('get_argument_names', [$this, 'getArgumentNames']),
+            new Twig_SimpleFunction('get_method_entity_name', [$this, 'getMethodEntityName']),
+            new Twig_SimpleFunction('method_returns_result', [$this, 'methodReturnsResult']),
+            new Twig_SimpleFunction('extract_filter_from_arguments', [$this, 'extractFilterFromArguments']),
+            new Twig_SimpleFunction('method_changes_state', [$this, 'methodChangesState']),
+            new Twig_SimpleFunction('flatten_resources', [$this, 'flattenResources']),
+            new Twig_SimpleFunction('flatten_sub_resources', [$this, 'flattenSubResources']),
+            new Twig_SimpleFunction('is_type_defined', [$this, 'isTypeDefined']),
 
-            new Twig_SimpleFunction('get_method_body_getter_template', [$this, 'getMethodBodyGetterTemplate'], ['needs_context' => true]),
-            new Twig_SimpleFunction('get_method_body_setter_template', [$this, 'getMethodBodySetterTemplate'], ['needs_context' => true]),
+
+            new Twig_SimpleFunction('get_getter_method_template', [$this, 'getGetterMethodTemplate'], ['needs_context' => true]),
+            new Twig_SimpleFunction('get_setter_method_template', [$this, 'getSetterMethodTemplate'], ['needs_context' => true]),
             new Twig_SimpleFunction('get_method_return_type_template', [$this, 'getMethodReturnTypeTemplate'], ['needs_context' => true]),
             new Twig_SimpleFunction('get_method_argument_type_template', [$this, 'getMethodArgumentTypeTemplate'], ['needs_context' => true]),
             new Twig_SimpleFunction('get_method_argument_typehint_template', [$this, 'getMethodArgumentTypeHintTemplate'], ['needs_context' => true]),
+            new Twig_SimpleFunction('get_property_normalizer_template', [$this, 'getPropertyNormalizerTemplate'], ['needs_context' => true]),
+            new Twig_SimpleFunction('get_property_denormalizer_template', [$this, 'getPropertyDenormalizerTemplate'], ['needs_context' => true]),
+            new Twig_SimpleFunction('get_entity_field_template', [$this, 'getEntityFieldTemplate'], ['needs_context' => true]),
+            new Twig_SimpleFunction('get_orm_field_template', [$this, 'getOrmFieldTemplate'], ['needs_context' => true]),
 
             new Twig_SimpleFunction('get_type_definition', [$this, 'getTypeDefinition']),
             new Twig_SimpleFunction('get_parent_type_config', [$this, 'getParentTypeConfig'], ['needs_context' => true]),
@@ -91,13 +107,96 @@ class BaseExtension extends Twig_Extension
             new Twig_SimpleFunction('get_external_libraries', [$this, 'getExternalLibrariesConfig'], ['needs_context' => true]),
             new Twig_SimpleFunction('get_directly_used_types', [$this, 'getDirectlyUsedTypes'], ['needs_context' => true]),
             new Twig_SimpleFunction('get_all_used_types', [$this, 'getAllUsedTypes'], ['needs_context' => true]),
+            new Twig_SimpleFunction('get_type_configuration', [$this, 'getTypeConfiguration'], ['needs_context' => true]),
         ];
+    }
+
+    public function isTypeDefined(string $name, ApiDefinition $apiDefinition)
+    {
+        $typeName = $this->stringConverter->convertSlugToClassName($name);
+        return $apiDefinition->getType($typeName) !== null;
+    }
+
+    public function isResultType(TypeDefinition $typeDefinition)
+    {
+        return $typeDefinition instanceof ResultTypeDefinition;
+    }
+
+    public function flattenResources(ApiDefinition $apiDefinition)
+    {
+        $resources = [];
+        foreach ($apiDefinition->getRamlDefinition()->getResources() as $resource) {
+            $resources = $this->flattenSubResources($resource, $resources);
+        }
+        return $resources;
+    }
+
+    public function flattenSubResources(Resource $resource, array $resources = [])
+    {
+        $resources[] = $resource;
+        foreach ($resource->getResources() as $subResource) {
+            $resources = $this->flattenSubResources($subResource, $resources);
+        }
+        return $resources;
+    }
+
+    public function methodChangesState(Method $method)
+    {
+        return $method->getType() !== RequestMethodInterface::METHOD_GET;
+    }
+
+    /**
+     * @param ArgumentDefinition[] $arguments
+     * @return ArgumentDefinition|null
+     */
+    public function extractFilterFromArguments(array $arguments)
+    {
+        foreach ($arguments as $argument) {
+            if (strpos($argument->getType(), 'Filter') !== false) {
+                return $argument;
+            }
+        }
+        return null;
+    }
+
+    public function methodReturnsResult(Method $method, ApiDefinition $api)
+    {
+        return $this->methodNameBuilder->methodReturnsResult($method, $api);
+    }
+
+    public function getMethodEntityName(Resource $resource)
+    {
+        return $this->methodNameBuilder->getMethodEntityName($resource);
+    }
+
+    public function getOrmFieldTemplate(array $context, PropertyDefinition $definition)
+    {
+        $configurationProvider = $this->getTypeConfigurationProvider($context);
+        return $configurationProvider->getPropertyTypeConfiguration($definition)->getOrmFieldTemplate();
+    }
+
+    public function getEntityFieldTemplate(array $context, PropertyDefinition $definition)
+    {
+        $configurationProvider = $this->getTypeConfigurationProvider($context);
+        return $configurationProvider->getPropertyTypeConfiguration($definition)->getEntityFieldTemplate();
+    }
+
+    public function getPropertyNormalizerTemplate(array $context, PropertyDefinition $definition)
+    {
+        $configurationProvider = $this->getTypeConfigurationProvider($context);
+        return $configurationProvider->getPropertyTypeConfiguration($definition)->getNormalizerTemplate();
+    }
+
+    public function getPropertyDenormalizerTemplate(array $context, PropertyDefinition $definition)
+    {
+        $configurationProvider = $this->getTypeConfigurationProvider($context);
+        return $configurationProvider->getPropertyTypeConfiguration($definition)->getDenormalizerTemplate();
     }
 
     public function getAllUsedTypes(array $context, ApiDefinition $api)
     {
         $externalLibs = [];
-        $configurationProvider = $this->typeConfigurationProviderStorage->getTypeConfigurationProvider($context['language']);
+        $configurationProvider = $this->getTypeConfigurationProvider($context);
         $types = $this->usedTypesResolver->resolveUsedTypes($api);
         foreach ($types as $type) {
             if ($configurationProvider->hasTypeConfiguration($type)) {
@@ -122,7 +221,7 @@ class BaseExtension extends Twig_Extension
     {
         $config = [];
         $types = $this->usedTypesResolver->resolveDirectlyUsedTypes($apiDefinition);
-        $configurationProvider = $this->typeConfigurationProviderStorage->getTypeConfigurationProvider($context['language']);
+        $configurationProvider = $this->getTypeConfigurationProvider($context);
         foreach ($types as $type) {
             $typeConfig = $configurationProvider->getTypeConfiguration($type);
             if ($typeConfig->getImportString() !== null) {
@@ -144,7 +243,7 @@ class BaseExtension extends Twig_Extension
     public function getExternalLibrariesConfig(array $context, ApiDefinition $api)
     {
         $externalLibs = [];
-        $configurationProvider = $this->typeConfigurationProviderStorage->getTypeConfigurationProvider($context['language']);
+        $configurationProvider = $this->getTypeConfigurationProvider($context);
         $types = $this->usedTypesResolver->resolveUsedTypes($api);
 
         foreach ($types as $type) {
@@ -170,7 +269,7 @@ class BaseExtension extends Twig_Extension
     public function getRelatedTypesConfig(array $context, TypeDefinition $type, ApiDefinition $api)
     {
         $relatedTypes = [];
-        $configurationProvider = $this->typeConfigurationProviderStorage->getTypeConfigurationProvider($context['language']);
+        $configurationProvider = $this->getTypeConfigurationProvider($context);
         $types = $this->usedTypesResolver->resolveRelatedTypes($type, $api);
         foreach ($types as $typeName) {
             if ($configurationProvider->hasTypeConfiguration($typeName)) {
@@ -181,13 +280,18 @@ class BaseExtension extends Twig_Extension
                 }
         }
         $relatedTypes[] = $this->getParentTypeConfig($context, $type);
-        return array_unique($relatedTypes, SORT_REGULAR);
+        return array_filter(array_unique($relatedTypes, SORT_REGULAR));
     }
 
+    /**
+     * @param array $context
+     * @param TypeDefinition $type
+     * @return TypeConfiguration|null
+     */
     public function getParentTypeConfig(array $context, TypeDefinition $type)
     {
         $parent = $type->getParent();
-        $configurationProvider = $this->typeConfigurationProviderStorage->getTypeConfigurationProvider($context['language']);
+        $configurationProvider = $this->getTypeConfigurationProvider($context);
         if ($parent === null) {
             return $configurationProvider->getEntityTypeConfiguration();
         }
@@ -212,31 +316,31 @@ class BaseExtension extends Twig_Extension
 
     public function getMethodArgumentTypeHintTemplate(array $context, PropertyDefinition $definition)
     {
-        $configurationProvider = $this->typeConfigurationProviderStorage->getTypeConfigurationProvider($context['language']);
+        $configurationProvider = $this->getTypeConfigurationProvider($context);
         return $configurationProvider->getPropertyTypeConfiguration($definition)->getArgumentTypeHintTemplate();
     }
 
     public function getMethodArgumentTypeTemplate(array $context, PropertyDefinition $definition)
     {
-        $configurationProvider = $this->typeConfigurationProviderStorage->getTypeConfigurationProvider($context['language']);
+        $configurationProvider = $this->getTypeConfigurationProvider($context);
         return $configurationProvider->getPropertyTypeConfiguration($definition)->getArgumentTypeTemplate();
     }
 
     public function getMethodReturnTypeTemplate(array $context, PropertyDefinition $definition)
     {
-        $configurationProvider = $this->typeConfigurationProviderStorage->getTypeConfigurationProvider($context['language']);
+        $configurationProvider = $this->getTypeConfigurationProvider($context);
         return $configurationProvider->getPropertyTypeConfiguration($definition)->getReturnTypeTemplate();
     }
 
-    public function getMethodBodySetterTemplate(array $context, PropertyDefinition $definition)
+    public function getSetterMethodTemplate(array $context, PropertyDefinition $definition)
     {
-        $configurationProvider = $this->typeConfigurationProviderStorage->getTypeConfigurationProvider($context['language']);
+        $configurationProvider = $this->getTypeConfigurationProvider($context);
         return $configurationProvider->getPropertyTypeConfiguration($definition)->getSetterTemplate();
     }
 
-    public function getMethodBodyGetterTemplate(array $context, PropertyDefinition $definition)
+    public function getGetterMethodTemplate(array $context, PropertyDefinition $definition)
     {
-        $configurationProvider = $this->typeConfigurationProviderStorage->getTypeConfigurationProvider($context['language']);
+        $configurationProvider = $this->getTypeConfigurationProvider($context);
         return $configurationProvider->getPropertyTypeConfiguration($definition)->getGetterTemplate();
     }
 
@@ -349,6 +453,11 @@ class BaseExtension extends Twig_Extension
         return $arguments;
     }
 
+    public function getTypeConfiguration(array $context, TypeDefinition $type)
+    {
+        return $this->getTypeConfigurationProvider($context)->getTypeConfiguration($type->getName());
+    }
+
     /**
      * @param Method $method
      * @param ApiDefinition $api
@@ -382,5 +491,10 @@ class BaseExtension extends Twig_Extension
         }
 
         return $arguments;
+    }
+
+    private function getTypeConfigurationProvider(array $context)
+    {
+        return $this->typeConfigurationProviderStorage->getTypeConfigurationProvider($context['code_type']);
     }
 }

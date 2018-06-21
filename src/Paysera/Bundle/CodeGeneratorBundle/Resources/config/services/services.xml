@@ -33,6 +33,7 @@
             <argument type="service" id="paysera_code_generator.raml_parser"/>
             <argument type="service" id="filesystem"/>
             <argument type="service" id="paysera_code_generator.definition_decorator"/>
+            <argument type="service" id="paysera_code_generator.method_name_builder"/>
         </service>
 
         <service id="paysera_code_generator.body_resolver"

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7e1cfacb3b204f4b82a2c746f5eec7b4",
+    "content-hash": "d9a256415f87da0ea52069a3541a75b3",
     "packages": [
         {
             "name": "composer/ca-bundle",
@@ -272,16 +272,16 @@
         },
         {
             "name": "doctrine/common",
-            "version": "v2.7.2",
+            "version": "v2.7.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/common.git",
-                "reference": "930297026c8009a567ac051fd545bf6124150347"
+                "reference": "4acb8f89626baafede6ee5475bc5844096eba8a9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/common/zipball/930297026c8009a567ac051fd545bf6124150347",
-                "reference": "930297026c8009a567ac051fd545bf6124150347",
+                "url": "https://api.github.com/repos/doctrine/common/zipball/4acb8f89626baafede6ee5475bc5844096eba8a9",
+                "reference": "4acb8f89626baafede6ee5475bc5844096eba8a9",
                 "shasum": ""
             },
             "require": {
@@ -341,7 +341,7 @@
                 "persistence",
                 "spl"
             ],
-            "time": "2017-01-13T14:02:13+00:00"
+            "time": "2017-07-22T08:35:12+00:00"
         },
         {
             "name": "doctrine/dbal",
@@ -1376,16 +1376,16 @@
         },
         {
             "name": "raml-org/raml-php-parser",
-            "version": "4.1.0",
+            "version": "4.2.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/vbartusevicius/raml-php-parser.git",
-                "reference": "9ef862cb52a5a882bdac55044b2fadfcb9f93708"
+                "url": "https://github.com/paysera/fork-raml-org-raml-php-parser.git",
+                "reference": "4ad41980ad55be1490e2d34d9cabc19eba20bd60"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vbartusevicius/raml-php-parser/zipball/9ef862cb52a5a882bdac55044b2fadfcb9f93708",
-                "reference": "9ef862cb52a5a882bdac55044b2fadfcb9f93708",
+                "url": "https://api.github.com/repos/paysera/fork-raml-org-raml-php-parser/zipball/4ad41980ad55be1490e2d34d9cabc19eba20bd60",
+                "reference": "4ad41980ad55be1490e2d34d9cabc19eba20bd60",
                 "shasum": ""
             },
             "require": {
@@ -1426,9 +1426,9 @@
             "description": "A RAML parser built in php",
             "homepage": "https://github.com/raml-org/raml-php-parser",
             "support": {
-                "source": "https://github.com/vbartusevicius/raml-php-parser/tree/4.1.0"
+                "source": "https://github.com/paysera/fork-raml-org-raml-php-parser/tree/4.2.1"
             },
-            "time": "2018-05-26T10:49:26+00:00"
+            "time": "2018-06-20T15:30:12+00:00"
         },
         {
             "name": "sensio/distribution-bundle",
@@ -2372,6 +2372,82 @@
             "time": "2015-06-14T21:17:01+00:00"
         },
         {
+            "name": "doctrine/orm",
+            "version": "v2.5.14",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/doctrine/doctrine2.git",
+                "reference": "810a7baf81462a5ddf10e8baa8cb94b6eec02754"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/doctrine/doctrine2/zipball/810a7baf81462a5ddf10e8baa8cb94b6eec02754",
+                "reference": "810a7baf81462a5ddf10e8baa8cb94b6eec02754",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/cache": "~1.4",
+                "doctrine/collections": "~1.2",
+                "doctrine/common": ">=2.5-dev,<2.9-dev",
+                "doctrine/dbal": ">=2.5-dev,<2.7-dev",
+                "doctrine/instantiator": "^1.0.1",
+                "ext-pdo": "*",
+                "php": ">=5.4",
+                "symfony/console": "~2.5|~3.0|~4.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.0",
+                "symfony/yaml": "~2.3|~3.0|~4.0"
+            },
+            "suggest": {
+                "symfony/yaml": "If you want to use YAML Metadata Mapping Driver"
+            },
+            "bin": [
+                "bin/doctrine",
+                "bin/doctrine.php"
+            ],
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.6.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Doctrine\\ORM\\": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Roman Borschel",
+                    "email": "roman@code-factory.org"
+                },
+                {
+                    "name": "Benjamin Eberlei",
+                    "email": "kontakt@beberlei.de"
+                },
+                {
+                    "name": "Guilherme Blanco",
+                    "email": "guilhermeblanco@gmail.com"
+                },
+                {
+                    "name": "Jonathan Wage",
+                    "email": "jonwage@gmail.com"
+                }
+            ],
+            "description": "Object-Relational-Mapper for PHP",
+            "homepage": "http://www.doctrine-project.org",
+            "keywords": [
+                "database",
+                "orm"
+            ],
+            "time": "2017-12-17T02:57:51+00:00"
+        },
+        {
             "name": "evp/money",
             "version": "1.6.2",
             "source": {
@@ -2856,6 +2932,40 @@
             "time": "2017-04-12T18:52:22+00:00"
         },
         {
+            "name": "paysera/lib-rest-bundle",
+            "version": "4.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/paysera/lib-rest-bundle.git",
+                "reference": "d2b03ff3e3297ad52d46dc404374746a916afca5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/paysera/lib-rest-bundle/zipball/d2b03ff3e3297ad52d46dc404374746a916afca5",
+                "reference": "d2b03ff3e3297ad52d46dc404374746a916afca5",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/orm": "^2.0",
+                "paysera/lib-serializer": "^2.0.2",
+                "php": ">=5.5",
+                "symfony/symfony": "^2.6|3.*"
+            },
+            "require-dev": {
+                "mockery/mockery": "^0.9.4",
+                "phpunit/phpunit": "^4.8"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Paysera\\Bundle\\RestBundle\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "description": "Helps easily convert your regular controller to RESTful controller",
+            "time": "2018-04-09T14:33:26+00:00"
+        },
+        {
             "name": "paysera/lib-rest-client-common",
             "version": "1.0.6",
             "source": {
@@ -2888,6 +2998,38 @@
             "notification-url": "https://packagist.org/downloads/",
             "description": "Base classes/helpers used in REST Clients",
             "time": "2017-07-03T12:15:42+00:00"
+        },
+        {
+            "name": "paysera/lib-serializer",
+            "version": "2.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/paysera/lib-serializer.git",
+                "reference": "390e16a247a0ae6d92059e885f90a171723635fa"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/paysera/lib-serializer/zipball/390e16a247a0ae6d92059e885f90a171723635fa",
+                "reference": "390e16a247a0ae6d92059e885f90a171723635fa",
+                "shasum": ""
+            },
+            "require": {
+                "symfony/property-access": "2.*|3.*",
+                "symfony/validator": "2.*|3.*",
+                "willdurand/jsonp-callback-validator": "~1.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "3.7.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Paysera\\Component\\Serializer\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "description": "Library can (de)serialize various data types",
+            "time": "2018-04-04T16:10:26+00:00"
         },
         {
             "name": "phar-io/manifest",
@@ -4824,6 +4966,46 @@
                 "validate"
             ],
             "time": "2016-11-23T20:04:58+00:00"
+        },
+        {
+            "name": "willdurand/jsonp-callback-validator",
+            "version": "v1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/willdurand/JsonpCallbackValidator.git",
+                "reference": "1a7d388bb521959e612ef50c5c7b1691b097e909"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/willdurand/JsonpCallbackValidator/zipball/1a7d388bb521959e612ef50c5c7b1691b097e909",
+                "reference": "1a7d388bb521959e612ef50c5c7b1691b097e909",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~3.7"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "JsonpCallbackValidator": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "William Durand",
+                    "email": "william.durand1@gmail.com",
+                    "homepage": "http://www.willdurand.fr"
+                }
+            ],
+            "description": "JSONP callback validator.",
+            "time": "2014-01-20T22:35:06+00:00"
         }
     ],
     "aliases": [],
