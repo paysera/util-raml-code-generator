@@ -4,7 +4,7 @@
             return null;
         }
 {% endif %}
-{% if property.type in property.scalarTypes %}
+{% if property.type in property.simpleTypes %}
         return this.get('{{ property.name }}');
 {% elseif property.type == constant('TYPE_REFERENCE', property) %}
         return new {{ property.reference|extract_type_name }}(this.get('{{ property.name }}'));
