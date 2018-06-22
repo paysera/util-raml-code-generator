@@ -47,7 +47,7 @@ class TransferAdditionalData extends Entity {
      * @return {Money}|null
      */
     getOriginalOutCommission() {
-        if (this.get('original_out_commission')['amount'] == null && this.get('original_out_commission')['currency'] == null) {
+        if (this.get('original_out_commission')['amount'] === null || this.get('original_out_commission')['currency'] === null) {
             return null;
         }
         return new Money(this.get('original_out_commission')['amount'], this.get('original_out_commission')['currency']);

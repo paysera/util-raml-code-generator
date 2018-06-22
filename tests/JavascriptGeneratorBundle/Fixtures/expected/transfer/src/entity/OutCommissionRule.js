@@ -26,7 +26,7 @@ class OutCommissionRule extends Entity {
      * @return {Money}|null
      */
     getMin() {
-        if (this.get('min')['amount'] == null && this.get('min')['currency'] == null) {
+        if (this.get('min')['amount'] === null || this.get('min')['currency'] === null) {
             return null;
         }
         return new Money(this.get('min')['amount'], this.get('min')['currency']);
@@ -43,7 +43,7 @@ class OutCommissionRule extends Entity {
      * @return {Money}|null
      */
     getMax() {
-        if (this.get('max')['amount'] == null && this.get('max')['currency'] == null) {
+        if (this.get('max')['amount'] === null || this.get('max')['currency'] === null) {
             return null;
         }
         return new Money(this.get('max')['amount'], this.get('max')['currency']);
@@ -60,7 +60,7 @@ class OutCommissionRule extends Entity {
      * @return {Money}|null
      */
     getFix() {
-        if (this.get('fix')['amount'] == null && this.get('fix')['currency'] == null) {
+        if (this.get('fix')['amount'] === null || this.get('fix')['currency'] === null) {
             return null;
         }
         return new Money(this.get('fix')['amount'], this.get('fix')['currency']);

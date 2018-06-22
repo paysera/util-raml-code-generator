@@ -1,6 +1,6 @@
 
 {% if property.required == false %}
-        if (this.get('{{ property.name }}')['amount'] == null && this.get('{{  property.name }}')['currency'] == null) {
+        if (this.get('{{ property.name }}')['amount'] === null || this.get('{{  property.name }}')['currency'] === null) {
             return null;
         }
 {% endif %}
