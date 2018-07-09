@@ -1,4 +1,4 @@
-import { RequestFactory, ClientWrapper } from 'paysera-http-client-common';
+import { createRequest, ClientWrapper } from '@paysera/http-client-common';
 
 {% for typeConfig in get_directly_used_types(api) %}
 {% if typeConfig.importString is not null %}
@@ -23,7 +23,6 @@ import {{ typeConfig.typeName }} from '../entity/{{ typeConfig.typeName }}';
 {% endmacro -%}
 
 class {{ js_get_client_name(api) }} {
-
     /**
      * @param {ClientWrapper} client
      */

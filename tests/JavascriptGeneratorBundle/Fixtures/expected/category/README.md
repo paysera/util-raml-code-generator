@@ -1,31 +1,46 @@
-# vendor-category-client
+# @vendor/category-client
 
-`vendor-category-client` package provides means to interact with Vendor CategoryClient REST API.
+`@vendor/category-client` package provides means to interact with Vendor CategoryClient REST API.
 Package source code is written in ES6 syntax ant is transpiled to ES5 using babel.
 Additional Angular JS module `vendor.http.category-client` with `vendorHttpCategoryClientFactory` service is also provided.
 
 ## Installing
 Using npm:
 ```bash
-$ npm install vendor-category-client
+$ npm install @vendor/category-client
 ```
 
 Using javascript files
 ```html
-<script src="//domain.com/path/to/paysera-http-client-common/dist/lib.js"></script>
-<script src="//domain.com/path/to/vendor-category-client/dist/lib.js"></script>
+<script src="//domain.com/path/to/@paysera/http-client-common/dist/main.js"></script>
+<script src="//domain.com/path/to/@vendor/category-client/dist/lib.js"></script>
 ```
 
 # Usage
 ```js
-import { ClientFactory } from 'vendor-category-client';
+import {
+    createClient,
+    createRequest,
+    JWTAuthenticationMiddleware,
+    SessionStorageTokenProvider,
+    Scope,
+} from '@paysera/http-client-common';
+import { createCategoryClient } from '@vendor/category-client';
 
-let factory = ClientFactory.create({
+const client = createCategoryClient({
     baseUrl: 'http://sandbox.domain.com/', // optional, custom base url
-    refreshTokenProvider: function (Scope) {} // optional, needed only if API requires authentication
+    middleware: [ // optional, list of middleware
+        new JWTAuthenticationMiddleware(
+            new Scope('scope:a'),
+            new SessionStorageTokenProvider(
+                (scope) => ({ scope, accessToken: 'created-token' }),
+                (scope) => ({ scope, accessToken: 'refreshed-token' }),
+                'category_client', // unique identifier of token
+                'CategoryClient', // storage namespace
+            ),
+        ),
+    ]
 });
-
-let client = factory.getCategoryClient(); // accepts optional TokenProvider argument, needed only if API requires authentication
 ```
 
 ## Demo

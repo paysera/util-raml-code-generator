@@ -8,8 +8,8 @@ import {{ typeConfig.typeName|extract_type_name }} from './{{ typeConfig.typeNam
 {% if get_related_types_config(type, api) is not empty %}
 
 {% endif %}
+/* eslint class-methods-use-this: ["error", { "exceptMethods": ["createItem"] }] */
 class {{ type.name|extract_type_name }} extends {{ get_parent_type_config(type).typeName }} {
-
     /**
      * @param {Array} data
      * @returns {{ ('{' ~ type.itemsType|extract_type_name ~ '}')|raw }}

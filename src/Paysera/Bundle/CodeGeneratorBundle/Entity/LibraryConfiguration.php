@@ -15,6 +15,16 @@ class LibraryConfiguration
     private $version;
 
     /**
+     * @var array
+     */
+    private $options;
+
+    public function __construct()
+    {
+        $this->options = [];
+    }
+
+    /**
      * @return string
      */
     public function getName()
@@ -49,6 +59,26 @@ class LibraryConfiguration
     public function setVersion($version)
     {
         $this->version = $version;
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getOptions(): array
+    {
+        return $this->options;
+    }
+
+    /**
+     * @param array $options
+     *
+     * @return $this
+     */
+    public function setOptions(array $options)
+    {
+        $this->options = $options;
+
         return $this;
     }
 }

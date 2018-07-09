@@ -27,13 +27,11 @@ Generated packages also have `/demo` directory with library usage example.
     - If your app is using Angular JS, add all files, except `demo/app.js`:
     ```html
     <script type="text/javascript" src="../node_modules/angular/angular.js"></script>
-    <script type="text/javascript" src="../node_modules/paysera-http-client-common/dist/babel.polyfill.js"></script>
-    <script type="text/javascript" src="../node_modules/paysera-http-client-common/dist/lib.js"></script>
+    <script type="text/javascript" src="../node_modules/@paysera/http-client-common/dist/main.js"></script>
     <script type="text/javascript" src="../dist/ng.module.js"></script>
     ```
     - If your app needs just basic code in ES5 code level:
     ```html
-    <script type="text/javascript" src="../node_modules/paysera-http-client-common/dist/babel.polyfill.js"></script>
-    <script type="text/javascript" src="../node_modules/paysera-http-client-common/dist/lib.js"></script>
+    <script type="text/javascript" src="../node_modules/@paysera/http-client-common/dist/main.js"></script>
     <script type="text/javascript" src="../dist/lib.js"></script>
     ```

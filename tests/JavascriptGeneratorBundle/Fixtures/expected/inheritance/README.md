@@ -1,31 +1,46 @@
-# vendor-inheritance-client
+# @vendor/inheritance-client
 
-`vendor-inheritance-client` package provides means to interact with Vendor InheritanceClient REST API.
+`@vendor/inheritance-client` package provides means to interact with Vendor InheritanceClient REST API.
 Package source code is written in ES6 syntax ant is transpiled to ES5 using babel.
 Additional Angular JS module `vendor.http.inheritance-client` with `vendorHttpInheritanceClientFactory` service is also provided.
 
 ## Installing
 Using npm:
 ```bash
-$ npm install vendor-inheritance-client
+$ npm install @vendor/inheritance-client
 ```
 
 Using javascript files
 ```html
-<script src="//domain.com/path/to/paysera-http-client-common/dist/lib.js"></script>
-<script src="//domain.com/path/to/vendor-inheritance-client/dist/lib.js"></script>
+<script src="//domain.com/path/to/@paysera/http-client-common/dist/main.js"></script>
+<script src="//domain.com/path/to/@vendor/inheritance-client/dist/lib.js"></script>
 ```
 
 # Usage
 ```js
-import { ClientFactory } from 'vendor-inheritance-client';
+import {
+    createClient,
+    createRequest,
+    JWTAuthenticationMiddleware,
+    SessionStorageTokenProvider,
+    Scope,
+} from '@paysera/http-client-common';
+import { createInheritanceClient } from '@vendor/inheritance-client';
 
-let factory = ClientFactory.create({
+const client = createInheritanceClient({
     baseUrl: 'http://sandbox.domain.com/', // optional, custom base url
-    refreshTokenProvider: function (Scope) {} // optional, needed only if API requires authentication
+    middleware: [ // optional, list of middleware
+        new JWTAuthenticationMiddleware(
+            new Scope('scope:a'),
+            new SessionStorageTokenProvider(
+                (scope) => ({ scope, accessToken: 'created-token' }),
+                (scope) => ({ scope, accessToken: 'refreshed-token' }),
+                'inheritance_client', // unique identifier of token
+                'InheritanceClient', // storage namespace
+            ),
+        ),
+    ]
 });
-
-let client = factory.getInheritanceClient(); // accepts optional TokenProvider argument, needed only if API requires authentication
 ```
 
 ## Demo

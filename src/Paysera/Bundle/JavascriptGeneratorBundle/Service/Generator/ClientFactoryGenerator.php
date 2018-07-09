@@ -26,7 +26,7 @@ class ClientFactoryGenerator implements GeneratorInterface
         $baseUrl = $definition->getRamlDefinition()->getBaseUri();
 
         $code = $this->twig->render(
-            'PayseraJavascriptGeneratorBundle:Package/Src/Service:ClientFactory.js.twig',
+            'PayseraJavascriptGeneratorBundle:Package/Src/Service:createClient.js.twig',
             [
                 'base_url' => rtrim($baseUrl, '/') . '/',
                 'api' => $definition,
@@ -34,7 +34,7 @@ class ClientFactoryGenerator implements GeneratorInterface
         );
 
         $item = (new SourceCode())
-            ->setFilepath(sprintf('%s/service/ClientFactory.js', $this->sourceDir))
+            ->setFilepath(sprintf('%s/service/createClient.js', $this->sourceDir))
             ->setContents($code)
         ;
 

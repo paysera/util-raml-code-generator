@@ -1,8 +1,8 @@
-import { Result } from 'paysera-http-client-common';
+import { Result } from '@paysera/http-client-common';
 import TransferOutput from './TransferOutput';
 
+/* eslint class-methods-use-this: ["error", { "exceptMethods": ["createItem"] }] */
 class FilteredTransfersResult extends Result {
-
     /**
      * @param {Array} data
      * @returns {TransferOutput}

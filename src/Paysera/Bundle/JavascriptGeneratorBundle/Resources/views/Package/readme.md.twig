@@ -12,20 +12,35 @@ $ npm install {{ js_get_package_name(vendor_prefix, api) }}
 
 Using javascript files
 ```html
-<script src="//domain.com/path/to/paysera-http-client-common/dist/lib.js"></script>
+<script src="//domain.com/path/to/@paysera/http-client-common/dist/main.js"></script>
 <script src="//domain.com/path/to/{{ js_get_package_name(vendor_prefix, api) }}/dist/lib.js"></script>
 ```
 
 # Usage
 ```js
-import { ClientFactory } from '{{ js_get_package_name(vendor_prefix, api) }}';
+import {
+    createClient,
+    createRequest,
+    JWTAuthenticationMiddleware,
+    SessionStorageTokenProvider,
+    Scope,
+} from '@paysera/http-client-common';
+import { create{{ js_get_client_name(api) }} } from '{{ js_get_package_name(vendor_prefix, api) }}';
 
-let factory = ClientFactory.create({
+const client = create{{ js_get_client_name(api) }}({
     baseUrl: 'http://sandbox.domain.com/', // optional, custom base url
-    refreshTokenProvider: function (Scope) {} // optional, needed only if API requires authentication
+    middleware: [ // optional, list of middleware
+        new JWTAuthenticationMiddleware(
+            new Scope('scope:a'),
+            new SessionStorageTokenProvider(
+                (scope) => ({ scope, accessToken: 'created-token' }),
+                (scope) => ({ scope, accessToken: 'refreshed-token' }),
+                '{{ js_get_client_name(api)|to_snake_case }}', // unique identifier of token
+                '{{ js_get_client_name(api) }}', // storage namespace
+            ),
+        ),
+    ]
 });
-
-let client = factory.get{{ js_get_client_name(api) }}(); // accepts optional TokenProvider argument, needed only if API requires authentication
 ```
 
 ## Demo

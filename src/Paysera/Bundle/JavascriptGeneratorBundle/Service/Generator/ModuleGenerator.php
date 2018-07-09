@@ -24,14 +24,14 @@ class ModuleGenerator implements GeneratorInterface
     public function generate(ApiDefinition $definition) : array
     {
         $code = $this->twig->render(
-            'PayseraJavascriptGeneratorBundle:Package/Src:Module.js.twig',
+            'PayseraJavascriptGeneratorBundle:Package/Src:Index.js.twig',
             [
                 'api' => $definition
             ]
         );
 
         $item = (new SourceCode())
-            ->setFilepath('src/module.js')
+            ->setFilepath('src/index.js')
             ->setContents($code)
         ;
 

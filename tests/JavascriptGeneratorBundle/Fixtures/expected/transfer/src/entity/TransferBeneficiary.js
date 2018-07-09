@@ -4,7 +4,7 @@ import PayseraAccount from './PayseraAccount';
 import PayzaAccount from './PayzaAccount';
 import TaxAccount from './TaxAccount';
 import WebmoneyAccount from './WebmoneyAccount';
-import { Entity } from 'paysera-http-client-common';
+import { Entity } from '@paysera/http-client-common';
 
 import DateFactory from '../service/DateFactory';
 

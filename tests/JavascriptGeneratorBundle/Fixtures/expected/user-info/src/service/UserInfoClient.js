@@ -1,11 +1,10 @@
-import { RequestFactory, ClientWrapper } from 'paysera-http-client-common';
+import { createRequest, ClientWrapper } from '@paysera/http-client-common';
 
 import Legal from '../entity/Legal';
 import Natural from '../entity/Natural';
 import UserInfo from '../entity/UserInfo';
 
 class UserInfoClient {
-
     /**
      * @param {ClientWrapper} client
      */
@@ -21,18 +20,15 @@ class UserInfoClient {
      * @return {Promise.<null>}
      */
     createLegalUser(legal) {
-        const request = RequestFactory.create(
+        const request = createRequest(
             'POST',
-            'users/legal',
+            `users/legal`,
             legal,
         );
 
         return this.client
             .performRequest(request)
-            .then((data) => {
-                return null;
-            })
-        ;
+            .then(data => null);
     }
 
     /**
@@ -43,18 +39,15 @@ class UserInfoClient {
      * @return {Promise.<null>}
      */
     createNaturalUser(natural) {
-        const request = RequestFactory.create(
+        const request = createRequest(
             'POST',
-            'users/natural',
+            `users/natural`,
             natural,
         );
 
         return this.client
             .performRequest(request)
-            .then((data) => {
-                return null;
-            })
-        ;
+            .then(data => null);
     }
 
     /**
@@ -65,18 +58,15 @@ class UserInfoClient {
      * @return {Promise.<UserInfo>}
      */
     getUserInformation(id) {
-        const request = RequestFactory.create(
+        const request = createRequest(
             'GET',
-            'users/' + encodeURIComponent(id) + '/information',
+            `users/${encodeURIComponent(id)}/information`,
             null,
         );
 
         return this.client
             .performRequest(request)
-            .then((data) => {
-                return new UserInfo(data);
-            })
-        ;
+            .then(data => new UserInfo(data));
     }
     /**
      * Updates user resource
@@ -87,18 +77,15 @@ class UserInfoClient {
      * @return {Promise.<UserInfo>}
      */
     updateUserInformation(id, userInfo) {
-        const request = RequestFactory.create(
+        const request = createRequest(
             'PUT',
-            'users/' + encodeURIComponent(id) + '/information',
+            `users/${encodeURIComponent(id)}/information`,
             userInfo,
         );
 
         return this.client
             .performRequest(request)
-            .then((data) => {
-                return new UserInfo(data);
-            })
-        ;
+            .then(data => new UserInfo(data));
     }
 
 

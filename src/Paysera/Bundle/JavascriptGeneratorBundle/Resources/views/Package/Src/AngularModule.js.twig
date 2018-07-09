@@ -1,5 +1,5 @@
 import angular from 'angular';
-import { TokenProvider, Scope } from 'paysera-http-client-common';
+import { TokenProvider, Scope } from '@paysera/http-client-common';
 
 {% for typeConfig in get_all_used_types(api) %}
 {% if typeConfig.importString is not null %}
@@ -24,7 +24,7 @@ import {{ typeConfig.typeName|extract_type_name }} from './entity/{{ typeConfig.
 {% endmacro -%}
 
 import DateFactory from './service/DateFactory';
-import ClientFactory from './service/ClientFactory';
+import { create{{ js_get_client_name(api) }} } from './service/createClient';
 import {{ js_get_client_name(api) }} from './service/{{ js_get_client_name(api) }}';
 
 export {
@@ -32,7 +32,7 @@ export {
     {{ typeConfig.typeName|extract_type_name }},
 {% endfor %}
     DateFactory,
-    ClientFactory,
+    create{{ js_get_client_name(api) }},
     {{ js_get_client_name(api) }},
 };
 
@@ -45,34 +45,15 @@ class AngularClientFactory {
      * @param {object|null} config
      * @returns {{ ('{' ~ js_get_client_name(api) ~ '}')|raw }}
      */
-    getClient(config) {
-        const factoryConfig = {};
-        let tokenProvider = null;
-
-        if (config && config.scope && config.initialTokenProvider) {
-            tokenProvider = new TokenProvider(
-                new Scope(config.scope),
-                config.initialTokenProvider,
-            );
-        }
-
-        if (config && config.baseUrl) {
-            factoryConfig.baseUrl = config.baseUrl;
-        }
-
-        if (config && config.refreshTokenProvider) {
-            factoryConfig.refreshTokenProvider = config.refreshTokenProvider;
-        }
-
-        return this.wrapQ(
-            ClientFactory.create(factoryConfig).get{{ js_get_client_name(api) }}(tokenProvider)
-        );
+    getClient(config = { baseURL: undefined, middleware: undefined }) {
+        return this.wrapQ(create{{ js_get_client_name(api) }}(config));
     }
 
     /**
      * @param {{ ('{' ~ js_get_client_name(api) ~ '}')|raw }} client
      * @returns {{ ('{' ~ js_get_client_name(api) ~ '}')|raw }}
      */
+    /* eslint no-param-reassign: ["error", { "props": true, "ignorePropertyModificationsFor": ["client"] }] */
     wrapQ(client) {
 {% for resource in api.ramlDefinition.resources -%}
     {{ macros.render_wrap_q(resource, api) -}}
@@ -87,5 +68,4 @@ AngularClientFactory.$inject = ['$q'];
 export default angular
     .module('{{ js_get_angular_module_name(vendor_prefix, api.name) }}', [])
     .service('{{ js_get_angular_client_factory_name(vendor_prefix, api.name) }}', AngularClientFactory)
-    .name
-;
+    .name;

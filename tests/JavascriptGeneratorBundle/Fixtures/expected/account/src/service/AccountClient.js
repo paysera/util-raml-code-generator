@@ -1,10 +1,9 @@
-import { RequestFactory, ClientWrapper } from 'paysera-http-client-common';
+import { createRequest, ClientWrapper } from '@paysera/http-client-common';
 
 import AccountFilter from '../entity/AccountFilter';
 import AccountResult from '../entity/AccountResult';
 
 class AccountClient {
-
     /**
      * @param {ClientWrapper} client
      */
@@ -19,18 +18,15 @@ class AccountClient {
      * @return {Promise.<string>}
      */
     getAccountScripts() {
-        const request = RequestFactory.create(
+        const request = createRequest(
             'GET',
-            'accounts/scripts',
+            `accounts/scripts`,
             null,
         );
 
         return this.client
             .performRequest(request)
-            .then((data) => {
-                return data;
-            })
-        ;
+            .then(data => data);
     }
 
     /**
@@ -41,18 +37,15 @@ class AccountClient {
      * @return {Promise.<AccountResult>}
      */
     getAccounts(accountFilter) {
-        const request = RequestFactory.create(
+        const request = createRequest(
             'GET',
-            'accounts',
+            `accounts`,
             accountFilter,
         );
 
         return this.client
             .performRequest(request)
-            .then((data) => {
-                return new AccountResult(data, 'accounts');
-            })
-        ;
+            .then(data => new AccountResult(data, 'accounts'));
     }
 
 }

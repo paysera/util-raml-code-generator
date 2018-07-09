@@ -1,5 +1,5 @@
 import angular from 'angular';
-import { TokenProvider, Scope } from 'paysera-http-client-common';
+import { TokenProvider, Scope } from '@paysera/http-client-common';
 
 import Address from './entity/Address';
 import BankAccount from './entity/BankAccount';
@@ -12,7 +12,7 @@ import Identifiers from './entity/Identifiers';
 import OutCommissionRule from './entity/OutCommissionRule';
 import Payer from './entity/Payer';
 import { Money } from '@paysera/money';
-import { Result } from 'paysera-http-client-common';
+import { Result } from '@paysera/http-client-common';
 import PayseraAccount from './entity/PayseraAccount';
 import PayzaAccount from './entity/PayzaAccount';
 import TaxAccount from './entity/TaxAccount';
@@ -32,10 +32,10 @@ import TransfersBatch from './entity/TransfersBatch';
 import TransfersBatchResult from './entity/TransfersBatchResult';
 import TransfersFilter from './entity/TransfersFilter';
 import WebmoneyAccount from './entity/WebmoneyAccount';
-import { Entity } from 'paysera-http-client-common';
+import { Entity } from '@paysera/http-client-common';
 
 import DateFactory from './service/DateFactory';
-import ClientFactory from './service/ClientFactory';
+import { createTransferClient } from './service/createClient';
 import TransferClient from './service/TransferClient';
 
 export {
@@ -72,7 +72,7 @@ export {
     WebmoneyAccount,
     Entity,
     DateFactory,
-    ClientFactory,
+    createTransferClient,
     TransferClient,
 };
 
@@ -85,79 +85,60 @@ class AngularClientFactory {
      * @param {object|null} config
      * @returns {TransferClient}
      */
-    getClient(config) {
-        const factoryConfig = {};
-        let tokenProvider = null;
-
-        if (config && config.scope && config.initialTokenProvider) {
-            tokenProvider = new TokenProvider(
-                new Scope(config.scope),
-                config.initialTokenProvider,
-            );
-        }
-
-        if (config && config.baseUrl) {
-            factoryConfig.baseUrl = config.baseUrl;
-        }
-
-        if (config && config.refreshTokenProvider) {
-            factoryConfig.refreshTokenProvider = config.refreshTokenProvider;
-        }
-
-        return this.wrapQ(
-            ClientFactory.create(factoryConfig).getTransferClient(tokenProvider)
-        );
+    getClient(config = { baseURL: undefined, middleware: undefined }) {
+        return this.wrapQ(createTransferClient(config));
     }
 
     /**
      * @param {TransferClient} client
      * @returns {TransferClient}
      */
+    /* eslint no-param-reassign: ["error", { "props": true, "ignorePropertyModificationsFor": ["client"] }] */
     wrapQ(client) {
         const signTransferOriginal = client.signTransfer.bind(client);
-        client.signTransfer = (...args) => {
-            return this.$q.when(signTransferOriginal(...args));
-        };
+        client.signTransfer = (...args) => (
+            this.$q.when(signTransferOriginal(...args))
+        );
         const reserveTransferOriginal = client.reserveTransfer.bind(client);
-        client.reserveTransfer = (...args) => {
-            return this.$q.when(reserveTransferOriginal(...args));
-        };
+        client.reserveTransfer = (...args) => (
+            this.$q.when(reserveTransferOriginal(...args))
+        );
         const provideTransferPasswordOriginal = client.provideTransferPassword.bind(client);
-        client.provideTransferPassword = (...args) => {
-            return this.$q.when(provideTransferPasswordOriginal(...args));
-        };
+        client.provideTransferPassword = (...args) => (
+            this.$q.when(provideTransferPasswordOriginal(...args))
+        );
         const freezeTransferOriginal = client.freezeTransfer.bind(client);
-        client.freezeTransfer = (...args) => {
-            return this.$q.when(freezeTransferOriginal(...args));
-        };
+        client.freezeTransfer = (...args) => (
+            this.$q.when(freezeTransferOriginal(...args))
+        );
         const completeTransferOriginal = client.completeTransfer.bind(client);
-        client.completeTransfer = (...args) => {
-            return this.$q.when(completeTransferOriginal(...args));
-        };
+        client.completeTransfer = (...args) => (
+            this.$q.when(completeTransferOriginal(...args))
+        );
         const registerTransferOriginal = client.registerTransfer.bind(client);
-        client.registerTransfer = (...args) => {
-            return this.$q.when(registerTransferOriginal(...args));
-        };
+        client.registerTransfer = (...args) => (
+            this.$q.when(registerTransferOriginal(...args))
+        );
         const getTransferOriginal = client.getTransfer.bind(client);
-        client.getTransfer = (...args) => {
-            return this.$q.when(getTransferOriginal(...args));
-        };
+        client.getTransfer = (...args) => (
+            this.$q.when(getTransferOriginal(...args))
+        );
         const deleteTransferOriginal = client.deleteTransfer.bind(client);
-        client.deleteTransfer = (...args) => {
-            return this.$q.when(deleteTransferOriginal(...args));
-        };
+        client.deleteTransfer = (...args) => (
+            this.$q.when(deleteTransferOriginal(...args))
+        );
         const reserveTransfersOriginal = client.reserveTransfers.bind(client);
-        client.reserveTransfers = (...args) => {
-            return this.$q.when(reserveTransfersOriginal(...args));
-        };
+        client.reserveTransfers = (...args) => (
+            this.$q.when(reserveTransfersOriginal(...args))
+        );
         const getTransfersOriginal = client.getTransfers.bind(client);
-        client.getTransfers = (...args) => {
-            return this.$q.when(getTransfersOriginal(...args));
-        };
+        client.getTransfers = (...args) => (
+            this.$q.when(getTransfersOriginal(...args))
+        );
         const createTransferOriginal = client.createTransfer.bind(client);
-        client.createTransfer = (...args) => {
-            return this.$q.when(createTransferOriginal(...args));
-        };
+        client.createTransfer = (...args) => (
+            this.$q.when(createTransferOriginal(...args))
+        );
 
         return client;
     }
@@ -168,5 +149,4 @@ AngularClientFactory.$inject = ['$q'];
 export default angular
     .module('vendor.http.transfer-client', [])
     .service('vendorHttpTransferClientFactory', AngularClientFactory)
-    .name
-;
+    .name;

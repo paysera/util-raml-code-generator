@@ -9,20 +9,17 @@
      * @return {Promise.<{{ js_get_return_type(method, api)|raw }}>}
      */
     {{ generate_method_name(method, resource, api) }}({{ get_argument_names(arguments)|join(', ')|raw }}) {
-        const request = RequestFactory.create(
+        const request = createRequest(
             '{{ method.type }}',
-            '{{ js_generate_uri(resource)|raw }}',
+            `{{ js_generate_uri(resource)|raw }}`,
             {{ generate_body(method, api) == null ? 'null' : generate_body(method, api)|to_variable_name }},
         );
 
         return this.client
             .performRequest(request)
-            .then((data) => {
-                {% if is_raw_response(method) -%}
-                return data;
-            {% else -%}
-                return {{ js_generate_result_populator(method, api)|raw }}
-            {% endif -%}
-            })
-        ;
+            {% if is_raw_response(method) -%}
+            .then(data => data);
+    {% else -%}
+            .then(data => {{ js_generate_result_populator(method, api)|raw }});
+    {% endif -%}
     }

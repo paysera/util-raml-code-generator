@@ -5,7 +5,7 @@ import TransferBeneficiary from './TransferBeneficiary';
 import TransferNotifications from './TransferNotifications';
 import TransferPassword34 from './TransferPassword34';
 import TransferPurpose from './TransferPurpose';
-import { Entity } from 'paysera-http-client-common';
+import { Entity } from '@paysera/http-client-common';
 
 import DateFactory from '../service/DateFactory';
 

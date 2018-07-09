@@ -58,7 +58,7 @@ class ApiMethodExtension extends Twig_Extension
 
     public function getPackageName(string $vendor, ApiDefinition $api): string
     {
-        return sprintf('%s-%s', $vendor, StringHelper::kebabCase($api->getName()));
+        return sprintf('@%s/%s', $vendor, StringHelper::kebabCase($api->getName()));
     }
 
     public function getAngularJsModuleName(string $vendor, string $apiName) : string
@@ -77,7 +77,7 @@ class ApiMethodExtension extends Twig_Extension
         $arguments = $this->baseExtension->extractUriArguments($resource->getUri());
 
         foreach ($arguments as $key => $argument) {
-            $arguments[$key] = sprintf('\' + encodeURIComponent(%s) + \'', $argument->getName());
+            $arguments[$key] = sprintf('${encodeURIComponent(%s)}', $argument->getName());
         }
 
         if (empty($arguments)) {
@@ -92,7 +92,7 @@ class ApiMethodExtension extends Twig_Extension
         $body = $this->bodyResolver->getResponseBody($method);
 
         if ($body === null) {
-            return 'null;';
+            return 'null';
         }
 
         $bodyType = $body->getType();
@@ -101,9 +101,9 @@ class ApiMethodExtension extends Twig_Extension
         if ($api->getType($bodyTypeName) !== null) {
             $type = $api->getType($bodyTypeName);
             if ($type instanceof ResultTypeDefinition) {
-                return sprintf('new %s(data, \'%s\');', $bodyTypeName, $type->getDataKey());
+                return sprintf('new %s(data, \'%s\')', $bodyTypeName, $type->getDataKey());
             }
-            return sprintf('new %s(data);', $bodyTypeName);
+            return sprintf('new %s(data)', $bodyTypeName);
         }
         if ($bodyType instanceof ArrayType) {
             if ($api->getType($bodyType->getItems()->getName()) !== null) {
@@ -112,11 +112,11 @@ class ApiMethodExtension extends Twig_Extension
                     $bodyType->getItems()->getName()
                 );
             } else {
-                return 'data;';
+                return 'data';
             }
         }
 
-        return 'null;';
+        return 'null';
     }
 
     public function getReturnType(Method $method, ApiDefinition $api) : string

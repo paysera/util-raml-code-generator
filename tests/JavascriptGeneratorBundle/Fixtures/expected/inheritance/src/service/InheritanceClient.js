@@ -1,4 +1,4 @@
-import { RequestFactory, ClientWrapper } from 'paysera-http-client-common';
+import { createRequest, ClientWrapper } from '@paysera/http-client-common';
 
 import UserBasic from '../entity/UserBasic';
 import UserFilter from '../entity/UserFilter';
@@ -8,7 +8,6 @@ import UserNatural from '../entity/UserNatural';
 import UserNaturalFilter from '../entity/UserNaturalFilter';
 
 class InheritanceClient {
-
     /**
      * @param {ClientWrapper} client
      */
@@ -24,18 +23,15 @@ class InheritanceClient {
      * @return {Promise.<UserNatural>}
      */
     getUserNatural(userNaturalFilter) {
-        const request = RequestFactory.create(
+        const request = createRequest(
             'GET',
-            'users/natural',
+            `users/natural`,
             userNaturalFilter,
         );
 
         return this.client
             .performRequest(request)
-            .then((data) => {
-                return new UserNatural(data);
-            })
-        ;
+            .then(data => new UserNatural(data));
     }
     /**
      * Creates Natural user
@@ -45,18 +41,15 @@ class InheritanceClient {
      * @return {Promise.<UserNatural>}
      */
     createNaturalUser(userNatural) {
-        const request = RequestFactory.create(
+        const request = createRequest(
             'POST',
-            'users/natural',
+            `users/natural`,
             userNatural,
         );
 
         return this.client
             .performRequest(request)
-            .then((data) => {
-                return new UserNatural(data);
-            })
-        ;
+            .then(data => new UserNatural(data));
     }
 
     /**
@@ -67,18 +60,15 @@ class InheritanceClient {
      * @return {Promise.<UserLegal>}
      */
     getUserLegal(userLegalFilter) {
-        const request = RequestFactory.create(
+        const request = createRequest(
             'GET',
-            'users/legal',
+            `users/legal`,
             userLegalFilter,
         );
 
         return this.client
             .performRequest(request)
-            .then((data) => {
-                return new UserLegal(data);
-            })
-        ;
+            .then(data => new UserLegal(data));
     }
     /**
      * Creates Legal user
@@ -88,18 +78,15 @@ class InheritanceClient {
      * @return {Promise.<UserLegal>}
      */
     createLegalUser(userLegal) {
-        const request = RequestFactory.create(
+        const request = createRequest(
             'POST',
-            'users/legal',
+            `users/legal`,
             userLegal,
         );
 
         return this.client
             .performRequest(request)
-            .then((data) => {
-                return new UserLegal(data);
-            })
-        ;
+            .then(data => new UserLegal(data));
     }
 
     /**
@@ -110,18 +97,15 @@ class InheritanceClient {
      * @return {Promise.<UserBasic[]>}
      */
     getUsers(userFilter) {
-        const request = RequestFactory.create(
+        const request = createRequest(
             'GET',
-            'users',
+            `users`,
             userFilter,
         );
 
         return this.client
             .performRequest(request)
-            .then((data) => {
-                return data.map(item => new UserBasic(item))
-            })
-        ;
+            .then(data => data.map(item => new UserBasic(item)));
     }
     /**
      * Creates Basic user
@@ -131,18 +115,15 @@ class InheritanceClient {
      * @return {Promise.<UserBasic>}
      */
     createUser(userBasic) {
-        const request = RequestFactory.create(
+        const request = createRequest(
             'POST',
-            'users',
+            `users`,
             userBasic,
         );
 
         return this.client
             .performRequest(request)
-            .then((data) => {
-                return new UserBasic(data);
-            })
-        ;
+            .then(data => new UserBasic(data));
     }
 
 }

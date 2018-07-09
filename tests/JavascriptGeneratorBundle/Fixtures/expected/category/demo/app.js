@@ -3,7 +3,7 @@
 
     angular
         .module('demoApp', [
-            'paysera.http.account'
+            'vendor.http.category-client'
         ])
         .controller('DemoController', DemoController)
     ;
@@ -16,42 +16,20 @@
     ) {
         var vm = this;
 
-        /**
-         * @param Scope scope
-         * @returns {Promise.<Token>}
-         */
-        function initialTokenProvider(scope) {
-            return Promise.resolve('some-token-value').then((value) => {
-                return new payseraHttpClientCommon.Token(scope, 'Bearer ' + value)
-            });
-        }
-
-        /**
-         * @param Scope scope
-         * @returns {Promise.<Token>}
-         */
-        function refreshTokenProvider(scope) {
-            return fetch(
-                'http://localhost:3000/token',
-                {
-                    method: 'post',
-                    body: JSON.stringify({'scope': scope.getValue()})
-                }
-            ).then((response) => {
-                return response.json();
-            }).then((response) => {
-                return new payseraHttpClientCommon.Token(scope, 'Bearer ' + response.token_value);
-            });
-        }
-
         /** {CategoryClient} client */
-        let client = payseraHttpAccountClientFactory.getClient({
-            baseUrl: 'http://localhost:3000',
-            scope: 'some:scope',
-            initialTokenProvider: initialTokenProvider,
-            refreshTokenProvider: refreshTokenProvider
+        vm.client = vendorHttpCategoryClientFactory.getClient({
+            baseURL: 'http://localhost:9000',
+            middleware: [ // optional, list of middleware
+                new PayseraHttpClientCommon.JWTAuthenticationMiddleware(
+                    new PayseraHttpClientCommon.Scope('some:scope'),
+                    new PayseraHttpClientCommon.SessionStorageTokenProvider(
+                        (scope) => ({ scope, accessToken: 'created-token' }),
+                        (scope) => ({ scope, accessToken: 'refreshed-token' }),
+                        'category_client', // unique identifier of token
+                        'CategoryClient' // storage namespace
+                    )
+                ),
+            ]
         });
-
-        // check out src/service/CategoryClient.js for available methods
     }
 })();

@@ -1,0 +1,20 @@
+{% for typeConfig in get_all_used_types(api) %}
+{% if typeConfig.importString is not null %}
+import {{ typeConfig.importString|raw }};
+{% else %}
+import {{ typeConfig.typeName|extract_type_name }} from './entity/{{ typeConfig.typeName|extract_type_name }}';
+{% endif %}
+{% endfor %}
+
+import DateFactory from './service/DateFactory';
+import { create{{ js_get_client_name(api) }} } from './service/createClient';
+import {{ js_get_client_name(api) }} from './service/{{ js_get_client_name(api) }}';
+
+export {
+{% for typeConfig in get_all_used_types(api) %}
+    {{ typeConfig.typeName|extract_type_name }},
+{% endfor %}
+    DateFactory,
+    create{{ js_get_client_name(api) }},
+    {{ js_get_client_name(api) }},
+};

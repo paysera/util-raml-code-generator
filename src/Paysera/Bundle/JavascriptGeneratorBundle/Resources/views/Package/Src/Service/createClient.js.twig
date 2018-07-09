@@ -1,0 +1,17 @@
+import { createClient } from '@paysera/http-client-common';
+import {{ js_get_client_name(api) }} from './{{ js_get_client_name(api) }}';
+
+/**
+ * @param {string} baseURL
+ * @param {[]|null} middleware
+ *
+ * @returns {{ ('{' ~  js_get_client_name(api) ~ '}')|raw }}
+ */
+/* eslint import/prefer-default-export: ["off"] */
+export const create{{ js_get_client_name(api) }} = ({
+    baseURL = '{{ base_url|raw }}',
+    middleware = null,
+}) => new {{ js_get_client_name(api) }}(createClient({
+    baseURL,
+    middleware,
+}));

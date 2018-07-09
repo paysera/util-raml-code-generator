@@ -1,4 +1,4 @@
-import { RequestFactory, ClientWrapper } from 'paysera-http-client-common';
+import { createRequest, ClientWrapper } from '@paysera/http-client-common';
 
 import FilteredTransfersResult from '../entity/FilteredTransfersResult';
 import TransferInput from '../entity/TransferInput';
@@ -10,7 +10,6 @@ import TransfersBatchResult from '../entity/TransfersBatchResult';
 import TransfersFilter from '../entity/TransfersFilter';
 
 class TransferClient {
-
     /**
      * @param {ClientWrapper} client
      */
@@ -27,18 +26,15 @@ class TransferClient {
      * @return {Promise.<TransferOutput>}
      */
     signTransfer(id, transferRegistrationParameters) {
-        const request = RequestFactory.create(
+        const request = createRequest(
             'PUT',
-            'transfer/' + encodeURIComponent(id) + '/sign',
+            `transfer/${encodeURIComponent(id)}/sign`,
             transferRegistrationParameters,
         );
 
         return this.client
             .performRequest(request)
-            .then((data) => {
-                return new TransferOutput(data);
-            })
-        ;
+            .then(data => new TransferOutput(data));
     }
 
     /**
@@ -50,18 +46,15 @@ class TransferClient {
      * @return {Promise.<TransferOutput>}
      */
     reserveTransfer(id, transferRegistrationParameters) {
-        const request = RequestFactory.create(
+        const request = createRequest(
             'PUT',
-            'transfer/' + encodeURIComponent(id) + '/reserve',
+            `transfer/${encodeURIComponent(id)}/reserve`,
             transferRegistrationParameters,
         );
 
         return this.client
             .performRequest(request)
-            .then((data) => {
-                return new TransferOutput(data);
-            })
-        ;
+            .then(data => new TransferOutput(data));
     }
 
     /**
@@ -73,18 +66,15 @@ class TransferClient {
      * @return {Promise.<TransferOutput>}
      */
     provideTransferPassword(id, transferPassword) {
-        const request = RequestFactory.create(
+        const request = createRequest(
             'PUT',
-            'transfer/' + encodeURIComponent(id) + '/provide-password',
+            `transfer/${encodeURIComponent(id)}/provide-password`,
             transferPassword,
         );
 
         return this.client
             .performRequest(request)
-            .then((data) => {
-                return new TransferOutput(data);
-            })
-        ;
+            .then(data => new TransferOutput(data));
     }
 
     /**
@@ -95,18 +85,15 @@ class TransferClient {
      * @return {Promise.<TransferOutput>}
      */
     freezeTransfer(id) {
-        const request = RequestFactory.create(
+        const request = createRequest(
             'PUT',
-            'transfer/' + encodeURIComponent(id) + '/freeze',
+            `transfer/${encodeURIComponent(id)}/freeze`,
             null,
         );
 
         return this.client
             .performRequest(request)
-            .then((data) => {
-                return new TransferOutput(data);
-            })
-        ;
+            .then(data => new TransferOutput(data));
     }
 
     /**
@@ -117,18 +104,15 @@ class TransferClient {
      * @return {Promise.<TransferOutput>}
      */
     completeTransfer(id) {
-        const request = RequestFactory.create(
+        const request = createRequest(
             'PUT',
-            'transfer/' + encodeURIComponent(id) + '/complete',
+            `transfer/${encodeURIComponent(id)}/complete`,
             null,
         );
 
         return this.client
             .performRequest(request)
-            .then((data) => {
-                return new TransferOutput(data);
-            })
-        ;
+            .then(data => new TransferOutput(data));
     }
 
     /**
@@ -140,18 +124,15 @@ class TransferClient {
      * @return {Promise.<TransferOutput>}
      */
     registerTransfer(id, transferRegistrationParameters) {
-        const request = RequestFactory.create(
+        const request = createRequest(
             'PUT',
-            'transfer/' + encodeURIComponent(id) + '/register',
+            `transfer/${encodeURIComponent(id)}/register`,
             transferRegistrationParameters,
         );
 
         return this.client
             .performRequest(request)
-            .then((data) => {
-                return new TransferOutput(data);
-            })
-        ;
+            .then(data => new TransferOutput(data));
     }
 
     /**
@@ -162,18 +143,15 @@ class TransferClient {
      * @return {Promise.<TransferOutput>}
      */
     getTransfer(id) {
-        const request = RequestFactory.create(
+        const request = createRequest(
             'GET',
-            'transfer/' + encodeURIComponent(id) + '',
+            `transfer/${encodeURIComponent(id)}`,
             null,
         );
 
         return this.client
             .performRequest(request)
-            .then((data) => {
-                return new TransferOutput(data);
-            })
-        ;
+            .then(data => new TransferOutput(data));
     }
     /**
      * Revoke transfer.
@@ -183,18 +161,15 @@ class TransferClient {
      * @return {Promise.<TransferOutput>}
      */
     deleteTransfer(id) {
-        const request = RequestFactory.create(
+        const request = createRequest(
             'DELETE',
-            'transfer/' + encodeURIComponent(id) + '',
+            `transfer/${encodeURIComponent(id)}`,
             null,
         );
 
         return this.client
             .performRequest(request)
-            .then((data) => {
-                return new TransferOutput(data);
-            })
-        ;
+            .then(data => new TransferOutput(data));
     }
 
     /**
@@ -205,18 +180,15 @@ class TransferClient {
      * @return {Promise.<TransfersBatchResult>}
      */
     reserveTransfers(transfersBatch) {
-        const request = RequestFactory.create(
+        const request = createRequest(
             'PUT',
-            'transfers/reserve',
+            `transfers/reserve`,
             transfersBatch,
         );
 
         return this.client
             .performRequest(request)
-            .then((data) => {
-                return new TransfersBatchResult(data);
-            })
-        ;
+            .then(data => new TransfersBatchResult(data));
     }
 
     /**
@@ -227,18 +199,15 @@ class TransferClient {
      * @return {Promise.<FilteredTransfersResult>}
      */
     getTransfers(transfersFilter) {
-        const request = RequestFactory.create(
+        const request = createRequest(
             'GET',
-            'transfers',
+            `transfers`,
             transfersFilter,
         );
 
         return this.client
             .performRequest(request)
-            .then((data) => {
-                return new FilteredTransfersResult(data, 'transfers');
-            })
-        ;
+            .then(data => new FilteredTransfersResult(data, 'transfers'));
     }
 
     /**
@@ -250,18 +219,15 @@ class TransferClient {
      * @return {Promise.<TransferOutput>}
      */
     createTransfer(transferInput) {
-        const request = RequestFactory.create(
+        const request = createRequest(
             'POST',
-            'transfer',
+            `transfer`,
             transferInput,
         );
 
         return this.client
             .performRequest(request)
-            .then((data) => {
-                return new TransferOutput(data);
-            })
-        ;
+            .then(data => new TransferOutput(data));
     }
 
 }

@@ -1,4 +1,4 @@
         const {{ generate_method_name(method, resource, api) }}Original = client.{{ generate_method_name(method, resource, api) }}.bind(client);
-        client.{{ generate_method_name(method, resource, api) }} = (...args) => {
-            return this.$q.when({{ generate_method_name(method, resource, api) }}Original(...args));
-        };
+        client.{{ generate_method_name(method, resource, api) }} = (...args) => (
+            this.$q.when({{ generate_method_name(method, resource, api) }}Original(...args))
+        );

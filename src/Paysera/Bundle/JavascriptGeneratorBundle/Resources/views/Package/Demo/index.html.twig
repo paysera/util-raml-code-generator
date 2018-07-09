@@ -6,10 +6,11 @@
     <body data-ng-app="demoApp" data-ng-controller="DemoController as vm">
         <pre>{% verbatim %}{{ vm.client.constructor.name | json }}{% endverbatim %}</pre>
 
-        <script type="text/javascript" src="../node_modules/angular/angular.js"></script>
-        <script type="text/javascript" src="../node_modules/paysera-http-client-common/dist/babel.polyfill.js"></script>
-        <script type="text/javascript" src="../node_modules/paysera-http-client-common/dist/lib.js"></script>
-        <script type="text/javascript" src="../dist/ng.module.js"></script>
+        <script type="text/javascript" src="/store/dist/store.legacy.min.js"></script>
+        <script type="text/javascript" src="/axios/dist/axios.js"></script>
+        <script type="text/javascript" src="/angular/angular.js"></script>
+        <script type="text/javascript" src="/@paysera/http-client-common/dist/main.js"></script>
+        <script type="text/javascript" src="/ng-module.js"></script>
         <script type="text/javascript" src="./app.js"></script>
     </body>
 </html>

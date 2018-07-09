@@ -23,10 +23,16 @@ class ConfigGenerator implements GeneratorInterface
 
     public function generate(ApiDefinition $definition) : array
     {
+        $files = [
+            ['src' => '.babelrc.json', 'dest' => '.babelrc'],
+            ['src' => '.eslintrc.json', 'dest' => '.eslintrc'],
+            ['src' => 'webpack-config.js', 'dest' => 'webpack-config.js'],
+        ];
+
         $result = [];
-        foreach (['eslint.json', 'serve.json', 'webpack.js'] as $file) {
+        foreach ($files as $file) {
             $code = $this->twig->render(
-                sprintf('PayseraJavascriptGeneratorBundle:Package/Config:%s.twig', $file),
+                sprintf('PayseraJavascriptGeneratorBundle:Package:%s.twig', $file['src']),
                 [
                     'api' => $definition,
                     'vendor_prefix' => $this->vendorPrefix,
@@ -34,7 +40,7 @@ class ConfigGenerator implements GeneratorInterface
             );
 
             $result[] = (new SourceCode())
-                ->setFilepath(sprintf('config/%s', $file))
+                ->setFilepath(sprintf('%s', $file['dest']))
                 ->setContents($code)
             ;
         }

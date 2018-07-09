@@ -1,6 +1,0 @@
-{
-  "server": {
-    "baseDir": "./"
-  },
-  "startPath": "demo/index.html"
-}

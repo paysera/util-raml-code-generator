@@ -1,15 +1,15 @@
 class DateFactory {
-
     /**
      * @param {int} date
      * @returns {Date}
      */
     static create(date) {
-        if (date.toString().length === 10) {
-            date *= 1000;
+        let dateValue = date;
+        if (dateValue.toString().length === 10) {
+            dateValue *= 1000;
         }
 
-        return new Date(date);
+        return new Date(dateValue);
     }
 }
 

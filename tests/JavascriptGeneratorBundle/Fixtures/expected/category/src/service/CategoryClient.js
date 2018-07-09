@@ -1,11 +1,10 @@
-import { RequestFactory, ClientWrapper } from 'paysera-http-client-common';
+import { createRequest, ClientWrapper } from '@paysera/http-client-common';
 
 import Category from '../entity/Category';
 import CategoryFilter from '../entity/CategoryFilter';
-import { Filter } from 'paysera-http-client-common';
+import { Filter } from '@paysera/http-client-common';
 
 class CategoryClient {
-
     /**
      * @param {ClientWrapper} client
      */
@@ -21,18 +20,15 @@ class CategoryClient {
      * @return {Promise.<Category>}
      */
     enableCategory(id) {
-        const request = RequestFactory.create(
+        const request = createRequest(
             'PUT',
-            'categories/' + encodeURIComponent(id) + '/enable',
+            `categories/${encodeURIComponent(id)}/enable`,
             null,
         );
 
         return this.client
             .performRequest(request)
-            .then((data) => {
-                return new Category(data);
-            })
-        ;
+            .then(data => new Category(data));
     }
 
     /**
@@ -43,18 +39,15 @@ class CategoryClient {
      * @return {Promise.<Category>}
      */
     disableCategory(id) {
-        const request = RequestFactory.create(
+        const request = createRequest(
             'PUT',
-            'categories/' + encodeURIComponent(id) + '/disable',
+            `categories/${encodeURIComponent(id)}/disable`,
             null,
         );
 
         return this.client
             .performRequest(request)
-            .then((data) => {
-                return new Category(data);
-            })
-        ;
+            .then(data => new Category(data));
     }
 
     /**
@@ -65,18 +58,15 @@ class CategoryClient {
      * @return {Promise.<Category>}
      */
     updateCategory(id) {
-        const request = RequestFactory.create(
+        const request = createRequest(
             'PUT',
-            'categories/' + encodeURIComponent(id) + '',
+            `categories/${encodeURIComponent(id)}`,
             null,
         );
 
         return this.client
             .performRequest(request)
-            .then((data) => {
-                return new Category(data);
-            })
-        ;
+            .then(data => new Category(data));
     }
     /**
      * Delete category
@@ -86,18 +76,15 @@ class CategoryClient {
      * @return {Promise.<null>}
      */
     deleteCategory(id) {
-        const request = RequestFactory.create(
+        const request = createRequest(
             'DELETE',
-            'categories/' + encodeURIComponent(id) + '',
+            `categories/${encodeURIComponent(id)}`,
             null,
         );
 
         return this.client
             .performRequest(request)
-            .then((data) => {
-                return null;
-            })
-        ;
+            .then(data => null);
     }
 
     /**
@@ -108,18 +95,15 @@ class CategoryClient {
      * @return {Promise.<null>}
      */
     getCategories(categoryFilter) {
-        const request = RequestFactory.create(
+        const request = createRequest(
             'GET',
-            'categories',
+            `categories`,
             categoryFilter,
         );
 
         return this.client
             .performRequest(request)
-            .then((data) => {
-                return null;
-            })
-        ;
+            .then(data => null);
     }
     /**
      * Create category
@@ -129,18 +113,15 @@ class CategoryClient {
      * @return {Promise.<Category>}
      */
     createCategory(category) {
-        const request = RequestFactory.create(
+        const request = createRequest(
             'POST',
-            'categories',
+            `categories`,
             category,
         );
 
         return this.client
             .performRequest(request)
-            .then((data) => {
-                return new Category(data);
-            })
-        ;
+            .then(data => new Category(data));
     }
 
     /**
@@ -151,18 +132,15 @@ class CategoryClient {
      * @return {Promise.<null>}
      */
     getKeywords(filter) {
-        const request = RequestFactory.create(
+        const request = createRequest(
             'GET',
-            'keywords',
+            `keywords`,
             filter,
         );
 
         return this.client
             .performRequest(request)
-            .then((data) => {
-                return null;
-            })
-        ;
+            .then(data => null);
     }
 
 }

@@ -1,5 +1,5 @@
 import { Money } from '@paysera/money';
-import { Entity } from 'paysera-http-client-common';
+import { Entity } from '@paysera/http-client-common';
 
 import DateFactory from '../service/DateFactory';
 

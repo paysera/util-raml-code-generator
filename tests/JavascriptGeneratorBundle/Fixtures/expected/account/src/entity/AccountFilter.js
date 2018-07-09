@@ -1,4 +1,4 @@
-import { Filter } from 'paysera-http-client-common';
+import { Filter } from '@paysera/http-client-common';
 
 class AccountFilter extends Filter {
     /**

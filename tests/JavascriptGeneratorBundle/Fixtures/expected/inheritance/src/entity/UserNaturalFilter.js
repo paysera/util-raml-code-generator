@@ -1,4 +1,4 @@
-import { Entity } from 'paysera-http-client-common';
+import { Entity } from '@paysera/http-client-common';
 
 class UserNaturalFilter extends Entity {
     /**

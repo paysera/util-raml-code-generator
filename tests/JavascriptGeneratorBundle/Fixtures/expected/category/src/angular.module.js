@@ -1,13 +1,13 @@
 import angular from 'angular';
-import { TokenProvider, Scope } from 'paysera-http-client-common';
+import { TokenProvider, Scope } from '@paysera/http-client-common';
 
 import Category from './entity/Category';
 import CategoryFilter from './entity/CategoryFilter';
-import { Filter } from 'paysera-http-client-common';
-import { Entity } from 'paysera-http-client-common';
+import { Filter } from '@paysera/http-client-common';
+import { Entity } from '@paysera/http-client-common';
 
 import DateFactory from './service/DateFactory';
-import ClientFactory from './service/ClientFactory';
+import { createCategoryClient } from './service/createClient';
 import CategoryClient from './service/CategoryClient';
 
 export {
@@ -16,7 +16,7 @@ export {
     Filter,
     Entity,
     DateFactory,
-    ClientFactory,
+    createCategoryClient,
     CategoryClient,
 };
 
@@ -29,63 +29,44 @@ class AngularClientFactory {
      * @param {object|null} config
      * @returns {CategoryClient}
      */
-    getClient(config) {
-        const factoryConfig = {};
-        let tokenProvider = null;
-
-        if (config && config.scope && config.initialTokenProvider) {
-            tokenProvider = new TokenProvider(
-                new Scope(config.scope),
-                config.initialTokenProvider,
-            );
-        }
-
-        if (config && config.baseUrl) {
-            factoryConfig.baseUrl = config.baseUrl;
-        }
-
-        if (config && config.refreshTokenProvider) {
-            factoryConfig.refreshTokenProvider = config.refreshTokenProvider;
-        }
-
-        return this.wrapQ(
-            ClientFactory.create(factoryConfig).getCategoryClient(tokenProvider)
-        );
+    getClient(config = { baseURL: undefined, middleware: undefined }) {
+        return this.wrapQ(createCategoryClient(config));
     }
 
     /**
      * @param {CategoryClient} client
      * @returns {CategoryClient}
      */
+    /* eslint no-param-reassign: ["error", { "props": true, "ignorePropertyModificationsFor": ["client"] }] */
     wrapQ(client) {
         const enableCategoryOriginal = client.enableCategory.bind(client);
-        client.enableCategory = (...args) => {
-            return this.$q.when(enableCategoryOriginal(...args));
-        };
+        client.enableCategory = (...args) => (
+            this.$q.when(enableCategoryOriginal(...args))
+        );
         const disableCategoryOriginal = client.disableCategory.bind(client);
-        client.disableCategory = (...args) => {
-            return this.$q.when(disableCategoryOriginal(...args));
-        };
+        client.disableCategory = (...args) => (
+            this.$q.when(disableCategoryOriginal(...args))
+        );
         const updateCategoryOriginal = client.updateCategory.bind(client);
-        client.updateCategory = (...args) => {
-            return this.$q.when(updateCategoryOriginal(...args));
-        };
+        client.updateCategory = (...args) => (
+            this.$q.when(updateCategoryOriginal(...args))
+        );
         const deleteCategoryOriginal = client.deleteCategory.bind(client);
-        client.deleteCategory = (...args) => {
-            return this.$q.when(deleteCategoryOriginal(...args));
-        };
+        client.deleteCategory = (...args) => (
+            this.$q.when(deleteCategoryOriginal(...args))
+        );
         const getCategoriesOriginal = client.getCategories.bind(client);
-        client.getCategories = (...args) => {
-            return this.$q.when(getCategoriesOriginal(...args));
-        };
+        client.getCategories = (...args) => (
+            this.$q.when(getCategoriesOriginal(...args))
+        );
         const createCategoryOriginal = client.createCategory.bind(client);
-        client.createCategory = (...args) => {
-            return this.$q.when(createCategoryOriginal(...args));
-        };
+        client.createCategory = (...args) => (
+            this.$q.when(createCategoryOriginal(...args))
+        );
         const getKeywordsOriginal = client.getKeywords.bind(client);
-        client.getKeywords = (...args) => {
-            return this.$q.when(getKeywordsOriginal(...args));
-        };
+        client.getKeywords = (...args) => (
+            this.$q.when(getKeywordsOriginal(...args))
+        );
 
         return client;
     }
@@ -96,5 +77,4 @@ AngularClientFactory.$inject = ['$q'];
 export default angular
     .module('vendor.http.category-client', [])
     .service('vendorHttpCategoryClientFactory', AngularClientFactory)
-    .name
-;
+    .name;
