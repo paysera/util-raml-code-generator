@@ -16,6 +16,11 @@ class CategoryClient
         $this->apiClient = $apiClient;
     }
 
+    public function withOptions(array $options)
+    {
+        return new CategoryClient($this->apiClient->withOptions($options));
+    }
+
     /**
      * Enable category
      * PUT /categories/{id}/enable

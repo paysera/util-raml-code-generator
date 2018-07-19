@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d9a256415f87da0ea52069a3541a75b3",
+    "content-hash": "6047b6ac5f8ea6f2fefaa5c99f1aeffb",
     "packages": [
         {
             "name": "composer/ca-bundle",
@@ -2967,16 +2967,16 @@
         },
         {
             "name": "paysera/lib-rest-client-common",
-            "version": "1.0.6",
+            "version": "2.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/paysera/lib-rest-client-common.git",
-                "reference": "e3d2484e12e38981ac0581e99b7e021d5dc34325"
+                "reference": "813bd5638dc8c365540bb909e98a32cf6d680c0d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/paysera/lib-rest-client-common/zipball/e3d2484e12e38981ac0581e99b7e021d5dc34325",
-                "reference": "e3d2484e12e38981ac0581e99b7e021d5dc34325",
+                "url": "https://api.github.com/repos/paysera/lib-rest-client-common/zipball/813bd5638dc8c365540bb909e98a32cf6d680c0d",
+                "reference": "813bd5638dc8c365540bb909e98a32cf6d680c0d",
                 "shasum": ""
             },
             "require": {
@@ -2987,7 +2987,7 @@
                 "psr/http-message": "^1.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "^6.0"
+                "phpunit/phpunit": "^5.0"
             },
             "type": "library",
             "autoload": {
@@ -2997,7 +2997,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "description": "Base classes/helpers used in REST Clients",
-            "time": "2017-07-03T12:15:42+00:00"
+            "time": "2018-07-19T11:22:27+00:00"
         },
         {
             "name": "paysera/lib-serializer",

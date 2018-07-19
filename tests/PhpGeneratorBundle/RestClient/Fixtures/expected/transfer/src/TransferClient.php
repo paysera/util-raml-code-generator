@@ -15,6 +15,11 @@ class TransferClient
         $this->apiClient = $apiClient;
     }
 
+    public function withOptions(array $options)
+    {
+        return new TransferClient($this->apiClient->withOptions($options));
+    }
+
     /**
      * Sign the transfer, even if no funds available.
      * PUT /transfer/{id}/sign

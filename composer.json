@@ -50,7 +50,7 @@
         "knplabs/github-api": "^2.8",
         "lcobucci/jwt": "^3.2",
         "paysera/lib-rest-bundle": "^4.0",
-        "paysera/lib-rest-client-common": "^1.0",
+        "paysera/lib-rest-client-common": "^2.0",
         "paysera/lib-serializer": "^2.0",
         "php-http/guzzle6-adapter": "^1.1",
         "phpunit/phpunit": "^6.0",

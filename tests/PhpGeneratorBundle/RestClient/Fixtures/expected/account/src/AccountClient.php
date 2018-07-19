@@ -15,6 +15,11 @@ class AccountClient
         $this->apiClient = $apiClient;
     }
 
+    public function withOptions(array $options)
+    {
+        return new AccountClient($this->apiClient->withOptions($options));
+    }
+
     /**
      * Generated JS code
      * GET /accounts/scripts

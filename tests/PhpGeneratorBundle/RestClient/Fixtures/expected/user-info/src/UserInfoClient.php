@@ -15,6 +15,11 @@ class UserInfoClient
         $this->apiClient = $apiClient;
     }
 
+    public function withOptions(array $options)
+    {
+        return new UserInfoClient($this->apiClient->withOptions($options));
+    }
+
     /**
      * Creates Legal User
      * POST /users/legal

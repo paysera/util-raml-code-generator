@@ -2,7 +2,6 @@
 
 namespace Paysera\Test\InheritanceClient;
 
-use Paysera\Component\RestClientCommon\Client\ApiClient;
 use Paysera\Component\RestClientCommon\Util\ClientFactoryAbstract;
 
 class ClientFactory extends ClientFactoryAbstract
@@ -11,9 +10,9 @@ class ClientFactory extends ClientFactoryAbstract
 
     private $apiClient;
 
-    public function __construct(ApiClient $apiClient)
+    public function __construct(array $options)
     {
-        $this->apiClient = $apiClient;
+        $this->apiClient = $this->createApiClient($options);
     }
 
     public function getInheritanceClient()

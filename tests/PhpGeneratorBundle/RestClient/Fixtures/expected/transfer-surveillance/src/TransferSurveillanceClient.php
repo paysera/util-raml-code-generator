@@ -15,6 +15,11 @@ class TransferSurveillanceClient
         $this->apiClient = $apiClient;
     }
 
+    public function withOptions(array $options)
+    {
+        return new TransferSurveillanceClient($this->apiClient->withOptions($options));
+    }
+
     /**
      * Mark Inspection as accepted. Allow transfer to complete
      * PUT /transfer/inspection/{transferId}/accept

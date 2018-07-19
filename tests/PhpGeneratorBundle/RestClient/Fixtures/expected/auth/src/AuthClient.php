@@ -15,6 +15,11 @@ class AuthClient
         $this->apiClient = $apiClient;
     }
 
+    public function withOptions(array $options)
+    {
+        return new AuthClient($this->apiClient->withOptions($options));
+    }
+
     /**
      * Create auth token
      * POST /tokens/auth

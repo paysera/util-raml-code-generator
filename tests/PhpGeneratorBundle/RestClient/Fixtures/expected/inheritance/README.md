@@ -11,7 +11,7 @@ This library provides `ClientFactory` class, which you should use to get the API
 ```php
 use Paysera\Test\InheritanceClient\ClientFactory;
 
-$clientFactory = ClientFactory::create([
+$clientFactory = new ClientFactory([
     'base_url' => 'https://example.com/user/rest/v1', // optional, in case you need a custom one.
     'basic' => [                                        // use this, it API requires Basic authentication.
         'username' => 'username',

@@ -33,6 +33,11 @@ class {{ api.name|to_class_name }}
         $this->apiClient = $apiClient;
     }
 
+    public function withOptions(array $options)
+    {
+        return new {{ api.name|to_class_name }}($this->apiClient->withOptions($options));
+    }
+
 {% for resource in api.ramlDefinition.resources -%}
     {{- macros.render_methods(resource, api) -}}
 {% endfor %}

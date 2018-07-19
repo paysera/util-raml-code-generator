@@ -15,6 +15,11 @@ class InheritanceClient
         $this->apiClient = $apiClient;
     }
 
+    public function withOptions(array $options)
+    {
+        return new InheritanceClient($this->apiClient->withOptions($options));
+    }
+
     /**
      * User Natural Filter
      * GET /users/natural
