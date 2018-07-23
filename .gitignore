@@ -21,6 +21,8 @@
 .arcconfig
 generated/
 
+node_modules
+
 bin/
 !bin/console
 !bin/symfony_requirements

@@ -4,9 +4,9 @@ import AccountResult from './entity/AccountResult';
 import { Filter } from '@paysera/http-client-common';
 import { Result } from '@paysera/http-client-common';
 import UndescribedType from './entity/UndescribedType';
+import { DateTime } from 'luxon';
 import { Entity } from '@paysera/http-client-common';
 
-import DateFactory from './service/DateFactory';
 import { createAccountClient } from './service/createClient';
 import AccountClient from './service/AccountClient';
 
@@ -17,8 +17,8 @@ export {
     Filter,
     Result,
     UndescribedType,
+    DateTime,
     Entity,
-    DateFactory,
     createAccountClient,
     AccountClient,
 };

@@ -78,7 +78,7 @@
                 <argument type="service">
                     <service class="Paysera\Bundle\CodeGeneratorBundle\Entity\TypeConfiguration">
                         <call method="setMatchRegex">
-                            <argument type="string">^datetime$</argument>
+                            <argument type="string">^(?:date|time|datetime)(?:-only)*$</argument>
                         </call>
                         <call method="setGetterTemplate">
                             <argument type="string">@PayseraPhpGenerator/RestClient/Entity/Method/Body/DateTime/getter.php.twig</argument>
@@ -272,7 +272,7 @@
                 <argument type="service">
                     <service class="Paysera\Bundle\CodeGeneratorBundle\Entity\TypeConfiguration">
                         <call method="setMatchRegex">
-                            <argument type="string">^datetime$</argument>
+                            <argument type="string">^(?:date|time|datetime)(?:-only)*$</argument>
                         </call>
                         <call method="setGetterTemplate">
                             <argument type="string">@PayseraPhpGenerator/SymfonyBundle/Types/Default/getter.php.twig</argument>

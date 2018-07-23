@@ -5,25 +5,16 @@ namespace Paysera\Bundle\CodeGeneratorBundle\Service;
 
 use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\ArrayPropertyDefinition;
 use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\DateTimePropertyDefinition;
+use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\DateTimeTypeDefinition;
 use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\PropertyDefinition;
 
 class PropertyDefinitionBuilder
 {
-    /**
-     * @var array
-     */
-    private $supportedDateTimeTypes;
     private $constantBuilder;
 
     public function __construct(ConstantBuilder $constantBuilder)
     {
         $this->constantBuilder = $constantBuilder;
-        $this->supportedDateTimeTypes = [
-            'datetime',
-            'datetime-only',
-            'date-only',
-            'time-only',
-        ];
     }
 
     public function buildPropertyDefinition(string $name, array $definition)
@@ -42,9 +33,13 @@ class PropertyDefinitionBuilder
         }
 
         if (!in_array($property->getType(), PropertyDefinition::getSimpleTypes(), true)) {
+            $reference = null;
+            if (isset($definition['type'])) {
+                $reference = $definition['type'];
+            }
             $property
                 ->setType(PropertyDefinition::TYPE_REFERENCE)
-                ->setReference(isset($definition['type']) ? $definition['type'] : null)
+                ->setReference($reference)
             ;
         }
 
@@ -66,13 +61,16 @@ class PropertyDefinitionBuilder
             ;
         } elseif (
             isset($definition['type'])
-            && in_array($definition['type'], $this->supportedDateTimeTypes, true)
+            && in_array($definition['type'], DateTimeTypeDefinition::$supportedTypes, true)
             || (
                 isset($definition['type']) && $definition['type'] === PropertyDefinition::TYPE_INTEGER
-                && array_key_exists(DateTimePropertyDefinition::ANNOTATION_TIMESTAMP, $definition)
+                && array_key_exists(DateTimeTypeDefinition::ANNOTATION_TIMESTAMP, $definition)
             )
         ) {
             $property = new DateTimePropertyDefinition();
+            if (isset($definition['format'])) {
+                $property->setFormat($definition['format']);
+            }
         }
 
         return $property;

@@ -1,8 +1,6 @@
 import TransferNotifcation from './TransferNotifcation';
 import { Entity } from '@paysera/http-client-common';
 
-import DateFactory from '../service/DateFactory';
-
 class TransferNotifications extends Entity {
     constructor(data = {}) {
         super(data);

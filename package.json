@@ -1,0 +1,8 @@
+{
+  "name": "util-raml-code-generator",
+  "dependencies": {},
+  "devDependencies": {
+    "@paysera/http-client-common": "^2.0.0",
+    "luxon": "^1.3.2"
+  }
+}

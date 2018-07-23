@@ -8,9 +8,9 @@
             return null;
         }
     {% endif %}
-    {% if property.type == constant('TYPE_INTEGER', property) -%}
+    {% if php_resolve_date_type_format(property) == 'U' -%}
         return (new \DateTimeImmutable())->setTimestamp($this->get('{{ property.name }}'));
     {% else -%}
-        return (new \DateTimeImmutable($this->get('{{ property.name }}')));
+        return \DateTimeImmutable::createFromFormat('{{ php_resolve_date_type_format(property) }}', $this->get('{{ property.name }}'));
     {% endif %}
 }

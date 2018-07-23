@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Paysera\Bundle\PhpGeneratorBundle\Service\Generator\SymfonyBundle;
 
 use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\ApiDefinition;
+use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\DateTimeTypeDefinition;
 use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\FilterTypeDefinition;
 use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\ResultTypeDefinition;
 use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\TypeDefinition;
@@ -72,6 +73,7 @@ class DoctrineMappingGenerator implements GeneratorInterface
             $typeConfig->getLibraryConfiguration() !== null
             || $type instanceof ResultTypeDefinition
             || $type instanceof FilterTypeDefinition
+            || $type instanceof DateTimeTypeDefinition
         ;
     }
 }

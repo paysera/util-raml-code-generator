@@ -5,5 +5,20 @@ namespace Paysera\Bundle\CodeGeneratorBundle\Entity\Definition;
 
 class DateTimePropertyDefinition extends PropertyDefinition
 {
-    const ANNOTATION_TIMESTAMP = '(datetime_timestamp)';
+    private $format;
+
+    /**
+     * @return string|null
+     */
+    public function getFormat()
+    {
+        return $this->format;
+    }
+
+    public function setFormat($format)
+    {
+        $this->format = $format;
+
+        return $this;
+    }
 }

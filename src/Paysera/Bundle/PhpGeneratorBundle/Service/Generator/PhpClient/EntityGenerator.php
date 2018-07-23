@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Paysera\Bundle\PhpGeneratorBundle\Service\Generator\PhpClient;
 
 use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\ApiDefinition;
+use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\DateTimeTypeDefinition;
 use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\FilterTypeDefinition;
 use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\ResultTypeDefinition;
 use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\TypeDefinition;
@@ -71,6 +72,9 @@ class EntityGenerator implements GeneratorInterface
     private function skipTypeGeneration(TypeDefinition $type)
     {
         $typeConfig = $this->typeConfigurationProvider->getTypeConfiguration($type->getName());
-        return $typeConfig->getLibraryConfiguration() !== null;
+        return
+            $typeConfig->getLibraryConfiguration() !== null
+            || $type instanceof DateTimeTypeDefinition
+        ;
     }
 }

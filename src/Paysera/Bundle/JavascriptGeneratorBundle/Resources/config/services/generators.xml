@@ -34,14 +34,6 @@
             <tag name="paysera_js_generator" position="30"/>
         </service>
 
-        <service id="paysera_javascript_generator.generator.date_factory"
-                 class="Paysera\Bundle\JavascriptGeneratorBundle\Service\Generator\DateFactoryGenerator">
-            <argument type="service" id="templating"/>
-            <argument>%paysera_javascript_generator.relative_package_source_dir%</argument>
-            <tag name="paysera_js_generator" position="40"/>
-        </service>
-
-
         <service id="paysera_javascript_generator.generator.package_json"
                  class="Paysera\Bundle\JavascriptGeneratorBundle\Service\Generator\PackageJsonGenerator">
             <argument type="service" id="templating"/>

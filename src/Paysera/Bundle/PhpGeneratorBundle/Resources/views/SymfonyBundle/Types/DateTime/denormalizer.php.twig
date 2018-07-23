@@ -1,3 +1,7 @@
 if (isset($data['{{ property.name|to_snake_case }}'])) {
+            {% if php_resolve_date_type_format(property) == 'U' -%}
             $entity->{{ php_generate_setter_name(property) }}((new \DateTime())->setTimestamp($data['{{ property.name|to_snake_case }}']));
+{% else -%}
+            $entity->{{ php_generate_setter_name(property) }}(\DateTime::createFromFormat('{{ php_resolve_date_type_format(property) }}', $data['{{ property.name|to_snake_case }}']));
+{% endif %}
         }

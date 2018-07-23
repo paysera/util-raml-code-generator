@@ -30,7 +30,7 @@ module.exports = (env, argv) => {
     '{{ key }}': '{{ external|raw }}',
             {% endfor -%}
             },
-            {% else %}
+            {% else -%}
             '{{ libraryConfig.name|raw }}': '{{ libraryConfig.name|raw }}',
             {% endif -%}
             {% endfor -%}

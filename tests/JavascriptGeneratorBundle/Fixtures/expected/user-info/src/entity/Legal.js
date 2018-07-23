@@ -1,7 +1,5 @@
 import UserInfo from './UserInfo';
 
-import DateFactory from '../service/DateFactory';
-
 class Legal extends UserInfo {
     constructor(data = {}) {
         super(data);

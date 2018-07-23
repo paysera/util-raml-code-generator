@@ -35,6 +35,7 @@ module.exports = (env, argv) => {
                 'commonjs2': '@paysera/http-client-common',
                 'amd': '@paysera/http-client-common',
             },
+            'luxon': 'luxon',
             angular: 'angular'
         }
     };

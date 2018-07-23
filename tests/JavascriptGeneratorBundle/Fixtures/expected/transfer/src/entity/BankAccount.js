@@ -2,8 +2,6 @@ import Address from './Address';
 import CorrespondentBank from './CorrespondentBank';
 import { Entity } from '@paysera/http-client-common';
 
-import DateFactory from '../service/DateFactory';
-
 class BankAccount extends Entity {
     constructor(data = {}) {
         super(data);

@@ -3,8 +3,7 @@ import TransferAdditionalData from './TransferAdditionalData';
 import TransferFailureStatus from './TransferFailureStatus';
 import TransferInitiator from './TransferInitiator';
 import TransferInput from './TransferInput';
-
-import DateFactory from '../service/DateFactory';
+import { DateTime } from 'luxon';
 
 class TransferOutput extends TransferInput {
     constructor(data = {}) {
@@ -54,34 +53,34 @@ class TransferOutput extends TransferInput {
     }
 
     /**
-     * @return {Date}
+     * @return {DateTime}
      */
     getCreatedAt() {
-        return DateFactory.create(this.get('created_at'));
+        return DateTime.fromMillis(this.get('created_at') * 1000);
     }
 
     /**
-     * @param {Date} createdAt
+     * @param {DateTime} createdAt
      */
     setCreatedAt(createdAt) {
-        this.set('created_at', createdAt.getTime());
+        this.set('created_at', Math.floor(createdAt.toMillis()/1000));
     }
 
     /**
-     * @return {Date}|null
+     * @return {DateTime}|null
      */
     getPerformedAt() {
         if (this.get('performed_at') == null) {
             return null;
         }
-        return DateFactory.create(this.get('performed_at'));
+        return DateTime.fromMillis(this.get('performed_at') * 1000);
     }
 
     /**
-     * @param {Date} performedAt
+     * @param {DateTime} performedAt
      */
     setPerformedAt(performedAt) {
-        this.set('performed_at', performedAt.getTime());
+        this.set('performed_at', Math.floor(performedAt.toMillis()/1000));
     }
 
     /**

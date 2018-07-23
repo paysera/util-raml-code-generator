@@ -5,9 +5,8 @@ import TransferBeneficiary from './TransferBeneficiary';
 import TransferNotifications from './TransferNotifications';
 import TransferPassword34 from './TransferPassword34';
 import TransferPurpose from './TransferPurpose';
+import { DateTime } from 'luxon';
 import { Entity } from '@paysera/http-client-common';
-
-import DateFactory from '../service/DateFactory';
 
 class TransferInput extends Entity {
     constructor(data = {}) {
@@ -74,20 +73,20 @@ class TransferInput extends Entity {
     }
 
     /**
-     * @return {Date}|null
+     * @return {DateTime}|null
      */
     getPerformAt() {
         if (this.get('perform_at') == null) {
             return null;
         }
-        return DateFactory.create(this.get('perform_at'));
+        return DateTime.fromMillis(this.get('perform_at') * 1000);
     }
 
     /**
-     * @param {Date} performAt
+     * @param {DateTime} performAt
      */
     setPerformAt(performAt) {
-        this.set('perform_at', performAt.getTime());
+        this.set('perform_at', Math.floor(performAt.toMillis()/1000));
     }
 
     /**
@@ -209,20 +208,20 @@ class TransferInput extends Entity {
     }
 
     /**
-     * @return {Date}|null
+     * @return {DateTime}|null
      */
     getReserveUntil() {
         if (this.get('reserve_until') == null) {
             return null;
         }
-        return DateFactory.create(this.get('reserve_until'));
+        return DateTime.fromMillis(this.get('reserve_until') * 1000);
     }
 
     /**
-     * @param {Date} reserveUntil
+     * @param {DateTime} reserveUntil
      */
     setReserveUntil(reserveUntil) {
-        this.set('reserve_until', reserveUntil.getTime());
+        this.set('reserve_until', Math.floor(reserveUntil.toMillis()/1000));
     }
 }
 

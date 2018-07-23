@@ -4,6 +4,10 @@
      */
     public function {{ php_generate_setter_name(property) }}({% include get_method_argument_typehint_template(property) with { 'property': property } only %})
     {
+        {% if php_resolve_date_type_format(property) == 'U' -%}
         $this->set('{{ property.name }}', ${{ property.name|to_variable_name }}->getTimestamp());
+{% else -%}
+        $this->set('{{ property.name }}', ${{ property.name|to_variable_name }}->format('{{ php_resolve_date_type_format(property) }}'));
+{% endif %}
         return $this;
     }

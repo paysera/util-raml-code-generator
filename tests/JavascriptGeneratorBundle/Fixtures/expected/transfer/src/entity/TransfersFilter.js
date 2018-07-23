@@ -1,38 +1,39 @@
+import { DateTime } from 'luxon';
 import { Entity } from '@paysera/http-client-common';
 
 class TransfersFilter extends Entity {
     /**
-     * @return {Date}|null
+     * @return {DateTime}|null
      */
     getCreatedDateFrom() {
         if (this.get('created_date_from') == null) {
             return null;
         }
-        return DateFactory.create(this.get('created_date_from'));
+        return DateTime.fromMillis(this.get('created_date_from') * 1000);
     }
 
     /**
-     * @param {Date} createdDateFrom
+     * @param {DateTime} createdDateFrom
      */
     setCreatedDateFrom(createdDateFrom) {
-        this.set('created_date_from', createdDateFrom.getTime());
+        this.set('created_date_from', Math.floor(createdDateFrom.toMillis()/1000));
     }
 
     /**
-     * @return {Date}|null
+     * @return {DateTime}|null
      */
     getCreatedDateTo() {
         if (this.get('created_date_to') == null) {
             return null;
         }
-        return DateFactory.create(this.get('created_date_to'));
+        return DateTime.fromMillis(this.get('created_date_to') * 1000);
     }
 
     /**
-     * @param {Date} createdDateTo
+     * @param {DateTime} createdDateTo
      */
     setCreatedDateTo(createdDateTo) {
-        this.set('created_date_to', createdDateTo.getTime());
+        this.set('created_date_to', Math.floor(createdDateTo.toMillis()/1000));
     }
 
     /**

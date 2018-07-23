@@ -7,6 +7,7 @@ use Fig\Http\Message\RequestMethodInterface;
 use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\ApiDefinition;
 use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\ArgumentDefinition;
 use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\ArrayPropertyDefinition;
+use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\DateTimeTypeDefinition;
 use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\PropertyDefinition;
 use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\ResultTypeDefinition;
 use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\TypeDefinition;
@@ -284,7 +285,10 @@ class BundleExtension extends Twig_Extension
                     ->setInnerType($property->getItemsType())
                 ;
             }
-            if ($property->getType() === PropertyDefinition::TYPE_REFERENCE) {
+            if (
+                $property->getType() === PropertyDefinition::TYPE_REFERENCE
+                && !in_array($property->getReference(), DateTimeTypeDefinition::$supportedTypes, true)
+            ) {
                 $argument = (new ArgumentDefinition($property->getReference()))
                     ->setType($property->getReference())
                 ;

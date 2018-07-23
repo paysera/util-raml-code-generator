@@ -11,6 +11,7 @@
     "author": "vendor",
     "license": "ISC",
     "dependencies": {
+        "luxon": "^1.0",
         "@paysera/http-client-common": "^2.0",
         "angular": "1.4.9"
     },

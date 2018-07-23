@@ -23,6 +23,7 @@ module.exports = (env, argv) => {
         context: path.resolve(__dirname),
         target: 'web',
         externals: {
+            'luxon': 'luxon',
             '@paysera/http-client-common': {
                 'root': 'PayseraHttpClientCommon',
                 'commonjs': '@paysera/http-client-common',

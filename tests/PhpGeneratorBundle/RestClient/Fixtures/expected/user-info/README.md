@@ -87,6 +87,11 @@ $userInfo = new Entities\UserInfo();
 
 $userInfo->setId($id);
 $userInfo->setType($type);
+$userInfo->setCreatedTimestamp($createdTimestamp);
+$userInfo->setCreatedDatetime($createdDatetime);
+$userInfo->setCreatedDateOnly($createdDateOnly);
+$userInfo->setCreatedTimeOnly($createdTimeOnly);
+$userInfo->setCreatedDatetimeOnly($createdDatetimeOnly);
     
 $result = $userInfoClient->updateUserInformation($id, $userInfo);
 ```

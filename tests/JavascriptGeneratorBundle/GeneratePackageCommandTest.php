@@ -89,7 +89,7 @@ class GeneratePackageCommandTest extends KernelTestCase
             $this->fail(sprintf('Expected output directory "%s" not found', $generatedDir));
         }
 
-        $iterator = new \RecursiveIteratorIterator(
+        $expectedIterator = new \RecursiveIteratorIterator(
             new \RecursiveDirectoryIterator(
                 __DIR__ . '/Fixtures/expected/' . $apiName,
                 \RecursiveDirectoryIterator::SKIP_DOTS
@@ -98,9 +98,11 @@ class GeneratePackageCommandTest extends KernelTestCase
             \RecursiveIteratorIterator::CATCH_GET_CHILD
         );
 
-        foreach ($iterator as $item) {
+        $expectedFiles = [];
+        foreach ($expectedIterator as $item) {
             /** @var $item \SplFileInfo */
             $expected = str_replace('/expected/', '/generated/', $item->getPathname());
+            $expectedFiles[] = $expected;
             $this->assertFileExists($expected);
             if ($item->isFile()) {
                 $expectedContents = file_get_contents($item->getPathname());
@@ -111,6 +113,21 @@ class GeneratePackageCommandTest extends KernelTestCase
                     $actualContents,
                     sprintf('Contents are different for file "%s"', $item->getBasename())
                 );
+            }
+        }
+
+        $generatedIterator = new \RecursiveIteratorIterator(
+            new \RecursiveDirectoryIterator(
+                $generatedDir,
+                \RecursiveDirectoryIterator::SKIP_DOTS
+            ),
+            \RecursiveIteratorIterator::SELF_FIRST,
+            \RecursiveIteratorIterator::CATCH_GET_CHILD
+        );
+        foreach ($generatedIterator as $item) {
+            /** @var $item \SplFileInfo */
+            if (!in_array($item->getPathname(), $expectedFiles, true)) {
+                $this->fail(sprintf('Unexpected file generated "%s"', $item->getBasename()));
             }
         }
     }

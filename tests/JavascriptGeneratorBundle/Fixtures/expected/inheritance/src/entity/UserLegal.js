@@ -1,7 +1,5 @@
 import User from './User';
 
-import DateFactory from '../service/DateFactory';
-
 class UserLegal extends User {
     constructor(data = {}) {
         super(data);

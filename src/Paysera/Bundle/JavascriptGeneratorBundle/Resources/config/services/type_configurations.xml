@@ -82,7 +82,13 @@
                 <argument type="service">
                     <service class="Paysera\Bundle\CodeGeneratorBundle\Entity\TypeConfiguration">
                         <call method="setMatchRegex">
-                            <argument type="string">^datetime$</argument>
+                            <argument type="string">^(?:date|time|datetime)(?:-only)*$</argument>
+                        </call>
+                        <call method="setImportString">
+                            <argument type="string">{ DateTime } from 'luxon'</argument>
+                        </call>
+                        <call method="setTypeName">
+                            <argument>DateTime</argument>
                         </call>
                         <call method="setGetterTemplate">
                             <argument type="string">@PayseraJavascriptGenerator/Package/Src/Entity/Method/Body/DateTime/getter.js.twig</argument>
@@ -95,6 +101,18 @@
                         </call>
                         <call method="setReturnTypeTemplate">
                             <argument type="string">@PayseraJavascriptGenerator/Package/Src/Entity/Method/Body/DateTime/return_type.js.twig</argument>
+                        </call>
+                        <call method="setLibraryConfiguration">
+                            <argument type="service">
+                                <service class="Paysera\Bundle\CodeGeneratorBundle\Entity\LibraryConfiguration">
+                                    <call method="setName">
+                                        <argument type="string">luxon</argument>
+                                    </call>
+                                    <call method="setVersion">
+                                        <argument type="string">^1.0</argument>
+                                    </call>
+                                </service>
+                            </argument>
                         </call>
                     </service>
                 </argument>

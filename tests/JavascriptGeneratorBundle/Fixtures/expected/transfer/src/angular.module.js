@@ -32,9 +32,9 @@ import TransfersBatch from './entity/TransfersBatch';
 import TransfersBatchResult from './entity/TransfersBatchResult';
 import TransfersFilter from './entity/TransfersFilter';
 import WebmoneyAccount from './entity/WebmoneyAccount';
+import { DateTime } from 'luxon';
 import { Entity } from '@paysera/http-client-common';
 
-import DateFactory from './service/DateFactory';
 import { createTransferClient } from './service/createClient';
 import TransferClient from './service/TransferClient';
 
@@ -70,8 +70,8 @@ export {
     TransfersBatchResult,
     TransfersFilter,
     WebmoneyAccount,
+    DateTime,
     Entity,
-    DateFactory,
     createTransferClient,
     TransferClient,
 };

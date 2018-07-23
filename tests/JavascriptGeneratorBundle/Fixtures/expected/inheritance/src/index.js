@@ -8,7 +8,6 @@ import UserNatural from './entity/UserNatural';
 import UserNaturalFilter from './entity/UserNaturalFilter';
 import { Entity } from '@paysera/http-client-common';
 
-import DateFactory from './service/DateFactory';
 import { createInheritanceClient } from './service/createClient';
 import InheritanceClient from './service/InheritanceClient';
 
@@ -22,7 +21,6 @@ export {
     UserNatural,
     UserNaturalFilter,
     Entity,
-    DateFactory,
     createInheritanceClient,
     InheritanceClient,
 };

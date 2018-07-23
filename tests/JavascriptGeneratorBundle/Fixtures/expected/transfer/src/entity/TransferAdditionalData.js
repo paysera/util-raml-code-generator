@@ -1,8 +1,7 @@
 import OutCommissionRule from './OutCommissionRule';
 import { Money } from '@paysera/money';
+import { DateTime } from 'luxon';
 import { Entity } from '@paysera/http-client-common';
-
-import DateFactory from '../service/DateFactory';
 
 class TransferAdditionalData extends Entity {
     constructor(data = {}) {
@@ -10,20 +9,20 @@ class TransferAdditionalData extends Entity {
     }
 
     /**
-     * @return {Date}|null
+     * @return {DateTime}|null
      */
     getEstimatedProcessingDate() {
         if (this.get('estimated_processing_date') == null) {
             return null;
         }
-        return DateFactory.create(this.get('estimated_processing_date'));
+        return DateTime.fromMillis(this.get('estimated_processing_date') * 1000);
     }
 
     /**
-     * @param {Date} estimatedProcessingDate
+     * @param {DateTime} estimatedProcessingDate
      */
     setEstimatedProcessingDate(estimatedProcessingDate) {
-        this.set('estimated_processing_date', estimatedProcessingDate.getTime());
+        this.set('estimated_processing_date', Math.floor(estimatedProcessingDate.toMillis()/1000));
     }
 
     /**

@@ -9,6 +9,11 @@
             <generator strategy="IDENTITY"/>
         </id>
         <field name="type" column="type" nullable="false" type="string"/>
+        <field name="createdTimestamp" column="created_timestamp" nullable="false" type="datetime"/>
+        <field name="createdDatetime" column="created_datetime" nullable="true" type="datetime"/>
+        <field name="createdDateOnly" column="created_date_only" nullable="true" type="datetime"/>
+        <field name="createdTimeOnly" column="created_time_only" nullable="true" type="datetime"/>
+        <field name="createdDatetimeOnly" column="created_datetime_only" nullable="true" type="datetime"/>
         
     </entity>
 </doctrine-mapping>

@@ -6,9 +6,7 @@ import {{ typeConfig.typeName|extract_type_name }} from './{{ typeConfig.typeNam
 {% endif %}
 {% endfor %}
 {% if get_related_types_config(type, api) is not empty %}
-
 {% endif %}
-import DateFactory from '../service/DateFactory';
 
 class {{ type.name|extract_type_name }} extends {{ get_parent_type_config(type).typeName }} {
 {% include '@PayseraJavascriptGenerator/Package/Src/Entity/Method/constructor.js.twig' with { 'type': type } only %}

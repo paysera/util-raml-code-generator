@@ -2,7 +2,7 @@
 
 namespace Paysera\Bundle\CodeGeneratorBundle\Service;
 
-use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\FilterTypeDefinition;
+use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\DateTimeTypeDefinition;
 use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\TypeDefinition;
 use Paysera\Bundle\CodeGeneratorBundle\Service\TypeDefinitionBuilder\TypeDefinitionBuilderInterface;
 use Paysera\Component\TypeHelper;
@@ -14,10 +14,13 @@ class TypeDefinitionBuilder
      * @var TypeDefinitionBuilderInterface[]
      */
     private $builders;
+    private $dateTimeBuilder;
 
-    public function __construct()
-    {
+    public function __construct(
+        TypeDefinitionBuilderInterface $dateTimeBuilder
+    ) {
         $this->builders = [];
+        $this->dateTimeBuilder = $dateTimeBuilder;
     }
 
     public function addTypeDefinitionBuilder(TypeDefinitionBuilderInterface $builder, string $position)
@@ -35,19 +38,21 @@ class TypeDefinitionBuilder
     {
         /** @var TypeDefinition[] $types */
         $types = [];
-        /** @var FilterTypeDefinition[] $filters */
-        $filters = [];
+        /** @var TypeDefinition[] $singles */
+        $singles = [];
 
         $apiTypes = array_merge($api->getTypes()->toArray(), $api->getTraits()->toArray());
 
         foreach ($apiTypes as $name => $definition) {
+            if ($this->dateTimeBuilder->supports($name, $definition)) {
+                $type = $this->dateTimeBuilder->buildTypeDefinition($name, $definition);
+                if ($type instanceof DateTimeTypeDefinition) {
+                    $singles[DateTimeTypeDefinition::NAME] = $type;
+                }
+            }
             foreach ($this->builders as $builder) {
                 if ($builder->supports($name, $definition)) {
-                    $type = $builder->buildTypeDefinition($name, $definition);
-                    if ($type instanceof FilterTypeDefinition) {
-                        $filters[] = $type;
-                    }
-                    $types[] = $type;
+                    $types[] = $builder->buildTypeDefinition($name, $definition);
                     break;
                 }
             }
@@ -68,6 +73,6 @@ class TypeDefinitionBuilder
             }
         }
 
-        return $types;
+        return array_merge($types, array_values($singles));
     }
 }

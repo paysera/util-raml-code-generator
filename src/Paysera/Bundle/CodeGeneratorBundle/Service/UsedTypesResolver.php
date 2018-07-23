@@ -4,6 +4,8 @@ namespace Paysera\Bundle\CodeGeneratorBundle\Service;
 
 use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\ApiDefinition;
 use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\ArrayPropertyDefinition;
+use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\DateTimePropertyDefinition;
+use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\DateTimeTypeDefinition;
 use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\PropertyDefinition;
 use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\ResultTypeDefinition;
 use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\TypeDefinition;
@@ -27,7 +29,7 @@ class UsedTypesResolver
             }
         }
 
-        $types = $types = $this->filterOutTypes($api, $secondaryTypes);
+        $types = $this->filterOutTypes($api, $secondaryTypes);
         sort($types);
         return $types;
     }
@@ -59,6 +61,8 @@ class UsedTypesResolver
                 $relatedTypes[] = $property->getItemsType();
             } elseif ($property->getType() === PropertyDefinition::TYPE_REFERENCE) {
                 $relatedTypes[] = $property->getReference();
+            } elseif ($property instanceof DateTimePropertyDefinition) {
+                $relatedTypes[] = DateTimeTypeDefinition::NAME;
             } else {
                 $relatedTypes[] = $property->getType();
             }
@@ -79,7 +83,7 @@ class UsedTypesResolver
     {
         return array_filter(array_unique($types), function ($type) use ($api) {
             return
-                !in_array($type, PropertyDefinition::getSimpleTypes())
+                !in_array($type, PropertyDefinition::getSimpleTypes(), true)
                 && $api->getType($type) !== null
             ;
         });
@@ -112,6 +116,9 @@ class UsedTypesResolver
             $refType = $api->getType($property->getReference());
             if ($refType !== null) {
                 $types = $this->getNestedTypes($api, $refType, $types);
+            }
+            if ($property instanceof DateTimePropertyDefinition) {
+                $types[] = DateTimeTypeDefinition::NAME;
             }
         }
         return $types;

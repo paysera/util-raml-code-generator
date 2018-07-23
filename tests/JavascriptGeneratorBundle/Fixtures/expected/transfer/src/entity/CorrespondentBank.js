@@ -1,7 +1,5 @@
 import { Entity } from '@paysera/http-client-common';
 
-import DateFactory from '../service/DateFactory';
-
 class CorrespondentBank extends Entity {
     constructor(data = {}) {
         super(data);

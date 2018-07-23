@@ -5,6 +5,7 @@ namespace Paysera\Bundle\CodeGeneratorBundle\Service;
 
 use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\ApiDefinition;
 use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\ArrayPropertyDefinition;
+use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\DateTimeTypeDefinition;
 use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\PropertyDefinition;
 use Paysera\Bundle\CodeGeneratorBundle\Exception\UnrecognizedTypeException;
 use Raml\Body;
@@ -87,6 +88,7 @@ class DefinitionValidator
             !in_array($type, PropertyDefinition::getSimpleTypes(), true)
             && $api->getType($type) === null
             && $type !== PropertyDefinition::TYPE_REFERENCE
+            && !in_array($type, DateTimeTypeDefinition::$supportedTypes, true)
         ) {
             if (!is_string($type)) {
                 $type = gettype($type);

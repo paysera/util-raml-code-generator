@@ -6,8 +6,6 @@ import TaxAccount from './TaxAccount';
 import WebmoneyAccount from './WebmoneyAccount';
 import { Entity } from '@paysera/http-client-common';
 
-import DateFactory from '../service/DateFactory';
-
 class TransferBeneficiary extends Entity {
     constructor(data = {}) {
         super(data);

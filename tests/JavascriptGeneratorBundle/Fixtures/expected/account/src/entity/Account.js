@@ -1,7 +1,6 @@
 import UndescribedType from './UndescribedType';
+import { DateTime } from 'luxon';
 import { Entity } from '@paysera/http-client-common';
-
-import DateFactory from '../service/DateFactory';
 
 class Account extends Entity {
     constructor(data = {}) {
@@ -9,17 +8,17 @@ class Account extends Entity {
     }
 
     /**
-     * @return {Date}
+     * @return {DateTime}
      */
     getCreatedAt() {
-        return DateFactory.create(this.get('created_at'));
+        return DateTime.fromMillis(this.get('created_at') * 1000);
     }
 
     /**
-     * @param {Date} createdAt
+     * @param {DateTime} createdAt
      */
     setCreatedAt(createdAt) {
-        this.set('created_at', createdAt.getTime());
+        this.set('created_at', Math.floor(createdAt.toMillis()/1000));
     }
 
     /**

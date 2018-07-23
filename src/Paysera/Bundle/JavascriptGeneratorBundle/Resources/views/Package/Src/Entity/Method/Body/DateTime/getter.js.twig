@@ -8,9 +8,9 @@
             return null;
         }
     {% endif -%}
-    {% if property.type == constant('TYPE_INTEGER', property) %}
-    return DateFactory.create(this.get('{{ property.name }}'));
+    {% if js_resolve_date_type_format(property) == null %}
+    return DateTime.fromMillis(this.get('{{ property.name }}') * 1000);
     {% else %}
-    return new Date(this.get('{{ property.name }}'));
+    return DateTime.fromFormat(this.get('{{ property.name }}'), "{{ js_resolve_date_type_format(property)|raw }}");
     {% endif %}
 }
