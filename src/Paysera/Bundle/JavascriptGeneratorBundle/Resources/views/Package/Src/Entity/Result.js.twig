@@ -15,7 +15,11 @@ class {{ type.name|extract_type_name }} extends {{ get_parent_type_config(type).
      * @returns {{ ('{' ~ type.itemsType|extract_type_name ~ '}')|raw }}
      */
     createItem(data) {
+        {% if type.itemsType|is_scalar_type -%}
+        return data;
+{% else -%}
         return new {{ type.itemsType|extract_type_name }}(data);
+{% endif %}
     }
 }
 

@@ -66,6 +66,7 @@ class BaseExtension extends Twig_Extension
             new Twig_SimpleFilter('to_snake_case', [StringHelper::class, 'snakeCase']),
             new Twig_SimpleFilter('to_plural', [StringHelper::class, 'plural']),
             new Twig_SimpleFilter('to_singular', [StringHelper::class, 'singular']),
+            new Twig_SimpleFilter('is_scalar_type', [$this, 'isScalarType']),
 
         ];
     }
@@ -109,6 +110,11 @@ class BaseExtension extends Twig_Extension
             new Twig_SimpleFunction('get_all_used_types', [$this, 'getAllUsedTypes'], ['needs_context' => true]),
             new Twig_SimpleFunction('get_type_configuration', [$this, 'getTypeConfiguration'], ['needs_context' => true]),
         ];
+    }
+
+    public function isScalarType(string $type)
+    {
+        return in_array($type, PropertyDefinition::getScalarTypes(), true);
     }
 
     public function isTypeDefined(string $name, ApiDefinition $apiDefinition)

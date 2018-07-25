@@ -1,0 +1,21 @@
+#%RAML 1.0
+title: Questionnaire API
+version: 1.0
+baseUri: https://my-api.example.com/rest/v1
+
+uses:
+  Paysera: ../__library/rest.raml
+
+types:
+  QuestionnaireUsersResult: !include types/questionnaire-users-result.raml
+
+/questionnaires:
+    /users-id:
+      get:
+        displayName: Questionnaire users
+        description: Get questionnaire users by filter
+        responses:
+          200:
+            body:
+              application/json:
+                type: QuestionnaireUsersResult

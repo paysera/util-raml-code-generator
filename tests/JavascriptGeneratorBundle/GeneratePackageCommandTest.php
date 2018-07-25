@@ -76,6 +76,7 @@ class GeneratePackageCommandTest extends KernelTestCase
             ['user-info'],
             ['category'],
             ['account'],
+            ['questionnaire'],
         ];
     }
 

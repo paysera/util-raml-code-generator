@@ -1,8 +1,12 @@
 {% include 'PayseraPhpGeneratorBundle:Base:Entity.php.twig' %}
 class {{ type.name|extract_type_name }} extends {{ get_parent_type_config(type).typeName }}
 {
-    protected function createItem(array $data)
+    protected function createItem({{ type.itemsType|is_scalar_type ? '' : 'array ' }}$data)
     {
+        {% if type.itemsType|is_scalar_type -%}
+        return $data;
+{% else -%}
         return new {{ type.itemsType|extract_type_name }}($data);
+{% endif %}
     }
 }
