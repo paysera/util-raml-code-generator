@@ -3,6 +3,7 @@
 namespace Paysera\Test\AuthClient;
 
 use Paysera\Component\RestClientCommon\Util\ClientFactoryAbstract;
+use Paysera\Component\RestClientCommon\Client\ApiClient;
 
 class ClientFactory extends ClientFactoryAbstract
 {
@@ -10,9 +11,13 @@ class ClientFactory extends ClientFactoryAbstract
 
     private $apiClient;
 
-    public function __construct(array $options)
+    public function __construct($optionsOrClient)
     {
-        $this->apiClient = $this->createApiClient($options);
+        if ($optionsOrClient instanceof ApiClient) {
+            $this->apiClient = $optionsOrClient;
+        } else {
+            $this->apiClient = $this->createApiClient($optionsOrClient);
+        }
     }
 
     public function getAuthClient()
