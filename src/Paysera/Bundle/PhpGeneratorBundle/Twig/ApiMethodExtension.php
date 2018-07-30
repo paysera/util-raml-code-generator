@@ -46,10 +46,13 @@ class ApiMethodExtension extends Twig_Extension
     {
         return [
             new Twig_SimpleFunction('php_generate_uri', [$this, 'generateUri'], ['is_safe' => ['html']]),
-            new Twig_SimpleFunction('php_generate_result_populator', [$this, 'generateResultPopulator'], ['is_safe' => ['html']]),
+            new Twig_SimpleFunction('php_generate_result_populator', [$this, 'generateResultPopulator'], [
+                'is_safe' => ['html'],
+                'needs_context' => true,
+            ]),
             new Twig_SimpleFunction('php_inline_arguments', [$this, 'inlineArguments']),
             new Twig_SimpleFunction('php_inline_arguments_no_typehint', [$this, 'inlineArgumentsNoTypehint']),
-            new Twig_SimpleFunction('php_get_return_type', [$this, 'getReturnType']),
+            new Twig_SimpleFunction('php_get_return_type', [$this, 'getReturnType'], ['needs_context' => true]),
             new Twig_SimpleFunction('php_generate_method_arguments', [$this, 'generateMethodArguments'], ['needs_context' => true]),
             new Twig_SimpleFunction('php_inline_argument_names', [$this, 'getInlineArgumentNames']),
         ];
@@ -77,7 +80,7 @@ class ApiMethodExtension extends Twig_Extension
         return $unique;
     }
 
-    public function getReturnType(Method $method, ApiDefinition $api): string
+    public function getReturnType(array $context, Method $method, ApiDefinition $api): string
     {
         $body = $this->bodyResolver->getResponseBody($method);
 
@@ -87,6 +90,14 @@ class ApiMethodExtension extends Twig_Extension
 
         $bodyType = $body->getType();
         $bodyTypeName = $bodyType->getName();
+
+        $configurationProvider = $this->getTypeConfigurationProvider($context);
+        if ($configurationProvider->hasTypeConfiguration($bodyTypeName)) {
+            $typeConfiguration = $configurationProvider->getTypeConfiguration($bodyTypeName);
+            if ($typeConfiguration->getApiMethodReturnType() !== null) {
+                return $typeConfiguration->getApiMethodReturnType();
+            }
+        }
 
         if ($api->getType($bodyTypeName) !== null) {
             return sprintf('Entities\%s', $bodyTypeName);
@@ -190,7 +201,7 @@ class ApiMethodExtension extends Twig_Extension
         return sprintf("sprintf('%s', %s)", $replaced, implode(", ", $arguments));
     }
 
-    public function generateResultPopulator(Method $method, ApiDefinition $api): string
+    public function generateResultPopulator(array $context, Method $method, ApiDefinition $api): string
     {
         $body = $this->bodyResolver->getResponseBody($method);
 
@@ -200,6 +211,14 @@ class ApiMethodExtension extends Twig_Extension
 
         $bodyType = $body->getType();
         $bodyTypeName = $bodyType->getName();
+
+        $configurationProvider = $this->getTypeConfigurationProvider($context);
+        if ($configurationProvider->hasTypeConfiguration($bodyTypeName)) {
+            $typeConfiguration = $configurationProvider->getTypeConfiguration($bodyTypeName);
+            if ($typeConfiguration->getResultPopulatorCode() !== null) {
+                return $typeConfiguration->getResultPopulatorCode();
+            }
+        }
 
         if ($api->getType($bodyTypeName) !== null) {
             $type = $api->getType($bodyTypeName);

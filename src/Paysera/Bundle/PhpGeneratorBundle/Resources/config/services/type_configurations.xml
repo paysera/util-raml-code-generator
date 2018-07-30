@@ -137,6 +137,12 @@
                                 </service>
                             </argument>
                         </call>
+                        <call method="setResultPopulatorCode">
+                            <argument>new Money($data['amount'], $data['currency']);</argument>
+                        </call>
+                        <call method="setApiMethodReturnType">
+                            <argument>Money</argument>
+                        </call>
                     </service>
                 </argument>
             </call>
