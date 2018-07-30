@@ -45,6 +45,7 @@ class RoutingGenerator implements GeneratorInterface
             [
                 'base_uri' => $baseUri,
                 'version' => $version,
+                'api' => $definition,
             ]
         );
         $items[] = (new SourceCode())

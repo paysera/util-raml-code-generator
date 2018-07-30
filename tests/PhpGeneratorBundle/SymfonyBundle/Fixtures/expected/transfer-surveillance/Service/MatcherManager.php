@@ -2,6 +2,7 @@
 
 namespace Vendor\Test\TransferSurveillanceApiBundle\Service;
 
+use Paysera\Component\Serializer\Entity\Result;
 use Vendor\Test\TransferSurveillanceApiBundle\Entity as Entities;
 use Vendor\Test\TransferSurveillanceApiBundle\Repository\MatcherRepository;
 use Doctrine\ORM\EntityManager;

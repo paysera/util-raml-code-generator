@@ -11,17 +11,40 @@ class ClientFactory extends ClientFactoryAbstract
 
     private $apiClient;
 
-    public function __construct($optionsOrClient)
+    public function __construct($options)
     {
-        if ($optionsOrClient instanceof ApiClient) {
-            $this->apiClient = $optionsOrClient;
-        } else {
-            $this->apiClient = $this->createApiClient($optionsOrClient);
+        if ($options instanceof ApiClient) {
+            $this->apiClient = $options;
+            return;
         }
+
+        {% if get_api_base_url_parameters_with_defaults(api)|length > 0 -%}
+        $defaultUrlParameters = [
+            {% for parameter in get_api_base_url_parameters_with_defaults(api) -%}
+            '{{ parameter.key }}' => '{{ parameter.default }}',
+            {%- endfor %}
+
+        ];
+        {% else -%}
+        $defaultUrlParameters = [];
+        {% endif %}
+
+        $options['url_parameters'] = $this->resolveDefaultUrlParameters($defaultUrlParameters, $options);
+        $this->apiClient = $this->createApiClient($options);
     }
 
     public function get{{ api.name|to_class_name }}()
     {
         return new {{ api.name|to_class_name }}($this->apiClient);
+    }
+
+    private function resolveDefaultUrlParameters(array $defaults, array $options)
+    {
+        $params = [];
+        if (isset($options['url_parameters'])) {
+            $params = $options['url_parameters'];
+        }
+
+        return $params + $defaults;
     }
 }

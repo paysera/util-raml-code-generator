@@ -11,17 +11,31 @@ class ClientFactory extends ClientFactoryAbstract
 
     private $apiClient;
 
-    public function __construct($optionsOrClient)
+    public function __construct($options)
     {
-        if ($optionsOrClient instanceof ApiClient) {
-            $this->apiClient = $optionsOrClient;
-        } else {
-            $this->apiClient = $this->createApiClient($optionsOrClient);
+        if ($options instanceof ApiClient) {
+            $this->apiClient = $options;
+            return;
         }
+
+        $defaultUrlParameters = [];
+        
+        $options['url_parameters'] = $this->resolveDefaultUrlParameters($defaultUrlParameters, $options);
+        $this->apiClient = $this->createApiClient($options);
     }
 
     public function getInheritanceClient()
     {
         return new InheritanceClient($this->apiClient);
+    }
+
+    private function resolveDefaultUrlParameters(array $defaults, array $options)
+    {
+        $params = [];
+        if (isset($options['url_parameters'])) {
+            $params = $options['url_parameters'];
+        }
+
+        return $params + $defaults;
     }
 }

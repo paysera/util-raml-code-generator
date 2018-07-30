@@ -42,7 +42,7 @@
                                     <argument type="string">paysera/lib-rest-client-common</argument>
                                 </call>
                                 <call method="setVersion">
-                                    <argument type="string">^1.0 | ^2.0</argument>
+                                    <argument type="string">^1.0 | ^2.1</argument>
                                 </call>
                             </service>
                         </argument>
@@ -165,7 +165,7 @@
                                         <argument type="string">paysera/lib-rest-client-common</argument>
                                     </call>
                                     <call method="setVersion">
-                                        <argument type="string">^1.0 | ^2.0</argument>
+                                        <argument type="string">^1.0 | ^2.1</argument>
                                     </call>
                                 </service>
                             </argument>
@@ -192,7 +192,7 @@
                                         <argument type="string">paysera/lib-rest-client-common</argument>
                                     </call>
                                     <call method="setVersion">
-                                        <argument type="string">^1.0 | ^2.0</argument>
+                                        <argument type="string">^1.0 | ^2.1</argument>
                                     </call>
                                 </service>
                             </argument>

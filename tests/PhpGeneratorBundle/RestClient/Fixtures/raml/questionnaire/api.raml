@@ -1,7 +1,11 @@
 #%RAML 1.0
 title: Questionnaire API
 version: 1.0
-baseUri: https://my-api.example.com/rest/v1
+baseUri: https://my-api.example.com/rest/v1/{locale}
+baseUriParameters:
+  locale:
+    type: string
+    default: en
 
 uses:
   Paysera: ../__library/rest.raml

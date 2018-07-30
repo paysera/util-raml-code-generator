@@ -10,8 +10,13 @@
         <service id="{{ vendor_name|to_snake_case ~ '_' ~ api.name|to_snake_case }}.normalizer.{{ type.name|extract_type_name|to_snake_case }}"
                  class="Paysera\Component\Serializer\Normalizer\ResultNormalizer"
                  parent="paysera_rest.normalizer.result">
-            <argument>{{ type.parent.dataKey }}</argument>
+            <argument>{{ type.dataKey }}</argument>
+            {% if type.itemsType|is_scalar_type -%}
+            <argument type="service" id="paysera_rest.normalizer.plain"/>
+            {% else -%}
             <argument type="service" id="{{ vendor_name|to_snake_case ~ '_' ~ api.name|to_snake_case }}.normalizer.{{ type.itemsType|extract_type_name|to_snake_case }}"/>
+            {%- endif %}
+
         </service>
         {% else -%}
         {%- if get_type_configuration(type).normalizerImportString is not null -%}

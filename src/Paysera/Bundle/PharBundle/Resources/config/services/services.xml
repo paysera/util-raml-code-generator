@@ -29,7 +29,6 @@
         <service id="paysera_phar.changelog_parser"
                  class="Paysera\Bundle\PharBundle\Service\ChangelogParser">
             <argument>%paysera_phar.package_name%</argument>
-            <argument>%paysera_phar.current_version%</argument>
         </service>
     </services>
 </container>

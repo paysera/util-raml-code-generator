@@ -25,7 +25,7 @@
         <service id="vendor_transfer_api.normalizer.filtered_transfers_result"
                  class="Paysera\Component\Serializer\Normalizer\ResultNormalizer"
                  parent="paysera_rest.normalizer.result">
-            <argument>items</argument>
+            <argument>transfers</argument>
             <argument type="service" id="vendor_transfer_api.normalizer.transfer_output"/>
         </service>
         <service id="vendor_transfer_api.normalizer.final_beneficiary"

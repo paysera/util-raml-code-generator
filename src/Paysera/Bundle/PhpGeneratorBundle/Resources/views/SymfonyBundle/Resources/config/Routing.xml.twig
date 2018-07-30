@@ -4,5 +4,15 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
 
-    <import resource="routing/rest_v{{ version }}.xml" prefix="{{ base_uri }}"/>
+    {% if symfony_bundle_get_api_base_url_parameters_with_defaults(api)|length > 0 -%}
+    <import resource="routing/rest_v{{ version }}.xml" prefix="{{ base_uri|replace({'{locale}': '{_locale}'}) }}">
+        {% for parameter in symfony_bundle_get_api_base_url_parameters_with_defaults(api) -%}
+        <default key="{{ parameter.key }}">{{ parameter.default }}</default>
+        {%- endfor %}
+
+    </import>
+    {% else -%}
+    <import resource="routing/rest_v{{ version }}.xml" prefix="{{ base_uri|replace({'{locale}': '{_locale}'}) }}"/>
+    {%- endif %}
+
 </routes>

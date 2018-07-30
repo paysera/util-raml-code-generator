@@ -4,6 +4,7 @@ import UserInfoClient from './UserInfoClient';
 /**
  * @param {string} baseURL
  * @param {[]|null} middleware
+ * @param {object} options
  *
  * @returns {UserInfoClient}
  */
@@ -11,7 +12,25 @@ import UserInfoClient from './UserInfoClient';
 export const createUserInfoClient = ({
     baseURL = 'https://example.com/user/rest/v1/',
     middleware = null,
-}) => new UserInfoClient(createClient({
-    baseURL,
-    middleware,
-}));
+    options = {}
+}) => {
+    const defaultUrlParameters = {};
+    
+    if (Object.prototype.hasOwnProperty.call(options, 'urlParameters')) {
+        const { urlParameters } = options;
+        for (let [key, value] of Object.entries(defaultUrlParameters)) {
+            if (!Object.prototype.hasOwnProperty.call(urlParameters, key)) {
+                urlParameters[key] = value;
+            }
+        }
+        options.urlParameters = urlParameters;
+    }
+
+    return new UserInfoClient(
+        createClient({
+            baseURL,
+            middleware,
+            options
+        })
+    )
+};

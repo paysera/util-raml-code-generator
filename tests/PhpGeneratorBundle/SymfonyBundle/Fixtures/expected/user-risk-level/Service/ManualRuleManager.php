@@ -2,6 +2,7 @@
 
 namespace Vendor\Test\UserRiskLevelApiBundle\Service;
 
+use Paysera\Component\Serializer\Entity\Result;
 use Vendor\Test\UserRiskLevelApiBundle\Entity as Entities;
 use Vendor\Test\UserRiskLevelApiBundle\Repository\ManualRuleRepository;
 use Doctrine\ORM\EntityManager;

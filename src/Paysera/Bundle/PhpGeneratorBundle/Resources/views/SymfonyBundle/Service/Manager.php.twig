@@ -16,7 +16,7 @@
 namespace {{ api.namespace }}\Service;
 
 {% for typeConfig in symfony_bundle_get_directly_used_types_in_sub_resource(api, argument.name) %}
-{% if typeConfig.importString is not null and 'Result' not in typeConfig.importString %}
+{% if typeConfig.importString is not null %}
 use {{ typeConfig.importString|raw }};
 {% endif %}
 {% endfor %}
