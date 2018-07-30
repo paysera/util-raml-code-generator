@@ -39,6 +39,7 @@ class TransferClient
 
         return new Entities\TransferOutput($data);
     }
+
     /**
      * Sign and reserve money for transfer. Returns error if no funds available.
      * PUT /transfer/{id}/reserve
@@ -58,6 +59,7 @@ class TransferClient
 
         return new Entities\TransferOutput($data);
     }
+
     /**
      * Provide password for Transfer. Available only for internal transfers.
      * PUT /transfer/{id}/provide-password
@@ -77,6 +79,7 @@ class TransferClient
 
         return new Entities\TransferOutput($data);
     }
+
     /**
      * Freeze transfer. Available only for `reserved` transfers. Same as completing transfer but beneficiary cannot spend funds - they are reserved. Revoking transfer is possible after freezing.
      * PUT /transfer/{id}/freeze
@@ -95,6 +98,7 @@ class TransferClient
 
         return new Entities\TransferOutput($data);
     }
+
     /**
      * Complete transfer. Available for `reserved` and `freezed` transfers.
      * PUT /transfer/{id}/complete
@@ -113,6 +117,7 @@ class TransferClient
 
         return new Entities\TransferOutput($data);
     }
+
     /**
      * Make transfer visible in frontend for signing. If currency convert operations are related to transfer, they are done when transfer becomes `reserved`. If there are expectations in currency convert requests, transfer becomes `failed` together with related conversion request(s) if those expectations fails.
      * PUT /transfer/{id}/register
@@ -132,6 +137,7 @@ class TransferClient
 
         return new Entities\TransferOutput($data);
     }
+
     /**
      * Get transfer.
      * GET /transfer/{id}
@@ -150,6 +156,7 @@ class TransferClient
 
         return new Entities\TransferOutput($data);
     }
+
     /**
      * Revoke transfer.
      * DELETE /transfer/{id}
@@ -168,6 +175,7 @@ class TransferClient
 
         return new Entities\TransferOutput($data);
     }
+
     /**
      * Reserve all transfers in a transaction. Possibly revoke other given transfers in same transaction. Possibly make currency convertions in in same transaction.
      * PUT /transfers/reserve
@@ -186,6 +194,7 @@ class TransferClient
 
         return new Entities\TransfersBatchResult($data);
     }
+
     /**
      * Get list of transfers by filter
      * GET /transfers
@@ -204,6 +213,7 @@ class TransferClient
 
         return new Entities\FilteredTransfersResult($data, 'transfers');
     }
+
     /**
      * Create transfer in the system. Created transfer is invisible and will be deleted if no more actions are performed.
 
