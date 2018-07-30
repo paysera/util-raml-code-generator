@@ -75,6 +75,7 @@ class GenerateSymfonyBundleCommandTest extends KernelTestCase
             ['auth'],
             ['user-info'],
             ['user-risk-level'],
+            ['questionnaire'],
         ];
     }
 

@@ -25,7 +25,7 @@ This library provides `ClientFactory` class, which you should use to get the API
 use {{ api.namespace }}\ClientFactory;
 
 $clientFactory = new ClientFactory([
-    'base_url' => '{{ api.ramlDefinition.baseUri }}', // optional, in case you need a custom one.
+    'base_url' => '{{ base_url }}', // optional, in case you need a custom one.
     'basic' => [                                        // use this, it API requires Basic authentication.
         'username' => 'username',
         'password' => 'password',

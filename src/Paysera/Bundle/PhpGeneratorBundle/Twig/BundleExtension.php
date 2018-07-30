@@ -25,6 +25,7 @@ use Paysera\Component\Serializer\Normalizer\ArrayNormalizer;
 use Paysera\Component\StringHelper;
 use Paysera\Component\TypeHelper;
 use Raml\Method;
+use Raml\NamedParameter;
 use Raml\Resource;
 use Symfony\Component\HttpFoundation\Response;
 use Twig_Extension;
@@ -72,6 +73,7 @@ class BundleExtension extends Twig_Extension
             new Twig_SimpleFunction('symfony_bundle_get_directly_used_types_in_sub_resource', [$this, 'getDirectlyUsedTypesInSubResource']),
             new Twig_SimpleFunction('symfony_bundle_get_controller_constructor_args', [$this, 'getControllerConstructorArgs']),
             new Twig_SimpleFunction('symfony_bundle_generate_method_arguments', [$this, 'generateMethodArguments'], ['needs_context' => true]),
+            new Twig_SimpleFunction('symfony_bundle_get_api_base_url_parameters_with_defaults', [$this, 'getApiBaseUrlParametersWithDefaults']),
 
         ];
     }
@@ -84,10 +86,66 @@ class BundleExtension extends Twig_Extension
         ];
     }
 
+    /**
+     * @param ApiDefinition $api
+     * @return NamedParameter[]
+     */
+    public function getApiBaseUrlParametersWithDefaults(ApiDefinition $api)
+    {
+        $list = [];
+        foreach ($this->getApiBaseUrlParameters($api) as $parameter) {
+            if ($parameter->getDefault() !== null) {
+                $list[] = $parameter;
+            }
+        }
+
+        return $list;
+    }
+
+    /**
+     * @param ApiDefinition $api
+     * @return NamedParameter[]
+     */
+    public function getApiBaseUrlParameters(ApiDefinition $api)
+    {
+        $list = [];
+        if (count($api->getRamlDefinition()->getBaseUriParameters()) === 0) {
+            return $list;
+        }
+        $path = parse_url($api->getRamlDefinition()->getBaseUri(), PHP_URL_PATH);
+        preg_match_all('#{([\w|-]+)}#', $path, $matches);
+        foreach ($matches[1] as $match) {
+            foreach ($api->getRamlDefinition()->getBaseUriParameters() as $baseUriParameter) {
+                if ($baseUriParameter->getKey() === $match) {
+                    if ($match === 'locale') {
+                        $copiedBaseUriParameter = new NamedParameter('_locale');
+                        $copiedBaseUriParameter->setType($baseUriParameter->getType());
+                        if ($baseUriParameter->getDefault() !== null) {
+                            $copiedBaseUriParameter->setDefault($baseUriParameter->getDefault());
+                        }
+                        $list[] = $copiedBaseUriParameter;
+                    } else {
+                        $list[] = $baseUriParameter;
+                    }
+                }
+            }
+        }
+        return $list;
+    }
+
     public function generateMethodArguments(array $context, Method $method, Resource $resource, ApiDefinition $api)
     {
         $nameParts = $this->methodNameBuilder->getNameParts($resource->getUri());
         $arguments = $this->apiMethodExtension->generateMethodArguments($context, $method, $resource, $api);
+        $baseUrlArguments = [];
+        foreach ($this->getApiBaseUrlParameters($api) as $baseUrlParameter) {
+            $name = $this->stringConverter->convertSlugToVariableName($baseUrlParameter->getKey());
+            $baseUrlArguments[] = (new ArgumentDefinition($name))
+                ->setNamespacedType($baseUrlParameter->getType())
+            ;
+        }
+        $arguments = array_merge($baseUrlArguments, $arguments);
+
         if (!$nameParts->hasPlaceholder()) {
             return $arguments;
         }
@@ -172,6 +230,9 @@ class BundleExtension extends Twig_Extension
         $type = $api->getType($bodyType->getName());
 
         if ($type instanceof ResultTypeDefinition) {
+            if (in_array($type->getItemsType(), PropertyDefinition::getScalarTypes(), true)) {
+                return sprintf('Result|%s[]', $type->getItemsType());
+            }
             return sprintf('Result|Entities\\%s[]', $type->getItemsType());
         }
         if ($type !== null) {

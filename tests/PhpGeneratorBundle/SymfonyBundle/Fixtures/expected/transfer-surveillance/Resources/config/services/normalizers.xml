@@ -38,7 +38,7 @@
         <service id="vendor_transfer_surveillance_api.normalizer.rules_result"
                  class="Paysera\Component\Serializer\Normalizer\ResultNormalizer"
                  parent="paysera_rest.normalizer.result">
-            <argument>items</argument>
+            <argument>rules</argument>
             <argument type="service" id="vendor_transfer_surveillance_api.normalizer.rule"/>
         </service>
         <service id="vendor_transfer_surveillance_api.normalizer.whitelist"
@@ -52,7 +52,7 @@
         <service id="vendor_transfer_surveillance_api.normalizer.whitelists_result"
                  class="Paysera\Component\Serializer\Normalizer\ResultNormalizer"
                  parent="paysera_rest.normalizer.result">
-            <argument>items</argument>
+            <argument>whitelists</argument>
             <argument type="service" id="vendor_transfer_surveillance_api.normalizer.whitelist"/>
         </service>
         

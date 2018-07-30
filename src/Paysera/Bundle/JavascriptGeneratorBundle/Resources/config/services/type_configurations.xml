@@ -39,7 +39,7 @@
                                     <argument type="string">@paysera/http-client-common</argument>
                                 </call>
                                 <call method="setVersion">
-                                    <argument type="string">^2.0</argument>
+                                    <argument type="string">^2.1</argument>
                                 </call>
                                 <call method="setOptions">
                                     <argument type="collection">
@@ -136,7 +136,7 @@
                                         <argument type="string">@paysera/http-client-common</argument>
                                     </call>
                                     <call method="setVersion">
-                                        <argument type="string">^2.0</argument>
+                                        <argument type="string">^2.1</argument>
                                     </call>
                                     <call method="setOptions">
                                         <argument type="collection">
@@ -173,7 +173,7 @@
                                         <argument type="string">@paysera/http-client-common</argument>
                                     </call>
                                     <call method="setVersion">
-                                        <argument type="string">^2.0</argument>
+                                        <argument type="string">^2.1</argument>
                                     </call>
                                     <call method="setOptions">
                                         <argument type="collection">

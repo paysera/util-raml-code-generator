@@ -67,7 +67,6 @@ class BaseExtension extends Twig_Extension
             new Twig_SimpleFilter('to_plural', [StringHelper::class, 'plural']),
             new Twig_SimpleFilter('to_singular', [StringHelper::class, 'singular']),
             new Twig_SimpleFilter('is_scalar_type', [$this, 'isScalarType']),
-
         ];
     }
 
@@ -90,6 +89,7 @@ class BaseExtension extends Twig_Extension
             new Twig_SimpleFunction('flatten_resources', [$this, 'flattenResources']),
             new Twig_SimpleFunction('flatten_sub_resources', [$this, 'flattenSubResources']),
             new Twig_SimpleFunction('is_type_defined', [$this, 'isTypeDefined']),
+            new Twig_SimpleFunction('get_api_base_url_parameters_with_defaults', [$this, 'getApiBaseUrlParametersWithDefaults']),
 
 
             new Twig_SimpleFunction('get_getter_method_template', [$this, 'getGetterMethodTemplate'], ['needs_context' => true]),
@@ -110,6 +110,18 @@ class BaseExtension extends Twig_Extension
             new Twig_SimpleFunction('get_all_used_types', [$this, 'getAllUsedTypes'], ['needs_context' => true]),
             new Twig_SimpleFunction('get_type_configuration', [$this, 'getTypeConfiguration'], ['needs_context' => true]),
         ];
+    }
+
+    public function getApiBaseUrlParametersWithDefaults(ApiDefinition $api)
+    {
+        $list = [];
+        foreach ($api->getRamlDefinition()->getBaseUriParameters() as $parameter) {
+            if ($parameter->getDefault() !== null) {
+                $list[] = $parameter;
+            }
+        }
+
+        return $list;
     }
 
     public function isScalarType(string $type)

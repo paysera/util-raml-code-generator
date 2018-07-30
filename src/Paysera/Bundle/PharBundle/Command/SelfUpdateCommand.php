@@ -53,9 +53,10 @@ class SelfUpdateCommand extends Command
         $output->writeln(sprintf('Preparing to update to <info>%s</info> version', $newVersion));
 
         try {
+            $output->writeln($this->changelogParser->getParsedChangelog($this->updater->getNewVersion()));
+
             if ($this->updater->update()) {
                 $output->writeln(sprintf('Successfully updated to <info>%s</info> version', $newVersion));
-                $output->writeln($this->changelogParser->getParsedChangelog());
                 return 0;
             }
             $output->writeln('<error>Failed to update</error>');

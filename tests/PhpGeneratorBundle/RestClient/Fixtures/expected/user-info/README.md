@@ -12,7 +12,7 @@ This library provides `ClientFactory` class, which you should use to get the API
 use Paysera\Test\UserInfoClient\ClientFactory;
 
 $clientFactory = new ClientFactory([
-    'base_url' => 'https://example.com/user/rest/v1', // optional, in case you need a custom one.
+    'base_url' => 'https://example.com/user/rest/v1/', // optional, in case you need a custom one.
     'basic' => [                                        // use this, it API requires Basic authentication.
         'username' => 'username',
         'password' => 'password',

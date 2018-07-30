@@ -2,6 +2,7 @@
 
 namespace Vendor\Test\TransferApiBundle\Service;
 
+use Paysera\Component\Serializer\Entity\Result;
 use Vendor\Test\TransferApiBundle\Entity as Entities;
 use Vendor\Test\TransferApiBundle\Repository\TransferRepository;
 use Doctrine\ORM\EntityManager;

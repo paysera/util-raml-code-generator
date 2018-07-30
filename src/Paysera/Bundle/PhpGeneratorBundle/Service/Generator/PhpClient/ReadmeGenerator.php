@@ -23,11 +23,13 @@ class ReadmeGenerator implements GeneratorInterface
 
     public function generate(ApiDefinition $definition) : array
     {
+        $baseUrl = $definition->getRamlDefinition()->getBaseUri();
         $contents = $this->twig->render(
             'PayseraPhpGeneratorBundle:RestClient:readme.md.twig',
             [
                 'api' => $definition,
                 'vendor_prefix' => $this->vendorPrefix,
+                'base_url' => rtrim($baseUrl, '/') . '/',
             ]
         );
 

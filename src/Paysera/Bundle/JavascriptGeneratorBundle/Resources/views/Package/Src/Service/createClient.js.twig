@@ -4,6 +4,7 @@ import {{ js_get_client_name(api) }} from './{{ js_get_client_name(api) }}';
 /**
  * @param {string} baseURL
  * @param {[]|null} middleware
+ * @param {object} options
  *
  * @returns {{ ('{' ~  js_get_client_name(api) ~ '}')|raw }}
  */
@@ -11,7 +12,34 @@ import {{ js_get_client_name(api) }} from './{{ js_get_client_name(api) }}';
 export const create{{ js_get_client_name(api) }} = ({
     baseURL = '{{ base_url|raw }}',
     middleware = null,
-}) => new {{ js_get_client_name(api) }}(createClient({
-    baseURL,
-    middleware,
-}));
+    options = {}
+}) => {
+    {% if get_api_base_url_parameters_with_defaults(api)|length > 0 -%}
+    const defaultUrlParameters = {
+        {% for parameter in get_api_base_url_parameters_with_defaults(api) -%}
+        '{{ parameter.key }}': '{{ parameter.default }}',
+        {%- endfor %}
+
+    };
+    {% else -%}
+    const defaultUrlParameters = {};
+    {% endif %}
+
+    if (Object.prototype.hasOwnProperty.call(options, 'urlParameters')) {
+        const { urlParameters } = options;
+        for (let [key, value] of Object.entries(defaultUrlParameters)) {
+            if (!Object.prototype.hasOwnProperty.call(urlParameters, key)) {
+                urlParameters[key] = value;
+            }
+        }
+        options.urlParameters = urlParameters;
+    }
+
+    return new {{ js_get_client_name(api) }}(
+        createClient({
+            baseURL,
+            middleware,
+            options
+        })
+    )
+};

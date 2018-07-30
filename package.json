@@ -2,7 +2,9 @@
   "name": "util-raml-code-generator",
   "dependencies": {},
   "devDependencies": {
-    "@paysera/http-client-common": "^2.0.0",
+    "@paysera/http-client-common": "^2.1.0",
+    "@paysera/money": "^1.0.1",
+    "angular": "^1.4.9",
     "luxon": "^1.3.2"
   }
 }

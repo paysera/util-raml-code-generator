@@ -15,7 +15,7 @@
         <service id="vendor_account_api.normalizer.account_result"
                  class="Paysera\Component\Serializer\Normalizer\ResultNormalizer"
                  parent="paysera_rest.normalizer.result">
-            <argument>items</argument>
+            <argument>accounts</argument>
             <argument type="service" id="vendor_account_api.normalizer.account"/>
         </service>
         <service id="vendor_account_api.normalizer.undescribed_type"

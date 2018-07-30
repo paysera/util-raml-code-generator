@@ -3,6 +3,7 @@
 namespace Vendor\Test\AccountApiBundle\Service;
 
 use Symfony\Component\HttpFoundation\Response;
+use Paysera\Component\Serializer\Entity\Result;
 use Vendor\Test\AccountApiBundle\Entity as Entities;
 use Vendor\Test\AccountApiBundle\Repository\AccountRepository;
 use Doctrine\ORM\EntityManager;
