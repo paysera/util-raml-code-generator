@@ -1,0 +1,17 @@
+#%RAML 1.0
+title: Accounts
+version: 1.0
+baseUri: https://example.com/accounts/rest/v1
+mediaType: application/json
+protocols: [ HTTPS ]
+
+uses:
+  Paysera: https://raw.githubusercontent.com/paysera/lib-raml-common/0.0.5/rest.raml
+
+/accounts/{accountNumber}/balance/reserved:
+  get:
+    responses:
+      200:
+        body:
+          application/json:
+            type: Paysera.Money
