@@ -7,7 +7,7 @@ use Paysera\Component\RestClientCommon\Client\ApiClient;
 
 class ClientFactory extends ClientFactoryAbstract
 {
-    const DEFAULT_BASE_URL = 'https://example.com/accounts/rest/v1/';
+    const DEFAULT_BASE_URL = 'https://example.com/accounts/rest/v1';
 
     private $apiClient;
 
