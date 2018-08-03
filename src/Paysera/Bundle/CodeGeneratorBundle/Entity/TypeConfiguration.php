@@ -75,6 +75,16 @@ class TypeConfiguration
     private $normalizerImportString;
 
     /**
+     * @var string
+     */
+    private $resultPopulatorCode;
+
+    /**
+     * @var string
+     */
+    private $apiMethodReturnType;
+
+    /**
      * @return string
      */
     public function getMatchRegex()
@@ -337,6 +347,46 @@ class TypeConfiguration
     public function setNormalizerImportString($normalizerImportString)
     {
         $this->normalizerImportString = $normalizerImportString;
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getResultPopulatorCode()
+    {
+        return $this->resultPopulatorCode;
+    }
+
+    /**
+     * @param string $resultPopulatorCode
+     *
+     * @return $this
+     */
+    public function setResultPopulatorCode($resultPopulatorCode)
+    {
+        $this->resultPopulatorCode = $resultPopulatorCode;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getApiMethodReturnType()
+    {
+        return $this->apiMethodReturnType;
+    }
+
+    /**
+     * @param string $apiMethodReturnType
+     *
+     * @return $this
+     */
+    public function setApiMethodReturnType($apiMethodReturnType)
+    {
+        $this->apiMethodReturnType = $apiMethodReturnType;
+
         return $this;
     }
 }

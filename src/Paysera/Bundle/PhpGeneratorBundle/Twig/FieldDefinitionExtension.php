@@ -5,6 +5,7 @@ namespace Paysera\Bundle\PhpGeneratorBundle\Twig;
 use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\DateTimePropertyDefinition;
 use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\DateTimeTypeDefinition;
 use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\PropertyDefinition;
+use Paysera\Bundle\CodeGeneratorBundle\Exception\UnrecognizedTypeException;
 use Paysera\Bundle\CodeGeneratorBundle\Service\StringConverter;
 use Twig_Extension;
 use Twig_SimpleFunction;
@@ -48,7 +49,7 @@ class FieldDefinitionExtension extends Twig_Extension
                 if ($definition->getFormat() !== null) {
                     return $definition->getFormat();
                 }
-                return \DateTimeInterface::RFC3339;
+                return \DateTime::RFC3339;
         }
         throw new UnrecognizedTypeException(
             sprintf(

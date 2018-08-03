@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## 10.3.0
+### Added
+- Ability to return Paysera.Money as a response of an endpoint, not only to use it as property of another type.
+
 ## 10.2.0
 ### Added
 - Support or `url_parameters`: https://github.com/raml-org/raml-spec/blob/master/versions/raml-10/raml-10.md#base-uri-and-base-uri-parameters

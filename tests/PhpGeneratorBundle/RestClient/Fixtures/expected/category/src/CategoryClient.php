@@ -39,6 +39,7 @@ class CategoryClient
 
         return new Entities\Category($data);
     }
+
     /**
      * Disable category
      * PUT /categories/{id}/disable
@@ -57,6 +58,7 @@ class CategoryClient
 
         return new Entities\Category($data);
     }
+
     /**
      * Update category
      * PUT /categories/{id}
@@ -75,6 +77,7 @@ class CategoryClient
 
         return new Entities\Category($data);
     }
+
     /**
      * Delete category
      * DELETE /categories/{id}
@@ -93,6 +96,7 @@ class CategoryClient
 
         return null;
     }
+
     /**
      * Standard SQL-style Result filtering
      * GET /categories
@@ -111,6 +115,7 @@ class CategoryClient
 
         return array_map(function ($item) { return new Entities\Category($item); }, $data);
     }
+
     /**
      * Create category
      * POST /categories
@@ -129,6 +134,7 @@ class CategoryClient
 
         return new Entities\Category($data);
     }
+
     /**
      * Standard SQL-style Result filtering
      * GET /keywords

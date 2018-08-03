@@ -35,6 +35,7 @@ class AccountClient
         );
         return $this->apiClient->makeRawRequest($request)->getBody()->getContents();
     }
+
     /**
      * Standard SQL-style Result filtering
      * GET /accounts

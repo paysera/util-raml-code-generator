@@ -38,6 +38,7 @@ class UserInfoClient
 
         return null;
     }
+
     /**
      * Creates Natural User
      * POST /users/natural
@@ -56,6 +57,7 @@ class UserInfoClient
 
         return null;
     }
+
     /**
      * Get user by it's id
      * GET /users/{id}/information
@@ -74,6 +76,7 @@ class UserInfoClient
 
         return new Entities\UserInfo($data);
     }
+
     /**
      * Updates user resource
      * PUT /users/{id}/information

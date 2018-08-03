@@ -39,6 +39,7 @@ class TransferSurveillanceClient
 
         return null;
     }
+
     /**
      * Mark Inspection as cancelled/rejected. Do not allow the transfer to complete
      * PUT /transfer/inspection/{transferId}/cancel
@@ -58,6 +59,7 @@ class TransferSurveillanceClient
 
         return null;
     }
+
     /**
      * Mark Inspection as audited.
      * PUT /transfer/inspection/{transferId}/audit
@@ -77,6 +79,7 @@ class TransferSurveillanceClient
 
         return null;
     }
+
     /**
      * Mark Inspection as need additional info from user about the transfer.
      * PUT /transfer/inspection/{transferId}/request-user-info
@@ -96,6 +99,7 @@ class TransferSurveillanceClient
 
         return null;
     }
+
     /**
      * Mark Inspection as received additional info from user about the transfer.
      * PUT /transfer/inspection/{transferId}/receive-user-info
@@ -115,6 +119,7 @@ class TransferSurveillanceClient
 
         return null;
     }
+
     /**
      * Get Transfer Surveillance Matchers
      * GET /matchers
@@ -132,6 +137,7 @@ class TransferSurveillanceClient
 
         return new Entities\MatchersResult($data, 'items');
     }
+
     /**
      * Delete MatchCriteria
      * DELETE /criteria/{id}
@@ -150,6 +156,7 @@ class TransferSurveillanceClient
 
         return null;
     }
+
     /**
      * Get MatchCriterion
      * GET /criteria/{id}
@@ -168,6 +175,7 @@ class TransferSurveillanceClient
 
         return new Entities\MatchCriteria($data);
     }
+
     /**
      * Update MatchCriteria
      * PUT /criteria/{id}
@@ -187,6 +195,7 @@ class TransferSurveillanceClient
 
         return new Entities\MatchCriteria($data);
     }
+
     /**
      * Get MatchCriterias
      * GET /criteria
@@ -204,6 +213,7 @@ class TransferSurveillanceClient
 
         return new Entities\MatchCriteriasResult($data, 'items');
     }
+
     /**
      * Create MatchCriteria
      * POST /criteria
@@ -222,6 +232,7 @@ class TransferSurveillanceClient
 
         return new Entities\MatchCriteria($data);
     }
+
     /**
      * Enable rule
      * PUT /rules/{id}/enable
@@ -240,6 +251,7 @@ class TransferSurveillanceClient
 
         return null;
     }
+
     /**
      * Disable rule
      * PUT /rules/{id}/disable
@@ -258,6 +270,7 @@ class TransferSurveillanceClient
 
         return null;
     }
+
     /**
      * Get a single whitelist
      * GET /rules/{id}/whitelists/{whitelist_id}/profile-list
@@ -277,6 +290,7 @@ class TransferSurveillanceClient
 
         return new Entities\Whitelist($data);
     }
+
     /**
      * Update whitelist
      * PUT /rules/{id}/whitelists/{whitelist_id}/profile-list
@@ -297,6 +311,7 @@ class TransferSurveillanceClient
 
         return new Entities\Whitelist($data);
     }
+
     /**
      * Get a single whitelist
      * GET /rules/{id}/whitelists/{whitelist_id}
@@ -316,6 +331,7 @@ class TransferSurveillanceClient
 
         return new Entities\Whitelist($data);
     }
+
     /**
      * Update whitelist
      * PUT /rules/{id}/whitelists/{whitelist_id}
@@ -336,6 +352,7 @@ class TransferSurveillanceClient
 
         return new Entities\Whitelist($data);
     }
+
     /**
      * Delete a whitelist
      * DELETE /rules/{id}/whitelists/{whitelist_id}
@@ -355,6 +372,7 @@ class TransferSurveillanceClient
 
         return null;
     }
+
     /**
      * Get all active whitelists for this rule
      * GET /rules/{id}/whitelists
@@ -373,6 +391,7 @@ class TransferSurveillanceClient
 
         return new Entities\WhitelistsResult($data, 'whitelists');
     }
+
     /**
      * Add whitelist to a rule
      * POST /rules/{id}/whitelists
@@ -392,6 +411,7 @@ class TransferSurveillanceClient
 
         return new Entities\Whitelist($data);
     }
+
     /**
      * Get a rule
      * GET /rules/{id}
@@ -410,6 +430,7 @@ class TransferSurveillanceClient
 
         return new Entities\Rule($data);
     }
+
     /**
      * Update rule
      * PUT /rules/{id}
@@ -429,6 +450,7 @@ class TransferSurveillanceClient
 
         return new Entities\Rule($data);
     }
+
     /**
      * Delete a rule
      * DELETE /rules/{id}
@@ -447,6 +469,7 @@ class TransferSurveillanceClient
 
         return null;
     }
+
     /**
      * Standard SQL-style Result filtering
      * GET /rules
@@ -465,6 +488,7 @@ class TransferSurveillanceClient
 
         return new Entities\RulesResult($data, 'rules');
     }
+
     /**
      * Create a rule
      * POST /rules

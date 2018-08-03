@@ -38,6 +38,7 @@ class InheritanceClient
 
         return new Entities\UserNatural($data);
     }
+
     /**
      * Creates Natural user
      * POST /users/natural
@@ -56,6 +57,7 @@ class InheritanceClient
 
         return new Entities\UserNatural($data);
     }
+
     /**
      * Standard SQL-style Result filtering
      * GET /users/legal
@@ -74,6 +76,7 @@ class InheritanceClient
 
         return new Entities\UserLegal($data);
     }
+
     /**
      * Creates Legal user
      * POST /users/legal
@@ -92,6 +95,7 @@ class InheritanceClient
 
         return new Entities\UserLegal($data);
     }
+
     /**
      * Standard SQL-style Result filtering
      * GET /users
@@ -110,6 +114,7 @@ class InheritanceClient
 
         return array_map(function ($item) { return new Entities\UserBasic($item); }, $data);
     }
+
     /**
      * Creates Basic user
      * POST /users
