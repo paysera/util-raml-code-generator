@@ -3,15 +3,13 @@ declare(strict_types=1);
 
 namespace Paysera\Bundle\JavascriptGeneratorBundle\Command;
 
-use Symfony\Component\Process\Exception\ProcessFailedException;
 use Paysera\Bundle\CodeGeneratorBundle\Service\CodeGenerator;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputArgument;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Filesystem\Filesystem;
-use Symfony\Component\Process\Process;
 use Twig_Environment;
 
 class GeneratePackageCommand extends Command
@@ -47,12 +45,7 @@ class GeneratePackageCommand extends Command
             ->addArgument('raml_file', InputArgument::REQUIRED, 'Full path to RAML file')
             ->addArgument('output_dir', InputArgument::REQUIRED, 'Where to put generated code')
             ->addArgument('client_name', InputArgument::REQUIRED, 'Name of the main client class')
-            ->addOption(
-                'build-dependencies',
-                'b',
-                InputOption::VALUE_NONE,
-                'Runs "npm install" and "npm run build" commands, downloads dependencies and transpiles code to ES5 syntax'
-            )
+            ->addOption('library_name', null, InputOption::VALUE_OPTIONAL, 'Optional package name in package.json')
         ;
     }
 
@@ -61,13 +54,19 @@ class GeneratePackageCommand extends Command
         $this->twigEnvironment->addGlobal('code_type', self::CODE_TYPE);
 
         $outputDir = $input->getArgument('output_dir');
+        $options = [];
+
+        if ($input->getOption('library_name') !== null) {
+            $options['library_name'] = $input->getOption('library_name');
+        }
 
         $this->codeGenerator->generateCode(
             self::CODE_TYPE,
             $input->getArgument('client_name'),
             $input->getArgument('client_name'),
             $input->getArgument('raml_file'),
-            $outputDir
+            $outputDir,
+            $options
         );
 
         $output->writeln('');
@@ -76,41 +75,6 @@ class GeneratePackageCommand extends Command
             $outputDir
         ));
 
-        if ($input->getOption('build-dependencies')) {
-            $this->runNpmInstall($output, $outputDir);
-            $this->runNpmBuild($output, $outputDir);
-        }
-
         $output->writeln('');
-    }
-
-    private function runNpmInstall(OutputInterface $output, string $directory)
-    {
-        $command = sprintf('cd %s && npm i', $directory);
-
-        $output->writeln(sprintf('Running <info>%s</info> command', $command));
-
-        $process = new Process($command);
-        $process->run();
-        if (!$process->isSuccessful()) {
-            throw new ProcessFailedException($process);
-        }
-
-        $output->write($process->getOutput());
-    }
-
-    private function runNpmBuild(OutputInterface $output, string $directory)
-    {
-        $command = sprintf('cd %s && npm run build', $directory);
-
-        $output->writeln(sprintf('Running <info>%s</info> command', $command));
-
-        $process = new Process($command);
-        $process->run();
-        if (!$process->isSuccessful()) {
-            throw new ProcessFailedException($process);
-        }
-
-        $output->write($process->getOutput());
     }
 }

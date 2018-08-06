@@ -34,8 +34,10 @@
         "fig/http-message-util": "^1.0",
         "incenteev/composer-parameter-handler": "^2.0",
         "padraic/phar-updater": "^1.0",
+        "paysera/lib-changelog-parser": "^1.1.2",
         "paysera/lib-dependency-injection": "^1.0",
         "raml-org/raml-php-parser": "^4.3",
+        "sebastian/diff": "^2.0",
         "sensio/distribution-bundle": "^5.0.19",
         "sensio/framework-extra-bundle": "^3.0.2",
         "symfony/monolog-bundle": "^3.1.0",
@@ -53,7 +55,7 @@
         "paysera/lib-rest-client-common": "^2.1",
         "paysera/lib-serializer": "^2.0",
         "php-http/guzzle6-adapter": "^1.1",
-        "phpunit/phpunit": "^6.0",
+        "phpunit/phpunit": "^6.5",
         "sensio/generator-bundle": "^3.0",
         "symfony/phpunit-bridge": "^3.0"
     },
@@ -85,7 +87,10 @@
     },
     "config": {
         "sort-packages": true,
-        "bin-dir": "bin"
+        "bin-dir": "bin",
+        "platform": {
+            "php": "7.0.0"
+        }
     },
     "extra": {
         "symfony-app-dir": "app",

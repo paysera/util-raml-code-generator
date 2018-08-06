@@ -46,6 +46,7 @@ class CodeGenerator
      * @param string $namespace
      * @param string $ramlFile
      * @param string $outputDir
+     * @param array $options
      *
      * @throws InvalidApiNameException
      * @throws UnrecognizedTypeException
@@ -55,7 +56,8 @@ class CodeGenerator
         string $name,
         string $namespace,
         string $ramlFile,
-        string $outputDir
+        string $outputDir,
+        array $options
     ) {
         if (!isset($this->generators[$type])) {
             throw new UnrecognizedTypeException(sprintf('Cannot generate Code for %s type', $type));
@@ -70,6 +72,7 @@ class CodeGenerator
             $name,
             $namespace
         );
+        $apiDefinition->setOptions($options);
 
         $resources = [];
         foreach ($apiDefinition->getRamlDefinition()->getResources() as $resource) {

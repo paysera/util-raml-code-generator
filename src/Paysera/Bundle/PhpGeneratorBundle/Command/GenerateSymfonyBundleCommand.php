@@ -52,7 +52,8 @@ class GenerateSymfonyBundleCommand extends Command
             str_replace('Bundle', '', end($namespaceParts)),
             $input->getArgument('namespace'),
             $input->getArgument('raml_file'),
-            $outputDir
+            $outputDir,
+            []
         );
 
         $output->writeln('');

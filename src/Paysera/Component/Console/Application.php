@@ -47,6 +47,7 @@ class Application extends BaseApplication
                 'js-generator:package',
                 'php-generator:rest-client',
                 'php-generator:symfony-bundle',
+                'release:clients',
             ],
             true
         )) {

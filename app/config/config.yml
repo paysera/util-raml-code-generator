@@ -9,6 +9,7 @@ framework:
     secret: '%secret%'
     templating:
         engines: ['twig']
+    validation: ~
 
 twig:
     debug: '%kernel.debug%'

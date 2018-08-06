@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<constraint-mapping xmlns="http://symfony.com/schema/dic/constraint-mapping"
+                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                    xsi:schemaLocation="http://symfony.com/schema/dic/constraint-mapping
+        http://symfony.com/schema/dic/constraint-mapping/constraint-mapping-1.0.xsd">
+
+    <class name="Paysera\Bundle\ClientReleaseBundle\Entity\ApiConfigList">
+        <property name="items">
+            <constraint name="NotBlank"/>
+            <constraint name="Valid"/>
+            <constraint name="Count">
+                <option name="min">1</option>
+            </constraint>
+        </property>
+    </class>
+
+    <class name="Paysera\Bundle\ClientReleaseBundle\Entity\ApiConfig">
+        <property name="ramlFile">
+            <constraint name="NotBlank"/>
+        </property>
+        <property name="apiName">
+            <constraint name="NotBlank"/>
+        </property>
+        <property name="clients">
+            <constraint name="NotBlank"/>
+            <constraint name="Valid"/>
+            <constraint name="Count">
+                <option name="min">1</option>
+            </constraint>
+        </property>
+    </class>
+
+    <class name="Paysera\Bundle\ClientReleaseBundle\Entity\ClientDefinition">
+        <property name="repository">
+            <constraint name="NotBlank"/>
+        </property>
+        <property name="libraryName">
+            <constraint name="NotBlank"/>
+        </property>
+    </class>
+
+    <class name="Paysera\Bundle\ClientReleaseBundle\Entity\JavascriptClientDefinition">
+        <property name="clientName">
+            <constraint name="NotBlank"/>
+        </property>
+    </class>
+
+    <class name="Paysera\Bundle\ClientReleaseBundle\Entity\PhpClientDefinition">
+        <property name="namespace">
+            <constraint name="NotBlank"/>
+        </property>
+    </class>
+</constraint-mapping>

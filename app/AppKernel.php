@@ -18,6 +18,7 @@ class AppKernel extends Kernel
             new Paysera\Bundle\PhpGeneratorBundle\PayseraPhpGeneratorBundle(),
             new Paysera\Bundle\JavascriptGeneratorBundle\PayseraJavascriptGeneratorBundle(),
             new Paysera\Bundle\WordNetBundle\PayseraWordNetBundle(),
+            new Paysera\Bundle\ClientReleaseBundle\PayseraClientReleaseBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {
@@ -25,7 +26,6 @@ class AppKernel extends Kernel
 
             if ('dev' === $this->getEnvironment()) {
                 $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
-                $bundles[] = new Symfony\Bundle\WebServerBundle\WebServerBundle();
             }
         }
 

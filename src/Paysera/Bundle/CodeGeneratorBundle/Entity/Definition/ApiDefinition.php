@@ -23,10 +23,16 @@ class ApiDefinition
 
     private $ramlDefinition;
 
+    /**
+     * @var array
+     */
+    private $options;
+
     public function __construct(RamlApiDefinition $ramlDefinition)
     {
         $this->ramlDefinition = $ramlDefinition;
         $this->types = [];
+        $this->options = [];
     }
 
     /**
@@ -106,6 +112,25 @@ class ApiDefinition
     public function setNamespace($namespace)
     {
         $this->namespace = $namespace;
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getOptions()
+    {
+        return $this->options;
+    }
+
+    /**
+     * @param array $options
+     *
+     * @return $this
+     */
+    public function setOptions($options)
+    {
+        $this->options = $options;
         return $this;
     }
 }

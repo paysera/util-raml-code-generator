@@ -4,9 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## 10.3.0
+## 10.4.0
 ### Added
 - Ability to return Paysera.Money as a response of an endpoint, not only to use it as property of another type.
+- Added `release:clients` command - it automates RAML client generation, repository cloning and other manual stuff.
+- Improved readme.
 
 ## 10.2.0
 ### Added
@@ -25,7 +27,7 @@ Defaults will be used from RAML spec, if missing - exception will be thrown. You
 ### Added
 - `php-generator:symfony-bundle` added to `phar`
 
-#10.0.0
+## 10.0.0
 ### Added
 - support of raml date formats.
 - support of `luxon` in `js` client for date handling.
@@ -34,7 +36,7 @@ Defaults will be used from RAML spec, if missing - exception will be thrown. You
 ### Changed
 - In `js` client all date instances now are `DateTime` from `luxon`.
 
-# 9.1.1
+## 9.1.1
 ### Added
 - `php client` generated clients now supports `paysera/lib-rest-client-common 2.0`. Clients will have `withOptions` method.
 Be aware that you need `paysera/lib-rest-client-common 2.0` to use this method.

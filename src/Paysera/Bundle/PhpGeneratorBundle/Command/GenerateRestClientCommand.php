@@ -6,6 +6,7 @@ use Paysera\Bundle\CodeGeneratorBundle\Service\CodeGenerator;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Twig_Environment;
 
@@ -36,7 +37,7 @@ class GenerateRestClientCommand extends Command
             ->addArgument('raml_file', InputArgument::REQUIRED, 'Full path to RAML file')
             ->addArgument('output_dir', InputArgument::REQUIRED, 'Where to put generated code')
             ->addArgument('namespace', InputArgument::REQUIRED, 'Namespace of generated library, i.e.: Acme\\\\Client\\\\AcmeClient')
-            ->setHelp('You must provide the API name and its namespace')
+            ->addOption('library_name', null, InputOption::VALUE_OPTIONAL, 'Optional library name in composer.json')
         ;
     }
 
@@ -47,12 +48,18 @@ class GenerateRestClientCommand extends Command
         $namespaceParts = explode('\\', $input->getArgument('namespace'));
         $outputDir = $input->getArgument('output_dir');
 
+        $options = [];
+        if ($input->getOption('library_name') !== null) {
+            $options['library_name'] = $input->getOption('library_name');
+        }
+
         $this->codeGenerator->generateCode(
             self::CODE_TYPE,
             end($namespaceParts),
             $input->getArgument('namespace'),
             $input->getArgument('raml_file'),
-            $outputDir
+            $outputDir,
+            $options
         );
 
         $output->writeln('');

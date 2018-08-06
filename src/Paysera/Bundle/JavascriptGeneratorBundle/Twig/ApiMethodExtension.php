@@ -58,6 +58,9 @@ class ApiMethodExtension extends Twig_Extension
 
     public function getPackageName(string $vendor, ApiDefinition $api): string
     {
+        if (isset($api->getOptions()['library_name'])) {
+            return $api->getOptions()['library_name'];
+        }
         return sprintf('@%s/%s', $vendor, StringHelper::kebabCase($api->getName()));
     }
 

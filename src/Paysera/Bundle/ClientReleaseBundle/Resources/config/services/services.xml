@@ -1,0 +1,59 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="paysera_client_release.api_config_builder"
+                 class="Paysera\Bundle\ClientReleaseBundle\Service\ApiConfigBuilder">
+        </service>
+
+        <service id="paysera_client_release.release_cycle_manager"
+                 class="Paysera\Bundle\ClientReleaseBundle\Service\ReleaseCycleManager">
+            <argument type="service" id="paysera_client_release.release_step.remove_temp_dir"/>
+        </service>
+
+        <service id="paysera_client_release.repository_resolver"
+                 class="Paysera\Bundle\ClientReleaseBundle\Service\RepositoryResolver">
+        </service>
+
+        <service id="paysera_client_release.package_json_helper"
+                 class="Paysera\Bundle\ClientReleaseBundle\Service\PackageJsonHelper">
+        </service>
+
+        <service id="paysera_client_release.semantic_version_manipulator"
+                 class="Paysera\Bundle\ClientReleaseBundle\Service\SemanticVersionManipulator">
+            <argument type="service" id="paysera_client_release.package_json_helper"/>
+        </service>
+
+        <service id="paysera_client_release.env_helper"
+                 class="Paysera\Bundle\ClientReleaseBundle\Service\EnvHelper">
+        </service>
+
+        <service id="paysera_client_release.changelog_parser.config"
+                 class="Paysera\Component\ChangelogParser\Service\ChangelogConfiguration">
+        </service>
+
+        <service id="paysera_client_release.changelog_parser.value_extractor"
+                 class="Paysera\Component\ChangelogParser\Service\ValueExtractor">
+            <argument type="service" id="paysera_client_release.changelog_parser.config"/>
+        </service>
+
+        <service id="paysera_client_release.changelog_parser.parser"
+                 class="Paysera\Component\ChangelogParser\Service\ChangelogParser">
+            <argument type="service" id="paysera_client_release.changelog_parser.value_extractor"/>
+        </service>
+
+        <service id="paysera_client_release.changelog_parser.dumper"
+                 class="Paysera\Component\ChangelogParser\Service\ChangelogDumper">
+            <argument type="service" id="paysera_client_release.changelog_parser.config"/>
+        </service>
+
+        <service id="paysera_client_release.release_data_collector"
+                 class="Paysera\Bundle\ClientReleaseBundle\Service\ReleaseDataCollector">
+            <argument type="service" id="paysera_client_release.changelog_parser.value_extractor"/>
+            <argument type="service" id="paysera_client_release.changelog_parser.parser"/>
+        </service>
+    </services>
+</container>

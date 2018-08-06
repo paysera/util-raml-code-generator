@@ -1,5 +1,5 @@
 {
-    "name": "{{ vendor_prefix }}/lib-{{ api.name|to_kebab_case }}",
+    "name": "{{ php_get_library_name(vendor_prefix, api) }}",
     "description": "{{ api.name|to_class_name }}",
     "autoload": {
         "psr-4": {

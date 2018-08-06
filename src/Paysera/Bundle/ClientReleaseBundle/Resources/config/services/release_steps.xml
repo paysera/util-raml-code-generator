@@ -1,0 +1,111 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="paysera_client_release.release_step.create_temp_dir"
+                 class="Paysera\Bundle\ClientReleaseBundle\Service\ReleaseStep\CreateTempDirStep">
+            <argument type="service" id="filesystem"/>
+            <argument type="service" id="paysera_client_release.env_helper"/>
+            <tag name="paysera_client_release.release_step" type="javascript" position="10"/>
+            <tag name="paysera_client_release.release_step" type="php" position="10"/>
+        </service>
+
+        <service id="paysera_client_release.release_step.clone_repository"
+                 class="Paysera\Bundle\ClientReleaseBundle\Service\ReleaseStep\CloneRepositoryStep">
+            <argument type="service" id="paysera_client_release.repository_resolver"/>
+            <argument type="service" id="filesystem"/>
+            <tag name="paysera_client_release.release_step" type="javascript" position="20"/>
+            <tag name="paysera_client_release.release_step" type="php" position="20"/>
+        </service>
+
+        <service id="paysera_client_release.release_step.generate_php_client"
+                 class="Paysera\Bundle\ClientReleaseBundle\Service\ReleaseStep\GeneratePhpClientStep">
+            <tag name="paysera_client_release.release_step" type="php" position="30"/>
+        </service>
+
+        <service id="paysera_client_release.release_step.generate_js_client"
+                 class="Paysera\Bundle\ClientReleaseBundle\Service\ReleaseStep\GenerateJavascriptClientStep">
+            <tag name="paysera_client_release.release_step" type="javascript" position="30"/>
+        </service>
+
+        <service id="paysera_client_release.release_step.increase_package_json_version"
+                 class="Paysera\Bundle\ClientReleaseBundle\Service\ReleaseStep\IncreasePackageJsonVersionStep">
+            <argument type="service" id="paysera_client_release.semantic_version_manipulator"/>
+            <argument type="service" id="paysera_client_release.package_json_helper"/>
+            <tag name="paysera_client_release.release_step" type="javascript" position="35"/>
+        </service>
+
+        <service id="paysera_client_release.release_step.update_changelog"
+                 class="Paysera\Bundle\ClientReleaseBundle\Service\ReleaseStep\UpdateChangelogStep">
+            <argument type="service" id="paysera_client_release.changelog_parser.parser"/>
+            <argument type="service" id="paysera_client_release.changelog_parser.dumper"/>
+            <argument type="service" id="paysera_client_release.semantic_version_manipulator"/>
+            <tag name="paysera_client_release.release_step" type="javascript" position="40"/>
+            <tag name="paysera_client_release.release_step" type="php" position="40"/>
+        </service>
+
+        <service id="paysera_client_release.release_step.compare_code.php"
+                 class="Paysera\Bundle\ClientReleaseBundle\Service\ReleaseStep\CompareCodeStep">
+            <argument type="collection"/>
+            <tag name="paysera_client_release.release_step" type="php" position="50"/>
+        </service>
+
+        <service id="paysera_client_release.release_step.compare_code.javascript"
+                 class="Paysera\Bundle\ClientReleaseBundle\Service\ReleaseStep\CompareCodeStep">
+            <argument type="collection">
+                <argument>dist</argument>
+            </argument>
+            <tag name="paysera_client_release.release_step" type="javascript" position="50"/>
+        </service>
+
+        <service id="paysera_client_release.release_step.build_javascript_dist_files"
+                 class="Paysera\Bundle\ClientReleaseBundle\Service\ReleaseStep\BuildJavascriptDistFilesStep">
+            <argument type="service" id="paysera_client_release.env_helper"/>
+            <tag name="paysera_client_release.release_step" type="javascript" position="55"/>
+        </service>
+
+        <service id="paysera_client_release.release_step.replace_files"
+                 class="Paysera\Bundle\ClientReleaseBundle\Service\ReleaseStep\ReplaceFilesStep">
+            <argument type="service" id="filesystem"/>
+            <tag name="paysera_client_release.release_step" type="javascript" position="60"/>
+            <tag name="paysera_client_release.release_step" type="php" position="60"/>
+        </service>
+
+        <service id="paysera_client_release.release_step.push_code_to_repository"
+                 class="Paysera\Bundle\ClientReleaseBundle\Service\ReleaseStep\PushCodeToRepositoryStep">
+            <tag name="paysera_client_release.release_step" type="javascript" position="70"/>
+            <tag name="paysera_client_release.release_step" type="php" position="70"/>
+        </service>
+
+        <service id="paysera_client_release.release_step.push_tag_to_repository"
+                 class="Paysera\Bundle\ClientReleaseBundle\Service\ReleaseStep\PushTagToRepositoryStep">
+            <argument type="service" id="paysera_client_release.semantic_version_manipulator"/>
+            <argument type="service" id="paysera_client_release.repository_resolver"/>
+            <tag name="paysera_client_release.release_step" type="javascript" position="80"/>
+            <tag name="paysera_client_release.release_step" type="php" position="80"/>
+        </service>
+
+        <service id="paysera_client_release.release_step.publish_javascript_package"
+                 class="Paysera\Bundle\ClientReleaseBundle\Service\ReleaseStep\PublishJavascriptPackageStep">
+            <argument type="service" id="paysera_client_release.env_helper"/>
+            <tag name="paysera_client_release.release_step" type="javascript" position="90"/>
+        </service>
+
+
+        <service id="paysera_client_release.release_step.remove_temp_dir"
+                 class="Paysera\Bundle\ClientReleaseBundle\Service\ReleaseStep\RemoveTempDirStep">
+            <argument type="service" id="filesystem"/>
+            <tag name="paysera_client_release.release_step" type="javascript" position="990"/>
+            <tag name="paysera_client_release.release_step" type="php" position="990"/>
+        </service>
+
+        <service id="paysera_client_release.release_step.finalize_step"
+                 class="Paysera\Bundle\ClientReleaseBundle\Service\ReleaseStep\FinalizeStep">
+            <tag name="paysera_client_release.release_step" type="javascript" position="999"/>
+            <tag name="paysera_client_release.release_step" type="php" position="999"/>
+        </service>
+    </services>
+</container>

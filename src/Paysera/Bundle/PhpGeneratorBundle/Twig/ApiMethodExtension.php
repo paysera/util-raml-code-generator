@@ -12,6 +12,7 @@ use Paysera\Bundle\CodeGeneratorBundle\Service\StringConverter;
 use Paysera\Bundle\CodeGeneratorBundle\Service\TypeConfigurationProviderStorage;
 use Paysera\Bundle\CodeGeneratorBundle\Twig\BaseExtension;
 use Paysera\Bundle\PhpGeneratorBundle\Service\NamespaceHelper;
+use Paysera\Component\StringHelper;
 use Paysera\Component\TypeHelper;
 use Raml\Method;
 use Raml\Resource;
@@ -55,6 +56,7 @@ class ApiMethodExtension extends Twig_Extension
             new Twig_SimpleFunction('php_get_return_type', [$this, 'getReturnType'], ['needs_context' => true]),
             new Twig_SimpleFunction('php_generate_method_arguments', [$this, 'generateMethodArguments'], ['needs_context' => true]),
             new Twig_SimpleFunction('php_inline_argument_names', [$this, 'getInlineArgumentNames']),
+            new Twig_SimpleFunction('php_get_library_name', [$this, 'getLibraryName']),
         ];
     }
 
@@ -63,6 +65,14 @@ class ApiMethodExtension extends Twig_Extension
         return [
             new Twig_SimpleFilter('php_unique_arguments_by_namespace', [$this, 'getUniqueArgumentsByNamespace']),
         ];
+    }
+
+    public function getLibraryName(string $vendor, ApiDefinition $api): string
+    {
+        if (isset($api->getOptions()['library_name'])) {
+            return $api->getOptions()['library_name'];
+        }
+        return sprintf('%s/lib-%s', $vendor, StringHelper::kebabCase($api->getName()));
     }
 
     /**

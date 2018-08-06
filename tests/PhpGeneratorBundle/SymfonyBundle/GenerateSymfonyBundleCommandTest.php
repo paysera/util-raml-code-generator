@@ -67,6 +67,7 @@ class GenerateSymfonyBundleCommandTest extends KernelTestCase
     public function dataProviderTestGenerateCode()
     {
         return [
+            ['category'],
             ['account'],
             ['inheritance'],
             ['category'],

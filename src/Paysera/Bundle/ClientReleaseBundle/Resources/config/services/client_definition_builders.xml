@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="paysera_client_release.client_definition_builder.base"
+                 class="Paysera\Bundle\ClientReleaseBundle\Service\ClientDefinitionBuilder\BaseDefinitionBuilder">
+        </service>
+
+        <service id="paysera_client_release.client_definition_builder.php"
+                 class="Paysera\Bundle\ClientReleaseBundle\Service\ClientDefinitionBuilder\PhpClientDefinitionBuilder">
+            <argument type="service" id="paysera_client_release.client_definition_builder.base"/>
+            <tag name="paysera_client_release.client_definition_builder" type="php"/>
+        </service>
+
+        <service id="paysera_client_release.client_definition_builder.javascript"
+                 class="Paysera\Bundle\ClientReleaseBundle\Service\ClientDefinitionBuilder\JavascriptClientDefinitionBuilder">
+            <argument type="service" id="paysera_client_release.client_definition_builder.base"/>
+            <tag name="paysera_client_release.client_definition_builder" type="javascript"/>
+        </service>
+    </services>
+</container>
