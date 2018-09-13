@@ -60,6 +60,20 @@ class Category extends Entity {
     setStatus(status) {
         this.set('status', status);
     }
+
+    /**
+     * @return {boolean}
+     */
+    isPrivate() {
+        return this.get('private');
+    }
+
+    /**
+     * @param {boolean} _private
+     */
+    setPrivate(_private) {
+        this.set('private', _private);
+    }
 }
 
 export default Category;

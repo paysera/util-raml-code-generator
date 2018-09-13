@@ -18,5 +18,22 @@
         <service id="paysera_php_generator.namespace_helper"
                  class="Paysera\Bundle\PhpGeneratorBundle\Service\NamespaceHelper">
         </service>
+
+        <service id="paysera_bundle_code_generator.service.reserved_keyword_detector.php"
+                 class="Paysera\Bundle\CodeGeneratorBundle\Service\ReservedKeywordDetector">
+            <call method="setType">
+                <argument type="constant">
+                    \Paysera\Bundle\PhpGeneratorBundle\Command\GenerateRestClientCommand::CODE_TYPE
+                </argument>
+            </call>
+            <call method="setKeywords">
+                <argument type="collection">
+                    <argument>this</argument>
+                    <argument>argv</argument>
+                    <argument>argc</argument>
+                </argument>
+            </call>
+            <tag name="paysera_bundle_code_generator.service.reserved_keyword_detector" />
+        </service>
     </services>
 </container>

@@ -30,5 +30,11 @@ class PayseraCodeGeneratorBundle extends Bundle
             'addTypeConfigurationProvider',
             ['type']
         ));
+
+        $container->addCompilerPass(new AddTaggedCompilerPass(
+            'paysera_code_generator.string_converter',
+            'paysera_bundle_code_generator.service.reserved_keyword_detector',
+            'addReservedKeywordDetector'
+        ));
     }
 }

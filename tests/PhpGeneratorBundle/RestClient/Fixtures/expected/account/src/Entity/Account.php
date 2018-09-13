@@ -123,4 +123,20 @@ class Account extends Entity
         $this->setByReference('undescribed', $undescribed->getDataByReference());
         return $this;
     }
+    /**
+     * @return integer
+     */
+    public function getThis()
+    {
+        return $this->get('this');
+    }
+    /**
+     * @param integer $_this
+     * @return $this
+     */
+    public function setThis($_this)
+    {
+        $this->set('this', $_this);
+        return $this;
+    }
 }

@@ -9,5 +9,39 @@
                  class="Paysera\Bundle\CodeGeneratorBundle\Service\Generator\CodeGenerator">
             <tag name="paysera_code_generator" type="js_package"/>
         </service>
+
+        <service id="paysera_bundle_code_generator.service.reserved_keyword_detector.javascript"
+                 class="Paysera\Bundle\CodeGeneratorBundle\Service\ReservedKeywordDetector">
+            <call method="setType">
+                <argument type="constant">
+                    \Paysera\Bundle\JavascriptGeneratorBundle\Command\GeneratePackageCommand::CODE_TYPE
+                </argument>
+            </call>
+            <call method="setKeywords">
+                <argument type="collection">
+                    <argument>public</argument>
+                    <argument>true</argument>
+                    <argument>false</argument>
+                    <argument>private</argument>
+                    <argument>package</argument>
+                    <argument>static</argument>
+                    <argument>enum</argument>
+                    <argument>let</argument>
+                    <argument>abstract</argument>
+                    <argument>float</argument>
+                    <argument>boolean</argument>
+                    <argument>goto</argument>
+                    <argument>throws</argument>
+                    <argument>char</argument>
+                    <argument>long</argument>
+                    <argument>volatile</argument>
+                    <argument>double</argument>
+                    <argument>native</argument>
+                    <argument>final</argument>
+                    <argument>short</argument>
+                </argument>
+            </call>
+            <tag name="paysera_bundle_code_generator.service.reserved_keyword_detector" />
+        </service>
     </services>
 </container>

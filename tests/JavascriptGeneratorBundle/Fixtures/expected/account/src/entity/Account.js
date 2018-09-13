@@ -104,6 +104,20 @@ class Account extends Entity {
     setUndescribed(undescribed) {
         this.set('undescribed', undescribed.getData());
     }
+
+    /**
+     * @return {boolean}|null
+     */
+    isPublic() {
+        return this.get('public');
+    }
+
+    /**
+     * @param {boolean} _public
+     */
+    setPublic(_public) {
+        this.set('public', _public);
+    }
 }
 
 export default Account;

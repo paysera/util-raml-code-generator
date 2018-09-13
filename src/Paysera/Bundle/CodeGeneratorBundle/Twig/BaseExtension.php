@@ -59,7 +59,11 @@ class BaseExtension extends Twig_Extension
     public function getFilters()
     {
         return [
-            new Twig_SimpleFilter('to_variable_name', [$this->stringConverter, 'convertSlugToVariableName']),
+            new Twig_SimpleFilter(
+                'to_variable_name',
+                [$this, 'getVariableNameByCodeType'],
+                ['needs_context' => true]
+            ),
             new Twig_SimpleFilter('to_class_name', [$this->stringConverter, 'convertSlugToClassName']),
             new Twig_SimpleFilter('extract_type_name', [$this, 'extractTypeName']),
             new Twig_SimpleFilter('to_kebab_case', [StringHelper::class, 'kebabCase']),
@@ -474,6 +478,11 @@ class BaseExtension extends Twig_Extension
     public function getTypeConfiguration(array $context, TypeDefinition $type)
     {
         return $this->getTypeConfigurationProvider($context)->getTypeConfiguration($type->getName());
+    }
+
+    public function getVariableNameByCodeType(array $context, string $name)
+    {
+        return $this->stringConverter->convertSlugToVariableNameByCodeType($name, $context['code_type']);
     }
 
     /**
