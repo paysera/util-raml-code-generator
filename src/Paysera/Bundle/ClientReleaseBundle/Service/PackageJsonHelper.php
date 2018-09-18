@@ -23,6 +23,10 @@ class PackageJsonHelper
 
     public function getSourceContents(ReleaseStepData $releaseStepData)
     {
+        if (!file_exists($releaseStepData->getSourceDir() . '/package.json')) {
+            return null;
+        }
+
         return json_decode(
             file_get_contents($releaseStepData->getSourceDir() . '/package.json'),
             true

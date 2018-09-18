@@ -50,6 +50,7 @@
         <service id="paysera_client_release.release_step.compare_code.php"
                  class="Paysera\Bundle\ClientReleaseBundle\Service\ReleaseStep\CompareCodeStep">
             <argument type="collection"/>
+            <argument type="collection"/>
             <tag name="paysera_client_release.release_step" type="php" position="50"/>
         </service>
 
@@ -57,6 +58,9 @@
                  class="Paysera\Bundle\ClientReleaseBundle\Service\ReleaseStep\CompareCodeStep">
             <argument type="collection">
                 <argument>dist</argument>
+            </argument>
+            <argument type="collection">
+                <argument>package-lock.json</argument>
             </argument>
             <tag name="paysera_client_release.release_step" type="javascript" position="50"/>
         </service>

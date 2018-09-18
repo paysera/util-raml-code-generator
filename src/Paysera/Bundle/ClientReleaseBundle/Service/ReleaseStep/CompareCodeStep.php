@@ -17,10 +17,14 @@ use Symfony\Component\Finder\SplFileInfo;
 class CompareCodeStep implements ReleaseStepInterface
 {
     private $ignorePaths;
+    private $ignoreFiles;
 
-    public function __construct(array $ignorePaths)
-    {
+    public function __construct(
+        array $ignorePaths,
+        array $ignoreFiles
+    ) {
         $this->ignorePaths = $ignorePaths;
+        $this->ignoreFiles = $ignoreFiles;
     }
 
     public function processStep(ReleaseStepData $releaseStepData, InputInterface $input, OutputInterface $output)
@@ -116,6 +120,9 @@ class CompareCodeStep implements ReleaseStepInterface
         ;
         foreach ($this->ignorePaths as $path) {
             $finder->notPath($path);
+        }
+        foreach ($this->ignoreFiles as $file) {
+            $finder->notName($file);
         }
 
         $contents = [];
