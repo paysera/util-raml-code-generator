@@ -24,8 +24,8 @@ class ConfigGenerator implements GeneratorInterface
     public function generate(ApiDefinition $definition) : array
     {
         $files = [
-            ['src' => '.babelrc.json', 'dest' => '.babelrc'],
-            ['src' => '.eslintrc.json', 'dest' => '.eslintrc'],
+            ['src' => 'babelrc.json', 'dest' => '.babelrc'],
+            ['src' => 'eslintrc.json', 'dest' => '.eslintrc'],
             ['src' => 'webpack-config.js', 'dest' => 'webpack-config.js'],
         ];
 
