@@ -42,11 +42,9 @@ class PushTagToRepositoryStep implements ReleaseStepInterface
             ));
         }
 
+        $tag = $this->versionManipulator->increase($currentVersion, $releaseStepData->getReleaseData()->getVersion());
         $pushProcess = new Process(
-            sprintf(
-                'git tag %s -am "" && git push --tags',
-                    $this->versionManipulator->increase($currentVersion, $releaseStepData->getReleaseData()->getVersion())
-            ),
+            sprintf('git tag %s -am "" && git push --tags', $tag),
             $repositoryDir
         );
         $pushProcess->setTty(true);
@@ -60,7 +58,7 @@ class PushTagToRepositoryStep implements ReleaseStepInterface
             ));
         }
         $output->writeln(sprintf(
-            '<info>*</info> Tag <comment>%s</comment> pushed to repository'
+            '<info>*</info> Tag <comment>%s</comment> pushed to repository', $tag
         ));
     }
 }

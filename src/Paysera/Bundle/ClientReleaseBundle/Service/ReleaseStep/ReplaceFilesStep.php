@@ -23,7 +23,7 @@ class ReplaceFilesStep implements ReleaseStepInterface
         $output->writeln(sprintf('<info>*</info> Mirroring generated files to source repository...'));
 
         $iterator = Finder::create()
-            ->in($releaseStepData->getSourceDir())
+            ->in($releaseStepData->getGeneratedDir())
             ->getIterator()
         ;
 
