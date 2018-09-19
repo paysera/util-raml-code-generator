@@ -7,6 +7,7 @@ use Paysera\Bundle\ClientReleaseBundle\Entity\ReleaseStepData;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Finder\Finder;
 
 class ReplaceFilesStep implements ReleaseStepInterface
 {
@@ -21,10 +22,15 @@ class ReplaceFilesStep implements ReleaseStepInterface
     {
         $output->writeln(sprintf('<info>*</info> Mirroring generated files to source repository...'));
 
+        $iterator = Finder::create()
+            ->in($releaseStepData->getSourceDir())
+            ->getIterator()
+        ;
+
         $this->filesystem->mirror(
             $releaseStepData->getGeneratedDir(),
             $releaseStepData->getSourceDir(),
-            null,
+            $iterator,
             [
                 'delete' => true,
                 'override' => true,
