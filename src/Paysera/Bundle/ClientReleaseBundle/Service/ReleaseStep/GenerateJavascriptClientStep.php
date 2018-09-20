@@ -36,7 +36,7 @@ class GenerateJavascriptClientStep implements ReleaseStepInterface
             throw new ReleaseCycleException(sprintf(
                 'Failed to generate JS client for Api "%s", error: %s',
                 $releaseStepData->getApiConfig()->getApiName(),
-                $generateProcess->getOutput()
+                $generateProcess->getOutput() . $generateProcess->getErrorOutput()
             ));
         }
 
