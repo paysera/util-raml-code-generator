@@ -28,6 +28,9 @@ class StringHelper
 
     public static function singular($word)
     {
+        if (strlen($word) <= 3) {
+            return $word;
+        }
         return Inflector::singularize($word);
     }
 }

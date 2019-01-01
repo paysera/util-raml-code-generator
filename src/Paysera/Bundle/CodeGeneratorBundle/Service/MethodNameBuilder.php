@@ -102,7 +102,7 @@ class MethodNameBuilder
             return Inflector::camelize(implode('', $parts));
         }
 
-        $parts[] = Inflector::singularize($nameParts->getLastPart()->getPartName());
+        $parts[] = StringHelper::singular($nameParts->getLastPart()->getPartName());
         $lastParts = $this->buildSingularPaths($nameParts);
         if (!$nameParts->hasPlaceholder()) {
             $lastParts[count($parts) - 1] = Inflector::pluralize($lastParts[count($parts) - 1]);
@@ -122,7 +122,7 @@ class MethodNameBuilder
         $parts = [];
         $part = $nameParts;
         do {
-            $parts[] = ucfirst(Inflector::singularize($part->getPartName()));
+            $parts[] = ucfirst(StringHelper::singular($part->getPartName()));
             $part = $part->getSubName();
         } while ($part !== null);
 

@@ -1,0 +1,31 @@
+{
+    "name": "@vendor/public-transfers-client",
+    "version": "0.0.1",
+    "description": "",
+    "main": "dist/index.js",
+    "scripts": {
+        "lint": "eslint src/",
+        "build": "webpack --mode production --config webpack-config.js",
+        "dev": "webpack-dev-server --mode development --config webpack-config.js"
+    },
+    "author": "vendor",
+    "license": "ISC",
+    "dependencies": {
+        "@paysera/money": "^1.0",
+        "@paysera/http-client-common": "^2.3",
+        "angular": "1.4.9"
+    },
+    "devDependencies": {
+        "@paysera/eslint-config": "0.0.1",
+        "babel-core": "^6.26.3",
+        "babel-loader": "^7.1.5",
+        "babel-preset-env": "^1.7.0",
+        "eslint": "^4.19.1",
+        "eslint-plugin-import": "^2.13.0",
+        "eslint-plugin-jsx-a11y": "^6.1.0",
+        "eslint-plugin-react": "^7.10.0",
+        "webpack": "^4.15.1",
+        "webpack-cli": "^3.0.8",
+        "webpack-dev-server": "^3.1.4"
+    }
+}

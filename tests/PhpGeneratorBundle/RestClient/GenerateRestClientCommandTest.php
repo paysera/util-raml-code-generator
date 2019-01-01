@@ -67,6 +67,7 @@ class GenerateRestClientCommandTest extends KernelTestCase
     public function dataProviderTestGenerateCode()
     {
         return [
+            ['public-transfers'],
             ['account'],
             ['inheritance'],
             ['category'],

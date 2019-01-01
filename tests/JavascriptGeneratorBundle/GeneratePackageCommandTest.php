@@ -71,6 +71,7 @@ class GeneratePackageCommandTest extends KernelTestCase
     public function dataProviderTestGenerateCode()
     {
         return [
+            ['public-transfers'],
             ['transfer'],
             ['inheritance'],
             ['user-info'],

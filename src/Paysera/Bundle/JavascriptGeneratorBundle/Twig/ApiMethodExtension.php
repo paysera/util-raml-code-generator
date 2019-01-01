@@ -104,15 +104,22 @@ class ApiMethodExtension extends Twig_Extension
         if ($api->getType($bodyTypeName) !== null) {
             $type = $api->getType($bodyTypeName);
             if ($type instanceof ResultTypeDefinition) {
-                return sprintf('new %s(data, \'%s\')', $bodyTypeName, $type->getDataKey());
+                return sprintf(
+                    'new %s(data, \'%s\')',
+                    $this->stringConverter->extractTypeName($bodyTypeName),
+                    $type->getDataKey()
+                );
             }
-            return sprintf('new %s(data)', $bodyTypeName);
+            return sprintf(
+                'new %s(data)',
+                $this->stringConverter->extractTypeName($bodyTypeName)
+            );
         }
         if ($bodyType instanceof ArrayType) {
             if ($api->getType($bodyType->getItems()->getName()) !== null) {
                 return sprintf(
                     'data.map(item => new %s(item))',
-                    $bodyType->getItems()->getName()
+                    $this->stringConverter->extractTypeName($bodyType->getItems()->getName())
                 );
             } else {
                 return 'data';

@@ -1,0 +1,30 @@
+#%RAML 1.0
+title: Public Transfer
+version: 1.1
+baseUri: https://accounts.paysera.com/some/rest/v1/
+uses:
+  Paysera: ../__library/rest.raml
+
+/transfers:
+  /{transferId}:
+    uriParameters:
+      transferId:
+        required: true
+        displayName: Transfer ID
+        type: string
+    /required-supplement:
+      get:
+        description: Returns the amount required as an addition to the account balance in order to be able to execute the transfer.
+        responses:
+          200:
+            body:
+              application/json:
+                type: Paysera.Money
+          204:
+            body: null
+    /sms:
+      put:
+        description: Unlocks SMS challenge
+        responses:
+          204:
+            body: null

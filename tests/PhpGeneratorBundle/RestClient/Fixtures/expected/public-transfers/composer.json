@@ -1,0 +1,16 @@
+{
+    "name": "vendor/lib-public-transfers-client",
+    "description": "PublicTransfersClient",
+    "autoload": {
+        "psr-4": {
+            "Paysera\\Test\\PublicTransfersClient\\": "src"
+        }
+    },
+    "require": {
+        "php": ">=5.5",
+        "evp/money": "^1.0",
+        "paysera/lib-rest-client-common": "^1.0 | ^2.1",
+        "fig/http-message-util": "^1.0"
+    },
+    "minimum-stability": "stable"
+}
