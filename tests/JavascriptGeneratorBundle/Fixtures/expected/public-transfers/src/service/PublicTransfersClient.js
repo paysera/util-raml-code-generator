@@ -26,7 +26,7 @@ class PublicTransfersClient {
 
         return this.client
             .performRequest(request)
-            .then(data => new Money(data));
+            .then(data => new Money(data['amount'], data['currency']));
     }
 
     /**

@@ -237,6 +237,9 @@
                         <call method="setArgumentTypeTemplate">
                             <argument type="string">@PayseraJavascriptGenerator/Package/Src/Entity/Method/Body/Money/argument_type.js.twig</argument>
                         </call>
+                        <call method="setResultPopulatorCode">
+                            <argument>new Money(data['amount'], data['currency'])</argument>
+                        </call>
                     </service>
                 </argument>
             </call>

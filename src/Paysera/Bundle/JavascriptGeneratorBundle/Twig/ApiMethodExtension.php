@@ -11,6 +11,7 @@ use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\ResultTypeDefinition;
 use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\TypeDefinition;
 use Paysera\Bundle\CodeGeneratorBundle\ResourcePatterns;
 use Paysera\Bundle\CodeGeneratorBundle\Service\BodyResolver;
+use Paysera\Bundle\CodeGeneratorBundle\Service\TypeConfigurationProviderStorage;
 use Paysera\Bundle\CodeGeneratorBundle\Twig\BaseExtension;
 use Paysera\Bundle\CodeGeneratorBundle\Service\StringConverter;
 use Paysera\Component\StringHelper;
@@ -26,15 +27,18 @@ class ApiMethodExtension extends Twig_Extension
     private $stringConverter;
     private $bodyResolver;
     private $baseExtension;
+    private $typeConfigurationProviderStorage;
 
     public function __construct(
         StringConverter $stringConverter,
         BodyResolver $bodyResolver,
-        BaseExtension $baseExtension
+        BaseExtension $baseExtension,
+        TypeConfigurationProviderStorage $typeConfigurationProviderStorage
     ) {
         $this->stringConverter = $stringConverter;
         $this->bodyResolver = $bodyResolver;
         $this->baseExtension = $baseExtension;
+        $this->typeConfigurationProviderStorage = $typeConfigurationProviderStorage;
     }
 
     public function getFunctions()
@@ -45,7 +49,10 @@ class ApiMethodExtension extends Twig_Extension
             new Twig_SimpleFunction('js_get_angular_module_name', [$this, 'getAngularJsModuleName'], ['is_safe' => ['js']]),
             new Twig_SimpleFunction('js_get_angular_client_factory_name', [$this, 'getAngularJsFactoryClassName']),
             new Twig_SimpleFunction('js_generate_uri', [$this, 'generateUri'], ['is_safe' => ['html']]),
-            new Twig_SimpleFunction('js_generate_result_populator', [$this, 'generateResultPopulator'], ['is_safe' => ['html']]),
+            new Twig_SimpleFunction('js_generate_result_populator', [$this, 'generateResultPopulator'], [
+                'is_safe' => ['html'],
+                'needs_context' => true,
+            ]),
             new Twig_SimpleFunction('js_get_return_type', [$this, 'getReturnType']),
             new Twig_SimpleFunction('js_get_related_types', [$this, 'getRelatedTypes']),
         ];
@@ -90,7 +97,7 @@ class ApiMethodExtension extends Twig_Extension
         return vsprintf($replaced, $arguments);
     }
 
-    public function generateResultPopulator(Method $method, ApiDefinition $api) : string
+    public function generateResultPopulator(array $context, Method $method, ApiDefinition $api) : string
     {
         $body = $this->bodyResolver->getResponseBody($method);
 
@@ -100,6 +107,14 @@ class ApiMethodExtension extends Twig_Extension
 
         $bodyType = $body->getType();
         $bodyTypeName = $bodyType->getName();
+
+        $configurationProvider = $this->getTypeConfigurationProvider($context);
+        if ($configurationProvider->hasTypeConfiguration($bodyTypeName)) {
+            $typeConfiguration = $configurationProvider->getTypeConfiguration($bodyTypeName);
+            if ($typeConfiguration->getResultPopulatorCode() !== null) {
+                return $typeConfiguration->getResultPopulatorCode();
+            }
+        }
 
         if ($api->getType($bodyTypeName) !== null) {
             $type = $api->getType($bodyTypeName);
@@ -169,5 +184,10 @@ class ApiMethodExtension extends Twig_Extension
         }
 
         return array_unique($relatedTypes, SORT_REGULAR);
+    }
+
+    private function getTypeConfigurationProvider(array $context)
+    {
+        return $this->typeConfigurationProviderStorage->getTypeConfigurationProvider($context['code_type']);
     }
 }

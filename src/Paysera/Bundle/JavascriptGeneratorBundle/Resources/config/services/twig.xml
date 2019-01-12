@@ -10,6 +10,7 @@
             <argument type="service" id="paysera_code_generator.string_converter"/>
             <argument type="service" id="paysera_code_generator.body_resolver"/>
             <argument type="service" id="paysera_code_generator.twig_extension.base"/>
+            <argument type="service" id="paysera_code_generator.type_configuration_provider_storage"/>
             <tag name="twig.extension"/>
         </service>
 
