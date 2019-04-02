@@ -26,7 +26,7 @@ class TransferBeneficiary extends Entity {
     }
 
     /**
-     * @return {Identifiers}|null
+     * @return {Identifiers|null}
      */
     getIdentifiers() {
         if (this.get('identifiers') == null) {
@@ -57,7 +57,7 @@ class TransferBeneficiary extends Entity {
     }
 
     /**
-     * @return {string}|null
+     * @return {string|null}
      */
     getPersonType() {
         return this.get('person_type');
@@ -71,7 +71,7 @@ class TransferBeneficiary extends Entity {
     }
 
     /**
-     * @return {BankAccount}|null
+     * @return {BankAccount|null}
      */
     getBankAccount() {
         if (this.get('bank_account') == null) {
@@ -88,7 +88,7 @@ class TransferBeneficiary extends Entity {
     }
 
     /**
-     * @return {TaxAccount}|null
+     * @return {TaxAccount|null}
      */
     getTaxAccount() {
         if (this.get('tax_account') == null) {
@@ -105,7 +105,7 @@ class TransferBeneficiary extends Entity {
     }
 
     /**
-     * @return {PayseraAccount}|null
+     * @return {PayseraAccount|null}
      */
     getPayseraAccount() {
         if (this.get('paysera_account') == null) {
@@ -122,7 +122,7 @@ class TransferBeneficiary extends Entity {
     }
 
     /**
-     * @return {PayzaAccount}|null
+     * @return {PayzaAccount|null}
      */
     getPayzaAccount() {
         if (this.get('payza_account') == null) {
@@ -139,7 +139,7 @@ class TransferBeneficiary extends Entity {
     }
 
     /**
-     * @return {WebmoneyAccount}|null
+     * @return {WebmoneyAccount|null}
      */
     getWebmoneyAccount() {
         if (this.get('webmoney_account') == null) {

@@ -34,7 +34,7 @@ class ConvertCurrency extends Entity {
     }
 
     /**
-     * @return {string}|null
+     * @return {string|null}
      */
     getToAmount() {
         return this.get('to_amount');
@@ -48,7 +48,7 @@ class ConvertCurrency extends Entity {
     }
 
     /**
-     * @return {string}|null
+     * @return {string|null}
      */
     getFromAmount() {
         return this.get('from_amount');
@@ -62,7 +62,7 @@ class ConvertCurrency extends Entity {
     }
 
     /**
-     * @return {string}|null
+     * @return {string|null}
      */
     getMinToAmount() {
         return this.get('min_to_amount');
@@ -76,7 +76,7 @@ class ConvertCurrency extends Entity {
     }
 
     /**
-     * @return {string}|null
+     * @return {string|null}
      */
     getMaxFromAmount() {
         return this.get('max_from_amount');
@@ -90,7 +90,7 @@ class ConvertCurrency extends Entity {
     }
 
     /**
-     * @return {string}|null
+     * @return {string|null}
      */
     getAccountNumber() {
         return this.get('account_number');

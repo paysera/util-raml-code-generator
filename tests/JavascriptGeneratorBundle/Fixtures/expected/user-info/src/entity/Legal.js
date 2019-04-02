@@ -35,7 +35,7 @@ class Legal extends UserInfo {
     }
 
     /**
-     * @return {string}|null
+     * @return {string|null}
      */
     getVatCode() {
         return this.get('vat_code');

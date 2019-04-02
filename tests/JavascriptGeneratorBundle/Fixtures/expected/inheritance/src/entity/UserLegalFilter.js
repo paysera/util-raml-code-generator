@@ -2,7 +2,7 @@ import UserFilter from './UserFilter';
 
 class UserLegalFilter extends UserFilter {
     /**
-     * @return {string}|null
+     * @return {string|null}
      */
     getCompanyName() {
         return this.get('company_name');

@@ -6,7 +6,7 @@ class TransferFailureStatus extends Entity {
     }
 
     /**
-     * @return {string}|null
+     * @return {string|null}
      */
     getCode() {
         return this.get('code');
@@ -20,7 +20,7 @@ class TransferFailureStatus extends Entity {
     }
 
     /**
-     * @return {string}|null
+     * @return {string|null}
      */
     getMessage() {
         return this.get('message');

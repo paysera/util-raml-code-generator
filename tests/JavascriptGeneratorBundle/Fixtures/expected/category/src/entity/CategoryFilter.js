@@ -2,7 +2,7 @@ import { Filter } from '@paysera/http-client-common';
 
 class CategoryFilter extends Filter {
     /**
-     * @return {string}|null
+     * @return {string|null}
      */
     getParentId() {
         return this.get('parent_id');

@@ -7,7 +7,7 @@ class TransferPurpose extends Entity {
     }
 
     /**
-     * @return {string}|null
+     * @return {string|null}
      */
     getDetails() {
         return this.get('details');
@@ -21,7 +21,7 @@ class TransferPurpose extends Entity {
     }
 
     /**
-     * @return {string}|null
+     * @return {string|null}
      */
     getReference() {
         return this.get('reference');
@@ -35,7 +35,7 @@ class TransferPurpose extends Entity {
     }
 
     /**
-     * @return {string}|null
+     * @return {string|null}
      */
     getVoCode() {
         return this.get('vo_code');
@@ -49,7 +49,7 @@ class TransferPurpose extends Entity {
     }
 
     /**
-     * @return {string}|null
+     * @return {string|null}
      */
     getOcrCode() {
         return this.get('ocr_code');
@@ -63,7 +63,7 @@ class TransferPurpose extends Entity {
     }
 
     /**
-     * @return {DetailsOptions}|null
+     * @return {DetailsOptions|null}
      */
     getDetailsOptions() {
         if (this.get('details_options') == null) {
@@ -80,7 +80,7 @@ class TransferPurpose extends Entity {
     }
 
     /**
-     * @return {string}|null
+     * @return {string|null}
      */
     getCode() {
         return this.get('code');

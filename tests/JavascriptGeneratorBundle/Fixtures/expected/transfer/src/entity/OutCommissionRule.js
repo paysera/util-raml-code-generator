@@ -7,7 +7,7 @@ class OutCommissionRule extends Entity {
     }
 
     /**
-     * @return {string}|null
+     * @return {string|null}
      */
     getPercent() {
         return this.get('percent');
@@ -21,7 +21,7 @@ class OutCommissionRule extends Entity {
     }
 
     /**
-     * @return {Money}|null
+     * @return {Money|null}
      */
     getMin() {
         if (this.get('min')['amount'] === null || this.get('min')['currency'] === null) {
@@ -38,7 +38,7 @@ class OutCommissionRule extends Entity {
     }
 
     /**
-     * @return {Money}|null
+     * @return {Money|null}
      */
     getMax() {
         if (this.get('max')['amount'] === null || this.get('max')['currency'] === null) {
@@ -55,7 +55,7 @@ class OutCommissionRule extends Entity {
     }
 
     /**
-     * @return {Money}|null
+     * @return {Money|null}
      */
     getFix() {
         if (this.get('fix')['amount'] === null || this.get('fix')['currency'] === null) {

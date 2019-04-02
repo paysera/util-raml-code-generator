@@ -20,7 +20,7 @@ class Payer extends Entity {
     }
 
     /**
-     * @return {string}|null
+     * @return {string|null}
      */
     getReference() {
         return this.get('reference');

@@ -97,6 +97,8 @@ use Paysera\Test\CategoryClient\Entity as Entities;
 $category = new Entities\Category();
 
 $category->setId($id);
+$category->setPhoto($photo);
+$category->setAvatar($avatar);
 $category->setParentId($parentId);
 $category->setTitles($titles);
 $category->setStatus($status);

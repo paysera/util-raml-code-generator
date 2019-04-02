@@ -8,7 +8,7 @@
     {% endif %}
 
     {% if property.required == false %}
-        {{ ('{' ~ type|extract_type_name ~ '}')|raw }}|null
+        {{ ('{' ~ type|extract_type_name ~ '|null}')|raw }}
     {% else %}
         {{ ('{' ~ type|extract_type_name ~ '}')|raw }}
     {% endif %}

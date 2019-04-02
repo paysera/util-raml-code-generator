@@ -6,7 +6,7 @@ class Identifiers extends Entity {
     }
 
     /**
-     * @return {string}|null
+     * @return {string|null}
      */
     getGeneral() {
         return this.get('general');
@@ -20,7 +20,7 @@ class Identifiers extends Entity {
     }
 
     /**
-     * @return {string}|null
+     * @return {string|null}
      */
     getPersonalCode() {
         return this.get('personal_code');
@@ -34,7 +34,7 @@ class Identifiers extends Entity {
     }
 
     /**
-     * @return {string}|null
+     * @return {string|null}
      */
     getLegalCode() {
         return this.get('legal_code');
@@ -48,7 +48,7 @@ class Identifiers extends Entity {
     }
 
     /**
-     * @return {string}|null
+     * @return {string|null}
      */
     getTaxCode() {
         return this.get('tax_code');
@@ -62,7 +62,7 @@ class Identifiers extends Entity {
     }
 
     /**
-     * @return {string}|null
+     * @return {string|null}
      */
     getKppCode() {
         return this.get('kpp_code');

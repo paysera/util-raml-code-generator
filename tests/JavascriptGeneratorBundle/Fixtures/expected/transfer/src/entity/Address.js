@@ -6,7 +6,7 @@ class Address extends Entity {
     }
 
     /**
-     * @return {string}|null
+     * @return {string|null}
      */
     getCountryCode() {
         return this.get('country_code');
@@ -20,7 +20,7 @@ class Address extends Entity {
     }
 
     /**
-     * @return {string}|null
+     * @return {string|null}
      */
     getAddressLine() {
         return this.get('address_line');

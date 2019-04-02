@@ -56,7 +56,7 @@ class TransferInput extends Entity {
     }
 
     /**
-     * @return {FinalBeneficiary}|null
+     * @return {FinalBeneficiary|null}
      */
     getFinalBeneficiary() {
         if (this.get('final_beneficiary') == null) {
@@ -73,7 +73,7 @@ class TransferInput extends Entity {
     }
 
     /**
-     * @return {DateTime}|null
+     * @return {DateTime|null}
      */
     getPerformAt() {
         if (this.get('perform_at') == null) {
@@ -90,7 +90,7 @@ class TransferInput extends Entity {
     }
 
     /**
-     * @return {string}|null
+     * @return {string|null}
      */
     getChargeType() {
         return this.get('charge_type');
@@ -104,7 +104,7 @@ class TransferInput extends Entity {
     }
 
     /**
-     * @return {string}|null
+     * @return {string|null}
      */
     getUrgency() {
         return this.get('urgency');
@@ -118,7 +118,7 @@ class TransferInput extends Entity {
     }
 
     /**
-     * @return {TransferNotifications}|null
+     * @return {TransferNotifications|null}
      */
     getNotifications() {
         if (this.get('notifications') == null) {
@@ -149,7 +149,7 @@ class TransferInput extends Entity {
     }
 
     /**
-     * @return {TransferPassword34}|null
+     * @return {TransferPassword34|null}
      */
     getPassword() {
         if (this.get('password') == null) {
@@ -166,7 +166,7 @@ class TransferInput extends Entity {
     }
 
     /**
-     * @return {boolean}|null
+     * @return {boolean|null}
      */
     isCancelable() {
         return this.get('cancelable');
@@ -180,7 +180,7 @@ class TransferInput extends Entity {
     }
 
     /**
-     * @return {boolean}|null
+     * @return {boolean|null}
      */
     isAutoCurrencyConvert() {
         return this.get('auto_currency_convert');
@@ -194,7 +194,7 @@ class TransferInput extends Entity {
     }
 
     /**
-     * @return {boolean}|null
+     * @return {boolean|null}
      */
     isAutoChargeRelatedCard() {
         return this.get('auto_charge_related_card');
@@ -208,7 +208,7 @@ class TransferInput extends Entity {
     }
 
     /**
-     * @return {DateTime}|null
+     * @return {DateTime|null}
      */
     getReserveUntil() {
         if (this.get('reserve_until') == null) {

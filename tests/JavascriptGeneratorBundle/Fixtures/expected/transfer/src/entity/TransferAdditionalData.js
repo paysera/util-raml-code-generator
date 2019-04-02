@@ -9,7 +9,7 @@ class TransferAdditionalData extends Entity {
     }
 
     /**
-     * @return {DateTime}|null
+     * @return {DateTime|null}
      */
     getEstimatedProcessingDate() {
         if (this.get('estimated_processing_date') == null) {
@@ -26,7 +26,7 @@ class TransferAdditionalData extends Entity {
     }
 
     /**
-     * @return {OutCommissionRule}|null
+     * @return {OutCommissionRule|null}
      */
     getOutCommissionRule() {
         if (this.get('out_commission_rule') == null) {
@@ -43,7 +43,7 @@ class TransferAdditionalData extends Entity {
     }
 
     /**
-     * @return {Money}|null
+     * @return {Money|null}
      */
     getOriginalOutCommission() {
         if (this.get('original_out_commission')['amount'] === null || this.get('original_out_commission')['currency'] === null) {
@@ -60,7 +60,7 @@ class TransferAdditionalData extends Entity {
     }
 
     /**
-     * @return {boolean}|null
+     * @return {boolean|null}
      */
     isCorrespondentBankFeesMayApply() {
         return this.get('correspondent_bank_fees_may_apply');

@@ -6,7 +6,7 @@ class PayseraAccount extends Entity {
     }
 
     /**
-     * @return {string}|null
+     * @return {string|null}
      */
     getAccountNumber() {
         return this.get('account_number');
@@ -20,7 +20,7 @@ class PayseraAccount extends Entity {
     }
 
     /**
-     * @return {string}|null
+     * @return {string|null}
      */
     getEmail() {
         return this.get('email');
@@ -34,7 +34,7 @@ class PayseraAccount extends Entity {
     }
 
     /**
-     * @return {string}|null
+     * @return {string|null}
      */
     getPhone() {
         return this.get('phone');

@@ -6,6 +6,7 @@ namespace Paysera\Bundle\CodeGeneratorBundle\Service;
 use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\ArrayPropertyDefinition;
 use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\DateTimePropertyDefinition;
 use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\DateTimeTypeDefinition;
+use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\FilePropertyDefinition;
 use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\PropertyDefinition;
 
 class PropertyDefinitionBuilder
@@ -32,7 +33,16 @@ class PropertyDefinitionBuilder
             $property->setType(PropertyDefinition::TYPE_ARRAY);
         }
 
-        if (!in_array($property->getType(), PropertyDefinition::getSimpleTypes(), true)) {
+        if (
+            !in_array(
+                $property->getType(),
+                array_merge(
+                    PropertyDefinition::getSimpleTypes(),
+                    [PropertyDefinition::TYPE_FILE]
+                ),
+                true
+            )
+        ) {
             $reference = null;
             if (isset($definition['type'])) {
                 $reference = $definition['type'];
@@ -71,6 +81,8 @@ class PropertyDefinitionBuilder
             if (isset($definition['format'])) {
                 $property->setFormat($definition['format']);
             }
+        } elseif ($definition['type'] === PropertyDefinition::TYPE_FILE) {
+            $property = new FilePropertyDefinition();
         }
 
         return $property;

@@ -8,7 +8,7 @@ class BankAccount extends Entity {
     }
 
     /**
-     * @return {string}|null
+     * @return {string|null}
      */
     getIban() {
         return this.get('iban');
@@ -22,7 +22,7 @@ class BankAccount extends Entity {
     }
 
     /**
-     * @return {string}|null
+     * @return {string|null}
      */
     getAccountNumber() {
         return this.get('account_number');
@@ -36,7 +36,7 @@ class BankAccount extends Entity {
     }
 
     /**
-     * @return {string}|null
+     * @return {string|null}
      */
     getCountryCode() {
         return this.get('country_code');
@@ -50,7 +50,7 @@ class BankAccount extends Entity {
     }
 
     /**
-     * @return {string}|null
+     * @return {string|null}
      */
     getBic() {
         return this.get('bic');
@@ -64,7 +64,7 @@ class BankAccount extends Entity {
     }
 
     /**
-     * @return {string}|null
+     * @return {string|null}
      */
     getBankCode() {
         return this.get('bank_code');
@@ -78,7 +78,7 @@ class BankAccount extends Entity {
     }
 
     /**
-     * @return {Address}|null
+     * @return {Address|null}
      */
     getBankAddress() {
         if (this.get('bank_address') == null) {
@@ -95,7 +95,7 @@ class BankAccount extends Entity {
     }
 
     /**
-     * @return {string}|null
+     * @return {string|null}
      */
     getBankTitle() {
         return this.get('bank_title');
@@ -109,7 +109,7 @@ class BankAccount extends Entity {
     }
 
     /**
-     * @return {CorrespondentBank}|null
+     * @return {CorrespondentBank|null}
      */
     getCorrespondentBank() {
         if (this.get('correspondent_bank') == null) {

@@ -85,9 +85,18 @@ class DefinitionValidator
         }
 
         if (
-            !in_array($type, PropertyDefinition::getSimpleTypes(), true)
+            !in_array(
+                $type,
+                array_merge(
+                    PropertyDefinition::getSimpleTypes(),
+                    [
+                        PropertyDefinition::TYPE_FILE,
+                        PropertyDefinition::TYPE_REFERENCE,
+                    ]
+                ),
+                true
+            )
             && $api->getType($type) === null
-            && $type !== PropertyDefinition::TYPE_REFERENCE
             && !in_array($type, DateTimeTypeDefinition::$supportedTypes, true)
         ) {
             if (!is_string($type)) {

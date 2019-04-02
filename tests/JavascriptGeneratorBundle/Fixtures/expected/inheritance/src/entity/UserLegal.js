@@ -34,7 +34,7 @@ class UserLegal extends User {
     }
 
     /**
-     * @return {string}|null
+     * @return {string|null}
      */
     getVatCode() {
         return this.get('vat_code');

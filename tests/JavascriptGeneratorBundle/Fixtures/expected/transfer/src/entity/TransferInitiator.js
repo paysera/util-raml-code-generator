@@ -6,7 +6,7 @@ class TransferInitiator extends Entity {
     }
 
     /**
-     * @return {string}|null
+     * @return {string|null}
      */
     getUserId() {
         return this.get('user_id');
@@ -20,7 +20,7 @@ class TransferInitiator extends Entity {
     }
 
     /**
-     * @return {string}|null
+     * @return {string|null}
      */
     getClientId() {
         return this.get('client_id');

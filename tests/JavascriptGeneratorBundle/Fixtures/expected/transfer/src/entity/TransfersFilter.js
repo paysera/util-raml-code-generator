@@ -3,7 +3,7 @@ import { Entity } from '@paysera/http-client-common';
 
 class TransfersFilter extends Entity {
     /**
-     * @return {DateTime}|null
+     * @return {DateTime|null}
      */
     getCreatedDateFrom() {
         if (this.get('created_date_from') == null) {
@@ -20,7 +20,7 @@ class TransfersFilter extends Entity {
     }
 
     /**
-     * @return {DateTime}|null
+     * @return {DateTime|null}
      */
     getCreatedDateTo() {
         if (this.get('created_date_to') == null) {
@@ -37,7 +37,7 @@ class TransfersFilter extends Entity {
     }
 
     /**
-     * @return {string}|null
+     * @return {string|null}
      */
     getCreditAccountNumber() {
         return this.get('credit_account_number');
@@ -51,7 +51,7 @@ class TransfersFilter extends Entity {
     }
 
     /**
-     * @return {string}|null
+     * @return {string|null}
      */
     getDebitAccountNumber() {
         return this.get('debit_account_number');
@@ -65,7 +65,7 @@ class TransfersFilter extends Entity {
     }
 
     /**
-     * @return {string}|null
+     * @return {string|null}
      */
     getStatuses() {
         return this.get('statuses');

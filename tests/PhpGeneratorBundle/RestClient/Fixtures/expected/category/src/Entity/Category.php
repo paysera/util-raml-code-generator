@@ -31,6 +31,45 @@ class Category extends Entity
         return $this;
     }
     /**
+     * @return string
+     */
+    public function getPhoto()
+    {
+        return base64_decode($this->get('photo'));
+    }
+    /**
+     * @param string $photo
+     * @return $this
+     */
+    public function setPhoto($photo)
+    {
+        $this->set('photo', base64_encode($photo));
+        return $this;
+    }
+    /**
+     * @return string|null
+     */
+    public function getAvatar()
+    {
+        if ($this->get('avatar') === null) {
+            return null;
+        }
+        return base64_decode($this->get('avatar'));
+    }
+    /**
+     * @param string $avatar
+     * @return $this
+     */
+    public function setAvatar($avatar)
+    {
+        if ($avatar === null) {
+            $this->set('avatar', null);
+            return $this;
+        }
+        $this->set('avatar', base64_encode($avatar));
+        return $this;
+    }
+    /**
      * @return string|null
      */
     public function getParentId()

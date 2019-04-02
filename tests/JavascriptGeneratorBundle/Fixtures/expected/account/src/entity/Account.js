@@ -106,7 +106,7 @@ class Account extends Entity {
     }
 
     /**
-     * @return {boolean}|null
+     * @return {boolean|null}
      */
     isPublic() {
         return this.get('public');

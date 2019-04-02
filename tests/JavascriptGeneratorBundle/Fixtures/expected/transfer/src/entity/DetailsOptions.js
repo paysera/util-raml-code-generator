@@ -6,7 +6,7 @@ class DetailsOptions extends Entity {
     }
 
     /**
-     * @return {boolean}|null
+     * @return {boolean|null}
      */
     isPreserve() {
         return this.get('preserve');

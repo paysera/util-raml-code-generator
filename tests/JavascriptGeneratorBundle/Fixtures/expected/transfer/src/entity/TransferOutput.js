@@ -67,7 +67,7 @@ class TransferOutput extends TransferInput {
     }
 
     /**
-     * @return {DateTime}|null
+     * @return {DateTime|null}
      */
     getPerformedAt() {
         if (this.get('performed_at') == null) {
@@ -84,7 +84,7 @@ class TransferOutput extends TransferInput {
     }
 
     /**
-     * @return {TransferFailureStatus}|null
+     * @return {TransferFailureStatus|null}
      */
     getFailureStatus() {
         if (this.get('failure_status') == null) {
@@ -101,7 +101,7 @@ class TransferOutput extends TransferInput {
     }
 
     /**
-     * @return {Money}|null
+     * @return {Money|null}
      */
     getOutCommission() {
         if (this.get('out_commission')['amount'] === null || this.get('out_commission')['currency'] === null) {
@@ -118,7 +118,7 @@ class TransferOutput extends TransferInput {
     }
 
     /**
-     * @return {TransferAdditionalData}|null
+     * @return {TransferAdditionalData|null}
      */
     getAdditionalInformation() {
         if (this.get('additional_information') == null) {

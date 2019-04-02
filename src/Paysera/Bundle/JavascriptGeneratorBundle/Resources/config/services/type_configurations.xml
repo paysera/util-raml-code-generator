@@ -82,6 +82,27 @@
                 <argument type="service">
                     <service class="Paysera\Bundle\CodeGeneratorBundle\Entity\TypeConfiguration">
                         <call method="setMatchRegex">
+                            <argument type="string">^file$</argument>
+                        </call>
+                        <call method="setGetterTemplate">
+                            <argument type="string">@PayseraJavascriptGenerator/Package/Src/Entity/Method/Body/File/getter.js.twig</argument>
+                        </call>
+                        <call method="setSetterTemplate">
+                            <argument type="string">@PayseraJavascriptGenerator/Package/Src/Entity/Method/Body/File/setter.js.twig</argument>
+                        </call>
+                        <call method="setArgumentTypeTemplate">
+                            <argument type="string">@PayseraJavascriptGenerator/Package/Src/Entity/Method/Body/File/argument_type.js.twig</argument>
+                        </call>
+                        <call method="setReturnTypeTemplate">
+                            <argument type="string">@PayseraJavascriptGenerator/Package/Src/Entity/Method/Body/File/return_type.js.twig</argument>
+                        </call>
+                    </service>
+                </argument>
+            </call>
+            <call method="addTypeConfiguration">
+                <argument type="service">
+                    <service class="Paysera\Bundle\CodeGeneratorBundle\Entity\TypeConfiguration">
+                        <call method="setMatchRegex">
                             <argument type="string">^(?:date|time|datetime)(?:-only)*$</argument>
                         </call>
                         <call method="setImportString">

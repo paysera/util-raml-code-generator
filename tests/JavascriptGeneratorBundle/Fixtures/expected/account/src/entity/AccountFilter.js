@@ -2,7 +2,7 @@ import { Filter } from '@paysera/http-client-common';
 
 class AccountFilter extends Filter {
     /**
-     * @return {string}|null
+     * @return {string|null}
      */
     getType() {
         return this.get('type');
@@ -16,7 +16,7 @@ class AccountFilter extends Filter {
     }
 
     /**
-     * @return {Number}|null
+     * @return {Number|null}
      */
     getAdministeredByUserId() {
         return this.get('administered_by_user_id');
@@ -30,7 +30,7 @@ class AccountFilter extends Filter {
     }
 
     /**
-     * @return {Number}|null
+     * @return {Number|null}
      */
     getOwnedByUserId() {
         return this.get('owned_by_user_id');
@@ -44,7 +44,7 @@ class AccountFilter extends Filter {
     }
 
     /**
-     * @return {boolean}|null
+     * @return {boolean|null}
      */
     isClosed() {
         return this.get('closed');
@@ -58,7 +58,7 @@ class AccountFilter extends Filter {
     }
 
     /**
-     * @return {Number}|null
+     * @return {Number|null}
      */
     getReadableByClientId() {
         return this.get('readable_by_client_id');
@@ -72,7 +72,7 @@ class AccountFilter extends Filter {
     }
 
     /**
-     * @return {boolean}|null
+     * @return {boolean|null}
      */
     isActive() {
         return this.get('active');

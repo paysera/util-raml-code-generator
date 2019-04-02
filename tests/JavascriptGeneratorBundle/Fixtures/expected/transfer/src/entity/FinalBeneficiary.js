@@ -7,7 +7,7 @@ class FinalBeneficiary extends Entity {
     }
 
     /**
-     * @return {string}|null
+     * @return {string|null}
      */
     getName() {
         return this.get('name');
@@ -21,7 +21,7 @@ class FinalBeneficiary extends Entity {
     }
 
     /**
-     * @return {Identifiers}|null
+     * @return {Identifiers|null}
      */
     getIdentifiers() {
         if (this.get('identifiers') == null) {
@@ -38,7 +38,7 @@ class FinalBeneficiary extends Entity {
     }
 
     /**
-     * @return {string}|null
+     * @return {string|null}
      */
     getPersonType() {
         return this.get('person_type');

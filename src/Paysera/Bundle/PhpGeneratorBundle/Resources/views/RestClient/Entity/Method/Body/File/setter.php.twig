@@ -1,0 +1,15 @@
+    /**
+     * @param {% include get_method_argument_type_template(property) with { 'property': property } only %}
+     * @return $this
+     */
+    public function {{ php_generate_setter_name(property) }}({% include get_method_argument_typehint_template(property) with { 'property': property } only %})
+    {
+    {% if property.required == false %}
+    if (${{ property.name|to_variable_name }} === null) {
+            $this->set('{{ property.name }}', null);
+            return $this;
+        }
+    {% endif %}
+    $this->set('{{ property.name }}', base64_encode(${{ property.name|to_variable_name }}));
+        return $this;
+    }

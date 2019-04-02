@@ -2,7 +2,7 @@ import { Entity } from '@paysera/http-client-common';
 
 class UserNaturalFilter extends Entity {
     /**
-     * @return {string}|null
+     * @return {string|null}
      */
     getFirstName() {
         return this.get('first_name');
@@ -16,7 +16,7 @@ class UserNaturalFilter extends Entity {
     }
 
     /**
-     * @return {string}|null
+     * @return {string|null}
      */
     getLastName() {
         return this.get('last_name');

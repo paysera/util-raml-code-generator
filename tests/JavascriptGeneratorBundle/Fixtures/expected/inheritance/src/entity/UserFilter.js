@@ -2,7 +2,7 @@ import { Filter } from '@paysera/http-client-common';
 
 class UserFilter extends Filter {
     /**
-     * @return {Number}|null
+     * @return {Number|null}
      */
     getUserId() {
         return this.get('user_id');
@@ -16,7 +16,7 @@ class UserFilter extends Filter {
     }
 
     /**
-     * @return {string}|null
+     * @return {string|null}
      */
     getUserType() {
         return this.get('user_type');

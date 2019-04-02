@@ -6,7 +6,7 @@ class Category extends Entity {
     }
 
     /**
-     * @return {string}|null
+     * @return {string|null}
      */
     getId() {
         return this.get('id');
@@ -20,7 +20,42 @@ class Category extends Entity {
     }
 
     /**
-     * @return {string}|null
+     * @return {string}
+     */
+    getPhoto() {
+        return atob(this.get('photo'));
+    }
+
+    /**
+     * @param {string} photo
+     */
+    setPhoto(photo) {
+        this.set('photo', btoa(photo));
+    }
+
+    /**
+     * @return {string|null}
+     */
+    getAvatar() {
+        if (this.get('avatar') === null) {
+            return null;
+        }
+        return atob(this.get('avatar'));
+    }
+
+    /**
+     * @param {string} avatar
+     */
+    setAvatar(avatar) {
+        if (avatar === null) {
+            this.set('avatar', null);
+            return;
+        }
+        this.set('avatar', btoa(avatar));
+    }
+
+    /**
+     * @return {string|null}
      */
     getParentId() {
         return this.get('parent_id');
@@ -48,7 +83,7 @@ class Category extends Entity {
     }
 
     /**
-     * @return {string}|null
+     * @return {string|null}
      */
     getStatus() {
         return this.get('status');

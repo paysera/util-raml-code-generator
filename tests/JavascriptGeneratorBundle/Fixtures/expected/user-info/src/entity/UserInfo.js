@@ -7,7 +7,7 @@ class UserInfo extends Entity {
     }
 
     /**
-     * @return {string}|null
+     * @return {string|null}
      */
     getId() {
         return this.get('id');
@@ -49,7 +49,7 @@ class UserInfo extends Entity {
     }
 
     /**
-     * @return {DateTime}|null
+     * @return {DateTime|null}
      */
     getCreatedDatetime() {
         if (this.get('created_datetime') == null) {
@@ -66,7 +66,7 @@ class UserInfo extends Entity {
     }
 
     /**
-     * @return {DateTime}|null
+     * @return {DateTime|null}
      */
     getCreatedDateOnly() {
         if (this.get('created_date_only') == null) {
@@ -83,7 +83,7 @@ class UserInfo extends Entity {
     }
 
     /**
-     * @return {DateTime}|null
+     * @return {DateTime|null}
      */
     getCreatedTimeOnly() {
         if (this.get('created_time_only') == null) {
@@ -100,7 +100,7 @@ class UserInfo extends Entity {
     }
 
     /**
-     * @return {DateTime}|null
+     * @return {DateTime|null}
      */
     getCreatedDatetimeOnly() {
         if (this.get('created_datetime_only') == null) {

@@ -13,6 +13,7 @@ class PropertyDefinition
     const TYPE_ARRAY = 'array';
     const TYPE_NUMBER = 'number';
     const TYPE_REFERENCE = 'reference';
+    const TYPE_FILE = 'file';
 
     protected static $simpleTypes = [
         self::TYPE_INTEGER,

@@ -7,7 +7,7 @@ class TransferNotifications extends Entity {
     }
 
     /**
-     * @return {TransferNotifcation}|null
+     * @return {TransferNotifcation|null}
      */
     getDone() {
         if (this.get('done') == null) {

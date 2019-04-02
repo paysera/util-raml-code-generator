@@ -7,7 +7,7 @@ class TransfersBatch extends Entity {
     }
 
     /**
-     * @return {Array.<string>}|null
+     * @return {Array.<string>|null}
      */
     getRevokedTransfers() {
         return this.get('revoked_transfers');
@@ -21,7 +21,7 @@ class TransfersBatch extends Entity {
     }
 
     /**
-     * @return {Array.<string>}|null
+     * @return {Array.<string>|null}
      */
     getReservedTransfers() {
         return this.get('reserved_transfers');

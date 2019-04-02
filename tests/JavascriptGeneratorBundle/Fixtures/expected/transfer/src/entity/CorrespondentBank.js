@@ -6,7 +6,7 @@ class CorrespondentBank extends Entity {
     }
 
     /**
-     * @return {string}|null
+     * @return {string|null}
      */
     getBankTitle() {
         return this.get('bank_title');
@@ -20,7 +20,7 @@ class CorrespondentBank extends Entity {
     }
 
     /**
-     * @return {string}|null
+     * @return {string|null}
      */
     getAccountNumber() {
         return this.get('account_number');
@@ -34,7 +34,7 @@ class CorrespondentBank extends Entity {
     }
 
     /**
-     * @return {string}|null
+     * @return {string|null}
      */
     getBankCode() {
         return this.get('bank_code');

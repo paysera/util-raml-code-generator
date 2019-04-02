@@ -6,7 +6,7 @@ class User extends Entity {
     }
 
     /**
-     * @return {string}|null
+     * @return {string|null}
      */
     getId() {
         return this.get('id');

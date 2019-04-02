@@ -6,7 +6,7 @@ class TransferPassword34 extends Entity {
     }
 
     /**
-     * @return {string}|null
+     * @return {string|null}
      */
     getStatus() {
         return this.get('status');
