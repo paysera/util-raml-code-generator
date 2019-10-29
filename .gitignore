@@ -29,3 +29,4 @@ bin/
 !bin/publish-release
 box.phar
 raml-code-generator.phar
+package-lock.json

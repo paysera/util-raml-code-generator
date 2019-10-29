@@ -1,0 +1,16 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="vendor_issued_payment_card_api.controller.card_issue_price_api"
+                 class="Vendor\Test\IssuedPaymentCardApiBundle\Controller\CardIssuePriceApiController">
+            <argument type="service" id="vendor_issued_payment_card_api.card_issue_price_manager"/>
+            <argument type="service" id="paysera_security.service.authorization_checker"/>
+            <argument type="service" id="doctrine.orm.entity_manager"/>
+        </service>
+        
+    </services>
+</container>

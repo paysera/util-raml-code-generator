@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="vendor_issued_payment_card_api.api.card_issue_price"
+                 class="Paysera\Bundle\RestBundle\RestApi">
+            <tag name="paysera_rest.api" api_key="vendor_issued_payment_card_api.card_issue_price"/>
+            <argument type="service" id="service_container"/>
+            <argument type="service" id="logger"/>
+                                            
+
+            <call method="addResponseMapper">
+                <argument>vendor_issued_payment_card_api.normalizer.card_issue_price</argument>
+                <argument>vendor_issued_payment_card_api.controller.card_issue_price_api:getCardIssuePrice</argument>
+            </call>
+            
+        </service>
+        
+    </services>
+</container>

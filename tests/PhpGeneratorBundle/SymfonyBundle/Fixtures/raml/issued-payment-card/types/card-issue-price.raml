@@ -1,0 +1,16 @@
+#%RAML 1.0 DataType
+description: Card Issue Price
+properties:
+  price:
+    type: Paysera.Money
+    required: true
+    description: Price
+  country:
+    type: string
+    required: true
+    minLength: 2
+    maxLength: 2
+    description: Two letters lower-case country code
+  client_type:
+    type: string
+    required: true
