@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+    <entity repository-class="Vendor\Test\IssuedPaymentCardApiBundle\Repository\CardIssuePriceRepository"
+            name="Vendor\Test\IssuedPaymentCardApiBundle\Entity\CardIssuePrice" table="issued_payment_card_api_card_issue_prices">
+
+        <id name="id" type="integer" column="id">
+            <generator strategy="IDENTITY"/>
+        </id>
+        <field name="priceAmount" column="price_amount" nullable="false" type="decimal" precision="16" scale="6"/>
+        <field name="priceCurrency" column="price_currency" nullable="false" type="string"/>
+        <field name="country" column="country" nullable="false" type="string"/>
+        <field name="clientType" column="client_type" nullable="false" type="string"/>
+        
+    </entity>
+</doctrine-mapping>

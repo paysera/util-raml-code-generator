@@ -1,0 +1,35 @@
+#%RAML 1.0
+title: Public card
+version: 1.0
+baseUri: https://accounts.paysera.com/public/issued-payment-card/v1
+
+uses:
+  Paysera: https://raw.githubusercontent.com/paysera/lib-raml-common/master/rest.raml
+
+types:
+  CardIssuePrice: !include types/card-issue-price.raml
+
+/card-issue-price:
+  /{country}/{clientType}/{cardOwnerId}:
+    uriParameters:
+      country:
+        displayName: Country code
+        type: string
+        required: true
+        minLength: 2
+        maxLength: 2
+      clientType:
+        required: true
+        type: string
+      cardOwnerId:
+        type: string
+        required: false
+        description: Card owner user id
+    get:
+      description: Price by payer country, client type and card owner id
+      responses:
+        200:
+          body:
+            application/json:
+              type: CardIssuePrice
+              example: !include examples/card-issue-price.json

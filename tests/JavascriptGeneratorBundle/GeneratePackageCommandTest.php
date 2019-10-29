@@ -78,6 +78,7 @@ class GeneratePackageCommandTest extends KernelTestCase
             ['category'],
             ['account'],
             ['questionnaire'],
+            ['issued-payment-card'],
         ];
     }
 

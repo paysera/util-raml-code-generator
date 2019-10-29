@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<routes xmlns="http://symfony.com/schema/routing"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
+
+    <route id="vendor_issued_payment_card_api.get_card_issue_price" methods="GET" path="/card-issue-price/{country}/{clientType}/{cardOwnerId}">
+        <default key="_controller">vendor_issued_payment_card_api.controller.card_issue_price_api:getCardIssuePrice</default>
+        <default key="api_key">vendor_issued_payment_card_api.card_issue_price</default>
+        <option key="expose">true</option>
+    </route>
+</routes>

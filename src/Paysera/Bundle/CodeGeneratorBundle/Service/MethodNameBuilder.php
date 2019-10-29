@@ -122,7 +122,9 @@ class MethodNameBuilder
         $parts = [];
         $part = $nameParts;
         do {
-            $parts[] = ucfirst(StringHelper::singular($part->getPartName()));
+            if ($part->getPartName() !== '' && substr($part->getPartName(), 0 ,1) !== '{') {
+                $parts[] = ucfirst(StringHelper::singular($part->getPartName()));
+            }
             $part = $part->getSubName();
         } while ($part !== null);
 
@@ -160,7 +162,7 @@ class MethodNameBuilder
         $namePart = null;
         $uri = '/' . ltrim($uri, '/');
 
-        if (preg_match('#^/([\w-]+)/*(\{[\w-]+\})*#', $uri, $matches) === 1) {
+        if (preg_match('#^/(\{?[\w-]+\}?)/*(\{[\w-]+\})*#', $uri, $matches) === 1) {
             $namePart = new UriNameParts();
             $namePart
                 ->setPartName($matches[1])
