@@ -48,7 +48,7 @@
     "require-dev": {
         "doctrine/common": "^2.7",
         "doctrine/orm": "^2.5",
-        "evp/money": "^1.0",
+        "evp/money": "^2.2",
         "knplabs/github-api": "^2.8",
         "lcobucci/jwt": "^3.2",
         "paysera/lib-rest-bundle": "^4.0",
