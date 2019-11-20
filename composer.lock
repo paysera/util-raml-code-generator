@@ -3167,16 +3167,16 @@
         },
         {
             "name": "paysera/lib-serializer",
-            "version": "2.0.2",
+            "version": "2.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/paysera/lib-serializer.git",
-                "reference": "390e16a247a0ae6d92059e885f90a171723635fa"
+                "reference": "04d262960a8ef00dcdad13e4952bb44e79d23c78"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/paysera/lib-serializer/zipball/390e16a247a0ae6d92059e885f90a171723635fa",
-                "reference": "390e16a247a0ae6d92059e885f90a171723635fa",
+                "url": "https://api.github.com/repos/paysera/lib-serializer/zipball/04d262960a8ef00dcdad13e4952bb44e79d23c78",
+                "reference": "04d262960a8ef00dcdad13e4952bb44e79d23c78",
                 "shasum": ""
             },
             "require": {
@@ -3195,7 +3195,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "description": "Library can (de)serialize various data types",
-            "time": "2018-04-04T16:10:26+00:00"
+            "time": "2018-11-07T09:36:37+00:00"
         },
         {
             "name": "phar-io/manifest",
