@@ -1086,25 +1086,27 @@
         },
         {
             "name": "paysera/lib-dependency-injection",
-            "version": "1.0.0",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/paysera/lib-dependency-injection.git",
-                "reference": "f7401b5de5be1e3a0e3c23ce167165642213d8b2"
+                "reference": "6aa4164ea31547010c795c58720d5d57df1c930f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/paysera/lib-dependency-injection/zipball/f7401b5de5be1e3a0e3c23ce167165642213d8b2",
-                "reference": "f7401b5de5be1e3a0e3c23ce167165642213d8b2",
+                "url": "https://api.github.com/repos/paysera/lib-dependency-injection/zipball/6aa4164ea31547010c795c58720d5d57df1c930f",
+                "reference": "6aa4164ea31547010c795c58720d5d57df1c930f",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.3",
-                "symfony/config": "2.*|3.*",
-                "symfony/dependency-injection": "2.*|3.*"
+                "php": ">=7.0",
+                "symfony/config": "^2.3|^3.0|^4.0",
+                "symfony/dependency-injection": "^2.3|^3.0|^4.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "^4.7"
+                "friendsofphp/php-cs-fixer": "2.11.1",
+                "paysera/lib-php-cs-fixer-config": "^2.0.0",
+                "phpunit/phpunit": "^6.5"
             },
             "type": "library",
             "autoload": {
@@ -1113,8 +1115,23 @@
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
-            "description": "Adds helper classes to Symfony DependencyInjection component",
-            "time": "2017-01-09T11:48:02+00:00"
+            "license": [
+                "MIT"
+            ],
+            "description": "Helper classes for Symfony Dependency Injection component",
+            "keywords": [
+                "compiler",
+                "compilerpass",
+                "dependencyinjection",
+                "di",
+                "dic",
+                "pass",
+                "priority",
+                "services",
+                "tag",
+                "tags"
+            ],
+            "time": "2019-02-26T01:27:08+00:00"
         },
         {
             "name": "psr/cache",
