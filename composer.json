@@ -57,7 +57,7 @@
         "php-http/guzzle6-adapter": "^1.1",
         "phpunit/phpunit": "^6.5",
         "sensio/generator-bundle": "^3.0",
-        "symfony/phpunit-bridge": "^3.0"
+        "symfony/phpunit-bridge": "^4.3"
     },
     "scripts": {
         "symfony-scripts": [
