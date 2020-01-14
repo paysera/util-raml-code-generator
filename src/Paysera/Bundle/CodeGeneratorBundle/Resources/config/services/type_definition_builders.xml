@@ -21,6 +21,12 @@
             <tag name="paysera_code_generator.type_definition_builder" position="30"/>
         </service>
 
+        <service id="paysera_code_generator.type_definition_builder.file"
+                 class="Paysera\Bundle\CodeGeneratorBundle\Service\TypeDefinitionBuilder\FileTypeDefinitionBuilder">
+            <argument type="service" id="paysera_code_generator.property_definition_builder"/>
+            <tag name="paysera_code_generator.type_definition_builder" position="40"/>
+        </service>
+
         <service id="paysera_code_generator.type_definition_builder.date_time"
                  class="Paysera\Bundle\CodeGeneratorBundle\Service\TypeDefinitionBuilder\DateTimeTypeBuilder">
         </service>

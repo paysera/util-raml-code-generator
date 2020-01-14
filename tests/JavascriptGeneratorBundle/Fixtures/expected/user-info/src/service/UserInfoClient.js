@@ -2,6 +2,7 @@ import { createRequest, ClientWrapper } from '@paysera/http-client-common';
 
 import Legal from '../entity/Legal';
 import Natural from '../entity/Natural';
+import { File } from '@paysera/http-client-common';
 import UserInfo from '../entity/UserInfo';
 
 class UserInfoClient {
@@ -48,6 +49,25 @@ class UserInfoClient {
         return this.client
             .performRequest(request)
             .then(data => null);
+    }
+
+    /**
+     * Get user avatar by it's id
+     * GET /users/{id}/avatar
+     *
+     * @param {string} id
+     * @return {Promise.<File>}
+     */
+    getUserAvatar(id) {
+        const request = createRequest(
+            'GET',
+            `users/${encodeURIComponent(id)}/avatar`,
+            null,
+        );
+
+        return this.client
+            .performRequest(request)
+            .then(data => new File(data));
     }
 
     /**

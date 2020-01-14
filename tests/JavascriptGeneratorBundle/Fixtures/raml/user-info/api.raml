@@ -10,6 +10,9 @@ types:
   Legal: !include types/legal.raml
   Natural: !include types/natural.raml
 
+uses:
+  Paysera: ../__library/rest.raml
+
 /users:
   /legal:
     post:
@@ -28,7 +31,14 @@ types:
       id:
         required: true
         type: string
-
+    /avatar:
+      get:
+        description: Get user avatar by it's id
+        responses:
+          200:
+            body:
+              application/octet-stream:
+                type: Paysera.File
     /information:
       get:
         description: Get user by it's id

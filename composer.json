@@ -66,23 +66,14 @@
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile"
         ],
-        "build": [
-            "php -dphar.readonly=0 box.phar build"
-        ],
-        "install-box": [
-            "curl -LSs https://box-project.github.io/box2/installer.php | php"
-        ],
         "release": [
             "bin/publish-release"
         ],
-
         "post-install-cmd": [
-            "@symfony-scripts",
-            "@install-box"
+            "@symfony-scripts"
         ],
         "post-update-cmd": [
-            "@symfony-scripts",
-            "@install-box"
+            "@symfony-scripts"
         ]
     },
     "config": {
@@ -107,8 +98,5 @@
             }
         ],
         "branch-alias": null
-    },
-    "bin": [
-        "raml-code-generator.phar"
-    ]
+    }
 }

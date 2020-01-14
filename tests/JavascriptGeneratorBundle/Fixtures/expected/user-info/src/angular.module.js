@@ -3,6 +3,7 @@ import { TokenProvider, Scope } from '@paysera/http-client-common';
 
 import Legal from './entity/Legal';
 import Natural from './entity/Natural';
+import { File } from '@paysera/http-client-common';
 import UserInfo from './entity/UserInfo';
 import { DateTime } from 'luxon';
 import { Entity } from '@paysera/http-client-common';
@@ -13,6 +14,7 @@ import UserInfoClient from './service/UserInfoClient';
 export {
     Legal,
     Natural,
+    File,
     UserInfo,
     DateTime,
     Entity,
@@ -46,6 +48,10 @@ class AngularClientFactory {
         const createNaturalUserOriginal = client.createNaturalUser.bind(client);
         client.createNaturalUser = (...args) => (
             this.$q.when(createNaturalUserOriginal(...args))
+        );
+        const getUserAvatarOriginal = client.getUserAvatar.bind(client);
+        client.getUserAvatar = (...args) => (
+            this.$q.when(getUserAvatarOriginal(...args))
         );
         const getUserInformationOriginal = client.getUserInformation.bind(client);
         client.getUserInformation = (...args) => (

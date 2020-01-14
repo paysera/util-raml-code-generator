@@ -12,7 +12,7 @@
     "license": "ISC",
     "dependencies": {
         "@paysera/money": "^1.0",
-        "@paysera/http-client-common": "^2.3",
+        "@paysera/http-client-common": "^2.6",
         "angular": "1.4.9"
     },
     "devDependencies": {

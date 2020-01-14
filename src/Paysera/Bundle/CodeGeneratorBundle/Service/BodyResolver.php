@@ -7,6 +7,7 @@ use Fig\Http\Message\StatusCodeInterface;
 use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\ApiDefinition;
 use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\ResultTypeDefinition;
 use Raml\Body;
+use Raml\BodyInterface;
 use Raml\Method;
 use Raml\Types\ArrayType;
 use Raml\Types\StringType;
@@ -15,6 +16,7 @@ class BodyResolver
 {
     const BODY_JSON = 'application/json';
     const BODY_JAVASCRIPT = 'application/javascript';
+    const BODY_OCTET_STREAM = 'application/octet-stream';
 
     /**
      * @param Method $method
@@ -32,8 +34,8 @@ class BodyResolver
 
     /**
      * @param Method $method
-     * @return null|Body
-     * @throws \Exception
+     * @return null|BodyInterface
+     * @throws Exception
      */
     public function getResponseBody(Method $method)
     {
@@ -44,21 +46,28 @@ class BodyResolver
         }
 
         try {
-            $body = $okResponse->getBodyByType(self::BODY_JSON);
-        } catch (Exception $exception) {
-            /** @var Body $body */
+            return $okResponse->getBodyByType(self::BODY_JSON);
+        } catch (Exception $exception) {}
+
+        try {
             $body = $okResponse->getBodyByType(self::BODY_JAVASCRIPT);
             $body->setType(new StringType('string'));
-        }
 
-        return $body;
+            return $body;
+        } catch (Exception $exception) {}
+
+        try {
+            return $okResponse->getBodyByType(self::BODY_OCTET_STREAM);
+        } catch (Exception $exception) {}
+
+        throw new Exception('No body found');
     }
 
     public function isRawResponse(Method $method)
     {
         $body = $this->getResponseBody($method);
         if ($body !== null) {
-            return $body->getMediaType() !== self::BODY_JSON;
+            return $body->getMediaType() !== self::BODY_JSON && $body->getMediaType() !== self::BODY_OCTET_STREAM;
         }
 
         return false;
