@@ -55,26 +55,6 @@ class ReleasePublisher
         return $reposApi->releases()->create($this->owner, $this->repository, $payload);
     }
 
-    /**
-     * @param string $releaseId
-     * @param string $filepath
-     * @return array
-     */
-    public function addZipFile($releaseId, $filepath)
-    {
-        /** @var \Github\Api\Repo $reposApi */
-        $reposApi = $this->buildClient()->api('repos');
-
-        return $reposApi->releases()->assets()->create(
-            $this->owner,
-            $this->repository,
-            $releaseId,
-            basename($filepath),
-            'application/zip',
-            file_get_contents($filepath)
-        );
-    }
-
     private function buildClient()
     {
         if ($this->client === null) {
@@ -103,5 +83,4 @@ class ReleasePublisher
 
 
 $publisher = new ReleasePublisher();
-$releaseData = $publisher->publishRelease(trim(exec('git describe --tags')));
-$publisher->addZipFile($releaseData['id'], __DIR__ . '/../raml-code-generator.phar');
+$publisher->publishRelease(trim(exec('git describe --tags')));
