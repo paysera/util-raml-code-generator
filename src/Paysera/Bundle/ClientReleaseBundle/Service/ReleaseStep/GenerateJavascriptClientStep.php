@@ -19,7 +19,7 @@ class GenerateJavascriptClientStep implements ReleaseStepInterface
         $releaseStepData->setGeneratedDir($releaseStepData->getTempDir() . '/generated');
 
         $args = [
-            './raml-code-generator',
+            'bin/console',
             'js-generator:package',
             'raml_file' => $releaseStepData->getApiConfig()->getRamlFile(),
             'output_dir' => $releaseStepData->getGeneratedDir(),
