@@ -78,6 +78,7 @@ class GenerateRestClientCommandTest extends KernelTestCase
             ['questionnaire'],
             ['returns-money'],
             ['issued-payment-card'],
+            ['custom'],
         ];
     }
 

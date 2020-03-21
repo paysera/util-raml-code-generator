@@ -36,7 +36,7 @@
         "padraic/phar-updater": "^1.0",
         "paysera/lib-changelog-parser": "^1.1.2",
         "paysera/lib-dependency-injection": "^1.0",
-        "raml-org/raml-php-parser": "^4.3",
+        "raml-org/raml-php-parser": "^4.5",
         "sebastian/diff": "^2.0",
         "sensio/distribution-bundle": "^5.0.19",
         "sensio/framework-extra-bundle": "^5.1.6",

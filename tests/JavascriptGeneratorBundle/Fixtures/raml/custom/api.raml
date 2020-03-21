@@ -1,0 +1,13 @@
+#%RAML 1.0
+title: Custom
+version: 1.0
+baseUri: https://my-api.example.com/rest/v1
+
+annotationTypes:
+    generator_method_name_override: string
+
+/something:
+  get:
+    (generator_method_name_override): customNameForMethod
+    responses:
+      204: ~

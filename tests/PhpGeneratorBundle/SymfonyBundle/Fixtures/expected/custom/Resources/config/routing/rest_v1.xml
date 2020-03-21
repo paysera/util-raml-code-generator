@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<routes xmlns="http://symfony.com/schema/routing"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
+
+    <route id="vendor_custom_api.custom_name_for_method" methods="GET" path="/something">
+        <default key="_controller">vendor_custom_api.controller.something_api:customNameForMethod</default>
+        <default key="api_key">vendor_custom_api.something</default>
+        <option key="expose">true</option>
+    </route>
+</routes>

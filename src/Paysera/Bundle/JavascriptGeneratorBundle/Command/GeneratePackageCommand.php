@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Paysera\Bundle\JavascriptGeneratorBundle\Command;
 
+use Doctrine\Common\Inflector\Inflector;
 use Paysera\Bundle\CodeGeneratorBundle\Service\CodeGenerator;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;

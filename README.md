@@ -17,6 +17,8 @@ Currently this utility can:
     1. [types/category.raml](#raml/category/types/category.raml)
     1. [types/category-result.raml](#raml/category/types/category-result.raml)
     1. [traits/category-filter.raml](#raml/category/traits/category-filter.raml)
+1. [Custom annotations](#custom-annotations)
+    1. [`(generator_method_name_override)`](#--generator-method-name-override--)
 1. [Generate and publish clients](#generate-and-publish-clients)
     1. [config.json format](#config.json-format)
 1. [Generate Javascript REST client](#generate-javascript-rest-client)
@@ -174,6 +176,30 @@ properties:
     type: array
     items:
       type: Category
+```
+
+## Custom annotations
+
+### `(generator_method_name_override)`
+
+Use this to override method name (for any generated client or bundle).
+
+For example:
+```
+#%RAML 1.0
+title: Custom
+version: 1.0
+baseUri: https://my-api.example.com/rest/v1
+
+annotationTypes:
+    generator_method_name_override: string
+
+/something:
+  get:
+    (generator_method_name_override): customNameForMethod
+    responses:
+      204: ~
+
 ```
 
 ## Generate and publish clients

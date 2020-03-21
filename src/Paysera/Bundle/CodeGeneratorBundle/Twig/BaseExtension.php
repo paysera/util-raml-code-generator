@@ -30,6 +30,8 @@ use Twig_SimpleFunction;
 
 class BaseExtension extends Twig_Extension
 {
+    const METHOD_NAME_OVERRIDE_ANNOTATION = '(generator_method_name_override)';
+
     private $methodNameBuilder;
     private $resourceTypeDetector;
     private $bodyResolver;
@@ -400,6 +402,11 @@ class BaseExtension extends Twig_Extension
      */
     public function generateMethodName(Method $method, Resource $resource, ApiDefinition $api) : string
     {
+        $methodName = $this->getPredefinedMethodName($method);
+        if ($methodName !== null) {
+            return $methodName;
+        }
+
         $name = $this->methodNameBuilder->getNamePrefix($method->getType());
         $nameParts = $this->methodNameBuilder->getNameParts($resource->getUri());
 
@@ -420,6 +427,13 @@ class BaseExtension extends Twig_Extension
             $resource->getUri(),
             $method->getType()
         ));
+    }
+
+    private function getPredefinedMethodName(Method $method)
+    {
+        $annotations = $method->getAnnotations();
+
+        return $annotations[self::METHOD_NAME_OVERRIDE_ANNOTATION] ?? null;
     }
 
     public function isRawResponse(Method $method)
