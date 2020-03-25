@@ -1,0 +1,13 @@
+{% for property in type.properties %}
+{% if property.constants|length > 0 %}
+{{ type.name }}.{{ property.name|to_plural }} = {
+{% for constant in property.constants %}
+    {{ constant.name }}: '{{ constant.value }}',
+{% endfor %}
+};
+
+{{ type.name }}.getAllAvailable{{ property.name|to_plural|capitalize }} = function () {
+    return Object.values({{ type.name }}.{{ property.name|to_plural }});
+};
+{% endif %}
+{% endfor %}
