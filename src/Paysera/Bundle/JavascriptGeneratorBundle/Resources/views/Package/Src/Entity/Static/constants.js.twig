@@ -1,0 +1,10 @@
+{% for property in type.properties %}
+{% if property.constants|length > 0 %}
+{{ type.name }}.{{ property.name|to_plural|to_camel_case }} = {
+{% for constant in property.constants %}
+    {{ constant.name }}: '{{ constant.value }}',
+{% endfor %}
+};
+
+{% endif %}
+{% endfor %}

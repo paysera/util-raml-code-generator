@@ -94,4 +94,11 @@ class TransferPurpose extends Entity {
     }
 }
 
+TransferPurpose.codes = {
+    CODE_CASH_IN: 'cash_in',
+    CODE_CASH_OUT: 'cash_out',
+    CODE_PAYMENT: 'payment',
+    CODE_APP_TRANSFER: 'app_transfer',
+};
+
 export default TransferPurpose;

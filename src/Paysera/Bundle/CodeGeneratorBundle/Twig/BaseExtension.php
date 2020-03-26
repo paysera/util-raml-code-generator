@@ -70,6 +70,7 @@ class BaseExtension extends Twig_Extension
             new Twig_SimpleFilter('extract_type_name', [$this, 'extractTypeName']),
             new Twig_SimpleFilter('to_kebab_case', [StringHelper::class, 'kebabCase']),
             new Twig_SimpleFilter('to_snake_case', [StringHelper::class, 'snakeCase']),
+            new Twig_SimpleFilter('to_camel_case', [StringHelper::class, 'camelCase']),
             new Twig_SimpleFilter('to_plural', [StringHelper::class, 'plural']),
             new Twig_SimpleFilter('to_singular', [StringHelper::class, 'singular']),
             new Twig_SimpleFilter('is_scalar_type', [$this, 'isScalarType']),

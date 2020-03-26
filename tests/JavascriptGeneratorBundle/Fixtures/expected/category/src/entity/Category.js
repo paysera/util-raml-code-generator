@@ -111,4 +111,9 @@ class Category extends Entity {
     }
 }
 
+Category.statuses = {
+    STATUS_ACTIVE: 'active',
+    STATUS_INACTIVE: 'inactive',
+};
+
 export default Category;

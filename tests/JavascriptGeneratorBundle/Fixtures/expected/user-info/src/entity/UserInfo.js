@@ -117,4 +117,9 @@ class UserInfo extends Entity {
     }
 }
 
+UserInfo.types = {
+    TYPE_LEGAL: 'legal',
+    TYPE_NATURAL: 'natural',
+};
+
 export default UserInfo;

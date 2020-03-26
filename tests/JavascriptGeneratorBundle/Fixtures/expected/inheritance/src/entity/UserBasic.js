@@ -20,4 +20,9 @@ class UserBasic extends User {
     }
 }
 
+UserBasic.types = {
+    TYPE_LEGAL: 'legal',
+    TYPE_NATURAL: 'natural',
+};
+
 export default UserBasic;

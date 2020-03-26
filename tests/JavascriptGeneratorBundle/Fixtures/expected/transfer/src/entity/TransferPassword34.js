@@ -34,4 +34,9 @@ class TransferPassword34 extends Entity {
     }
 }
 
+TransferPassword34.statuses = {
+    STATUS_PENDING: 'pending',
+    STATUS_UNLOCKED: 'unlocked',
+};
+
 export default TransferPassword34;

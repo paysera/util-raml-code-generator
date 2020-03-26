@@ -135,4 +135,19 @@ class TransferOutput extends TransferInput {
     }
 }
 
+TransferOutput.statuses = {
+    STATUS_NEW: 'new',
+    STATUS_REGISTERED: 'registered',
+    STATUS_WAITING_FUNDS: 'waiting_funds',
+    STATUS_WAITING_REGISTRATION: 'waiting_registration',
+    STATUS_WAITING_PASSWORD: 'waiting_password',
+    STATUS_RESERVED: 'reserved',
+    STATUS_FROZEN: 'frozen',
+    STATUS_PROCESSING: 'processing',
+    STATUS_DONE: 'done',
+    STATUS_REJECTED: 'rejected',
+    STATUS_REVOKED: 'revoked',
+    STATUS_FAILED: 'failed',
+};
+
 export default TransferOutput;

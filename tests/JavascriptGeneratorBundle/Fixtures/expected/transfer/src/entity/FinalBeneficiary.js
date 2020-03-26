@@ -52,4 +52,9 @@ class FinalBeneficiary extends Entity {
     }
 }
 
+FinalBeneficiary.personTypes = {
+    PERSON_TYPE_NATURAL: 'natural',
+    PERSON_TYPE_LEGAL: 'legal',
+};
+
 export default FinalBeneficiary;

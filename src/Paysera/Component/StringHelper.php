@@ -33,4 +33,9 @@ class StringHelper
         }
         return Inflector::singularize($word);
     }
+
+    public static function camelCase($string)
+    {
+        return Inflector::camelize($string);
+    }
 }
