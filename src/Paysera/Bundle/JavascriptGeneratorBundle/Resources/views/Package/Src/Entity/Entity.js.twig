@@ -16,6 +16,5 @@ class {{ type.name|extract_type_name }} extends {{ get_parent_type_config(type).
 {% endfor %}
 }
 
-{% include '@PayseraJavascriptGenerator/Package/Src/Entity/Static/Constants.js.twig' with { 'type': type } only %}
-
+{% include '@PayseraJavascriptGenerator/Package/Src/Entity/Static/constants.js.twig' with { 'type': type } only %}
 export default {{ type.name|extract_type_name }};

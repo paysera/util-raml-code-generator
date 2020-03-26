@@ -225,4 +225,14 @@ class TransferInput extends Entity {
     }
 }
 
+TransferInput.chargeTypes = {
+    CHARGE_TYPE_SHA: 'SHA',
+    CHARGE_TYPE_OUR: 'OUR',
+};
+
+TransferInput.urgencies = {
+    URGENCY_STANDARD: 'standard',
+    URGENCY_URGENT: 'urgent',
+};
+
 export default TransferInput;

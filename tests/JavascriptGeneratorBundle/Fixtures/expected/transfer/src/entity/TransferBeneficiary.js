@@ -156,4 +156,17 @@ class TransferBeneficiary extends Entity {
     }
 }
 
+TransferBeneficiary.types = {
+    TYPE_PAYSERA: 'paysera',
+    TYPE_PAYZA: 'payza',
+    TYPE_WEBMONEY: 'webmoney',
+    TYPE_TAX: 'tax',
+    TYPE_BANK: 'bank',
+};
+
+TransferBeneficiary.personTypes = {
+    PERSON_TYPE_NATURAL: 'natural',
+    PERSON_TYPE_LEGAL: 'legal',
+};
+
 export default TransferBeneficiary;
