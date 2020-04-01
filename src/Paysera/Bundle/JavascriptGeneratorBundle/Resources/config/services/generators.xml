@@ -61,14 +61,6 @@
             <tag name="paysera_js_generator" position="80"/>
         </service>
 
-        <service id="paysera_javascript_generator.generator.angular_module"
-                 class="Paysera\Bundle\JavascriptGeneratorBundle\Service\Generator\AngularModuleGenerator">
-            <argument type="service" id="templating"/>
-            <argument>%paysera_javascript_generator.relative_package_source_dir%</argument>
-            <argument>%paysera_code_generator.vendor_prefix%</argument>
-            <tag name="paysera_js_generator" position="90"/>
-        </service>
-
         <service id="paysera_javascript_generator.generator.demo"
                  class="Paysera\Bundle\JavascriptGeneratorBundle\Service\Generator\DemoGenerator">
             <argument type="service" id="templating"/>
@@ -81,6 +73,12 @@
             <argument type="service" id="templating"/>
             <argument>%paysera_code_generator.vendor_prefix%</argument>
             <tag name="paysera_js_generator" position="110"/>
+        </service>
+
+        <service id="paysera_javascript_generator.generator.index_d_ts"
+                 class="Paysera\Bundle\JavascriptGeneratorBundle\Service\Generator\IndexDTsGenerator">
+            <argument type="service" id="templating"/>
+            <tag name="paysera_js_generator" position="120"/>
         </service>
     </services>
 </container>

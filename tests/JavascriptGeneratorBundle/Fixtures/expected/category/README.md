@@ -2,7 +2,6 @@
 
 `@vendor/category-client` package provides means to interact with Vendor CategoryClient REST API.
 Package source code is written in ES6 syntax ant is transpiled to ES5 using babel.
-Additional Angular JS module `vendor.http.category-client` with `vendorHttpCategoryClientFactory` service is also provided.
 
 ## Installing
 Using npm:

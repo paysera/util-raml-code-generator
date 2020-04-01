@@ -2,7 +2,6 @@
 
 `@vendor/account-client` package provides means to interact with Vendor AccountClient REST API.
 Package source code is written in ES6 syntax ant is transpiled to ES5 using babel.
-Additional Angular JS module `vendor.http.account-client` with `vendorHttpAccountClientFactory` service is also provided.
 
 ## Installing
 Using npm:

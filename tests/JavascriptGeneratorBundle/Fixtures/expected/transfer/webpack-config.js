@@ -4,7 +4,6 @@ module.exports = (env, argv) => {
     const config = {
         entry: {
             index: path.resolve(__dirname, 'src/index.js'),
-            'ng-module': path.resolve(__dirname, 'src/angular.module.js'),
         },
         output: {
             libraryTarget: 'umd',
@@ -36,7 +35,6 @@ module.exports = (env, argv) => {
                 'amd': '@paysera/http-client-common',
             },
             'luxon': 'luxon',
-            angular: 'angular'
         }
     };
 

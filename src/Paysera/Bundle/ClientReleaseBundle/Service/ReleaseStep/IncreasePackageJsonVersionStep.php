@@ -25,14 +25,17 @@ class IncreasePackageJsonVersionStep implements ReleaseStepInterface
     public function processStep(ReleaseStepData $releaseStepData, InputInterface $input, OutputInterface $output)
     {
         $packageJson = $this->packageJsonHelper->getSourceContents($releaseStepData);
+        $generatedPackageJson = $this->packageJsonHelper->getGeneratedContents($releaseStepData);
         if ($packageJson === null) {
-            $packageJson = $this->packageJsonHelper->getGeneratedContents($releaseStepData);
+            $packageJson = $generatedPackageJson;
         }
 
         $packageJson['version'] = $this->versionManipulator->increase(
             $this->versionManipulator->resolveCurrentVersion($releaseStepData),
             $releaseStepData->getReleaseData()->getVersion()
         );
+        $packageJson['dependencies'] = $generatedPackageJson['dependencies'];
+        $packageJson['devDependencies'] = $generatedPackageJson['devDependencies'];
 
         file_put_contents(
             $releaseStepData->getGeneratedDir() . '/package.json',

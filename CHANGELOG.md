@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## 11.0.0
+### Removed
+- Removed angular-js client wrapper and `angular` as a dependency.
+### Added
+- Experimental `index.d.ts` generation for JS clients.
+### Fixed
+- `release:clients` command now overwrites dependencies
+
 ## 10.7.2
 ### Changed
 - Removed not necessary static method to get all available entity enum values.

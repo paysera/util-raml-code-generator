@@ -27,6 +27,7 @@ use Raml\Resource;
 use Twig_Extension;
 use Twig_SimpleFilter;
 use Twig_SimpleFunction;
+use Twig_SimpleTest;
 
 class BaseExtension extends Twig_Extension
 {
@@ -119,6 +120,13 @@ class BaseExtension extends Twig_Extension
         ];
     }
 
+    public function getTests()
+    {
+        return [
+            new Twig_SimpleTest('instanceof', [$this, 'isInstanceOf']),
+        ];
+    }
+
     public function getApiBaseUrlParametersWithDefaults(ApiDefinition $api)
     {
         $list = [];
@@ -129,6 +137,11 @@ class BaseExtension extends Twig_Extension
         }
 
         return $list;
+    }
+
+    public function isInstanceOf($object, $class): bool
+    {
+        return $object instanceof $class;
     }
 
     public function isScalarType(string $type)

@@ -2,7 +2,6 @@
 
 `@vendor/issued-payment-card-client` package provides means to interact with Vendor IssuedPaymentCardClient REST API.
 Package source code is written in ES6 syntax ant is transpiled to ES5 using babel.
-Additional Angular JS module `vendor.http.issued-payment-card-client` with `vendorHttpIssuedPaymentCardClientFactory` service is also provided.
 
 ## Installing
 Using npm:

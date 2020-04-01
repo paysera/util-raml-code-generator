@@ -3,6 +3,7 @@
     "version": "0.0.1",
     "description": "",
     "main": "dist/index.js",
+    "types": "index.d.ts",
     "scripts": {
         "lint": "eslint src/",
         "build": "webpack --mode production --config webpack-config.js",
@@ -13,8 +14,7 @@
     "dependencies": {
         "@paysera/money": "^1.0",
         "@paysera/http-client-common": "^2.6",
-        "luxon": "^1.0",
-        "angular": "1.4.9"
+        "luxon": "^1.0"
     },
     "devDependencies": {
         "@paysera/eslint-config": "0.0.1",

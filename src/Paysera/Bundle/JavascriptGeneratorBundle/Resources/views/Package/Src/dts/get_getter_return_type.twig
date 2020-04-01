@@ -1,0 +1,25 @@
+{% spaceless %}
+    {% if property.type == constant('TYPE_REFERENCE', property) -%}
+        {% if property is instanceof('\\Paysera\\Bundle\\CodeGeneratorBundle\\Entity\\Definition\\DateTimePropertyDefinition') %}
+            {% set returnType = 'string' %}
+        {% else %}
+            {% set returnType = property.reference %}
+        {% endif %}
+    {% elseif property.type == constant('TYPE_INTEGER', property) %}
+        {% set returnType = 'bigint' %}
+    {% elseif property.type == constant('TYPE_FILE', property) %}
+        {% set returnType = 'string' %}
+    {% elseif property.type == constant('TYPE_ARRAY', property) %}
+        {% set returnType = property.itemsType|extract_type_name ~ '[]' %}
+    {% else %}
+        {% set returnType = property.type %}
+    {% endif %}
+
+    {% if property.required == false %}
+        {% set returnType = (returnType|extract_type_name ~ ' | null')|raw %}
+    {% else %}
+        {% set returnType = returnType|extract_type_name|raw %}
+    {% endif %}
+
+    {{ returnType }}
+{% endspaceless %}

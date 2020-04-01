@@ -3,6 +3,7 @@
     "version": "0.0.1",
     "description": "",
     "main": "dist/index.js",
+    "types": "index.d.ts",
     "scripts": {
         "lint": "eslint src/",
         "build": "webpack --mode production --config webpack-config.js",
@@ -11,11 +12,10 @@
     "author": "{{ vendor_prefix }}",
     "license": "ISC",
     "dependencies": {
-        {% for libraryConfig in get_external_libraries(api) -%}
-        "{{ libraryConfig.name }}": "{{ libraryConfig.version }}",
-        {% endfor -%}
-        "angular": "1.4.9"
-    },
+    {% for libraryConfig in get_external_libraries(api) %}
+    "{{ libraryConfig.name }}": "{{ libraryConfig.version }}"{{ loop.last ? '' : ',' }}
+    {% endfor %}
+},
     "devDependencies": {
         "@paysera/eslint-config": "0.0.1",
         "babel-core": "^6.26.3",

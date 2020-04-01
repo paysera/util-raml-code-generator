@@ -1,0 +1,71 @@
+{% for typeConfig in get_all_used_types(api) %}
+{% if typeConfig.importString is not null %}
+import {{ typeConfig.importString|raw }};
+{% endif %}
+{% endfor %}
+
+{% for typeConfig in get_all_used_types(api) %}
+{% set type = api.type(typeConfig.typeName) %}
+{% if typeConfig.importString is null %}
+{% spaceless %}
+    {% if get_parent_type_config(type).typeName in ['Entity', 'Filter', 'Result'] %}
+        {% set extends = '' %}
+    {% else %}
+        {% set extends = 'extends ' ~ get_parent_type_config(type).typeName ~ 'Properties ' %}
+    {% endif %}
+{% endspaceless %}
+interface {{ typeConfig.typeName|extract_type_name }}Properties {{ extends }}{
+{% for property in type.properties %}
+    {{ property.name }}: {% include '@PayseraJavascriptGenerator/Package/Src/dts/get_getter_return_type.twig' with { 'property': property } only %};
+{% endfor %}
+}
+
+export interface {{ typeConfig.typeName|extract_type_name }} extends {{ get_parent_type_config(type).typeName }} {
+{% for property in type.properties %}
+    {{ js_generate_getter_name(property) }}(): {% include '@PayseraJavascriptGenerator/Package/Src/dts/get_getter_return_type.twig' with { 'property': property } only %};
+    {{ js_generate_setter_name(property) }}({% include '@PayseraJavascriptGenerator/Package/Src/dts/get_setter_argument.twig' with { 'property': property } only %}): this;
+{% endfor %}
+
+    getData(): {{ typeConfig.typeName|extract_type_name }}Properties;
+}
+
+{% endif %}
+{% endfor %}
+
+interface ClientConfigurationOptions {
+    urlParameters?: {
+        [key: string]: string,
+    },
+    [key: string]: any,
+}
+
+interface ClientConfiguration {
+    baseURL: string,
+    middleware?: object[],
+    options?: ClientConfigurationOptions
+}
+
+export function create{{ js_get_client_name(api) }}(configuration: ClientConfiguration): {{ js_get_client_name(api) }};
+
+{% import _self as macros %}
+{% macro render_methods(resource, api) %}
+{% for subResource in resource.resources %}
+{{ _self.render_methods(subResource, api) -}}
+{% endfor %}
+{% for method in resource.methods %}
+{% spaceless %}
+    {% set argumentList = generate_method_arguments(method, resource, api) %}
+    {% set arguments = [] %}
+    {% for argument in argumentList -%}
+        {% set arguments = arguments|merge([argument.name|to_variable_name ~ ': ' ~ argument.type|extract_type_name|raw]) %}
+    {% endfor -%}
+{% endspaceless %}
+    {{ generate_method_name(method, resource, api) }}({{ arguments|join(', ') }}): Promise<{{ js_get_return_type(method, api)|extract_type_name|raw }}>
+{% endfor %}
+{% endmacro -%}
+
+export interface {{ js_get_client_name(api) }} {
+{% for resource in api.ramlDefinition.resources -%}
+    {{ macros.render_methods(resource, api) -}}
+{% endfor %}
+}

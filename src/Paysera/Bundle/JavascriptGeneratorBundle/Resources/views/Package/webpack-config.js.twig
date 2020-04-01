@@ -4,7 +4,6 @@ module.exports = (env, argv) => {
     const config = {
         entry: {
             index: path.resolve(__dirname, 'src/index.js'),
-            'ng-module': path.resolve(__dirname, 'src/angular.module.js'),
         },
         output: {
             libraryTarget: 'umd',
@@ -23,18 +22,17 @@ module.exports = (env, argv) => {
         context: path.resolve(__dirname),
         target: 'web',
         externals: {
-            {% for libraryConfig in get_external_libraries(api) -%}
-            {% if libraryConfig.options.external is defined -%}
+{% for libraryConfig in get_external_libraries(api) %}
+{% if libraryConfig.options.external is defined %}
             '{{ libraryConfig.name|raw }}': {
-            {% for key, external in libraryConfig.options.external %}
-    '{{ key }}': '{{ external|raw }}',
-            {% endfor -%}
-            },
-            {% else -%}
+        {% for key, external in libraryConfig.options.external %}
+        '{{ key }}': '{{ external|raw }}',
+        {% endfor %}
+    },
+{% else %}
             '{{ libraryConfig.name|raw }}': '{{ libraryConfig.name|raw }}',
-            {% endif -%}
-            {% endfor -%}
-            angular: 'angular'
+{% endif %}
+{% endfor %}
         }
     };
 
