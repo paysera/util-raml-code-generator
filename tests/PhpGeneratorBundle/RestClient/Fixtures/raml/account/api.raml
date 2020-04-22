@@ -84,3 +84,20 @@ types:
           body:
             application/javascript:
               description: Generated JS code
+/refund:
+  /{requestId}:
+    /price:
+      get:
+        description: Gets the commissions Money for the refund of given Request
+        responses:
+          200:
+            body:
+              application/json:
+                type: Paysera.Money
+    post:
+      description: Makes the refund
+      body:
+        application/json:
+          type: Paysera.Money
+      responses:
+        204:

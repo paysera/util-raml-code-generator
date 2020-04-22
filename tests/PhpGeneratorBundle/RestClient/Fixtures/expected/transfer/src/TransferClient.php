@@ -4,6 +4,7 @@ namespace Paysera\Test\TransferClient;
 
 use Paysera\Test\TransferClient\Entity as Entities;
 use Fig\Http\Message\RequestMethodInterface;
+use Paysera\Component\RestClientCommon\Entity\Entity;
 use Paysera\Component\RestClientCommon\Client\ApiClient;
 
 class TransferClient

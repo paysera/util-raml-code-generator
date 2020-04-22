@@ -164,6 +164,9 @@
                         <call method="setResultPopulatorCode">
                             <argument>new Money($data['amount'], $data['currency']);</argument>
                         </call>
+                        <call method="setEntityConverterCode">
+                            <argument>new Entity(['amount' => $money->getAmount(), 'currency' => $money->getCurrency()])</argument>
+                        </call>
                         <call method="setApiMethodReturnType">
                             <argument>Money</argument>
                         </call>

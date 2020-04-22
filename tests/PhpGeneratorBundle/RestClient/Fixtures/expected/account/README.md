@@ -64,3 +64,30 @@ $result = $accountClient->getAccounts($accountFilter);
 ```
 ---
 
+    
+Gets the commissions Money for the refund of given Request
+
+
+```php
+
+$result = $accountClient->getRefundPrice($requestId);
+```
+---
+
+
+Makes the refund
+
+
+```php
+use Paysera\Test\AccountClient\Entity as Entities;
+
+$money = new \Evp\Component\Money\Money();
+
+$money->setAmount($amount);
+$money->setCurrency($currency);
+    
+$accountClient->createRefund($requestId, $money);
+```
+---
+
+

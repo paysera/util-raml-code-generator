@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## 11.0.1
+### Fixed
+- `php-generator:rest-client` now can correctly generate API methods, which uses plain `Money` as argument
+
 ## 11.0.0
 ### Removed
 - Removed angular-js client wrapper and `angular` as a dependency.

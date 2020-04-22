@@ -82,6 +82,11 @@ class TypeConfiguration
     /**
      * @var string
      */
+    private $entityConverterCode;
+
+    /**
+     * @var string
+     */
     private $apiMethodReturnType;
 
     /**
@@ -386,6 +391,26 @@ class TypeConfiguration
     public function setApiMethodReturnType($apiMethodReturnType)
     {
         $this->apiMethodReturnType = $apiMethodReturnType;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getEntityConverterCode()
+    {
+        return $this->entityConverterCode;
+    }
+
+    /**
+     * @param string $entityConverterCode
+     *
+     * @return $this
+     */
+    public function setEntityConverterCode($entityConverterCode)
+    {
+        $this->entityConverterCode = $entityConverterCode;
 
         return $this;
     }

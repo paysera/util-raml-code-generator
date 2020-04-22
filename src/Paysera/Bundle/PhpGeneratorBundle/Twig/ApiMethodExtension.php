@@ -57,6 +57,7 @@ class ApiMethodExtension extends Twig_Extension
             new Twig_SimpleFunction('php_generate_method_arguments', [$this, 'generateMethodArguments'], ['needs_context' => true]),
             new Twig_SimpleFunction('php_inline_argument_names', [$this, 'getInlineArgumentNames']),
             new Twig_SimpleFunction('php_get_library_name', [$this, 'getLibraryName']),
+            new Twig_SimpleFunction('php_generate_entity_converter', [$this, 'generateEntityFromArgument'], ['needs_context' => true, 'is_safe' => ['html']]),
         ];
     }
 
@@ -209,6 +210,29 @@ class ApiMethodExtension extends Twig_Extension
         }
 
         return sprintf("sprintf('%s', %s)", $replaced, implode(", ", $arguments));
+    }
+
+    public function generateEntityFromArgument(array $context, Method $method, ApiDefinition $api): string
+    {
+        $body = $this->bodyResolver->getRequestBody($method);
+
+        if ($body !== null) {
+            $bodyType = $body->getType();
+            $bodyTypeName = $bodyType->getName();
+            $configurationProvider = $this->getTypeConfigurationProvider($context);
+            if ($configurationProvider->hasTypeConfiguration($bodyTypeName)) {
+                $typeConfiguration = $configurationProvider->getTypeConfiguration($bodyTypeName);
+                if ($typeConfiguration->getEntityConverterCode() !== null) {
+                    return $typeConfiguration->getEntityConverterCode();
+                }
+            }
+        }
+
+        $generatedBody = $this->baseExtension->generateBody($method, $api);
+        if ($generatedBody === null) {
+            return 'null';
+        }
+        return sprintf('$%s', $this->baseExtension->getVariableNameByCodeType($context, $generatedBody));
     }
 
     public function generateResultPopulator(array $context, Method $method, ApiDefinition $api): string

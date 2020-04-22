@@ -4,6 +4,7 @@ namespace Paysera\Test\InheritanceClient;
 
 use Paysera\Test\InheritanceClient\Entity as Entities;
 use Fig\Http\Message\RequestMethodInterface;
+use Paysera\Component\RestClientCommon\Entity\Entity;
 use Paysera\Component\RestClientCommon\Client\ApiClient;
 
 class InheritanceClient

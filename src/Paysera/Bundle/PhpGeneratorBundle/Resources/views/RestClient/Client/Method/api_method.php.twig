@@ -14,7 +14,7 @@
         $request = $this->apiClient->createRequest(
             RequestMethodInterface::METHOD_{{ method.type }},
             {{ php_generate_uri(resource) }},
-            {{ generate_body(method, api) == null ? 'null' : '$' ~ generate_body(method, api)|to_variable_name }}
+            {{ php_generate_entity_converter(method, api) }}
         );
         {% if is_raw_response(method) -%}
         return $this->apiClient->makeRawRequest($request)->getBody()->getContents();

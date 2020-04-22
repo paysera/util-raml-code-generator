@@ -4,6 +4,7 @@ namespace Paysera\Test\CategoryClient;
 
 use Paysera\Test\CategoryClient\Entity as Entities;
 use Fig\Http\Message\RequestMethodInterface;
+use Paysera\Component\RestClientCommon\Entity\Entity;
 use Paysera\Component\RestClientCommon\Client\ApiClient;
 use Paysera\Component\RestClientCommon\Entity\Filter;
 

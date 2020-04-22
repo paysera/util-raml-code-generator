@@ -4,7 +4,9 @@ namespace Paysera\Test\AccountClient;
 
 use Paysera\Test\AccountClient\Entity as Entities;
 use Fig\Http\Message\RequestMethodInterface;
+use Paysera\Component\RestClientCommon\Entity\Entity;
 use Paysera\Component\RestClientCommon\Client\ApiClient;
+use Evp\Component\Money\Money;
 
 class AccountClient
 {
@@ -53,5 +55,44 @@ class AccountClient
         $data = $this->apiClient->makeRequest($request);
 
         return new Entities\AccountResult($data, 'accounts');
+    }
+
+    /**
+     * Gets the commissions Money for the refund of given Request
+     * GET /refund/{requestId}/price
+     *
+     * @param string $requestId
+     * @return Money
+     */
+    public function getRefundPrice($requestId)
+    {
+        $request = $this->apiClient->createRequest(
+            RequestMethodInterface::METHOD_GET,
+            sprintf('refund/%s/price', urlencode($requestId)),
+            null
+        );
+        $data = $this->apiClient->makeRequest($request);
+
+        return new Money($data['amount'], $data['currency']);
+    }
+
+    /**
+     * Makes the refund
+     * POST /refund/{requestId}
+     *
+     * @param string $requestId
+     * @param Money $money
+     * @return null
+     */
+    public function createRefund($requestId, Money $money)
+    {
+        $request = $this->apiClient->createRequest(
+            RequestMethodInterface::METHOD_POST,
+            sprintf('refund/%s', urlencode($requestId)),
+            new Entity(['amount' => $money->getAmount(), 'currency' => $money->getCurrency()])
+        );
+        $data = $this->apiClient->makeRequest($request);
+
+        return null;
     }
 }

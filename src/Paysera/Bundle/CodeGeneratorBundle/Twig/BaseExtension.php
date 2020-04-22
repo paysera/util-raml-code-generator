@@ -455,6 +455,11 @@ class BaseExtension extends Twig_Extension
         return $this->bodyResolver->isRawResponse($method);
     }
 
+    /**
+     * @param Method $method
+     * @param ApiDefinition $api
+     * @return string|null
+     */
     public function generateBody(Method $method, ApiDefinition $api)
     {
         /** @var ArgumentDefinition[] $arguments */

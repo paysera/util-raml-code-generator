@@ -4,6 +4,7 @@ namespace Paysera\Test\QuestionnaireClient;
 
 use Paysera\Test\QuestionnaireClient\Entity as Entities;
 use Fig\Http\Message\RequestMethodInterface;
+use Paysera\Component\RestClientCommon\Entity\Entity;
 use Paysera\Component\RestClientCommon\Client\ApiClient;
 
 class QuestionnaireClient

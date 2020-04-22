@@ -4,6 +4,7 @@ namespace Paysera\Test\ReturnsMoneyClient;
 
 use Paysera\Test\ReturnsMoneyClient\Entity as Entities;
 use Fig\Http\Message\RequestMethodInterface;
+use Paysera\Component\RestClientCommon\Entity\Entity;
 use Paysera\Component\RestClientCommon\Client\ApiClient;
 use Evp\Component\Money\Money;
 

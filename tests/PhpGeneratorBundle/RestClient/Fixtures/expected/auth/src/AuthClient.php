@@ -4,6 +4,7 @@ namespace Paysera\Test\AuthClient;
 
 use Paysera\Test\AuthClient\Entity as Entities;
 use Fig\Http\Message\RequestMethodInterface;
+use Paysera\Component\RestClientCommon\Entity\Entity;
 use Paysera\Component\RestClientCommon\Client\ApiClient;
 
 class AuthClient
