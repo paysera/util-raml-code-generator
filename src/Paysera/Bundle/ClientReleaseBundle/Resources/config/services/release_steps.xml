@@ -71,11 +71,18 @@
             <tag name="paysera_client_release.release_step" type="javascript" position="55"/>
         </service>
 
-        <service id="paysera_client_release.release_step.replace_files"
-                 class="Paysera\Bundle\ClientReleaseBundle\Service\ReleaseStep\ReplaceFilesStep">
+        <service id="paysera_client_release.release_step.delete_files"
+                 class="Paysera\Bundle\ClientReleaseBundle\Service\ReleaseStep\DeleteFilesStep">
             <argument type="service" id="filesystem"/>
             <tag name="paysera_client_release.release_step" type="javascript" position="60"/>
             <tag name="paysera_client_release.release_step" type="php" position="60"/>
+        </service>
+
+        <service id="paysera_client_release.release_step.replace_files"
+                 class="Paysera\Bundle\ClientReleaseBundle\Service\ReleaseStep\ReplaceFilesStep">
+            <argument type="service" id="filesystem"/>
+            <tag name="paysera_client_release.release_step" type="javascript" position="65"/>
+            <tag name="paysera_client_release.release_step" type="php" position="65"/>
         </service>
 
         <service id="paysera_client_release.release_step.push_code_to_repository"
