@@ -1,4 +1,7 @@
-# util-raml-code-generator [![Build Status](https://travis-ci.org/paysera/util-raml-code-generator.svg?branch=master)](https://travis-ci.org/paysera/util-raml-code-generator)
+# util-raml-code-generator
+
+[![Latest Version][ico-version]][link-releases]
+[![Build Status][ico-travis]][link-travis]
 
 `util-raml-code-generator` generates code packages from specified RAML definition.
 Currently this utility can:
@@ -1533,3 +1536,9 @@ class CategoryScopeVoter extends ContextAwareScopeVoter
 }
 
 ```
+
+[ico-version]: https://img.shields.io/github/v/release/paysera/util-raml-code-generator?style=flat-square
+[ico-travis]: https://img.shields.io/travis/paysera/util-raml-code-generator/master.svg?style=flat-square
+
+[link-releases]: https://github.com/paysera/util-raml-code-generator/releases
+[link-travis]: https://travis-ci.org/paysera/util-raml-code-generator
