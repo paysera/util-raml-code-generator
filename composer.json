@@ -49,12 +49,9 @@
         "doctrine/common": "^2.7",
         "doctrine/orm": "^2.5",
         "evp/money": "^2.2",
-        "knplabs/github-api": "^2.8",
-        "lcobucci/jwt": "^3.2",
         "paysera/lib-rest-bundle": "^4.0",
         "paysera/lib-rest-client-common": "^2.1",
         "paysera/lib-serializer": "^2.0",
-        "php-http/guzzle6-adapter": "^1.1",
         "phpunit/phpunit": "^6.5",
         "sensio/generator-bundle": "^3.0",
         "symfony/phpunit-bridge": "^3.0"
@@ -65,9 +62,6 @@
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile"
-        ],
-        "release": [
-            "bin/publish-release"
         ],
         "post-install-cmd": [
             "@symfony-scripts"
@@ -92,9 +86,6 @@
         "incenteev-parameters": [
             {
                 "file": "app/config/parameters.yml"
-            },
-            {
-                "file": "app/config/publish_parameters.yml"
             }
         ],
         "branch-alias": null

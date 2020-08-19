@@ -1,4 +1,0 @@
-parameters:
-    github_app_id: user
-    github_installation_id: 123
-    github_private_key: private_key
