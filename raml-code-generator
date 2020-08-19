@@ -1,0 +1,24 @@
+#!/usr/bin/env php
+<?php
+
+declare(strict_types=1, ticks=1);
+
+use Paysera\Component\Console\Application;
+use Paysera\Component\Console\PharKernel;
+use Symfony\Component\Console\Input\ArgvInput;
+use Symfony\Component\Console\Output\ConsoleOutput;
+
+$require = true;
+try {
+    Phar::mapPhar('raml-code-generator.phar');
+    require_once 'phar://raml-code-generator.phar/vendor/autoload.php';
+    $require = false;
+} catch (\PharException $e) {
+    require_once __DIR__ . '/vendor/autoload.php';
+}
+
+$kernel = new PharKernel('phar', false);
+$application = new Application($kernel);
+$application->run(new ArgvInput(), new ConsoleOutput());
+
+__HALT_COMPILER();
