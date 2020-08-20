@@ -8,15 +8,8 @@ use Paysera\Component\Console\PharKernel;
 use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Console\Output\ConsoleOutput;
 
-try {
-    Phar::mapPhar('raml-code-generator.phar');
-    require_once 'phar://raml-code-generator.phar/vendor/autoload.php';
-} catch (\PharException $e) {
-    require_once __DIR__ . '/vendor/autoload.php';
-}
+require __DIR__ . '/../vendor/autoload.php';
 
 $kernel = new PharKernel('phar', false);
 $application = new Application($kernel);
 $application->run(new ArgvInput(), new ConsoleOutput());
-
-__HALT_COMPILER();

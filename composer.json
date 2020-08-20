@@ -93,6 +93,6 @@
         "branch-alias": null
     },
     "bin": [
-        "raml-code-generator"
+        "bin/raml-code-generator"
     ]
 }

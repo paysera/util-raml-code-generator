@@ -26,7 +26,7 @@ deploy:
   provider: releases
   token:
     secure: "Kv1O1dOayeqMiybQAYd1E+hXYTKPZcE0sU2FUXe4NO1WdUX8BfqDqzbGJxFcUPCCUyIpzpv18MLZIctRKo0/TR1YXIGL3PK46agL/SxuELOKS+UwCXxaQBKBzkzyFAgUaY0vFioA/rLqORlZnggiYJfuJ8Uh3JtHP/fBoQK1cJj7VP3pV46iMtcMixRSMoSxndJzqgUqAKxeoTzI858nXcTmmd6fQ5cRRAygBDNSmlyATQ7fwX6wUMVODqtjJnKaIQUySMKvFemNUfnT2LjUpEPFiW5NfVu7ZFPohniZRrbWR//cufvnjuw2gfoSzDRm50E8eKJYHhNwV0JxY/EsBdo9kcEBoL7+AeTZr1rddlyuPTPcBebVf8ua+hHbB54qFwyW6AFi9vXLXg806qH2qdzkxdZ7ePeZOHvLL/yJJBwtcXcIe9yirzp5oMJJTTv/CPZH8y2NzNo+d++MXWaYdcnd5XyEAU/FoG1m9FNPX2LZcbVFqRIIBgjAmfNspoUNZtVqR+2xIjgkMoj5VVKmEnaJ3qLCDmQqWLYGzQjXXEla99YvEoN1rG4gNdJ3xU+M9MhrIf0R3mRNrUl0HNEE2CSOE4z7/iltOzqzpdZJKG8pJsU7X0x40urLj/7uPyBiRSqufhdrhNCjhrOU8IX5rf8HvR1EnX/uJQ6nupfb6Ok="
-  file: raml-code-generator.phar
+  file: dist/raml-code-generator.phar
   on:
     repo: paysera/util-raml-code-generator
     tags: true

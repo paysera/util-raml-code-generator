@@ -22,9 +22,10 @@ generated/
 
 node_modules
 
-bin/
+bin/*
 !bin/console
 !bin/symfony_requirements
+!bin/raml-code-generator
 box.phar
 raml-code-generator.phar
 package-lock.json
