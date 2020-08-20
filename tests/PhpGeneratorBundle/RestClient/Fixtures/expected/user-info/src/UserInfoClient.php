@@ -70,7 +70,7 @@ class UserInfoClient
     {
         $request = $this->apiClient->createRequest(
             RequestMethodInterface::METHOD_GET,
-            sprintf('users/%s/information', urlencode($id)),
+            sprintf('users/%s/information', rawurlencode($id)),
             null
         );
         $data = $this->apiClient->makeRequest($request);
@@ -90,7 +90,7 @@ class UserInfoClient
     {
         $request = $this->apiClient->createRequest(
             RequestMethodInterface::METHOD_PUT,
-            sprintf('users/%s/information', urlencode($id)),
+            sprintf('users/%s/information', rawurlencode($id)),
             $userInfo
         );
         $data = $this->apiClient->makeRequest($request);

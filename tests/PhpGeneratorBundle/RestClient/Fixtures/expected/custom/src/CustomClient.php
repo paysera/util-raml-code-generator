@@ -22,7 +22,6 @@ class CustomClient
     }
 
     /**
-     * 
      * GET /something
      *
      * @return null

@@ -23,7 +23,6 @@ class ReturnsMoneyClient
     }
 
     /**
-     * 
      * GET /accounts/{accountNumber}/balance/reserved
      *
      * @param string $accountNumber
@@ -33,7 +32,7 @@ class ReturnsMoneyClient
     {
         $request = $this->apiClient->createRequest(
             RequestMethodInterface::METHOD_GET,
-            sprintf('accounts/%s/balance/reserved', urlencode($accountNumber)),
+            sprintf('accounts/%s/balance/reserved', rawurlencode($accountNumber)),
             null
         );
         $data = $this->apiClient->makeRequest($request);
