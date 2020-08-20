@@ -202,7 +202,7 @@ class ApiMethodExtension extends Twig_Extension
         $arguments = $this->baseExtension->extractUriArguments($resource->getUri());
 
         foreach ($arguments as $key => $argument) {
-            $arguments[$key] = sprintf('urlencode($%s)', $argument->getName());
+            $arguments[$key] = sprintf('rawurlencode($%s)', $argument->getName());
         }
 
         if (empty($arguments)) {
