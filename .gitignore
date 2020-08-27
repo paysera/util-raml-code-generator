@@ -1,6 +1,5 @@
 /.web-server-pid
 /app/config/parameters.yml
-/app/config/publish_parameters.yml
 /app/Resources/sqlite-31.db
 /build/
 /phpunit.xml
@@ -15,7 +14,7 @@
 /var/sessions/*
 !var/sessions/.gitkeep
 !var/SymfonyRequirements.php
-/vendor/
+vendor/
 /web/bundles/
 
 .arcconfig
@@ -23,10 +22,10 @@ generated/
 
 node_modules
 
-bin/
+bin/*
 !bin/console
 !bin/symfony_requirements
-!bin/publish-release
+!bin/raml-code-generator
 box.phar
 raml-code-generator.phar
 package-lock.json
