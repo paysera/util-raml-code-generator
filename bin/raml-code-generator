@@ -8,6 +8,8 @@ use Paysera\Component\Console\PharKernel;
 use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Console\Output\ConsoleOutput;
 
+set_time_limit(0);
+
 require __DIR__ . '/../vendor/autoload.php';
 
 $kernel = new PharKernel('phar', false);
