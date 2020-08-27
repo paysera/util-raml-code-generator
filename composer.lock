@@ -1011,6 +1011,7 @@
                 "self-update",
                 "update"
             ],
+            "abandoned": true,
             "time": "2018-03-30T12:52:15+00:00"
         },
         {
@@ -2648,16 +2649,16 @@
         },
         {
             "name": "evp/money",
-            "version": "2.3.1",
+            "version": "2.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/paysera/lib-money.git",
-                "reference": "9c06427d9409e8021b926bd481341022e99d7fdc"
+                "reference": "b81b8cdb2a75c7593f6b30a95add3939901f676e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/paysera/lib-money/zipball/9c06427d9409e8021b926bd481341022e99d7fdc",
-                "reference": "9c06427d9409e8021b926bd481341022e99d7fdc",
+                "url": "https://api.github.com/repos/paysera/lib-money/zipball/b81b8cdb2a75c7593f6b30a95add3939901f676e",
+                "reference": "b81b8cdb2a75c7593f6b30a95add3939901f676e",
                 "shasum": ""
             },
             "require": {
@@ -2677,7 +2678,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "description": "Money library",
-            "time": "2020-03-21T11:52:01+00:00"
+            "time": "2020-08-14T06:29:40+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -4485,6 +4486,20 @@
             ],
             "description": "Symfony PHPUnit Bridge",
             "homepage": "https://symfony.com",
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
             "time": "2020-02-21T08:01:47+00:00"
         },
         {
@@ -4556,6 +4571,20 @@
                 "portable",
                 "shim"
             ],
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
             "time": "2020-08-04T06:02:08+00:00"
         },
         {
@@ -4623,6 +4652,20 @@
                 "portable",
                 "shim"
             ],
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
             "time": "2020-07-14T12:35:20+00:00"
         },
         {
@@ -4681,6 +4724,20 @@
                 "polyfill",
                 "portable",
                 "shim"
+            ],
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
             ],
             "time": "2020-07-14T12:35:20+00:00"
         },
@@ -4825,5 +4882,6 @@
     "platform-dev": [],
     "platform-overrides": {
         "php": "7.0.0"
-    }
+    },
+    "plugin-api-version": "1.1.0"
 }
