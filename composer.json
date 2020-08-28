@@ -55,7 +55,7 @@
         "paysera/lib-serializer": "^2.0",
         "phpunit/phpunit": "^6.5",
         "sensio/generator-bundle": "^3.0",
-        "symfony/phpunit-bridge": "^3.0"
+        "symfony/phpunit-bridge": "^5.0"
     },
     "scripts": {
         "build": "box compile",
