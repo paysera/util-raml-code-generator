@@ -1,0 +1,17 @@
+#!/usr/bin/env php
+<?php
+
+declare(strict_types=1, ticks=1);
+
+use Paysera\Component\Console\Application;
+use Paysera\Component\Console\PharKernel;
+use Symfony\Component\Console\Input\ArgvInput;
+use Symfony\Component\Console\Output\ConsoleOutput;
+
+set_time_limit(0);
+
+require __DIR__ . '/../vendor/autoload.php';
+
+$kernel = new PharKernel('phar', false);
+$application = new Application($kernel);
+$application->run(new ArgvInput(), new ConsoleOutput());
