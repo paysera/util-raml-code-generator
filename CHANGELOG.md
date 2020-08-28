@@ -6,6 +6,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## 11.1.1
 ### Fixed
+- Use `rawurlencode()` instead of `urlencode()` for encoding URL arguments when generating PHP clients.
 - Bring back the generation and upload of `raml-code-generator.phar` when creating a release. Now the process is
 automated.
 

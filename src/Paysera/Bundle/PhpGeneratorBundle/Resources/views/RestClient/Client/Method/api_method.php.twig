@@ -1,6 +1,8 @@
 
     /**
+{% if method.description is not empty %}
      * {{ method.description|raw }}
+{% endif %}
      * {{ method.type }} {{ resource.uri|raw }}
      *
 {% set arguments = php_generate_method_arguments(method, resource, api) %}

@@ -33,7 +33,7 @@ class CategoryClient
     {
         $request = $this->apiClient->createRequest(
             RequestMethodInterface::METHOD_PUT,
-            sprintf('categories/%s/enable', urlencode($id)),
+            sprintf('categories/%s/enable', rawurlencode($id)),
             null
         );
         $data = $this->apiClient->makeRequest($request);
@@ -52,7 +52,7 @@ class CategoryClient
     {
         $request = $this->apiClient->createRequest(
             RequestMethodInterface::METHOD_PUT,
-            sprintf('categories/%s/disable', urlencode($id)),
+            sprintf('categories/%s/disable', rawurlencode($id)),
             null
         );
         $data = $this->apiClient->makeRequest($request);
@@ -71,7 +71,7 @@ class CategoryClient
     {
         $request = $this->apiClient->createRequest(
             RequestMethodInterface::METHOD_PUT,
-            sprintf('categories/%s', urlencode($id)),
+            sprintf('categories/%s', rawurlencode($id)),
             null
         );
         $data = $this->apiClient->makeRequest($request);
@@ -90,7 +90,7 @@ class CategoryClient
     {
         $request = $this->apiClient->createRequest(
             RequestMethodInterface::METHOD_DELETE,
-            sprintf('categories/%s', urlencode($id)),
+            sprintf('categories/%s', rawurlencode($id)),
             null
         );
         $data = $this->apiClient->makeRequest($request);

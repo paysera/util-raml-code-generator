@@ -33,7 +33,7 @@ class PublicTransfersClient
     {
         $request = $this->apiClient->createRequest(
             RequestMethodInterface::METHOD_GET,
-            sprintf('transfers/%s/required-supplement', urlencode($transferId)),
+            sprintf('transfers/%s/required-supplement', rawurlencode($transferId)),
             null
         );
         $data = $this->apiClient->makeRequest($request);
@@ -52,7 +52,7 @@ class PublicTransfersClient
     {
         $request = $this->apiClient->createRequest(
             RequestMethodInterface::METHOD_PUT,
-            sprintf('transfers/%s/sms', urlencode($transferId)),
+            sprintf('transfers/%s/sms', rawurlencode($transferId)),
             null
         );
         $data = $this->apiClient->makeRequest($request);

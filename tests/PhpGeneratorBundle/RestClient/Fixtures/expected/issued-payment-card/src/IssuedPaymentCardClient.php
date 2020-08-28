@@ -34,7 +34,7 @@ class IssuedPaymentCardClient
     {
         $request = $this->apiClient->createRequest(
             RequestMethodInterface::METHOD_GET,
-            sprintf('card-issue-price/%s/%s/%s', urlencode($country), urlencode($clientType), urlencode($cardOwnerId)),
+            sprintf('card-issue-price/%s/%s/%s', rawurlencode($country), rawurlencode($clientType), rawurlencode($cardOwnerId)),
             null
         );
         $data = $this->apiClient->makeRequest($request);

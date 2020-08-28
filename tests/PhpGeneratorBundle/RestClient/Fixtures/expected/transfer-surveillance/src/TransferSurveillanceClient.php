@@ -33,7 +33,7 @@ class TransferSurveillanceClient
     {
         $request = $this->apiClient->createRequest(
             RequestMethodInterface::METHOD_PUT,
-            sprintf('transfer/inspection/%s/accept', urlencode($transferId)),
+            sprintf('transfer/inspection/%s/accept', rawurlencode($transferId)),
             $review
         );
         $data = $this->apiClient->makeRequest($request);
@@ -53,7 +53,7 @@ class TransferSurveillanceClient
     {
         $request = $this->apiClient->createRequest(
             RequestMethodInterface::METHOD_PUT,
-            sprintf('transfer/inspection/%s/cancel', urlencode($transferId)),
+            sprintf('transfer/inspection/%s/cancel', rawurlencode($transferId)),
             $review
         );
         $data = $this->apiClient->makeRequest($request);
@@ -73,7 +73,7 @@ class TransferSurveillanceClient
     {
         $request = $this->apiClient->createRequest(
             RequestMethodInterface::METHOD_PUT,
-            sprintf('transfer/inspection/%s/audit', urlencode($transferId)),
+            sprintf('transfer/inspection/%s/audit', rawurlencode($transferId)),
             $review
         );
         $data = $this->apiClient->makeRequest($request);
@@ -93,7 +93,7 @@ class TransferSurveillanceClient
     {
         $request = $this->apiClient->createRequest(
             RequestMethodInterface::METHOD_PUT,
-            sprintf('transfer/inspection/%s/request-user-info', urlencode($transferId)),
+            sprintf('transfer/inspection/%s/request-user-info', rawurlencode($transferId)),
             $review
         );
         $data = $this->apiClient->makeRequest($request);
@@ -113,7 +113,7 @@ class TransferSurveillanceClient
     {
         $request = $this->apiClient->createRequest(
             RequestMethodInterface::METHOD_PUT,
-            sprintf('transfer/inspection/%s/receive-user-info', urlencode($transferId)),
+            sprintf('transfer/inspection/%s/receive-user-info', rawurlencode($transferId)),
             $review
         );
         $data = $this->apiClient->makeRequest($request);
@@ -150,7 +150,7 @@ class TransferSurveillanceClient
     {
         $request = $this->apiClient->createRequest(
             RequestMethodInterface::METHOD_DELETE,
-            sprintf('criteria/%s', urlencode($id)),
+            sprintf('criteria/%s', rawurlencode($id)),
             null
         );
         $data = $this->apiClient->makeRequest($request);
@@ -169,7 +169,7 @@ class TransferSurveillanceClient
     {
         $request = $this->apiClient->createRequest(
             RequestMethodInterface::METHOD_GET,
-            sprintf('criteria/%s', urlencode($id)),
+            sprintf('criteria/%s', rawurlencode($id)),
             null
         );
         $data = $this->apiClient->makeRequest($request);
@@ -189,7 +189,7 @@ class TransferSurveillanceClient
     {
         $request = $this->apiClient->createRequest(
             RequestMethodInterface::METHOD_PUT,
-            sprintf('criteria/%s', urlencode($id)),
+            sprintf('criteria/%s', rawurlencode($id)),
             $matchCriteria
         );
         $data = $this->apiClient->makeRequest($request);
@@ -245,7 +245,7 @@ class TransferSurveillanceClient
     {
         $request = $this->apiClient->createRequest(
             RequestMethodInterface::METHOD_PUT,
-            sprintf('rules/%s/enable', urlencode($id)),
+            sprintf('rules/%s/enable', rawurlencode($id)),
             null
         );
         $data = $this->apiClient->makeRequest($request);
@@ -264,7 +264,7 @@ class TransferSurveillanceClient
     {
         $request = $this->apiClient->createRequest(
             RequestMethodInterface::METHOD_PUT,
-            sprintf('rules/%s/disable', urlencode($id)),
+            sprintf('rules/%s/disable', rawurlencode($id)),
             null
         );
         $data = $this->apiClient->makeRequest($request);
@@ -284,7 +284,7 @@ class TransferSurveillanceClient
     {
         $request = $this->apiClient->createRequest(
             RequestMethodInterface::METHOD_GET,
-            sprintf('rules/%s/whitelists/%s/profile-list', urlencode($id), urlencode($whitelistId)),
+            sprintf('rules/%s/whitelists/%s/profile-list', rawurlencode($id), rawurlencode($whitelistId)),
             null
         );
         $data = $this->apiClient->makeRequest($request);
@@ -305,7 +305,7 @@ class TransferSurveillanceClient
     {
         $request = $this->apiClient->createRequest(
             RequestMethodInterface::METHOD_PUT,
-            sprintf('rules/%s/whitelists/%s/profile-list', urlencode($id), urlencode($whitelistId)),
+            sprintf('rules/%s/whitelists/%s/profile-list', rawurlencode($id), rawurlencode($whitelistId)),
             $whitelist
         );
         $data = $this->apiClient->makeRequest($request);
@@ -325,7 +325,7 @@ class TransferSurveillanceClient
     {
         $request = $this->apiClient->createRequest(
             RequestMethodInterface::METHOD_GET,
-            sprintf('rules/%s/whitelists/%s', urlencode($id), urlencode($whitelistId)),
+            sprintf('rules/%s/whitelists/%s', rawurlencode($id), rawurlencode($whitelistId)),
             null
         );
         $data = $this->apiClient->makeRequest($request);
@@ -346,7 +346,7 @@ class TransferSurveillanceClient
     {
         $request = $this->apiClient->createRequest(
             RequestMethodInterface::METHOD_PUT,
-            sprintf('rules/%s/whitelists/%s', urlencode($id), urlencode($whitelistId)),
+            sprintf('rules/%s/whitelists/%s', rawurlencode($id), rawurlencode($whitelistId)),
             $whitelist
         );
         $data = $this->apiClient->makeRequest($request);
@@ -366,7 +366,7 @@ class TransferSurveillanceClient
     {
         $request = $this->apiClient->createRequest(
             RequestMethodInterface::METHOD_DELETE,
-            sprintf('rules/%s/whitelists/%s', urlencode($id), urlencode($whitelistId)),
+            sprintf('rules/%s/whitelists/%s', rawurlencode($id), rawurlencode($whitelistId)),
             null
         );
         $data = $this->apiClient->makeRequest($request);
@@ -385,7 +385,7 @@ class TransferSurveillanceClient
     {
         $request = $this->apiClient->createRequest(
             RequestMethodInterface::METHOD_GET,
-            sprintf('rules/%s/whitelists', urlencode($id)),
+            sprintf('rules/%s/whitelists', rawurlencode($id)),
             null
         );
         $data = $this->apiClient->makeRequest($request);
@@ -405,7 +405,7 @@ class TransferSurveillanceClient
     {
         $request = $this->apiClient->createRequest(
             RequestMethodInterface::METHOD_POST,
-            sprintf('rules/%s/whitelists', urlencode($id)),
+            sprintf('rules/%s/whitelists', rawurlencode($id)),
             $whitelist
         );
         $data = $this->apiClient->makeRequest($request);
@@ -424,7 +424,7 @@ class TransferSurveillanceClient
     {
         $request = $this->apiClient->createRequest(
             RequestMethodInterface::METHOD_GET,
-            sprintf('rules/%s', urlencode($id)),
+            sprintf('rules/%s', rawurlencode($id)),
             null
         );
         $data = $this->apiClient->makeRequest($request);
@@ -444,7 +444,7 @@ class TransferSurveillanceClient
     {
         $request = $this->apiClient->createRequest(
             RequestMethodInterface::METHOD_PUT,
-            sprintf('rules/%s', urlencode($id)),
+            sprintf('rules/%s', rawurlencode($id)),
             $rule
         );
         $data = $this->apiClient->makeRequest($request);
@@ -463,7 +463,7 @@ class TransferSurveillanceClient
     {
         $request = $this->apiClient->createRequest(
             RequestMethodInterface::METHOD_DELETE,
-            sprintf('rules/%s', urlencode($id)),
+            sprintf('rules/%s', rawurlencode($id)),
             null
         );
         $data = $this->apiClient->makeRequest($request);

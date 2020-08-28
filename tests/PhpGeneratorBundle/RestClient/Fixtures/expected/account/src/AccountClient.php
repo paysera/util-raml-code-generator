@@ -68,7 +68,7 @@ class AccountClient
     {
         $request = $this->apiClient->createRequest(
             RequestMethodInterface::METHOD_GET,
-            sprintf('refund/%s/price', urlencode($requestId)),
+            sprintf('refund/%s/price', rawurlencode($requestId)),
             null
         );
         $data = $this->apiClient->makeRequest($request);
@@ -88,7 +88,7 @@ class AccountClient
     {
         $request = $this->apiClient->createRequest(
             RequestMethodInterface::METHOD_POST,
-            sprintf('refund/%s', urlencode($requestId)),
+            sprintf('refund/%s', rawurlencode($requestId)),
             new Entity(['amount' => $money->getAmount(), 'currency' => $money->getCurrency()])
         );
         $data = $this->apiClient->makeRequest($request);
