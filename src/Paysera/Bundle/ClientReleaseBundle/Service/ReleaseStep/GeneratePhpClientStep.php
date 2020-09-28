@@ -19,7 +19,7 @@ class GeneratePhpClientStep implements ReleaseStepInterface
         $releaseStepData->setGeneratedDir($releaseStepData->getTempDir() . '/generated');
 
         $args = [
-            'raml-code-generator',
+            'bin/raml-code-generator',
             'php-generator:rest-client',
             'raml_file' => $releaseStepData->getApiConfig()->getRamlFile(),
             'output_dir' => $releaseStepData->getGeneratedDir(),
