@@ -18,6 +18,7 @@ cache:
         - $HOME/.composer/cache
 
 before_script:
+    - composer self-update --1 # Enforce composer v1.x is used
     - phpenv config-rm xdebug.ini || true
     - travis_retry composer install --no-interaction --prefer-dist
 
