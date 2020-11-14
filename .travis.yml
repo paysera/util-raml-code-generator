@@ -18,13 +18,12 @@ cache:
         - $HOME/.composer/cache
 
 before_script:
-    - echo 'display_errors = stderr' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
     - phpenv config-rm xdebug.ini || true
     - travis_retry composer install --no-interaction --prefer-dist
 
 script:
     - bin/phpunit
-    - php bin/raml-code-generator --version
+    - bin/raml-code-generator
     - if [[ "$RELEASE" == "true" ]]; then composer run compile; fi
 
 deploy:
