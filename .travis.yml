@@ -25,7 +25,8 @@ before_script:
 script:
     - bin/phpunit
     - bin/raml-code-generator
-    - if [[ "$RELEASE" == "true" ]]; then composer run compile; fi
+    - composer run compile
+    - dist/raml-code-generator.phar
 
 deploy:
     provider: releases
