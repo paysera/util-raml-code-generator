@@ -8,7 +8,7 @@
         {
             "name": ["*.php", "*.xml", "*.yml", "*.xsd", "*.db", "*.twig"],
             "exclude": ["test", "Tests", "tests"],
-            "in": ["src", "vendor", "app"]
+            "in": ["src", "vendor", "app", "var/cache"]
         }
     ],
     "blacklist": [

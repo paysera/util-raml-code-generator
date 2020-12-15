@@ -58,7 +58,10 @@
         "symfony/phpunit-bridge": "^3.0"
     },
     "scripts": {
-        "compile": "box compile",
+        "compile": [
+            "bin/console cache:warmup --no-debug --env phar",
+            "box compile"
+        ],
         "symfony-scripts": [
             "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache"
