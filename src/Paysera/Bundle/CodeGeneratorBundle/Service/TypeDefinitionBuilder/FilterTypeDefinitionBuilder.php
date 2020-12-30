@@ -30,16 +30,12 @@ class FilterTypeDefinitionBuilder implements TypeDefinitionBuilderInterface
             ->setData($definition)
         ;
 
-        $fields = null;
+        $fields = [];
 
         if (isset($definition['properties'])) {
             $fields = $definition['properties'];
         } elseif (isset($definition['queryParameters'])) {
             $fields = $definition['queryParameters'];
-        }
-
-        if ($fields === null) {
-            return null;
         }
 
         foreach ($fields as $propertyName => $propertyDefinition) {

@@ -127,7 +127,7 @@ class UsedTypesResolver
     public function getDirectlyUsedTypes(Resource $resource, array $types)
     {
         foreach ($resource->getTraits() as $resourceTrait) {
-            if (count($resourceTrait->getQueryParameters()) > 0) {
+            if (count($resourceTrait->getQueryParameters()) > 0 || count($resourceTrait->getTraits()) > 0) {
                 $types[] = $resourceTrait->getName();
             }
         }
@@ -136,7 +136,7 @@ class UsedTypesResolver
         }
         foreach ($resource->getMethods() as $method) {
             foreach ($method->getTraits() as $methodTrait) {
-                if (count($methodTrait->getQueryParameters()) > 0) {
+                if (count($methodTrait->getQueryParameters()) > 0 || count($methodTrait->getTraits()) > 0) {
                     $types[] = $methodTrait->getName();
                 }
             }
@@ -188,7 +188,7 @@ class UsedTypesResolver
 
     private function getUsedTraitNames(TraitDefinition $trait, array $types)
     {
-        if (count($trait->getQueryParameters()) > 0) {
+        if (count($trait->getQueryParameters()) > 0 || count($trait->getTraits()) > 0) {
             $types[] = $trait->getName();
         }
         foreach ($trait->getTraits() as $trait) {

@@ -156,7 +156,7 @@
                                         <argument type="string">evp/money</argument>
                                     </call>
                                     <call method="setVersion">
-                                        <argument type="string">^1.0</argument>
+                                        <argument type="string">^1.0 || ^2.0</argument>
                                     </call>
                                 </service>
                             </argument>
@@ -386,7 +386,7 @@
                                         <argument type="string">evp/money</argument>
                                     </call>
                                     <call method="setVersion">
-                                        <argument type="string">^1.0</argument>
+                                        <argument type="string">^1.0 || ^2.0</argument>
                                     </call>
                                 </service>
                             </argument>

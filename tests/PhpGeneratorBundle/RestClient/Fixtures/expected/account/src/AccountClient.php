@@ -23,17 +23,18 @@ class AccountClient
     }
 
     /**
-     * Generated JS code
+     * Standard SQL-style Result filtering
      * GET /accounts/scripts
      *
+     * @param Entities\ScriptFilter $scriptFilter
      * @return string
      */
-    public function getAccountScripts()
+    public function getAccountScripts(Entities\ScriptFilter $scriptFilter)
     {
         $request = $this->apiClient->createRequest(
             RequestMethodInterface::METHOD_GET,
             'accounts/scripts',
-            null
+            $scriptFilter
         );
         return $this->apiClient->makeRawRequest($request)->getBody()->getContents();
     }

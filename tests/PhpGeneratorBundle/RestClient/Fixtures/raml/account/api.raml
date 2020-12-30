@@ -8,6 +8,7 @@ uses:
 
 traits:
   AccountFilter: !include traits/account-filter.raml
+  ScriptFilter: !include traits/script-filter.raml
 
 types:
   AccountResult:
@@ -79,6 +80,8 @@ types:
   /scripts:
     get:
       description: Generated JS code
+      is:
+        - ScriptFilter
       responses:
         200:
           body:

@@ -35,12 +35,16 @@ Now, that you have instance of `AccountClient`, you can use following methods
 ### Methods
 
     
-Generated JS code
+Standard SQL-style Result filtering
 
 
 ```php
+use Paysera\Test\AccountClient\Entity as Entities;
 
-$result = $accountClient->getAccountScripts();
+$scriptFilter = new Entities\ScriptFilter();
+
+    
+$result = $accountClient->getAccountScripts($scriptFilter);
 ```
 ---
 
