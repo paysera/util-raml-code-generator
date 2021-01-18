@@ -31,7 +31,7 @@ class IncreasePackageJsonVersionStep implements ReleaseStepInterface
         }
 
         $packageJson['version'] = $this->versionManipulator->increase(
-            $this->versionManipulator->resolveCurrentVersion($releaseStepData),
+            $releaseStepData->getClientDefinition()->getVersionResolver()->resolveCurrentVersion($releaseStepData),
             $releaseStepData->getReleaseData()->getVersion()
         );
         $packageJson['dependencies'] = $generatedPackageJson['dependencies'];

@@ -33,16 +33,10 @@ class PushTagToRepositoryStep implements ReleaseStepInterface
         }
 
         $repositoryDir = $releaseStepData->getTempDir() . '/' . CloneRepositoryStep::TARGET_DIR;
-        $currentVersion = $this->versionManipulator->resolveCurrentVersion($releaseStepData);
-        if ($currentVersion === null) {
-            throw new ReleaseCycleException(sprintf(
-                'Failed to get latest tag from git for Api "%s" "%s" Client',
-                $releaseStepData->getApiConfig()->getApiName(),
-                $releaseStepData->getClientDefinition()->getClientType()
-            ));
-        }
-
-        $tag = $this->versionManipulator->increase($currentVersion, $releaseStepData->getReleaseData()->getVersion());
+        $tag = $this->versionManipulator->increase(
+            $releaseStepData->getClientDefinition()->getVersionResolver()->resolveCurrentVersion($releaseStepData),
+            $releaseStepData->getReleaseData()->getVersion()
+        );
         $pushProcess = new Process(
             sprintf('git tag %s -am "" && git push --tags', $tag),
             $repositoryDir

@@ -74,9 +74,8 @@ class UpdateChangelogStep implements ReleaseStepInterface
 
     private function buildVersionInfo(ReleaseStepData $releaseStepData): VersionInfo
     {
-        $currentVersion = $this->versionManipulator->resolveCurrentVersion($releaseStepData);
         $futureVersion = $this->versionManipulator->increase(
-            $currentVersion,
+            $releaseStepData->getClientDefinition()->getVersionResolver()->resolveCurrentVersion($releaseStepData),
             $releaseStepData->getReleaseData()->getVersion()
         );
 
