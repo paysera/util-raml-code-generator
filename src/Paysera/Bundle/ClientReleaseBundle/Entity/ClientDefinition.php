@@ -3,14 +3,11 @@ declare(strict_types=1);
 
 namespace Paysera\Bundle\ClientReleaseBundle\Entity;
 
-use Paysera\Bundle\ClientReleaseBundle\Service\VersionResolver\VersionResolverInterface;
-
 class ClientDefinition
 {
     private $repository;
     private $libraryName;
     private $clientType;
-    private $versionResolver;
 
     public function getRepository(): string
     {
@@ -42,17 +39,6 @@ class ClientDefinition
     public function setClientType(string $clientType): self
     {
         $this->clientType = $clientType;
-        return $this;
-    }
-
-    public function getVersionResolver(): VersionResolverInterface
-    {
-        return $this->versionResolver;
-    }
-
-    public function setVersionResolver(VersionResolverInterface $versionResolver): self
-    {
-        $this->versionResolver = $versionResolver;
         return $this;
     }
 }

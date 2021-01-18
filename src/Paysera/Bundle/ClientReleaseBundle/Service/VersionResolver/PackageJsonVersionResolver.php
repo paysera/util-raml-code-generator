@@ -19,6 +19,7 @@ class PackageJsonVersionResolver implements VersionResolverInterface
     public function resolveCurrentVersion(ReleaseStepData $releaseStepData): string
     {
         $packageJsonVersion = $this->packageJsonHelper->getPackageVersion($releaseStepData);
+
         if ($packageJsonVersion !== null) {
             return $packageJsonVersion;
         }

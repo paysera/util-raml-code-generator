@@ -5,17 +5,14 @@ namespace Paysera\Bundle\ClientReleaseBundle\Service\ClientDefinitionBuilder;
 
 use Paysera\Bundle\ClientReleaseBundle\Entity\ClientDefinition;
 use Paysera\Bundle\ClientReleaseBundle\Entity\PhpClientDefinition;
-use Paysera\Bundle\ClientReleaseBundle\Service\VersionResolver\VersionResolverInterface;
 
 class PhpClientDefinitionBuilder implements ClientDefinitionBuilderInterface
 {
     private $baseDefinitionBuilder;
-    private $versionResolver;
 
-    public function __construct(BaseDefinitionBuilder $baseDefinitionBuilder, VersionResolverInterface $versionResolver)
+    public function __construct(BaseDefinitionBuilder $baseDefinitionBuilder)
     {
         $this->baseDefinitionBuilder = $baseDefinitionBuilder;
-        $this->versionResolver = $versionResolver;
     }
 
     public function buildClientDefinition(array $data): ClientDefinition
@@ -26,8 +23,6 @@ class PhpClientDefinitionBuilder implements ClientDefinitionBuilderInterface
         if (isset($data['namespace'])) {
             $definition->setNamespace($data['namespace']);
         }
-
-        $definition->setVersionResolver($this->versionResolver);
 
         return $definition;
     }

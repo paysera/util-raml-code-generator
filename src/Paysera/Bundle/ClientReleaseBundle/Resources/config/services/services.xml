@@ -63,5 +63,11 @@
                  class="Paysera\Bundle\ClientReleaseBundle\Service\VersionResolver\PackageJsonVersionResolver">
             <argument type="service" id="paysera_client_release.package_json_helper"/>
         </service>
+
+        <service id="paysera_client_release.version_resolver.client_aware_version_resolver"
+                 class="Paysera\Bundle\ClientReleaseBundle\Service\VersionResolver\ClientAwareVersionResolver">
+            <argument type="service" id="paysera_client_release.version_resolver.git_tag"/>
+            <argument type="service" id="paysera_client_release.version_resolver.package_json"/>
+        </service>
     </services>
 </container>
