@@ -35,6 +35,7 @@
                  class="Paysera\Bundle\ClientReleaseBundle\Service\ReleaseStep\IncreasePackageJsonVersionStep">
             <argument type="service" id="paysera_client_release.semantic_version_manipulator"/>
             <argument type="service" id="paysera_client_release.package_json_helper"/>
+            <argument type="service" id="paysera_client_release.version_resolver.package_json"/>
             <tag name="paysera_client_release.release_step" type="javascript" position="35"/>
         </service>
 
@@ -43,6 +44,7 @@
             <argument type="service" id="paysera_client_release.changelog_parser.parser"/>
             <argument type="service" id="paysera_client_release.changelog_parser.dumper"/>
             <argument type="service" id="paysera_client_release.semantic_version_manipulator"/>
+            <argument type="service" id="paysera_client_release.version_resolver.client_aware_version_resolver"/>
             <tag name="paysera_client_release.release_step" type="javascript" position="40"/>
             <tag name="paysera_client_release.release_step" type="php" position="40"/>
         </service>
@@ -95,6 +97,7 @@
                  class="Paysera\Bundle\ClientReleaseBundle\Service\ReleaseStep\PushTagToRepositoryStep">
             <argument type="service" id="paysera_client_release.semantic_version_manipulator"/>
             <argument type="service" id="paysera_client_release.repository_resolver"/>
+            <argument type="service" id="paysera_client_release.version_resolver.client_aware_version_resolver"/>
             <tag name="paysera_client_release.release_step" type="javascript" position="80"/>
             <tag name="paysera_client_release.release_step" type="php" position="80"/>
         </service>

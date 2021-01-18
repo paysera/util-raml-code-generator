@@ -24,7 +24,6 @@
 
         <service id="paysera_client_release.semantic_version_manipulator"
                  class="Paysera\Bundle\ClientReleaseBundle\Service\SemanticVersionManipulator">
-            <argument type="service" id="paysera_client_release.package_json_helper"/>
         </service>
 
         <service id="paysera_client_release.env_helper"
@@ -54,6 +53,21 @@
                  class="Paysera\Bundle\ClientReleaseBundle\Service\ReleaseDataCollector">
             <argument type="service" id="paysera_client_release.changelog_parser.value_extractor"/>
             <argument type="service" id="paysera_client_release.changelog_parser.parser"/>
+        </service>
+
+        <service id="paysera_client_release.version_resolver.git_tag"
+                 class="Paysera\Bundle\ClientReleaseBundle\Service\VersionResolver\GitTagVersionResolver">
+        </service>
+
+        <service id="paysera_client_release.version_resolver.package_json"
+                 class="Paysera\Bundle\ClientReleaseBundle\Service\VersionResolver\PackageJsonVersionResolver">
+            <argument type="service" id="paysera_client_release.package_json_helper"/>
+        </service>
+
+        <service id="paysera_client_release.version_resolver.client_aware_version_resolver"
+                 class="Paysera\Bundle\ClientReleaseBundle\Service\VersionResolver\ClientAwareVersionResolver">
+            <argument type="service" id="paysera_client_release.version_resolver.git_tag"/>
+            <argument type="service" id="paysera_client_release.version_resolver.package_json"/>
         </service>
     </services>
 </container>

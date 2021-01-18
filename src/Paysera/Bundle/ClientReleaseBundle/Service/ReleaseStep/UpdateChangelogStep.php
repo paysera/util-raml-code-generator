@@ -5,6 +5,7 @@ namespace Paysera\Bundle\ClientReleaseBundle\Service\ReleaseStep;
 
 use Paysera\Bundle\ClientReleaseBundle\Entity\ReleaseStepData;
 use Paysera\Bundle\ClientReleaseBundle\Exception\ReleaseCycleException;
+use Paysera\Bundle\ClientReleaseBundle\Service\VersionResolver\VersionResolverInterface;
 use Paysera\Bundle\ClientReleaseBundle\Service\SemanticVersionManipulator;
 use Paysera\Component\ChangelogParser\Entity\Changelog;
 use Paysera\Component\ChangelogParser\Entity\VersionInfo;
@@ -20,15 +21,18 @@ class UpdateChangelogStep implements ReleaseStepInterface
     private $parser;
     private $dumper;
     private $versionManipulator;
+    private $versionResolver;
 
     public function __construct(
         ChangelogParser $parser,
         ChangelogDumper $dumper,
-        SemanticVersionManipulator $versionManipulator
+        SemanticVersionManipulator $versionManipulator,
+        VersionResolverInterface $versionResolver
     ) {
         $this->parser = $parser;
         $this->dumper = $dumper;
         $this->versionManipulator = $versionManipulator;
+        $this->versionResolver = $versionResolver;
     }
 
     public function processStep(ReleaseStepData $releaseStepData, InputInterface $input, OutputInterface $output)
@@ -74,9 +78,8 @@ class UpdateChangelogStep implements ReleaseStepInterface
 
     private function buildVersionInfo(ReleaseStepData $releaseStepData): VersionInfo
     {
-        $currentVersion = $this->versionManipulator->resolveCurrentVersion($releaseStepData);
         $futureVersion = $this->versionManipulator->increase(
-            $currentVersion,
+            $this->versionResolver->resolveCurrentVersion($releaseStepData),
             $releaseStepData->getReleaseData()->getVersion()
         );
 
