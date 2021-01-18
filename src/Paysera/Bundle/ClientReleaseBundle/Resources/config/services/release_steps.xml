@@ -35,6 +35,7 @@
                  class="Paysera\Bundle\ClientReleaseBundle\Service\ReleaseStep\IncreasePackageJsonVersionStep">
             <argument type="service" id="paysera_client_release.semantic_version_manipulator"/>
             <argument type="service" id="paysera_client_release.package_json_helper"/>
+            <argument type="service" id="paysera_client_release.version_resolver.package_json"/>
             <tag name="paysera_client_release.release_step" type="javascript" position="35"/>
         </service>
 

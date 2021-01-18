@@ -6,6 +6,7 @@ namespace Paysera\Bundle\ClientReleaseBundle\Service\ReleaseStep;
 use Paysera\Bundle\ClientReleaseBundle\Entity\ReleaseStepData;
 use Paysera\Bundle\ClientReleaseBundle\Service\PackageJsonHelper;
 use Paysera\Bundle\ClientReleaseBundle\Service\SemanticVersionManipulator;
+use Paysera\Bundle\ClientReleaseBundle\Service\VersionResolver\PackageJsonVersionResolver;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -13,13 +14,16 @@ class IncreasePackageJsonVersionStep implements ReleaseStepInterface
 {
     private $versionManipulator;
     private $packageJsonHelper;
+    private $packageJsonVersionResolver;
 
     public function __construct(
         SemanticVersionManipulator $versionManipulator,
-        PackageJsonHelper $packageJsonHelper
+        PackageJsonHelper $packageJsonHelper,
+        PackageJsonVersionResolver $packageJsonVersionResolver
     ) {
         $this->versionManipulator = $versionManipulator;
         $this->packageJsonHelper = $packageJsonHelper;
+        $this->packageJsonVersionResolver = $packageJsonVersionResolver;
     }
 
     public function processStep(ReleaseStepData $releaseStepData, InputInterface $input, OutputInterface $output)
@@ -31,7 +35,7 @@ class IncreasePackageJsonVersionStep implements ReleaseStepInterface
         }
 
         $packageJson['version'] = $this->versionManipulator->increase(
-            $releaseStepData->getClientDefinition()->getVersionResolver()->resolveCurrentVersion($releaseStepData),
+            $this->packageJsonVersionResolver->resolveCurrentVersion($releaseStepData),
             $releaseStepData->getReleaseData()->getVersion()
         );
         $packageJson['dependencies'] = $generatedPackageJson['dependencies'];
