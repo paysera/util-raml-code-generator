@@ -12,14 +12,12 @@
         <service id="paysera_client_release.client_definition_builder.php"
                  class="Paysera\Bundle\ClientReleaseBundle\Service\ClientDefinitionBuilder\PhpClientDefinitionBuilder">
             <argument type="service" id="paysera_client_release.client_definition_builder.base"/>
-            <argument type="service" id="paysera_client_release.version_resolver.git_tag"/>
             <tag name="paysera_client_release.client_definition_builder" type="php"/>
         </service>
 
         <service id="paysera_client_release.client_definition_builder.javascript"
                  class="Paysera\Bundle\ClientReleaseBundle\Service\ClientDefinitionBuilder\JavascriptClientDefinitionBuilder">
             <argument type="service" id="paysera_client_release.client_definition_builder.base"/>
-            <argument type="service" id="paysera_client_release.version_resolver.package_json"/>
             <tag name="paysera_client_release.client_definition_builder" type="javascript"/>
         </service>
     </services>
