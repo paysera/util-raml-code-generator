@@ -18,7 +18,9 @@
             {{ php_generate_uri(resource) }},
             {{ php_generate_entity_converter(method, api) }}
         );
-        {% if is_raw_response(method) -%}
+        {% if is_stream_response(method) -%}
+        return $this->apiClient->makeRawRequest($request, ['stream' => true])->getBody();
+    {% elseif is_raw_response(method) -%}
         return $this->apiClient->makeRawRequest($request)->getBody()->getContents();
     {% else -%}
         $data = $this->apiClient->makeRequest($request);
