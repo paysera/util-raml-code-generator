@@ -18,6 +18,7 @@ class BodyResolver
     const BODY_JAVASCRIPT = 'application/javascript';
     const BODY_OCTET_STREAM = 'application/octet-stream';
     const BODY_TEXT_CSV = 'text/csv';
+    const ANNOTATION_STREAM_RESPONSE = '(stream_response)';
 
     /**
      * @param Method $method
@@ -76,6 +77,11 @@ class BodyResolver
         }
 
         return false;
+    }
+
+    public function isStreamResponse(Method $method) : bool
+    {
+        return array_key_exists(self::ANNOTATION_STREAM_RESPONSE, $method->getAnnotations());
     }
 
     public function isIterableResponse(Method $method, ApiDefinition $api)

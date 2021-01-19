@@ -14,6 +14,7 @@ use Paysera\Bundle\CodeGeneratorBundle\Twig\BaseExtension;
 use Paysera\Bundle\PhpGeneratorBundle\Service\NamespaceHelper;
 use Paysera\Component\StringHelper;
 use Paysera\Component\TypeHelper;
+use Psr\Http\Message\StreamInterface;
 use Raml\Method;
 use Raml\Resource;
 use Raml\Types\ArrayType;
@@ -122,6 +123,10 @@ class ApiMethodExtension extends Twig_Extension
         }
         if (TypeHelper::isPrimitiveType($bodyTypeName)) {
             return $bodyTypeName;
+        }
+
+        if ($this->bodyResolver->isStreamResponse($method)) {
+            return '\\' . StreamInterface::class;
         }
 
         return 'null';

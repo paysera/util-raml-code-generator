@@ -32,7 +32,6 @@ use Twig_SimpleTest;
 class BaseExtension extends Twig_Extension
 {
     const METHOD_NAME_OVERRIDE_ANNOTATION = '(generator_method_name_override)';
-    const ANNOTATION_STREAM_RESPONSE = '(stream_response)';
 
     private $methodNameBuilder;
     private $resourceTypeDetector;
@@ -459,7 +458,7 @@ class BaseExtension extends Twig_Extension
 
     public function isStreamResponse(Method $method) : bool
     {
-        return array_key_exists(self::ANNOTATION_STREAM_RESPONSE, $method->getAnnotations());
+        return $this->bodyResolver->isStreamResponse($method);
     }
 
     /**

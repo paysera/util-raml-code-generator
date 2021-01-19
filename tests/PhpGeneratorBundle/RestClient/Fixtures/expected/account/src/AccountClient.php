@@ -44,7 +44,7 @@ class AccountClient
      * GET /accounts/{accountNumber}/statements-csv
      *
      * @param string $accountNumber
-     * @return string
+     * @return \Psr\Http\Message\StreamInterface
      */
     public function getAccountStatementsCsv($accountNumber)
     {
