@@ -17,6 +17,7 @@ class BodyResolver
     const BODY_JSON = 'application/json';
     const BODY_JAVASCRIPT = 'application/javascript';
     const BODY_OCTET_STREAM = 'application/octet-stream';
+    const BODY_TEXT_CSV = 'text/csv';
 
     /**
      * @param Method $method
@@ -58,6 +59,10 @@ class BodyResolver
 
         try {
             return $okResponse->getBodyByType(self::BODY_OCTET_STREAM);
+        } catch (Exception $exception) {}
+
+        try {
+            return $okResponse->getBodyByType(self::BODY_TEXT_CSV);
         } catch (Exception $exception) {}
 
         throw new Exception('No body found');

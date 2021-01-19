@@ -6,6 +6,9 @@ baseUri: https://my-api.example.com/rest/v1
 uses:
   Paysera: ../__library/rest.raml
 
+annotationTypes:
+  stream_response: nil
+
 traits:
   AccountFilter: !include traits/account-filter.raml
   ScriptFilter: !include traits/script-filter.raml
@@ -87,6 +90,20 @@ types:
           body:
             application/javascript:
               description: Generated JS code
+  /{accountNumber}:
+    uriParameters:
+      accountNumber:
+        required: true
+        type: string
+    /statements-csv:
+      get:
+        (stream_response):
+        description: Get Account Statements CSV
+        responses:
+          200:
+            body:
+              text/csv:
+                type: string
 /refund:
   /{requestId}:
     /price:
