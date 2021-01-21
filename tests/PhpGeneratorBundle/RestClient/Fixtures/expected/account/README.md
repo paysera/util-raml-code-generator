@@ -49,6 +49,17 @@ $result = $accountClient->getAccountScripts($scriptFilter);
 ---
 
 
+Get Account Statements CSV
+
+
+```php
+
+$result = $accountClient->getAccountStatementsCsv($accountNumber);
+```
+---
+
+
+
 Standard SQL-style Result filtering
 
 

@@ -89,6 +89,7 @@ class BaseExtension extends Twig_Extension
             new Twig_SimpleFunction('generate_method_arguments', [$this, 'generateMethodArguments']),
             new Twig_SimpleFunction('generate_body', [$this, 'generateBody']),
             new Twig_SimpleFunction('is_raw_response', [$this, 'isRawResponse']),
+            new Twig_SimpleFunction('is_stream_response', [$this, 'isStreamResponse']),
             new Twig_SimpleFunction('get_argument_names', [$this, 'getArgumentNames']),
             new Twig_SimpleFunction('get_method_entity_name', [$this, 'getMethodEntityName']),
             new Twig_SimpleFunction('method_returns_result', [$this, 'methodReturnsResult']),
@@ -453,6 +454,11 @@ class BaseExtension extends Twig_Extension
     public function isRawResponse(Method $method)
     {
         return $this->bodyResolver->isRawResponse($method);
+    }
+
+    public function isStreamResponse(Method $method) : bool
+    {
+        return $this->bodyResolver->isStreamResponse($method);
     }
 
     /**

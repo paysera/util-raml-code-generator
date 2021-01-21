@@ -40,6 +40,23 @@ class AccountClient
     }
 
     /**
+     * Get Account Statements CSV
+     * GET /accounts/{accountNumber}/statements-csv
+     *
+     * @param string $accountNumber
+     * @return \Psr\Http\Message\StreamInterface
+     */
+    public function getAccountStatementsCsv($accountNumber)
+    {
+        $request = $this->apiClient->createRequest(
+            RequestMethodInterface::METHOD_GET,
+            sprintf('accounts/%s/statements-csv', rawurlencode($accountNumber)),
+            null
+        );
+        return $this->apiClient->makeRawRequest($request, ['stream' => true])->getBody();
+    }
+
+    /**
      * Standard SQL-style Result filtering
      * GET /accounts
      *
