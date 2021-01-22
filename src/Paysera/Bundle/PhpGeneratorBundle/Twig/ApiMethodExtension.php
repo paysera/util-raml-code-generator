@@ -100,6 +100,10 @@ class ApiMethodExtension extends Twig_Extension
             return 'null';
         }
 
+        if ($this->bodyResolver->isStreamResponse($method)) {
+            return '\\' . StreamInterface::class;
+        }
+
         $bodyType = $body->getType();
         $bodyTypeName = $bodyType->getName();
 
@@ -123,10 +127,6 @@ class ApiMethodExtension extends Twig_Extension
         }
         if (TypeHelper::isPrimitiveType($bodyTypeName)) {
             return $bodyTypeName;
-        }
-
-        if ($this->bodyResolver->isStreamResponse($method)) {
-            return '\\' . StreamInterface::class;
         }
 
         return 'null';
