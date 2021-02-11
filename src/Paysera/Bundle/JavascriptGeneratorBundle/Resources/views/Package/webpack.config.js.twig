@@ -1,11 +1,13 @@
 const path = require('path');
 
-module.exports = (env, argv) => {
+module.exports = () => {
     const config = {
         entry: {
             index: path.resolve(__dirname, 'src/index.js'),
         },
         output: {
+            path: path.resolve(__dirname, 'dist/umd'),
+            filename: 'main.js',
             libraryTarget: 'umd',
             library: '{{ vendor_prefix }}{{ js_get_client_name(api) }}'
         },
@@ -19,8 +21,6 @@ module.exports = (env, argv) => {
             ],
         },
         devtool: 'source-map',
-        context: path.resolve(__dirname),
-        target: 'web',
         externals: {
 {% for libraryConfig in get_external_libraries(api) %}
 {% if libraryConfig.options.external is defined %}
@@ -33,19 +33,11 @@ module.exports = (env, argv) => {
             '{{ libraryConfig.name|raw }}': '{{ libraryConfig.name|raw }}',
 {% endif %}
 {% endfor %}
-        }
+        },
+        resolve: {
+            extensions: ['.js', '.jsx'],
+        },
     };
-
-    if (argv.mode === 'development') {
-        config.devServer = {
-            contentBase: [
-                path.join(__dirname, 'demo'),
-                path.join(__dirname, 'node_modules'),
-            ],
-            watchContentBase: true,
-            port: 9000
-        };
-    }
 
     return config;
 };

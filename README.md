@@ -254,12 +254,12 @@ This command will
 #### Javascript client file tree
 In `output_dir` you should expect these files generated:
 ```
-|   .babelrc
-|   .eslintrc
+|   .babelrc.js
+|   .eslintrc.js
 |   .gitignore
 |   package.json
 |   README.md
-|   webpack-config.js
+|   webpack.config.js
 |
 └───demo
     |   app.js
