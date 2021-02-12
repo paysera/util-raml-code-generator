@@ -20,7 +20,8 @@ class BinaryPathResolver
     {
         foreach ($possibleBinaryNames as $binary) {
             $path = (new ExecutableFinder())
-                ->find($binary, null, $this->additionalLookupDirectories);
+                ->find($binary, null, $this->additionalLookupDirectories)
+            ;
 
             if ($path !== null) {
                 return $path;
