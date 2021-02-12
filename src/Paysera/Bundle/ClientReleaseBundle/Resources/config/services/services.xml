@@ -69,5 +69,14 @@
             <argument type="service" id="paysera_client_release.version_resolver.git_tag"/>
             <argument type="service" id="paysera_client_release.version_resolver.package_json"/>
         </service>
+
+        <service id="paysera_client_release.service.binary_path_resolver"
+                 class="Paysera\Bundle\ClientReleaseBundle\Service\BinaryPathResolver" >
+            <argument type="collection">
+                <argument type="string">%kernel.root_dir%/../bin</argument>
+                <argument type="string">%kernel.root_dir%/../dist</argument>
+            </argument>
+        </service>
+
     </services>
 </container>
