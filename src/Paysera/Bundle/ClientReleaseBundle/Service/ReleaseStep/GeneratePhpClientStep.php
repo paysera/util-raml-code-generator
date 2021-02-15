@@ -6,12 +6,22 @@ namespace Paysera\Bundle\ClientReleaseBundle\Service\ReleaseStep;
 use Paysera\Bundle\ClientReleaseBundle\Entity\PhpClientDefinition;
 use Paysera\Bundle\ClientReleaseBundle\Entity\ReleaseStepData;
 use Paysera\Bundle\ClientReleaseBundle\Exception\ReleaseCycleException;
+use Paysera\Bundle\ClientReleaseBundle\Service\BinaryPathResolver;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Process\Process;
 
 class GeneratePhpClientStep implements ReleaseStepInterface
 {
+    const PHAR_FILE_NAME = 'raml-code-generator';
+
+    private $binaryPathResolver;
+
+    public function __construct(BinaryPathResolver $binaryPathResolver)
+    {
+        $this->binaryPathResolver = $binaryPathResolver;
+    }
+
     public function processStep(ReleaseStepData $releaseStepData, InputInterface $input, OutputInterface $output)
     {
         /** @var PhpClientDefinition $clientDefinition */
@@ -19,7 +29,12 @@ class GeneratePhpClientStep implements ReleaseStepInterface
         $releaseStepData->setGeneratedDir($releaseStepData->getTempDir() . '/generated');
 
         $args = [
-            'raml-code-generator',
+            $this->binaryPathResolver->getPath(
+                [
+                    self::PHAR_FILE_NAME,
+                    self::PHAR_FILE_NAME . '.phar',
+                ]
+            ),
             'php-generator:rest-client',
             'raml_file' => $releaseStepData->getApiConfig()->getRamlFile(),
             'output_dir' => $releaseStepData->getGeneratedDir(),

@@ -24,6 +24,7 @@
         <service id="paysera_client_release.release_step.generate_php_client"
                  class="Paysera\Bundle\ClientReleaseBundle\Service\ReleaseStep\GeneratePhpClientStep">
             <tag name="paysera_client_release.release_step" type="php" position="30"/>
+            <argument type="service" id="paysera_client_release.service.binary_path_resolver"/>
         </service>
 
         <service id="paysera_client_release.release_step.generate_js_client"
