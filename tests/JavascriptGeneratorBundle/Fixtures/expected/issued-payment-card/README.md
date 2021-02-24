@@ -41,8 +41,3 @@ const client = createIssuedPaymentCardClient({
     ]
 });
 ```
-
-## Demo
- - Run `npm install`
- - Run `npm run build`
- - Run `npm run serve` and take a look at `/dist/app.js` file
