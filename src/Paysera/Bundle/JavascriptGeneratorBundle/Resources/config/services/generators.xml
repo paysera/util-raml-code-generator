@@ -61,24 +61,17 @@
             <tag name="paysera_js_generator" position="80"/>
         </service>
 
-        <service id="paysera_javascript_generator.generator.demo"
-                 class="Paysera\Bundle\JavascriptGeneratorBundle\Service\Generator\DemoGenerator">
+        <service id="paysera_javascript_generator.generator.readme"
+                 class="Paysera\Bundle\JavascriptGeneratorBundle\Service\Generator\ReadmeGenerator">
             <argument type="service" id="templating"/>
             <argument>%paysera_code_generator.vendor_prefix%</argument>
             <tag name="paysera_js_generator" position="100"/>
         </service>
 
-        <service id="paysera_javascript_generator.generator.readme"
-                 class="Paysera\Bundle\JavascriptGeneratorBundle\Service\Generator\ReadmeGenerator">
-            <argument type="service" id="templating"/>
-            <argument>%paysera_code_generator.vendor_prefix%</argument>
-            <tag name="paysera_js_generator" position="110"/>
-        </service>
-
         <service id="paysera_javascript_generator.generator.index_d_ts"
                  class="Paysera\Bundle\JavascriptGeneratorBundle\Service\Generator\IndexDTsGenerator">
             <argument type="service" id="templating"/>
-            <tag name="paysera_js_generator" position="120"/>
+            <tag name="paysera_js_generator" position="110"/>
         </service>
     </services>
 </container>

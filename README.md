@@ -261,10 +261,7 @@ In `output_dir` you should expect these files generated:
 |   README.md
 |   webpack.config.js
 |
-└───demo
-    |   app.js
-    |   index.html
-    src
+└───src
     |   index.js
     |   angular.module.js
     |
