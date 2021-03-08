@@ -108,6 +108,24 @@ $result = $categoryClient->createCategory($category);
 ---
 
     
+Upload category
+
+
+```php
+use Paysera\Test\CategoryClient\Entity as Entities;
+
+$file = new \Paysera\Component\RestClientCommon\Entity\File();
+
+$file->setName($name);
+$file->setContent($content);
+$file->setMimeType($mimeType);
+$file->setSize($size);
+    
+$categoryClient->uploadKeywords($file);
+```
+---
+
+
 Standard SQL-style Result filtering
 
 

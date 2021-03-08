@@ -70,3 +70,12 @@ traits:
     description: Get keywords list
     is:
       - Paysera.Filter
+  /upload:
+    put:
+      description: Upload category
+      body:
+        application/json:
+          type: Paysera.File
+      responses:
+        204:
+          body: null

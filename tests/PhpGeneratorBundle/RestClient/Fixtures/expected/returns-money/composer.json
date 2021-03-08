@@ -9,7 +9,7 @@
     "require": {
         "php": ">=5.5",
         "evp/money": "^1.0 || ^2.0",
-        "paysera/lib-rest-client-common": "^1.0 | ^2.1",
+        "paysera/lib-rest-client-common": "^1.0 | ^2.5",
         "fig/http-message-util": "^1.0"
     },
     "minimum-stability": "stable"

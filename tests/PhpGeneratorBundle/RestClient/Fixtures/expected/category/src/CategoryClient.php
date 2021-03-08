@@ -6,6 +6,7 @@ use Paysera\Test\CategoryClient\Entity as Entities;
 use Fig\Http\Message\RequestMethodInterface;
 use Paysera\Component\RestClientCommon\Entity\Entity;
 use Paysera\Component\RestClientCommon\Client\ApiClient;
+use Paysera\Component\RestClientCommon\Entity\File;
 use Paysera\Component\RestClientCommon\Entity\Filter;
 
 class CategoryClient
@@ -134,6 +135,25 @@ class CategoryClient
         $data = $this->apiClient->makeRequest($request);
 
         return new Entities\Category($data);
+    }
+
+    /**
+     * Upload category
+     * PUT /keywords/upload
+     *
+     * @param File $file
+     * @return null
+     */
+    public function uploadKeywords(File $file)
+    {
+        $request = $this->apiClient->createRequest(
+            RequestMethodInterface::METHOD_PUT,
+            'keywords/upload',
+            $file
+        );
+        $data = $this->apiClient->makeRequest($request);
+
+        return null;
     }
 
     /**

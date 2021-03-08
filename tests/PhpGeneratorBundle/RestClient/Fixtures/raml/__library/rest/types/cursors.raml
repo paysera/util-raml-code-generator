@@ -1,0 +1,17 @@
+#%RAML 1.0 DataType
+type: object
+displayName: Cursor object for cursor pagination
+properties:
+  after:
+    required: false
+    description: |
+        When order_direction = asc, stores the greatest value of the order_by field.
+        When order_direction = desc, stores the lowest value of the order_by field.
+        In both order directions the client should use this value when retrieving the next page.
+    type: string
+  before:
+    required: false
+    description: |
+        When order_direction = asc, stores the lowest value of the order_by field.
+        When order_direction = desc, stores the greatest value of the order_by field.
+    type: string

@@ -42,7 +42,7 @@
                                     <argument type="string">paysera/lib-rest-client-common</argument>
                                 </call>
                                 <call method="setVersion">
-                                    <argument type="string">^1.0 | ^2.1</argument>
+                                    <argument type="string">^1.0 | ^2.5</argument>
                                 </call>
                             </service>
                         </argument>
@@ -192,7 +192,7 @@
                                         <argument type="string">paysera/lib-rest-client-common</argument>
                                     </call>
                                     <call method="setVersion">
-                                        <argument type="string">^1.0 | ^2.1</argument>
+                                        <argument type="string">^1.0 | ^2.5</argument>
                                     </call>
                                 </service>
                             </argument>
@@ -219,7 +219,34 @@
                                         <argument type="string">paysera/lib-rest-client-common</argument>
                                     </call>
                                     <call method="setVersion">
-                                        <argument type="string">^1.0 | ^2.1</argument>
+                                        <argument type="string">^1.0 | ^2.5</argument>
+                                    </call>
+                                </service>
+                            </argument>
+                        </call>
+                    </service>
+                </argument>
+            </call>
+            <call method="addTypeConfiguration">
+                <argument type="service">
+                    <service class="Paysera\Bundle\CodeGeneratorBundle\Entity\TypeConfiguration">
+                        <call method="setTypeName">
+                            <argument>File</argument>
+                        </call>
+                        <call method="setMatchRegex">
+                            <argument type="string">\.file$</argument>
+                        </call>
+                        <call method="setImportString">
+                            <argument type="string">Paysera\Component\RestClientCommon\Entity\File</argument>
+                        </call>
+                        <call method="setLibraryConfiguration">
+                            <argument type="service">
+                                <service class="Paysera\Bundle\CodeGeneratorBundle\Entity\LibraryConfiguration">
+                                    <call method="setName">
+                                        <argument type="string">paysera/lib-rest-client-common</argument>
+                                    </call>
+                                    <call method="setVersion">
+                                        <argument type="string">^1.0 | ^2.5</argument>
                                     </call>
                                 </service>
                             </argument>
@@ -448,21 +475,6 @@
                     </service>
                 </argument>
             </call>
-            <!--<call method="addTypeConfiguration">-->
-                <!--<argument type="service">-->
-                    <!--<service class="Paysera\Bundle\CodeGeneratorBundle\Entity\TypeConfiguration">-->
-                        <!--<call method="setTypeName">-->
-                            <!--<argument>Result</argument>-->
-                        <!--</call>-->
-                        <!--<call method="setMatchRegex">-->
-                            <!--<argument type="string">\w*result$</argument>-->
-                        <!--</call>-->
-                        <!--<call method="setImportString">-->
-                            <!--<argument type="string">Paysera\Component\Serializer\Entity\Result</argument>-->
-                        <!--</call>-->
-                    <!--</service>-->
-                <!--</argument>-->
-            <!--</call>-->
         </service>
     </services>
 </container>

@@ -2,9 +2,11 @@
 usage: Used in RESTful APIs
 
 types:
+  File: !include rest/types/file.raml
   Money: !include rest/types/money.raml
   Result: !include rest/types/result.raml
   ResultMetadata: !include rest/types/result-metadata.raml
+  Cursors: !include rest/types/cursors.raml
   UndescribedType: !include rest/types/undescribed-type.raml
 traits:
   Filter: !include rest/traits/filter.raml
@@ -12,3 +14,5 @@ traits:
 annotationTypes:
   datetimeTimestamp: !include rest/annotation-types/datetime-timestamp.raml
   entityType: !include rest/annotation-types/entity-type.raml
+  streamResponse: !include rest/annotation-types/stream-response.raml
+

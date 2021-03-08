@@ -51,7 +51,7 @@
         "doctrine/orm": "^2.5",
         "evp/money": "^2.2",
         "paysera/lib-rest-bundle": "^4.0",
-        "paysera/lib-rest-client-common": "^2.1",
+        "paysera/lib-rest-client-common": "^2.5",
         "paysera/lib-serializer": "^2.0",
         "phpunit/phpunit": "^6.5",
         "sensio/generator-bundle": "^3.0",
