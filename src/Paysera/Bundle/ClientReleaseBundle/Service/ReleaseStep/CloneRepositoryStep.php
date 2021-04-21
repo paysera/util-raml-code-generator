@@ -48,6 +48,7 @@ class CloneRepositoryStep implements ReleaseStepInterface
             ],
             $releaseStepData->getTempDir()
         );
+        $cloneProcess->setTimeout(null);
 
         $output->writeln('<info>*</info> Cloning repository...');
         $exitCode = $cloneProcess->run();
