@@ -3893,16 +3893,16 @@
         },
         {
             "name": "evp/money",
-            "version": "2.4.1",
+            "version": "2.4.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/paysera/lib-money.git",
-                "reference": "b81b8cdb2a75c7593f6b30a95add3939901f676e"
+                "reference": "8c6075986fc5388a2fb2b0ba9c829f5198bffa99"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/paysera/lib-money/zipball/b81b8cdb2a75c7593f6b30a95add3939901f676e",
-                "reference": "b81b8cdb2a75c7593f6b30a95add3939901f676e",
+                "url": "https://api.github.com/repos/paysera/lib-money/zipball/8c6075986fc5388a2fb2b0ba9c829f5198bffa99",
+                "reference": "8c6075986fc5388a2fb2b0ba9c829f5198bffa99",
                 "shasum": ""
             },
             "require": {
@@ -3922,7 +3922,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "description": "Money library",
-            "time": "2020-08-14T06:29:40+00:00"
+            "time": "2020-09-25T08:29:57+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",
