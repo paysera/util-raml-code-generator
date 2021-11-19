@@ -31,11 +31,6 @@ class ClientFactory extends ClientFactoryAbstract
         return new QuestionnaireClient($this->apiClient);
     }
 
-    public function getApiClient()
-    {
-        return $this->apiClient;
-    }
-
     private function resolveDefaultUrlParameters(array $defaults, array $options)
     {
         $params = [];
