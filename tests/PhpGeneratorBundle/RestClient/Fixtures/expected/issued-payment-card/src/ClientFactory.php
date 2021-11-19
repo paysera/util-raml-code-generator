@@ -29,6 +29,11 @@ class ClientFactory extends ClientFactoryAbstract
         return new IssuedPaymentCardClient($this->apiClient);
     }
 
+    public function getApiClient()
+    {
+        return $this->apiClient;
+    }
+
     private function resolveDefaultUrlParameters(array $defaults, array $options)
     {
         $params = [];
