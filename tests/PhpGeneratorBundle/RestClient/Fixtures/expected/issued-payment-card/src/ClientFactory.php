@@ -9,7 +9,7 @@ class ClientFactory extends ClientFactoryAbstract
 {
     const DEFAULT_BASE_URL = 'https://accounts.paysera.com/public/issued-payment-card/v1/';
 
-    private $apiClient;
+    protected $apiClient;
 
     public function __construct($options)
     {

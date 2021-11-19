@@ -9,7 +9,7 @@ class ClientFactory extends ClientFactoryAbstract
 {
     const DEFAULT_BASE_URL = 'https://example.com/accounts/rest/v1/';
 
-    private $apiClient;
+    protected $apiClient;
 
     public function __construct($options)
     {
