@@ -32,7 +32,6 @@ class ReplaceFilesStep implements ReleaseStepInterface
             $releaseStepData->getSourceDir(),
             $iterator,
             [
-                'delete' => true,
                 'override' => true,
             ]
         );
