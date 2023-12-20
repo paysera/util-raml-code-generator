@@ -2,7 +2,7 @@
     "name": "{{ php_get_library_name(vendor_prefix, api) }}",
     "description": "{{ api.name|to_class_name }}",
     {%  set library_version = php_get_library_version(api) -%}
-    {%  if not library_version == '' -%}
+    {%  if not library_version is null -%}
         "version": "{{ library_version|raw }}",
     {%  endif -%}
     "autoload": {

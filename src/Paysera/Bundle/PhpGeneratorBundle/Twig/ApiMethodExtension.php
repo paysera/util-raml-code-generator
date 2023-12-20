@@ -79,9 +79,9 @@ class ApiMethodExtension extends Twig_Extension
         return sprintf('%s/lib-%s', $vendor, StringHelper::kebabCase($api->getName()));
     }
 
-    public function getLibraryVersion(ApiDefinition $api): string
+    public function getLibraryVersion(ApiDefinition $api): ?string
     {
-        return $api->getOptions()['library_version'] ?? (string)$api->getRamlDefinition()->getVersion() ?? '';
+        return $api->getOptions()['library_version'] ?? $api->getRamlDefinition()->getVersion() ?? null;
     }
 
     public function getPlatformVersion(ApiDefinition $api): string
