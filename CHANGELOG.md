@@ -6,7 +6,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## 11.6.0
 ### Added
-- Adding options for defining `library_name`, `library_version` and `platform_version` 
+- Adding options for defining `library_version` and `platform_version` 
+- Adding library version and platform version to composer.json and package.json
 
 ## 11.5.0
 ### Changed
