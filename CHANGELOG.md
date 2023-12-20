@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## 11.6.0
+### Added
+- Adding options for defining `library_name`, `library_version` and `platform_version` 
+
 ## 11.5.0
 ### Changed
 - `apiClient` property is changed from private to protected, to be able to extend factory class
