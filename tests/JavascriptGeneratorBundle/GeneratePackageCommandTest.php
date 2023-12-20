@@ -54,16 +54,29 @@ class GeneratePackageCommandTest extends KernelTestCase
      *
      * @param string $apiName
      */
-    public function testGenerateCode($apiName)
-    {
+    public function testGenerateCode(
+        string $apiName,
+        ?string $libraryName = null,
+        ?string $libraryVersion = null,
+        ?string $platformVersion = null
+    ) {
         $this->removeTargetDir($apiName);
-        $this->commandTester->execute(
-            [
-                'raml_file' => sprintf('%s/Fixtures/raml/%s/api.raml', __DIR__, $apiName),
-                'output_dir' => sprintf('%s/Fixtures/generated/%s', __DIR__, $apiName),
-                'client_name' => Inflector::classify($apiName) . 'Client',
-            ]
-        );
+        $arguments = [
+            'raml_file' => sprintf('%s/Fixtures/raml/%s/api.raml', __DIR__, $apiName),
+            'output_dir' => sprintf('%s/Fixtures/generated/%s', __DIR__, $apiName),
+            'client_name' => Inflector::classify($apiName) . 'Client',
+        ];
+        if ($libraryName !== null) {
+            $arguments['--library_name'] = $libraryName;
+        }
+        if ($libraryVersion !== null) {
+            $arguments['--library_version'] = $libraryVersion;
+        }
+        if ($platformVersion !== null) {
+            $arguments['--platform_version'] = $platformVersion;
+        }
+
+        $this->commandTester->execute($arguments);
 
         $this->ensureDirectoryTreeMatches($apiName);
     }
@@ -80,6 +93,24 @@ class GeneratePackageCommandTest extends KernelTestCase
             ['questionnaire'],
             ['issued-payment-card'],
             ['custom'],
+            [
+                'apiName' => 'package-name',
+                'libraryName' => '@vendor-name/overwritten-package-name',
+                'libraryVersion' => null,
+                'platformVersion' => null,
+            ],
+            [
+                'apiName' => 'package-version',
+                'libraryName' => null,
+                'libraryVersion' => "3.2.1",
+                'platformVersion' => null,
+            ],
+            [
+                'apiName' => 'platform-version',
+                'libraryName' => null,
+                'libraryVersion' => null,
+                'platformVersion' => ">=18.0",
+            ],
         ];
     }
 

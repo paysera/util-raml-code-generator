@@ -1,13 +1,17 @@
 {
     "name": "{{ php_get_library_name(vendor_prefix, api) }}",
     "description": "{{ api.name|to_class_name }}",
+    {%  set library_version = php_get_library_version(api) -%}
+    {%  if not library_version == '' -%}
+        "version": "{{ library_version|raw }}",
+    {%  endif -%}
     "autoload": {
         "psr-4": {
             "{{ (api.namespace ~ '\\')|replace({'\\':'\\\\'}) }}": "src"
         }
     },
     "require": {
-        "php": ">=5.5",
+        "php": "{{ php_get_platform_version(api)|raw }}",
         {% for libraryConfig in get_external_libraries(api) -%}
         "{{ libraryConfig.name }}": "{{ libraryConfig.version }}",
         {% endfor -%}

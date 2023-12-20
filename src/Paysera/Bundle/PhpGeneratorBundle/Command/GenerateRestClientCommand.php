@@ -38,6 +38,8 @@ class GenerateRestClientCommand extends Command
             ->addArgument('output_dir', InputArgument::REQUIRED, 'Where to put generated code')
             ->addArgument('namespace', InputArgument::REQUIRED, 'Namespace of generated library, i.e.: Acme\\\\Client\\\\AcmeClient')
             ->addOption('library_name', null, InputOption::VALUE_OPTIONAL, 'Optional library name in composer.json')
+            ->addOption('library_version', null, InputOption::VALUE_OPTIONAL, 'Optional library version in composer.json')
+            ->addOption('platform_version', null, InputOption::VALUE_OPTIONAL, 'Optional platform version in composer.json')
         ;
     }
 
@@ -51,6 +53,12 @@ class GenerateRestClientCommand extends Command
         $options = [];
         if ($input->getOption('library_name') !== null) {
             $options['library_name'] = $input->getOption('library_name');
+        }
+        if ($input->getOption('library_version') !== null) {
+            $options['library_version'] = $input->getOption('library_version');
+        }
+        if ($input->getOption('platform_version') !== null) {
+            $options['platform_version'] = $input->getOption('platform_version');
         }
 
         $this->codeGenerator->generateCode(

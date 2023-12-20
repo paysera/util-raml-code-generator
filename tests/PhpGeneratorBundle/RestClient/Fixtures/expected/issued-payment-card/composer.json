@@ -1,6 +1,7 @@
 {
     "name": "vendor/lib-issued-payment-card-client",
     "description": "IssuedPaymentCardClient",
+    "version": "1.0",
     "autoload": {
         "psr-4": {
             "Paysera\\Test\\IssuedPaymentCardClient\\": "src"

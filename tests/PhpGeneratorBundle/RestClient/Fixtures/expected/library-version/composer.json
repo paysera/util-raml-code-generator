@@ -1,0 +1,16 @@
+{
+    "name": "vendor/lib-library-version-client",
+    "description": "LibraryVersionClient",
+    "version": "11.22.33",
+    "autoload": {
+        "psr-4": {
+            "Paysera\\Test\\LibraryVersionClient\\": "src"
+        }
+    },
+    "require": {
+        "php": ">=5.5",
+        "paysera/lib-rest-client-common": "^1.0 | ^2.5",
+        "fig/http-message-util": "^1.0"
+    },
+    "minimum-stability": "stable"
+}

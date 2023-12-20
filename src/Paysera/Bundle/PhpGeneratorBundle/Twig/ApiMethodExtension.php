@@ -58,6 +58,8 @@ class ApiMethodExtension extends Twig_Extension
             new Twig_SimpleFunction('php_generate_method_arguments', [$this, 'generateMethodArguments'], ['needs_context' => true]),
             new Twig_SimpleFunction('php_inline_argument_names', [$this, 'getInlineArgumentNames']),
             new Twig_SimpleFunction('php_get_library_name', [$this, 'getLibraryName']),
+            new Twig_SimpleFunction('php_get_library_version', [$this, 'getLibraryVersion']),
+            new Twig_SimpleFunction('php_get_platform_version', [$this, 'getPlatformVersion']),
             new Twig_SimpleFunction('php_generate_entity_converter', [$this, 'generateEntityFromArgument'], ['needs_context' => true, 'is_safe' => ['html']]),
         ];
     }
@@ -75,6 +77,16 @@ class ApiMethodExtension extends Twig_Extension
             return $api->getOptions()['library_name'];
         }
         return sprintf('%s/lib-%s', $vendor, StringHelper::kebabCase($api->getName()));
+    }
+
+    public function getLibraryVersion(ApiDefinition $api): string
+    {
+        return $api->getOptions()['library_version'] ?? (string)$api->getRamlDefinition()->getVersion() ?? '';
+    }
+
+    public function getPlatformVersion(ApiDefinition $api): string
+    {
+        return $api->getOptions()['platform_version'] ?? '>=5.5';
     }
 
     /**

@@ -1,6 +1,7 @@
 {
     "name": "vendor/lib-user-info-client",
     "description": "UserInfoClient",
+    "version": "1.0",
     "autoload": {
         "psr-4": {
             "Paysera\\Test\\UserInfoClient\\": "src"

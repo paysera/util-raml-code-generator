@@ -51,15 +51,32 @@ class GenerateRestClientCommandTest extends KernelTestCase
      * @dataProvider dataProviderTestGenerateCode
      *
      * @param string $apiName
+     * @param string|null $libraryName
+     * @param string|null $libraryVersion
+     * @param string|null $platformVersion
      */
-    public function testGenerateCode($apiName)
-    {
+    public function testGenerateCode(
+        string $apiName,
+        ?string $libraryName = null,
+        ?string $libraryVersion = null,
+        ?string $platformVersion = null
+    ) {
         $this->removeTargetDir($apiName);
-        $this->commandTester->execute([
+        $arguments = [
             'raml_file' => sprintf('%s/Fixtures/raml/%s/api.raml', __DIR__, $apiName),
             'output_dir' => sprintf('%s/Fixtures/generated/%s', __DIR__, $apiName),
-            'namespace' => sprintf('Paysera\\Test\\%sClient', Inflector::classify($apiName))
-        ]);
+            'namespace' => sprintf('Paysera\\Test\\%sClient', Inflector::classify($apiName)),
+        ];
+        if ($libraryName !== null) {
+            $arguments['--library_name'] = $libraryName;
+        }
+        if ($libraryVersion !== null) {
+            $arguments['--library_version'] = $libraryVersion;
+        }
+        if ($platformVersion !== null) {
+            $arguments['--platform_version'] = $platformVersion;
+        }
+        $this->commandTester->execute($arguments);
 
         $this->ensureDirectoryTreeMatches($apiName);
     }
@@ -79,6 +96,24 @@ class GenerateRestClientCommandTest extends KernelTestCase
             ['returns-money'],
             ['issued-payment-card'],
             ['custom'],
+            [
+                'apiName' => 'platform-version',
+                'libraryName' => null,
+                'libraryVersion' => null,
+                'platformVersion' => '~9.0'
+            ],
+            [
+                'apiName' => 'library-name',
+                'libraryName' => 'vendor-name/overwritten-library-name',
+                'libraryVersion' => null,
+                'platformVersion' => null,
+            ],
+            [
+                'apiName' => 'library-version',
+                'libraryName' => null,
+                'libraryVersion' => '11.22.33',
+                'platformVersion' => null,
+            ],
         ];
     }
 

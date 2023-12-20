@@ -1,6 +1,7 @@
 {
     "name": "vendor/lib-account-client",
     "description": "AccountClient",
+    "version": "2.3.1",
     "autoload": {
         "psr-4": {
             "Paysera\\Test\\AccountClient\\": "src"
