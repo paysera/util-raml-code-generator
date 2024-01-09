@@ -1,6 +1,7 @@
 {
     "name": "vendor/lib-public-transfers-client",
     "description": "PublicTransfersClient",
+    "version": "1.1",
     "autoload": {
         "psr-4": {
             "Paysera\\Test\\PublicTransfersClient\\": "src"

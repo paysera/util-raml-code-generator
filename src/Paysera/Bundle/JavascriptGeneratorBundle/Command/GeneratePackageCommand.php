@@ -47,6 +47,8 @@ class GeneratePackageCommand extends Command
             ->addArgument('output_dir', InputArgument::REQUIRED, 'Where to put generated code')
             ->addArgument('client_name', InputArgument::REQUIRED, 'Name of the main client class')
             ->addOption('library_name', null, InputOption::VALUE_OPTIONAL, 'Optional package name in package.json')
+            ->addOption('library_version', null, InputOption::VALUE_OPTIONAL, 'Optional package version in package.json')
+            ->addOption('platform_version', null, InputOption::VALUE_OPTIONAL, 'Optional platform version in package.json')
         ;
     }
 
@@ -59,6 +61,12 @@ class GeneratePackageCommand extends Command
 
         if ($input->getOption('library_name') !== null) {
             $options['library_name'] = $input->getOption('library_name');
+        }
+        if ($input->getOption('library_version') !== null) {
+            $options['library_version'] = $input->getOption('library_version');
+        }
+        if ($input->getOption('platform_version') !== null) {
+            $options['platform_version'] = $input->getOption('platform_version');
         }
 
         $this->codeGenerator->generateCode(

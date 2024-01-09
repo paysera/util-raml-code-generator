@@ -1,6 +1,7 @@
 {
     "name": "vendor/lib-auth-client",
     "description": "AuthClient",
+    "version": "v1",
     "autoload": {
         "psr-4": {
             "Paysera\\Test\\AuthClient\\": "src"

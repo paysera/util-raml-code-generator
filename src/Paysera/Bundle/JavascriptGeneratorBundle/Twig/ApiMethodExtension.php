@@ -46,6 +46,8 @@ class ApiMethodExtension extends Twig_Extension
         return [
             new Twig_SimpleFunction('js_get_client_name', [$this, 'getClientName']),
             new Twig_SimpleFunction('js_get_package_name', [$this, 'getPackageName']),
+            new Twig_SimpleFunction('js_get_package_version', [$this, 'getPackageVersion']),
+            new Twig_SimpleFunction('js_get_platform_version', [$this, 'getPlatformVersion']),
             new Twig_SimpleFunction('js_get_angular_module_name', [$this, 'getAngularJsModuleName'], ['is_safe' => ['js']]),
             new Twig_SimpleFunction('js_get_angular_client_factory_name', [$this, 'getAngularJsFactoryClassName']),
             new Twig_SimpleFunction('js_generate_uri', [$this, 'generateUri'], ['is_safe' => ['html']]),
@@ -69,6 +71,16 @@ class ApiMethodExtension extends Twig_Extension
             return $api->getOptions()['library_name'];
         }
         return sprintf('@%s/%s', $vendor, StringHelper::kebabCase($api->getName()));
+    }
+
+    public function getPackageVersion(ApiDefinition $api): string
+    {
+        return $api->getOptions()['library_version'] ?? '0.0.1';
+    }
+
+    public function getPlatformVersion(ApiDefinition $api): ?string
+    {
+        return $api->getOptions()['platform_version'] ?? null;
     }
 
     public function getAngularJsModuleName(string $vendor, string $apiName) : string
