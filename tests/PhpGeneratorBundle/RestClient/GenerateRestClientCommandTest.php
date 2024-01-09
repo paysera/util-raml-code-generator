@@ -49,11 +49,6 @@ class GenerateRestClientCommandTest extends KernelTestCase
 
     /**
      * @dataProvider dataProviderTestGenerateCode
-     *
-     * @param string $apiName
-     * @param string|null $libraryName
-     * @param string|null $libraryVersion
-     * @param string|null $platformVersion
      */
     public function testGenerateCode(
         string $apiName,
