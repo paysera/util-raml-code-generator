@@ -13,6 +13,37 @@ Currently this utility can:
 ## Installation
 
  * Clone repository and run `composer install`
+   
+ 
+### If you faced with issue
+```
+Problem 1
+
+ocramius/package-versions is locked to version 1.4.2 and an update of this package was not requested.
+ocramius/package-versions 1.4.2 requires composer-plugin-api ^1.0.0 -> found composer-plugin-api[2.3.0] but it does not match the constraint.
+Problem 2
+ocramius/package-versions 1.4.2 requires composer-plugin-api ^1.0.0 -> found composer-plugin-api[2.3.0] but it does not match the constraint.
+doctrine/orm v2.7.3 requires ocramius/package-versions ^1.2 -> satisfiable by ocramius/package-versions[1.4.2].
+doctrine/orm is locked to version v2.7.3 and an update of this package was not requested.
+```
+so need to execute
+`composer update`
+but if you faced with that
+
+`Argument 1 passed to Symfony\Component\Process\Process::__construct() must be of the type array`
+
+![img.png](img.png)
+
+should check composer version. Solution:
+need to use specific composer version (2.2.11). 
+IF you working in docker just add it to your Dockerfile
+```
+# Install Composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer --version=2.2.11\
+&& composer --version
+```
+and after that again execute `composer update`
+
 
 # Table of contents
 1. [RAML structure](#raml-structure)
