@@ -10,6 +10,10 @@ Currently this utility can:
   * `Javascript REST API client`
 * Generate `Symfony Api Bundle`
 
+## Requirements
+- `PHP 7.2`
+- `Composer <= 2.2.9`, higher versions not yet supported, work in progress
+
 ## Installation
 
  * Clone repository and run `composer install`
