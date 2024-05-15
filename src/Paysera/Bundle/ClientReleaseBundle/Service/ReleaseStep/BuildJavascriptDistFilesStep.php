@@ -58,8 +58,8 @@ class BuildJavascriptDistFilesStep implements ReleaseStepInterface
             }
         }
 
-        $installProcess->setTimeout(120);
-        $buildProcess->setTimeout(120);
+        $installProcess->setTimeout(600);
+        $buildProcess->setTimeout(600);
 
         $output->writeln('<info>*</info> Installing JS dependencies...');
         if ($installProcess->run() !== 0) {
