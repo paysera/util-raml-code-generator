@@ -12,7 +12,7 @@ Currently this utility can:
 
 ## Requirements
 - `PHP 7.2`
-- `Composer <= 2.2.9`, higher versions won't work
+- `Composer <= 2.2.9`, higher versions not yet supported, work in progress
 
 ## Installation
 
