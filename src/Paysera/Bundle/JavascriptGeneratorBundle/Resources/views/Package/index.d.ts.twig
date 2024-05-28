@@ -14,13 +14,13 @@ import {{ typeConfig.importString|raw }};
         {% set extends = 'extends ' ~ get_parent_type_config(type).typeName ~ 'Properties ' %}
     {% endif %}
 {% endspaceless %}
-interface {{ typeConfig.typeName|extract_type_name }}Properties {{ extends }}{
+export interface {{ typeConfig.typeName|extract_type_name }}Properties {{ extends }}{
 {% for property in type.properties %}
     {{ property.name }}: {% include '@PayseraJavascriptGenerator/Package/Src/dts/get_getter_return_type.twig' with { 'property': property } only %};
 {% endfor %}
 }
 
-export interface {{ typeConfig.typeName|extract_type_name }} extends {{ get_parent_type_config(type).typeName }} {
+declare class {{ typeConfig.typeName|extract_type_name }} extends {{ get_parent_type_config(type).typeName }} {
 {% for property in type.properties %}
     {{ js_generate_getter_name(property) }}(): {% include '@PayseraJavascriptGenerator/Package/Src/dts/get_getter_return_type.twig' with { 'property': property } only %};
     {{ js_generate_setter_name(property) }}({% include '@PayseraJavascriptGenerator/Package/Src/dts/get_setter_argument.twig' with { 'property': property } only %}): this;
