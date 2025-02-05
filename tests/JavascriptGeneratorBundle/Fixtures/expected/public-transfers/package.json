@@ -20,7 +20,7 @@
     },
     "dependencies": {
         "@paysera/money": "^1.0",
-        "@paysera/http-client-common": "^2.6"
+        "@paysera/http-client-common": "^2.6.4"
     },
     "devDependencies": {
         "@babel/cli": "^7.12.10",

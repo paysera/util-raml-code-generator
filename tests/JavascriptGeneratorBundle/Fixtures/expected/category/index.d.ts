@@ -1,7 +1,7 @@
 import { Filter } from '@paysera/http-client-common';
 import { Entity } from '@paysera/http-client-common';
 
-interface CategoryProperties {
+export interface CategoryProperties {
     id: string | null;
     photo: string;
     avatar: string | null;
@@ -11,7 +11,7 @@ interface CategoryProperties {
     private: boolean;
 }
 
-export interface Category extends Entity {
+declare class Category extends Entity {
     getId(): string | null;
     setId(id: string | null): this;
     getPhoto(): string;
@@ -30,11 +30,11 @@ export interface Category extends Entity {
     getData(): CategoryProperties;
 }
 
-interface CategoryFilterProperties {
+export interface CategoryFilterProperties {
     parent_id: string | null;
 }
 
-export interface CategoryFilter extends Filter {
+declare class CategoryFilter extends Filter {
     getParentId(): string | null;
     setParentId(parentId: string | null): this;
 
