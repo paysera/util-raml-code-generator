@@ -13,11 +13,15 @@ use Paysera\Test\QuestionnaireClient\ClientFactory;
 
 $clientFactory = new ClientFactory([
     'base_url' => 'https://my-api.example.com/rest/v1/{locale}/', // optional, in case you need a custom one.
-    'basic' => [                                        // use this, it API requires Basic authentication.
+    'mac' => [                                          // use this, if API requires Mac authentication.
+        'mac_id' => 'my-mac-id',
+        'mac_secret' => 'my-mac-secret',
+    ],
+    'basic' => [                                        // use this, if API requires Basic authentication.
         'username' => 'username',
         'password' => 'password',
     ],
-    'oauth' => [                                        // use this, it API requires OAuth v2 authentication.
+    'oauth' => [                                        // use this, if API requires OAuth v2 authentication.
         'token' => [
             'access_token' => 'my-access-token',
             'refresh_token' => 'my-refresh-token',

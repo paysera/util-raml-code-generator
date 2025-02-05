@@ -13,11 +13,15 @@ use Paysera\Test\IssuedPaymentCardClient\ClientFactory;
 
 $clientFactory = new ClientFactory([
     'base_url' => 'https://accounts.paysera.com/public/issued-payment-card/v1/', // optional, in case you need a custom one.
-    'basic' => [                                        // use this, it API requires Basic authentication.
+    'mac' => [                                          // use this, if API requires Mac authentication.
+        'mac_id' => 'my-mac-id',
+        'mac_secret' => 'my-mac-secret',
+    ],
+    'basic' => [                                        // use this, if API requires Basic authentication.
         'username' => 'username',
         'password' => 'password',
     ],
-    'oauth' => [                                        // use this, it API requires OAuth v2 authentication.
+    'oauth' => [                                        // use this, if API requires OAuth v2 authentication.
         'token' => [
             'access_token' => 'my-access-token',
             'refresh_token' => 'my-refresh-token',
