@@ -11,7 +11,7 @@ Currently this utility can:
 * Generate `Symfony Api Bundle`
 
 ## Requirements
-- `PHP 7.2`
+- `PHP >=7.4`
 - `Composer <= 2.2.9`, higher versions not yet supported, work in progress
 
 ## Installation
