@@ -24,7 +24,7 @@ class GeneratePackageCommandTest extends KernelTestCase
      */
     private $filesystem;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         static::$kernel = null;
         /** @var TestKernel $kernel */

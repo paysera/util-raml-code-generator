@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## 11.10.0
+### Changed
+- Updated PHP version requirement from `^7.2` to `>=7.4`
+- Updated `sebastian/diff` dependency from `^2.0` to `^4.0`
+- Updated `phpunit/phpunit` dependency from `^6.5` to `^9.4`
+- Removed `sensio/distribution-bundle` dependency
+- Updated composer scripts
+
 ## 11.9.0
 ### Added
 - MAC authentication support in client factory configuration
