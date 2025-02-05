@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## 11.9.0
+### Added
+- MAC authentication support in client factory configuration
+### Changed
+- PHP version requirement in composer.json changed from ">=7.2" to "^7.2"
+- Fixed authentication type comments in README templates (changed "it API" to "if API")
+- Changed TypeScript interface declarations to class declarations in .d.ts files
+- Added export keyword to interface declarations in .d.ts files
+- Updated @paysera/http-client-common dependency to "^2.6.4"
+
 ## 11.8.0
 ### Changed
 - exports for properties
