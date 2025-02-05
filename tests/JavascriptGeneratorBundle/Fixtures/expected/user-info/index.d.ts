@@ -2,13 +2,13 @@ import { File } from '@paysera/http-client-common';
 import { DateTime } from 'luxon';
 import { Entity } from '@paysera/http-client-common';
 
-interface LegalProperties extends UserInfoProperties {
+export interface LegalProperties extends UserInfoProperties {
     company_name: string;
     company_code: string;
     vat_code: string | null;
 }
 
-export interface Legal extends UserInfo {
+declare class Legal extends UserInfo {
     getCompanyName(): string;
     setCompanyName(companyName: string): this;
     getCompanyCode(): string;
@@ -19,12 +19,12 @@ export interface Legal extends UserInfo {
     getData(): LegalProperties;
 }
 
-interface NaturalProperties extends UserInfoProperties {
+export interface NaturalProperties extends UserInfoProperties {
     name: string;
     surname: string;
 }
 
-export interface Natural extends UserInfo {
+declare class Natural extends UserInfo {
     getName(): string;
     setName(name: string): this;
     getSurname(): string;
@@ -33,7 +33,7 @@ export interface Natural extends UserInfo {
     getData(): NaturalProperties;
 }
 
-interface UserInfoProperties {
+export interface UserInfoProperties {
     id: string | null;
     type: string;
     created_timestamp: bigint;
@@ -43,7 +43,7 @@ interface UserInfoProperties {
     created_datetime_only: string | null;
 }
 
-export interface UserInfo extends Entity {
+declare class UserInfo extends Entity {
     getId(): string | null;
     setId(id: string | null): this;
     getType(): string;

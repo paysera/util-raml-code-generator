@@ -1,13 +1,13 @@
 import { Money } from '@paysera/money';
 import { Entity } from '@paysera/http-client-common';
 
-interface CardIssuePriceProperties {
+export interface CardIssuePriceProperties {
     price: Money;
     country: string;
     client_type: string;
 }
 
-export interface CardIssuePrice extends Entity {
+declare class CardIssuePrice extends Entity {
     getPrice(): Money;
     setPrice(price: Money): this;
     getCountry(): string;

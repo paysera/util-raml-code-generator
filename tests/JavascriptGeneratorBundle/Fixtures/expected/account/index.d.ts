@@ -3,7 +3,7 @@ import { Result } from '@paysera/http-client-common';
 import { DateTime } from 'luxon';
 import { Entity } from '@paysera/http-client-common';
 
-interface AccountProperties {
+export interface AccountProperties {
     created_at: bigint;
     number: string;
     active: boolean;
@@ -14,7 +14,7 @@ interface AccountProperties {
     public: boolean | null;
 }
 
-export interface Account extends Entity {
+declare class Account extends Entity {
     getCreatedAt(): bigint;
     setCreatedAt(createdAt: bigint): this;
     getNumber(): string;
@@ -35,7 +35,7 @@ export interface Account extends Entity {
     getData(): AccountProperties;
 }
 
-interface AccountFilterProperties {
+export interface AccountFilterProperties {
     type: string | null;
     administered_by_user_id: bigint | null;
     owned_by_user_id: bigint | null;
@@ -44,7 +44,7 @@ interface AccountFilterProperties {
     active: boolean | null;
 }
 
-export interface AccountFilter extends Filter {
+declare class AccountFilter extends Filter {
     getType(): string | null;
     setType(type: string | null): this;
     getAdministeredByUserId(): bigint | null;
@@ -61,20 +61,20 @@ export interface AccountFilter extends Filter {
     getData(): AccountFilterProperties;
 }
 
-interface AccountResultProperties {
+export interface AccountResultProperties {
 }
 
-export interface AccountResult extends Result {
+declare class AccountResult extends Result {
 
     getData(): AccountResultProperties;
 }
 
-interface UndescribedTypeProperties {
+export interface UndescribedTypeProperties {
     age: bigint;
     name: string;
 }
 
-export interface UndescribedType extends Entity {
+declare class UndescribedType extends Entity {
     getAge(): bigint;
     setAge(age: bigint): this;
     getName(): string;

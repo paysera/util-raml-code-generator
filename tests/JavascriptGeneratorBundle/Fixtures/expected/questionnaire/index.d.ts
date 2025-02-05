@@ -1,10 +1,10 @@
 import { Result } from '@paysera/http-client-common';
 import { Entity } from '@paysera/http-client-common';
 
-interface QuestionnaireUsersResultProperties {
+export interface QuestionnaireUsersResultProperties {
 }
 
-export interface QuestionnaireUsersResult extends Result {
+declare class QuestionnaireUsersResult extends Result {
 
     getData(): QuestionnaireUsersResultProperties;
 }

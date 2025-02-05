@@ -3,12 +3,12 @@ import { Result } from '@paysera/http-client-common';
 import { DateTime } from 'luxon';
 import { Entity } from '@paysera/http-client-common';
 
-interface AddressProperties {
+export interface AddressProperties {
     country_code: string | null;
     address_line: string | null;
 }
 
-export interface Address extends Entity {
+declare class Address extends Entity {
     getCountryCode(): string | null;
     setCountryCode(countryCode: string | null): this;
     getAddressLine(): string | null;
@@ -17,7 +17,7 @@ export interface Address extends Entity {
     getData(): AddressProperties;
 }
 
-interface BankAccountProperties {
+export interface BankAccountProperties {
     iban: string | null;
     account_number: string | null;
     country_code: string | null;
@@ -28,7 +28,7 @@ interface BankAccountProperties {
     correspondent_bank: CorrespondentBank | null;
 }
 
-export interface BankAccount extends Entity {
+declare class BankAccount extends Entity {
     getIban(): string | null;
     setIban(iban: string | null): this;
     getAccountNumber(): string | null;
@@ -49,7 +49,7 @@ export interface BankAccount extends Entity {
     getData(): BankAccountProperties;
 }
 
-interface ConvertCurrencyProperties {
+export interface ConvertCurrencyProperties {
     from_currency: string;
     to_currency: string;
     to_amount: string | null;
@@ -59,7 +59,7 @@ interface ConvertCurrencyProperties {
     account_number: string | null;
 }
 
-export interface ConvertCurrency extends Entity {
+declare class ConvertCurrency extends Entity {
     getFromCurrency(): string;
     setFromCurrency(fromCurrency: string): this;
     getToCurrency(): string;
@@ -78,13 +78,13 @@ export interface ConvertCurrency extends Entity {
     getData(): ConvertCurrencyProperties;
 }
 
-interface CorrespondentBankProperties {
+export interface CorrespondentBankProperties {
     bank_title: string | null;
     account_number: string | null;
     bank_code: string | null;
 }
 
-export interface CorrespondentBank extends Entity {
+declare class CorrespondentBank extends Entity {
     getBankTitle(): string | null;
     setBankTitle(bankTitle: string | null): this;
     getAccountNumber(): string | null;
@@ -95,32 +95,32 @@ export interface CorrespondentBank extends Entity {
     getData(): CorrespondentBankProperties;
 }
 
-interface DetailsOptionsProperties {
+export interface DetailsOptionsProperties {
     preserve: boolean | null;
 }
 
-export interface DetailsOptions extends Entity {
+declare class DetailsOptions extends Entity {
     isPreserve(): boolean | null;
     setPreserve(preserve: boolean | null): this;
 
     getData(): DetailsOptionsProperties;
 }
 
-interface FilteredTransfersResultProperties {
+export interface FilteredTransfersResultProperties {
 }
 
-export interface FilteredTransfersResult extends Result {
+declare class FilteredTransfersResult extends Result {
 
     getData(): FilteredTransfersResultProperties;
 }
 
-interface FinalBeneficiaryProperties {
+export interface FinalBeneficiaryProperties {
     name: string | null;
     identifiers: Identifiers | null;
     person_type: string | null;
 }
 
-export interface FinalBeneficiary extends Entity {
+declare class FinalBeneficiary extends Entity {
     getName(): string | null;
     setName(name: string | null): this;
     getIdentifiers(): Identifiers | null;
@@ -131,7 +131,7 @@ export interface FinalBeneficiary extends Entity {
     getData(): FinalBeneficiaryProperties;
 }
 
-interface IdentifiersProperties {
+export interface IdentifiersProperties {
     general: string | null;
     personal_code: string | null;
     legal_code: string | null;
@@ -139,7 +139,7 @@ interface IdentifiersProperties {
     kpp_code: string | null;
 }
 
-export interface Identifiers extends Entity {
+declare class Identifiers extends Entity {
     getGeneral(): string | null;
     setGeneral(general: string | null): this;
     getPersonalCode(): string | null;
@@ -154,14 +154,14 @@ export interface Identifiers extends Entity {
     getData(): IdentifiersProperties;
 }
 
-interface OutCommissionRuleProperties {
+export interface OutCommissionRuleProperties {
     percent: string | null;
     min: Money | null;
     max: Money | null;
     fix: Money | null;
 }
 
-export interface OutCommissionRule extends Entity {
+declare class OutCommissionRule extends Entity {
     getPercent(): string | null;
     setPercent(percent: string | null): this;
     getMin(): Money | null;
@@ -174,12 +174,12 @@ export interface OutCommissionRule extends Entity {
     getData(): OutCommissionRuleProperties;
 }
 
-interface PayerProperties {
+export interface PayerProperties {
     account_number: string;
     reference: string | null;
 }
 
-export interface Payer extends Entity {
+declare class Payer extends Entity {
     getAccountNumber(): string;
     setAccountNumber(accountNumber: string): this;
     getReference(): string | null;
@@ -188,13 +188,13 @@ export interface Payer extends Entity {
     getData(): PayerProperties;
 }
 
-interface PayseraAccountProperties {
+export interface PayseraAccountProperties {
     account_number: string | null;
     email: string | null;
     phone: string | null;
 }
 
-export interface PayseraAccount extends Entity {
+declare class PayseraAccount extends Entity {
     getAccountNumber(): string | null;
     setAccountNumber(accountNumber: string | null): this;
     getEmail(): string | null;
@@ -205,36 +205,36 @@ export interface PayseraAccount extends Entity {
     getData(): PayseraAccountProperties;
 }
 
-interface PayzaAccountProperties {
+export interface PayzaAccountProperties {
     email: string;
 }
 
-export interface PayzaAccount extends Entity {
+declare class PayzaAccount extends Entity {
     getEmail(): string;
     setEmail(email: string): this;
 
     getData(): PayzaAccountProperties;
 }
 
-interface TaxAccountProperties {
+export interface TaxAccountProperties {
     identifier: string;
 }
 
-export interface TaxAccount extends Entity {
+declare class TaxAccount extends Entity {
     getIdentifier(): string;
     setIdentifier(identifier: string): this;
 
     getData(): TaxAccountProperties;
 }
 
-interface TransferAdditionalDataProperties {
+export interface TransferAdditionalDataProperties {
     estimated_processing_date: bigint | null;
     out_commission_rule: OutCommissionRule | null;
     original_out_commission: Money | null;
     correspondent_bank_fees_may_apply: boolean | null;
 }
 
-export interface TransferAdditionalData extends Entity {
+declare class TransferAdditionalData extends Entity {
     getEstimatedProcessingDate(): bigint | null;
     setEstimatedProcessingDate(estimatedProcessingDate: bigint | null): this;
     getOutCommissionRule(): OutCommissionRule | null;
@@ -247,7 +247,7 @@ export interface TransferAdditionalData extends Entity {
     getData(): TransferAdditionalDataProperties;
 }
 
-interface TransferBeneficiaryProperties {
+export interface TransferBeneficiaryProperties {
     type: string;
     identifiers: Identifiers | null;
     name: string;
@@ -259,7 +259,7 @@ interface TransferBeneficiaryProperties {
     webmoney_account: WebmoneyAccount | null;
 }
 
-export interface TransferBeneficiary extends Entity {
+declare class TransferBeneficiary extends Entity {
     getType(): string;
     setType(type: string): this;
     getIdentifiers(): Identifiers | null;
@@ -282,12 +282,12 @@ export interface TransferBeneficiary extends Entity {
     getData(): TransferBeneficiaryProperties;
 }
 
-interface TransferFailureStatusProperties {
+export interface TransferFailureStatusProperties {
     code: string | null;
     message: string | null;
 }
 
-export interface TransferFailureStatus extends Entity {
+declare class TransferFailureStatus extends Entity {
     getCode(): string | null;
     setCode(code: string | null): this;
     getMessage(): string | null;
@@ -296,12 +296,12 @@ export interface TransferFailureStatus extends Entity {
     getData(): TransferFailureStatusProperties;
 }
 
-interface TransferInitiatorProperties {
+export interface TransferInitiatorProperties {
     user_id: string | null;
     client_id: string | null;
 }
 
-export interface TransferInitiator extends Entity {
+declare class TransferInitiator extends Entity {
     getUserId(): string | null;
     setUserId(userId: string | null): this;
     getClientId(): string | null;
@@ -310,7 +310,7 @@ export interface TransferInitiator extends Entity {
     getData(): TransferInitiatorProperties;
 }
 
-interface TransferInputProperties {
+export interface TransferInputProperties {
     amount: Money;
     beneficiary: TransferBeneficiary;
     payer: Payer;
@@ -327,7 +327,7 @@ interface TransferInputProperties {
     reserve_until: bigint | null;
 }
 
-export interface TransferInput extends Entity {
+declare class TransferInput extends Entity {
     getAmount(): Money;
     setAmount(amount: Money): this;
     getBeneficiary(): TransferBeneficiary;
@@ -360,12 +360,12 @@ export interface TransferInput extends Entity {
     getData(): TransferInputProperties;
 }
 
-interface TransferNotifcationProperties {
+export interface TransferNotifcationProperties {
     locale: string;
     email: string;
 }
 
-export interface TransferNotifcation extends Entity {
+declare class TransferNotifcation extends Entity {
     getLocale(): string;
     setLocale(locale: string): this;
     getEmail(): string;
@@ -374,18 +374,18 @@ export interface TransferNotifcation extends Entity {
     getData(): TransferNotifcationProperties;
 }
 
-interface TransferNotificationsProperties {
+export interface TransferNotificationsProperties {
     done: TransferNotifcation | null;
 }
 
-export interface TransferNotifications extends Entity {
+declare class TransferNotifications extends Entity {
     getDone(): TransferNotifcation | null;
     setDone(done: TransferNotifcation | null): this;
 
     getData(): TransferNotificationsProperties;
 }
 
-interface TransferOutputProperties extends TransferInputProperties {
+export interface TransferOutputProperties extends TransferInputProperties {
     id: string;
     status: string;
     initiator: TransferInitiator;
@@ -396,7 +396,7 @@ interface TransferOutputProperties extends TransferInputProperties {
     additional_information: TransferAdditionalData | null;
 }
 
-export interface TransferOutput extends TransferInput {
+declare class TransferOutput extends TransferInput {
     getId(): string;
     setId(id: string): this;
     getStatus(): string;
@@ -417,23 +417,23 @@ export interface TransferOutput extends TransferInput {
     getData(): TransferOutputProperties;
 }
 
-interface TransferPasswordProperties {
+export interface TransferPasswordProperties {
     password: string;
 }
 
-export interface TransferPassword extends Entity {
+declare class TransferPassword extends Entity {
     getPassword(): string;
     setPassword(password: string): this;
 
     getData(): TransferPasswordProperties;
 }
 
-interface TransferPassword34Properties {
+export interface TransferPassword34Properties {
     status: string | null;
     value: string;
 }
 
-export interface TransferPassword34 extends Entity {
+declare class TransferPassword34 extends Entity {
     getStatus(): string | null;
     setStatus(status: string | null): this;
     getValue(): string;
@@ -442,7 +442,7 @@ export interface TransferPassword34 extends Entity {
     getData(): TransferPassword34Properties;
 }
 
-interface TransferPurposeProperties {
+export interface TransferPurposeProperties {
     details: string | null;
     reference: string | null;
     vo_code: string | null;
@@ -451,7 +451,7 @@ interface TransferPurposeProperties {
     code: string | null;
 }
 
-export interface TransferPurpose extends Entity {
+declare class TransferPurpose extends Entity {
     getDetails(): string | null;
     setDetails(details: string | null): this;
     getReference(): string | null;
@@ -468,24 +468,24 @@ export interface TransferPurpose extends Entity {
     getData(): TransferPurposeProperties;
 }
 
-interface TransferRegistrationParametersProperties {
+export interface TransferRegistrationParametersProperties {
     convert_currency: ConvertCurrency[] | null;
 }
 
-export interface TransferRegistrationParameters extends Entity {
+declare class TransferRegistrationParameters extends Entity {
     getConvertCurrency(): ConvertCurrency[] | null;
     setConvertCurrency(convertCurrency: ConvertCurrency[] | null): this;
 
     getData(): TransferRegistrationParametersProperties;
 }
 
-interface TransfersBatchProperties {
+export interface TransfersBatchProperties {
     revoked_transfers: string[] | null;
     reserved_transfers: string[] | null;
     convert_currency: ConvertCurrency[] | null;
 }
 
-export interface TransfersBatch extends Entity {
+declare class TransfersBatch extends Entity {
     getRevokedTransfers(): string[] | null;
     setRevokedTransfers(revokedTransfers: string[] | null): this;
     getReservedTransfers(): string[] | null;
@@ -496,12 +496,12 @@ export interface TransfersBatch extends Entity {
     getData(): TransfersBatchProperties;
 }
 
-interface TransfersBatchResultProperties {
+export interface TransfersBatchResultProperties {
     revoked_transfers: TransferOutput[] | null;
     reserved_transfers: TransferOutput[] | null;
 }
 
-export interface TransfersBatchResult extends Entity {
+declare class TransfersBatchResult extends Entity {
     getRevokedTransfers(): TransferOutput[] | null;
     setRevokedTransfers(revokedTransfers: TransferOutput[] | null): this;
     getReservedTransfers(): TransferOutput[] | null;
@@ -510,7 +510,7 @@ export interface TransfersBatchResult extends Entity {
     getData(): TransfersBatchResultProperties;
 }
 
-interface TransfersFilterProperties {
+export interface TransfersFilterProperties {
     created_date_from: bigint | null;
     created_date_to: bigint | null;
     credit_account_number: string | null;
@@ -518,7 +518,7 @@ interface TransfersFilterProperties {
     statuses: string | null;
 }
 
-export interface TransfersFilter extends Entity {
+declare class TransfersFilter extends Entity {
     getCreatedDateFrom(): bigint | null;
     setCreatedDateFrom(createdDateFrom: bigint | null): this;
     getCreatedDateTo(): bigint | null;
@@ -533,11 +533,11 @@ export interface TransfersFilter extends Entity {
     getData(): TransfersFilterProperties;
 }
 
-interface WebmoneyAccountProperties {
+export interface WebmoneyAccountProperties {
     purse: string;
 }
 
-export interface WebmoneyAccount extends Entity {
+declare class WebmoneyAccount extends Entity {
     getPurse(): string;
     setPurse(purse: string): this;
 
