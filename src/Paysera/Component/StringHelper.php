@@ -4,6 +4,9 @@ namespace Paysera\Component;
 
 use Doctrine\Common\Inflector\Inflector;
 
+/**
+ * Helper class for string manipulations like case conversions and pluralization
+ */
 class StringHelper
 {
     public static function kebabCase($string)
