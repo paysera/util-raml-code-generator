@@ -1,0 +1,36 @@
+#%RAML 1.0
+title: Transfer Surveillance Assistant
+version: "1.0"
+baseUri: http://transfer-surveillance-assistant.paysera.lan/rest/v1
+protocols: [HTTP]
+
+uses:
+  Paysera: ../__library/rest.raml
+
+types:
+  AnalysisTaskInput: !include types/analysis-task-input.raml
+  AnalysisTaskOutput: !include types/analysis-task-output.raml
+  AnalysisReport: !include types/analysis-report.raml
+
+/analysis-tasks:
+  post:
+    description: Submit a new analysis task for processing
+    body:
+      application/json:
+        type: AnalysisTaskInput
+    responses:
+      202:
+        description: Accepted the request for processing and returns an ID to track the request
+        body:
+          application/json:
+            type: AnalysisTaskOutput
+  /{id}:
+    /report:
+      get:
+        description: Get the generated analysis report, if it exists
+        responses:
+          200:
+            body:
+              application/json:
+                type: AnalysisReport
+

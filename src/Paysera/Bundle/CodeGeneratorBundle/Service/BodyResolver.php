@@ -9,6 +9,7 @@ use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\ResultTypeDefinition;
 use Raml\Body;
 use Raml\BodyInterface;
 use Raml\Method;
+use Raml\Response;
 use Raml\Types\ArrayType;
 use Raml\Types\StringType;
 
@@ -41,29 +42,28 @@ class BodyResolver
      */
     public function getResponseBody(Method $method)
     {
-        $okResponse = $method->getResponse(StatusCodeInterface::STATUS_OK);
-
-        if ($okResponse === null) {
+        $successfulResponseWithBody = $this->getSuccessfulResponseWithBody($method);
+        if ($successfulResponseWithBody === null) {
             return null;
         }
 
         try {
-            return $okResponse->getBodyByType(self::BODY_JSON);
+            return $successfulResponseWithBody->getBodyByType(self::BODY_JSON);
         } catch (Exception $exception) {}
 
         try {
-            $body = $okResponse->getBodyByType(self::BODY_JAVASCRIPT);
+            $body = $successfulResponseWithBody->getBodyByType(self::BODY_JAVASCRIPT);
             $body->setType(new StringType('string'));
 
             return $body;
         } catch (Exception $exception) {}
 
         try {
-            return $okResponse->getBodyByType(self::BODY_OCTET_STREAM);
+            return $successfulResponseWithBody->getBodyByType(self::BODY_OCTET_STREAM);
         } catch (Exception $exception) {}
 
         try {
-            return $okResponse->getBodyByType(self::BODY_TEXT_CSV);
+            return $successfulResponseWithBody->getBodyByType(self::BODY_TEXT_CSV);
         } catch (Exception $exception) {}
 
         throw new Exception('No body found');
@@ -102,5 +102,18 @@ class BodyResolver
         }
 
         return false;
+    }
+
+    private function getSuccessfulResponseWithBody(Method $method): ?Response
+    {
+        if ($method->getResponse(StatusCodeInterface::STATUS_OK) !== null) {
+            return ($method->getResponse(StatusCodeInterface::STATUS_OK));
+        }
+
+        if ($method->getResponse(StatusCodeInterface::STATUS_ACCEPTED) !== null) {
+            return ($method->getResponse(StatusCodeInterface::STATUS_ACCEPTED));
+        }
+
+        return null;
     }
 }
