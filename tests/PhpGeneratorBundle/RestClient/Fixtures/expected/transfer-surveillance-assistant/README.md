@@ -12,7 +12,7 @@ This library provides `ClientFactory` class, which you should use to get the API
 use Paysera\Test\TransferSurveillanceAssistantClient\ClientFactory;
 
 $clientFactory = new ClientFactory([
-    'base_url' => 'http://transfer-surveillance-assistant.paysera.lan/rest/v1/', // optional, in case you need a custom one.
+    'base_url' => 'http://example.com/transfer-surveillance-assistant/rest/v1/', // optional, in case you need a custom one.
     'mac' => [                                          // use this, if API requires Mac authentication.
         'mac_id' => 'my-mac-id',
         'mac_secret' => 'my-mac-secret',
@@ -39,17 +39,6 @@ Now, that you have instance of `TransferSurveillanceAssistantClient`, you can us
 ### Methods
 
     
-Get the generated analysis report, if it exists
-
-
-```php
-
-$result = $transferSurveillanceAssistantClient->getAnalysisTaskReport($id);
-```
----
-
-
-
 Submit a new analysis task for processing
 
 
@@ -62,6 +51,15 @@ $analysisTaskInput->setReferenceId($referenceId);
 $analysisTaskInput->setReferenceType($referenceType);
     
 $result = $transferSurveillanceAssistantClient->createAnalysisTask($analysisTaskInput);
+```
+---
+
+I am not a real endpoint
+
+
+```php
+
+$transferSurveillanceAssistantClient->updateAnalysisTask();
 ```
 ---
 

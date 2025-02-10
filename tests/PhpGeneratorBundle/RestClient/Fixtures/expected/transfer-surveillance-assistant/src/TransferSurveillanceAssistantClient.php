@@ -22,25 +22,6 @@ class TransferSurveillanceAssistantClient
     }
 
     /**
-     * Get the generated analysis report, if it exists
-     * GET /analysis-tasks/{id}/report
-     *
-     * @param string $id
-     * @return Entities\AnalysisReport
-     */
-    public function getAnalysisTaskReport($id)
-    {
-        $request = $this->apiClient->createRequest(
-            RequestMethodInterface::METHOD_GET,
-            sprintf('analysis-tasks/%s/report', rawurlencode($id)),
-            null
-        );
-        $data = $this->apiClient->makeRequest($request);
-
-        return new Entities\AnalysisReport($data);
-    }
-
-    /**
      * Submit a new analysis task for processing
      * POST /analysis-tasks
      *
@@ -57,5 +38,23 @@ class TransferSurveillanceAssistantClient
         $data = $this->apiClient->makeRequest($request);
 
         return new Entities\AnalysisTaskOutput($data);
+    }
+
+    /**
+     * I am not a real endpoint
+     * PUT /analysis-tasks
+     *
+     * @return null
+     */
+    public function updateAnalysisTask()
+    {
+        $request = $this->apiClient->createRequest(
+            RequestMethodInterface::METHOD_PUT,
+            'analysis-tasks',
+            null
+        );
+        $data = $this->apiClient->makeRequest($request);
+
+        return null;
     }
 }

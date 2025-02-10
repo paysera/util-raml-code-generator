@@ -42,31 +42,31 @@ class BodyResolver
      */
     public function getResponseBody(Method $method)
     {
-        $successfulResponseWithBody = $this->getSuccessfulResponseWithBody($method);
-        if ($successfulResponseWithBody === null) {
+        $successfulResponse = $this->getSuccessfulResponse($method);
+        if ($successfulResponse === null) {
             return null;
         }
 
         try {
-            return $successfulResponseWithBody->getBodyByType(self::BODY_JSON);
+            return $successfulResponse->getBodyByType(self::BODY_JSON);
         } catch (Exception $exception) {}
 
         try {
-            $body = $successfulResponseWithBody->getBodyByType(self::BODY_JAVASCRIPT);
+            $body = $successfulResponse->getBodyByType(self::BODY_JAVASCRIPT);
             $body->setType(new StringType('string'));
 
             return $body;
         } catch (Exception $exception) {}
 
         try {
-            return $successfulResponseWithBody->getBodyByType(self::BODY_OCTET_STREAM);
+            return $successfulResponse->getBodyByType(self::BODY_OCTET_STREAM);
         } catch (Exception $exception) {}
 
         try {
-            return $successfulResponseWithBody->getBodyByType(self::BODY_TEXT_CSV);
+            return $successfulResponse->getBodyByType(self::BODY_TEXT_CSV);
         } catch (Exception $exception) {}
 
-        throw new Exception('No body found');
+        return null;
     }
 
     public function isRawResponse(Method $method)
@@ -104,7 +104,7 @@ class BodyResolver
         return false;
     }
 
-    private function getSuccessfulResponseWithBody(Method $method): ?Response
+    private function getSuccessfulResponse(Method $method): ?Response
     {
         if ($method->getResponse(StatusCodeInterface::STATUS_OK) !== null) {
             return ($method->getResponse(StatusCodeInterface::STATUS_OK));
