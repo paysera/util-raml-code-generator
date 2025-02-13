@@ -1,7 +1,7 @@
 
-## vendor-transfer-surveillance-assistant-client
+## vendor-sky-net-client
 
-Provides methods to manipulate `TransferSurveillanceAssistantClient` API.
+Provides methods to manipulate `SkyNetClient` API.
 It automatically authenticates all requests and maps required data structure for you.
 
 #### Usage
@@ -9,10 +9,10 @@ It automatically authenticates all requests and maps required data structure for
 This library provides `ClientFactory` class, which you should use to get the API client itself:
 
 ```php
-use Paysera\Test\TransferSurveillanceAssistantClient\ClientFactory;
+use Paysera\Test\SkyNetClient\ClientFactory;
 
 $clientFactory = new ClientFactory([
-    'base_url' => 'http://example.com/transfer-surveillance-assistant/rest/v1/', // optional, in case you need a custom one.
+    'base_url' => 'http://example.com/sky-net/rest/v1/', // optional, in case you need a custom one.
     'mac' => [                                          // use this, if API requires Mac authentication.
         'mac_id' => 'my-mac-id',
         'mac_secret' => 'my-mac-secret',
@@ -30,36 +30,40 @@ $clientFactory = new ClientFactory([
     // other configuration options, if needed
 ]);
 
-$transferSurveillanceAssistantClient = $clientFactory->getTransferSurveillanceAssistantClient();
+$skyNetClient = $clientFactory->getSkyNetClient();
 ```
 
 Please use only one authentication mechanism, provided by `Vendor`.
 
-Now, that you have instance of `TransferSurveillanceAssistantClient`, you can use following methods
+Now, that you have instance of `SkyNetClient`, you can use following methods
 ### Methods
 
     
-Submit a new analysis task for processing
+Set the target of termination
 
 
 ```php
-use Paysera\Test\TransferSurveillanceAssistantClient\Entity as Entities;
+use Paysera\Test\SkyNetClient\Entity as Entities;
 
-$analysisTaskInput = new Entities\AnalysisTaskInput();
+$terminationInput = new Entities\TerminationInput();
 
-$analysisTaskInput->setReferenceId($referenceId);
-$analysisTaskInput->setReferenceType($referenceType);
+$terminationInput->setTargetName($targetName);
     
-$result = $transferSurveillanceAssistantClient->createAnalysisTask($analysisTaskInput);
+$result = $skyNetClient->createTermination($terminationInput);
 ```
 ---
 
-I am not a real endpoint
+Change the target of termination
 
 
 ```php
+use Paysera\Test\SkyNetClient\Entity as Entities;
 
-$transferSurveillanceAssistantClient->updateAnalysisTask();
+$terminationInput = new Entities\TerminationInput();
+
+$terminationInput->setTargetName($targetName);
+    
+$skyNetClient->updateTermination($terminationInput);
 ```
 ---
 

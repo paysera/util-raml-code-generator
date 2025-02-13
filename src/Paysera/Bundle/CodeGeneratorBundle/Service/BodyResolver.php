@@ -106,12 +106,11 @@ class BodyResolver
 
     private function getSuccessfulResponse(Method $method): ?Response
     {
-        if ($method->getResponse(StatusCodeInterface::STATUS_OK) !== null) {
-            return ($method->getResponse(StatusCodeInterface::STATUS_OK));
-        }
-
-        if ($method->getResponse(StatusCodeInterface::STATUS_ACCEPTED) !== null) {
-            return ($method->getResponse(StatusCodeInterface::STATUS_ACCEPTED));
+        foreach ($method->getResponses() as $response) {
+            $statusCode = $response->getStatusCode();
+            if (in_array($statusCode, [200, 202], true)) {
+                return $method->getResponse($statusCode);
+            }
         }
 
         return null;

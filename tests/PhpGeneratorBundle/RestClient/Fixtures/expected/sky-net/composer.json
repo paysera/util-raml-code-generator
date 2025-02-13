@@ -1,10 +1,10 @@
 {
-    "name": "vendor/lib-transfer-surveillance-assistant-client",
-    "description": "TransferSurveillanceAssistantClient",
+    "name": "vendor/lib-sky-net-client",
+    "description": "SkyNetClient",
     "version": "1.0",
     "autoload": {
         "psr-4": {
-            "Paysera\\Test\\TransferSurveillanceAssistantClient\\": "src"
+            "Paysera\\Test\\SkyNetClient\\": "src"
         }
     },
     "require": {

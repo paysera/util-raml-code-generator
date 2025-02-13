@@ -1,13 +1,13 @@
 <?php
 
-namespace Paysera\Test\TransferSurveillanceAssistantClient;
+namespace Paysera\Test\SkyNetClient;
 
 use Paysera\Component\RestClientCommon\Util\ClientFactoryAbstract;
 use Paysera\Component\RestClientCommon\Client\ApiClient;
 
 class ClientFactory extends ClientFactoryAbstract
 {
-    const DEFAULT_BASE_URL = 'http://example.com/transfer-surveillance-assistant/rest/v1/';
+    const DEFAULT_BASE_URL = 'http://example.com/sky-net/rest/v1/';
 
     protected $apiClient;
 
@@ -24,9 +24,9 @@ class ClientFactory extends ClientFactoryAbstract
         $this->apiClient = $this->createApiClient($options);
     }
 
-    public function getTransferSurveillanceAssistantClient()
+    public function getSkyNetClient()
     {
-        return new TransferSurveillanceAssistantClient($this->apiClient);
+        return new SkyNetClient($this->apiClient);
     }
 
     private function resolveDefaultUrlParameters(array $defaults, array $options)

@@ -1,0 +1,22 @@
+#%RAML 1.0 DataType
+displayName: Termination Output
+type: object
+properties:
+  id:
+    type: string
+    required: true
+  reference_id:
+    type: string
+    required: true
+  reference_type:
+    type: string
+    required: true
+    enum: ['information_request']
+  status:
+    type: string
+    enum: ['accepted', 'processing', 'completed']
+    required: true
+  created_at:
+    (datetime_timestamp):
+    type: integer
+    required: true

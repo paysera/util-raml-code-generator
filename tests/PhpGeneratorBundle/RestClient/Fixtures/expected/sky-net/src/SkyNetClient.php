@@ -1,13 +1,13 @@
 <?php
 
-namespace Paysera\Test\TransferSurveillanceAssistantClient;
+namespace Paysera\Test\SkyNetClient;
 
-use Paysera\Test\TransferSurveillanceAssistantClient\Entity as Entities;
+use Paysera\Test\SkyNetClient\Entity as Entities;
 use Fig\Http\Message\RequestMethodInterface;
 use Paysera\Component\RestClientCommon\Entity\Entity;
 use Paysera\Component\RestClientCommon\Client\ApiClient;
 
-class TransferSurveillanceAssistantClient
+class SkyNetClient
 {
     private $apiClient;
 
@@ -18,40 +18,41 @@ class TransferSurveillanceAssistantClient
 
     public function withOptions(array $options)
     {
-        return new TransferSurveillanceAssistantClient($this->apiClient->withOptions($options));
+        return new SkyNetClient($this->apiClient->withOptions($options));
     }
 
     /**
-     * Submit a new analysis task for processing
-     * POST /analysis-tasks
+     * Set the target of termination
+     * POST /termination
      *
-     * @param Entities\AnalysisTaskInput $analysisTaskInput
-     * @return Entities\AnalysisTaskOutput
+     * @param Entities\TerminationInput $terminationInput
+     * @return Entities\TerminationOutput
      */
-    public function createAnalysisTask(Entities\AnalysisTaskInput $analysisTaskInput)
+    public function createTermination(Entities\TerminationInput $terminationInput)
     {
         $request = $this->apiClient->createRequest(
             RequestMethodInterface::METHOD_POST,
-            'analysis-tasks',
-            $analysisTaskInput
+            'termination',
+            $terminationInput
         );
         $data = $this->apiClient->makeRequest($request);
 
-        return new Entities\AnalysisTaskOutput($data);
+        return new Entities\TerminationOutput($data);
     }
 
     /**
-     * I am not a real endpoint
-     * PUT /analysis-tasks
+     * Change the target of termination
+     * PUT /termination
      *
+     * @param Entities\TerminationInput $terminationInput
      * @return null
      */
-    public function updateAnalysisTask()
+    public function updateTermination(Entities\TerminationInput $terminationInput)
     {
         $request = $this->apiClient->createRequest(
             RequestMethodInterface::METHOD_PUT,
-            'analysis-tasks',
-            null
+            'termination',
+            $terminationInput
         );
         $data = $this->apiClient->makeRequest($request);
 

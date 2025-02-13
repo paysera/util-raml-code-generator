@@ -1,0 +1,32 @@
+#%RAML 1.0
+title: Sky-Net
+version: "1.0"
+baseUri: http://example.com/sky-net/rest/v1/
+protocols: [HTTP]
+
+uses:
+  Paysera: ../__library/rest.raml
+
+types:
+  TerminationInput: !include types/termination-input.raml
+  TerminationOutput: !include types/termination-output.raml
+
+/termination:
+  post:
+    description: Set the target of termination
+    body:
+      application/json:
+        type: TerminationInput
+    responses:
+      202:
+        body:
+          application/json:
+            type: TerminationOutput
+  put:
+    description: Change the target of termination
+    body:
+      application/json:
+        type: TerminationInput
+    responses:
+      202:
+        body: null

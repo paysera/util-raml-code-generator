@@ -1,10 +1,10 @@
 <?php
 
-namespace Paysera\Test\TransferSurveillanceAssistantClient\Entity;
+namespace Paysera\Test\SkyNetClient\Entity;
 
 use Paysera\Component\RestClientCommon\Entity\Entity;
 
-class AnalysisTaskOutput extends Entity
+class TerminationOutput extends Entity
 {
     const REFERENCE_TYPE_INFORMATION_REQUEST = 'information_request';
     const STATUS_ACCEPTED = 'accepted';
