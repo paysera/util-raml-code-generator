@@ -109,6 +109,7 @@ class GenerateRestClientCommandTest extends KernelTestCase
                 'libraryVersion' => '11.22.33',
                 'platformVersion' => null,
             ],
+            ['sky-net']
         ];
     }
 

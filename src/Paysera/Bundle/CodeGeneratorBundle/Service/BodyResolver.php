@@ -9,6 +9,7 @@ use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\ResultTypeDefinition;
 use Raml\Body;
 use Raml\BodyInterface;
 use Raml\Method;
+use Raml\Response;
 use Raml\Types\ArrayType;
 use Raml\Types\StringType;
 
@@ -41,32 +42,31 @@ class BodyResolver
      */
     public function getResponseBody(Method $method)
     {
-        $okResponse = $method->getResponse(StatusCodeInterface::STATUS_OK);
-
-        if ($okResponse === null) {
+        $successfulResponse = $this->getSuccessfulResponse($method);
+        if ($successfulResponse === null) {
             return null;
         }
 
         try {
-            return $okResponse->getBodyByType(self::BODY_JSON);
+            return $successfulResponse->getBodyByType(self::BODY_JSON);
         } catch (Exception $exception) {}
 
         try {
-            $body = $okResponse->getBodyByType(self::BODY_JAVASCRIPT);
+            $body = $successfulResponse->getBodyByType(self::BODY_JAVASCRIPT);
             $body->setType(new StringType('string'));
 
             return $body;
         } catch (Exception $exception) {}
 
         try {
-            return $okResponse->getBodyByType(self::BODY_OCTET_STREAM);
+            return $successfulResponse->getBodyByType(self::BODY_OCTET_STREAM);
         } catch (Exception $exception) {}
 
         try {
-            return $okResponse->getBodyByType(self::BODY_TEXT_CSV);
+            return $successfulResponse->getBodyByType(self::BODY_TEXT_CSV);
         } catch (Exception $exception) {}
 
-        throw new Exception('No body found');
+        return null;
     }
 
     public function isRawResponse(Method $method)
@@ -102,5 +102,17 @@ class BodyResolver
         }
 
         return false;
+    }
+
+    private function getSuccessfulResponse(Method $method): ?Response
+    {
+        foreach ($method->getResponses() as $response) {
+            $statusCode = $response->getStatusCode();
+            if (in_array($statusCode, [200, 202], true)) {
+                return $method->getResponse($statusCode);
+            }
+        }
+
+        return null;
     }
 }
