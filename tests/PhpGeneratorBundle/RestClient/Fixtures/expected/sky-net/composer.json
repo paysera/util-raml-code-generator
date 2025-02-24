@@ -1,0 +1,16 @@
+{
+    "name": "vendor/lib-sky-net-client",
+    "description": "SkyNetClient",
+    "version": "1.0",
+    "autoload": {
+        "psr-4": {
+            "Paysera\\Test\\SkyNetClient\\": "src"
+        }
+    },
+    "require": {
+        "php": ">=5.5",
+        "paysera/lib-rest-client-common": "^1.0 | ^2.5",
+        "fig/http-message-util": "^1.0"
+    },
+    "minimum-stability": "stable"
+}
