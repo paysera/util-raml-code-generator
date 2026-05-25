@@ -170,6 +170,12 @@
                         <call method="setApiMethodReturnType">
                             <argument>Money</argument>
                         </call>
+                        <call method="setArrayItemPopulatorCode">
+                            <argument>new Money($item['amount'], $item['currency'])</argument>
+                        </call>
+                        <call method="setArrayItemConverterCode">
+                            <argument>['amount' => $item->getAmount(), 'currency' => $item->getCurrency()]</argument>
+                        </call>
                     </service>
                 </argument>
             </call>

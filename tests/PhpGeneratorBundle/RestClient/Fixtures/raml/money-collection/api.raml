@@ -1,0 +1,27 @@
+#%RAML 1.0
+title: Accounts
+version: "1.0"
+baseUri: https://example.com/accounts/rest/v1
+mediaType: application/json
+protocols: [ HTTPS ]
+
+uses:
+  Paysera: ../__library/rest.raml
+
+types:
+  Balance:
+    type: object
+    properties:
+      currency_balances:
+        type: array
+        required: true
+        items:
+          type: Paysera.Money
+
+/accounts/{accountNumber}/balances:
+  get:
+    responses:
+      200:
+        body:
+          application/json:
+            type: Balance

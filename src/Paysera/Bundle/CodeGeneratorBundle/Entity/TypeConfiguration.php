@@ -90,6 +90,16 @@ class TypeConfiguration
     private $apiMethodReturnType;
 
     /**
+     * @var string
+     */
+    private $arrayItemPopulatorCode;
+
+    /**
+     * @var string
+     */
+    private $arrayItemConverterCode;
+
+    /**
      * @return string
      */
     public function getMatchRegex()
@@ -411,6 +421,46 @@ class TypeConfiguration
     public function setEntityConverterCode($entityConverterCode)
     {
         $this->entityConverterCode = $entityConverterCode;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getArrayItemPopulatorCode()
+    {
+        return $this->arrayItemPopulatorCode;
+    }
+
+    /**
+     * @param string $arrayItemPopulatorCode
+     *
+     * @return $this
+     */
+    public function setArrayItemPopulatorCode($arrayItemPopulatorCode)
+    {
+        $this->arrayItemPopulatorCode = $arrayItemPopulatorCode;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getArrayItemConverterCode()
+    {
+        return $this->arrayItemConverterCode;
+    }
+
+    /**
+     * @param string $arrayItemConverterCode
+     *
+     * @return $this
+     */
+    public function setArrayItemConverterCode($arrayItemConverterCode)
+    {
+        $this->arrayItemConverterCode = $arrayItemConverterCode;
 
         return $this;
     }

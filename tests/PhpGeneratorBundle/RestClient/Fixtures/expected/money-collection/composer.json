@@ -1,0 +1,17 @@
+{
+    "name": "vendor/lib-money-collection-client",
+    "description": "MoneyCollectionClient",
+    "version": "1.0",
+    "autoload": {
+        "psr-4": {
+            "Paysera\\Test\\MoneyCollectionClient\\": "src"
+        }
+    },
+    "require": {
+        "php": ">=5.5",
+        "evp/money": "^1.0 || ^2.0",
+        "paysera/lib-rest-client-common": "^1.0 | ^2.5",
+        "fig/http-message-util": "^1.0"
+    },
+    "minimum-stability": "stable"
+}
