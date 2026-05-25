@@ -251,6 +251,12 @@
                                 </service>
                             </argument>
                         </call>
+                        <call method="setResultPopulatorCode">
+                            <argument>new File($data);</argument>
+                        </call>
+                        <call method="setApiMethodReturnType">
+                            <argument>File</argument>
+                        </call>
                     </service>
                 </argument>
             </call>
