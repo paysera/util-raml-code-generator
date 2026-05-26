@@ -5,9 +5,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 
-## 11.12.0
-### Added
-- Correct client generation when Paysera.File is returned as a response
+## 11.11.3
+### Fixed
+- Incorrect client generation when Paysera.File is returned as a response
 
 ## 11.11.2
 ### Changed
