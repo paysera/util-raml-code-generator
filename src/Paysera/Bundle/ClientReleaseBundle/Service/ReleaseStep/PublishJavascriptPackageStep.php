@@ -51,7 +51,7 @@ class PublishJavascriptPackageStep implements ReleaseStepInterface
             }
         }
 
-        $publishProcess->setTimeout(120);
+        $publishProcess->setTimeout(600);
 
         $output->writeln('<info>*</info> Publishing JS package...');
         if ($publishProcess->run() !== 0) {
