@@ -81,6 +81,26 @@ class CategoryClient
     }
 
     /**
+     * Patch category
+     * PATCH /categories/{id}
+     *
+     * @param string $id
+     * @param Entities\Category $category
+     * @return Entities\Category
+     */
+    public function patchCategory($id, Entities\Category $category)
+    {
+        $request = $this->apiClient->createRequest(
+            RequestMethodInterface::METHOD_PATCH,
+            sprintf('categories/%s', rawurlencode($id)),
+            $category
+        );
+        $data = $this->apiClient->makeRequest($request);
+
+        return new Entities\Category($data);
+    }
+
+    /**
      * Delete category
      * DELETE /categories/{id}
      *

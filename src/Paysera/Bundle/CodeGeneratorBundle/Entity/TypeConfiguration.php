@@ -118,6 +118,12 @@ class TypeConfiguration
         return $this;
     }
 
+    public function __construct()
+    {
+        $this->arrayItemPopulatorCode = null;
+        $this->arrayItemConverterCode = null;
+    }
+
     /**
      * @return string
      */

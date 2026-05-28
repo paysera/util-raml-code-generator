@@ -68,6 +68,25 @@ $result = $categoryClient->updateCategory($id);
 ```
 ---
 
+Patch category
+
+
+```php
+use Paysera\Test\CategoryClient\Entity as Entities;
+
+$category = new Entities\Category();
+
+$category->setId($id);
+$category->setPhoto($photo);
+$category->setAvatar($avatar);
+$category->setParentId($parentId);
+$category->setTitles($titles);
+$category->setStatus($status);
+    
+$result = $categoryClient->patchCategory($id, $category);
+```
+---
+
 Delete category
 
 

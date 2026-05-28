@@ -47,6 +47,16 @@ traits:
         - hasItem200Response:
             typeName: Category
 
+    patch:
+      description: Patch category
+      body:
+        application/json:
+          displayName: body
+          type: Category
+      is:
+        - hasItem200Response:
+            typeName: Category
+
     delete:
       description: Delete category
 

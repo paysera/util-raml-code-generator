@@ -29,6 +29,7 @@ class MethodNameBuilder
             case RequestMethodInterface::METHOD_DELETE:
                 return 'delete';
             case RequestMethodInterface::METHOD_PATCH:
+                return 'patch';
             case RequestMethodInterface::METHOD_PUT:
                 return 'update';
             case RequestMethodInterface::METHOD_POST:
