@@ -7,10 +7,10 @@ use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\DateTimeTypeDefinition;
 use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\PropertyDefinition;
 use Paysera\Bundle\CodeGeneratorBundle\Exception\UnrecognizedTypeException;
 use Paysera\Bundle\CodeGeneratorBundle\Service\StringConverter;
-use Twig_Extension;
-use Twig_SimpleFunction;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFunction;
 
-class FieldDefinitionExtension extends Twig_Extension
+class FieldDefinitionExtension extends AbstractExtension
 {
     private $stringConverter;
 
@@ -23,9 +23,9 @@ class FieldDefinitionExtension extends Twig_Extension
     public function getFunctions()
     {
         return [
-            new Twig_SimpleFunction('php_generate_getter_name', [$this, 'generateGetterName']),
-            new Twig_SimpleFunction('php_generate_setter_name', [$this, 'generateSetterName']),
-            new Twig_SimpleFunction('php_resolve_date_type_format', [$this, 'resolveDateTypeFormat']),
+            new TwigFunction('php_generate_getter_name', [$this, 'generateGetterName']),
+            new TwigFunction('php_generate_setter_name', [$this, 'generateSetterName']),
+            new TwigFunction('php_resolve_date_type_format', [$this, 'resolveDateTypeFormat']),
         ];
     }
 

@@ -5,6 +5,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 
+## 11.11.6
+### Fixed
+- Replaced deprecated Twig classes (`Twig_Extension`, `Twig_SimpleFilter`, `Twig_SimpleFunction`, `Twig_SimpleTest`, `Twig_Environment`) with their namespaced equivalents (`AbstractExtension`, `TwigFilter`, `TwigFunction`, `TwigTest`, `Environment`)
+
 ## 11.11.5
 ### Fixed
 - Fixes PHP client generation issue by fixing Money object array hydration

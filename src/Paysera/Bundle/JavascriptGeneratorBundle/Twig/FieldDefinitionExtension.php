@@ -6,12 +6,13 @@ namespace Paysera\Bundle\JavascriptGeneratorBundle\Twig;
 use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\DateTimePropertyDefinition;
 use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\DateTimeTypeDefinition;
 use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\PropertyDefinition;
+use Paysera\Bundle\CodeGeneratorBundle\Exception\UnrecognizedTypeException;
 use Paysera\Bundle\CodeGeneratorBundle\Service\TypeConfigurationProvider;
 use Paysera\Bundle\CodeGeneratorBundle\Service\StringConverter;
-use Twig_Extension;
-use Twig_SimpleFunction;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFunction;
 
-class FieldDefinitionExtension extends Twig_Extension
+class FieldDefinitionExtension extends AbstractExtension
 {
     const DATETIME_INSTANCE = 'Date';
 
@@ -29,10 +30,10 @@ class FieldDefinitionExtension extends Twig_Extension
     public function getFunctions()
     {
         return [
-            new Twig_SimpleFunction('js_generate_getter_name', [$this, 'getGetterName']),
-            new Twig_SimpleFunction('js_generate_setter_name', [$this, 'getSetterName']),
-            new Twig_SimpleFunction('js_extract_type_name', [$this, 'extractTypeName']),
-            new Twig_SimpleFunction('js_resolve_date_type_format', [$this, 'resolveDateTypeFormat']),
+            new TwigFunction('js_generate_getter_name', [$this, 'getGetterName']),
+            new TwigFunction('js_generate_setter_name', [$this, 'getSetterName']),
+            new TwigFunction('js_extract_type_name', [$this, 'extractTypeName']),
+            new TwigFunction('js_resolve_date_type_format', [$this, 'resolveDateTypeFormat']),
         ];
     }
 
