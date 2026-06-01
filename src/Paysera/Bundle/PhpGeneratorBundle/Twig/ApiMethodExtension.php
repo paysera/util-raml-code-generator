@@ -56,7 +56,7 @@ class ApiMethodExtension extends AbstractExtension
             new TwigFunction('php_inline_arguments_no_typehint', [$this, 'inlineArgumentsNoTypehint']),
             new TwigFunction('php_get_return_type', [$this, 'getReturnType'], ['needs_context' => true]),
             new TwigFunction('php_generate_method_arguments', [$this, 'generateMethodArguments'], ['needs_context' => true]),
-            new TwigFunction('php_inline_argument_names', [$this, 'getInlineArgumentNames']),
+            new TwigFunction('php_inline_argument_names', [$this, 'inlineArgumentNames']),
             new TwigFunction('php_get_library_name', [$this, 'getLibraryName']),
             new TwigFunction('php_get_library_version', [$this, 'getLibraryVersion']),
             new TwigFunction('php_get_platform_version', [$this, 'getPlatformVersion']),
@@ -192,6 +192,22 @@ class ApiMethodExtension extends AbstractExtension
         }
 
         return trim(implode(', ', $parts));
+    }
+
+    /**
+     * @param ArgumentDefinition[] $arguments
+     * @return string
+     */
+    public function inlineArgumentNames(array $arguments): string
+    {
+        $names = [];
+        foreach ($arguments as $argument) {
+            $names[] = $this->stringConverter->convertSlugToVariableName(
+                $argument->getRenamedName() !== null ? $argument->getRenamedName() : $argument->getName()
+            );
+        }
+
+        return implode(', ', $names);
     }
 
     public function inlineArgumentsNoTypehint(array $arguments): string
