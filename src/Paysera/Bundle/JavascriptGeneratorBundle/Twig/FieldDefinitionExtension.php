@@ -32,7 +32,7 @@ class FieldDefinitionExtension extends AbstractExtension
         return [
             new TwigFunction('js_generate_getter_name', [$this, 'getGetterName']),
             new TwigFunction('js_generate_setter_name', [$this, 'getSetterName']),
-            new TwigFunction('js_extract_type_name', [$this, 'extractTypeName']),
+            new TwigFunction('js_extract_type_name', [$this->stringConverter, 'extractTypeName']),
             new TwigFunction('js_resolve_date_type_format', [$this, 'resolveDateTypeFormat']),
         ];
     }
