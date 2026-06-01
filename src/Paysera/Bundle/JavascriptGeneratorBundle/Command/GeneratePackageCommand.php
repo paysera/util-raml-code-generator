@@ -11,7 +11,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Filesystem\Filesystem;
-use Twig_Environment;
+use Twig\Environment;
 
 class GeneratePackageCommand extends Command
 {
@@ -26,7 +26,7 @@ class GeneratePackageCommand extends Command
         CodeGenerator $codeGenerator,
         Filesystem $filesystem,
         string $vendorPrefix,
-        Twig_Environment $twigEnvironment
+        Environment $twigEnvironment
     ) {
         parent::__construct();
 

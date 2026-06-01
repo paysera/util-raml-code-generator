@@ -5,6 +5,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 
+## 11.11.6
+### Fixed
+- Replaced deprecated Twig classes (`Twig_Extension`, `Twig_SimpleFilter`, `Twig_SimpleFunction`, `Twig_SimpleTest`, `Twig_Environment`) with their namespaced equivalents (`AbstractExtension`, `TwigFilter`, `TwigFunction`, `TwigTest`, `Environment`)
+- Restored the missing `inlineArgumentNames` method backing the `php_inline_argument_names` Twig function in the PHP generator's `ApiMethodExtension`
+- Fixed the `js_extract_type_name` Twig function to call `extractTypeName` on `StringConverter` instead of a non-existent method on the extension
+- Added the missing `UnrecognizedTypeException` import in the JS generator's `FieldDefinitionExtension`, preventing a fatal error on unrecognized date type formats
+
 ## 11.11.5
 ### Fixed
 - Fixes PHP client generation issue by fixing Money object array hydration

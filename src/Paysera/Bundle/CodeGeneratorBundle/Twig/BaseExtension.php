@@ -25,13 +25,12 @@ use Paysera\Component\StringHelper;
 use Raml\Body;
 use Raml\Method;
 use Raml\Resource;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFilter;
 use Twig\TwigFunction;
-use Twig_Extension;
-use Twig_SimpleFilter;
-use Twig_SimpleFunction;
-use Twig_SimpleTest;
+use Twig\TwigTest;
 
-class BaseExtension extends Twig_Extension
+class BaseExtension extends AbstractExtension
 {
     const METHOD_NAME_OVERRIDE_ANNOTATION = '(generator_method_name_override)';
 
@@ -64,62 +63,62 @@ class BaseExtension extends Twig_Extension
     public function getFilters()
     {
         return [
-            new Twig_SimpleFilter(
+            new TwigFilter(
                 'to_variable_name',
                 [$this, 'getVariableNameByCodeType'],
                 ['needs_context' => true]
             ),
-            new Twig_SimpleFilter('to_class_name', [$this->stringConverter, 'convertSlugToClassName']),
-            new Twig_SimpleFilter('extract_type_name', [$this, 'extractTypeName']),
-            new Twig_SimpleFilter('to_kebab_case', [StringHelper::class, 'kebabCase']),
-            new Twig_SimpleFilter('to_snake_case', [StringHelper::class, 'snakeCase']),
-            new Twig_SimpleFilter('to_camel_case', [StringHelper::class, 'camelCase']),
-            new Twig_SimpleFilter('to_plural', [StringHelper::class, 'plural']),
-            new Twig_SimpleFilter('to_singular', [StringHelper::class, 'singular']),
-            new Twig_SimpleFilter('is_scalar_type', [$this, 'isScalarType']),
+            new TwigFilter('to_class_name', [$this->stringConverter, 'convertSlugToClassName']),
+            new TwigFilter('extract_type_name', [$this, 'extractTypeName']),
+            new TwigFilter('to_kebab_case', [StringHelper::class, 'kebabCase']),
+            new TwigFilter('to_snake_case', [StringHelper::class, 'snakeCase']),
+            new TwigFilter('to_camel_case', [StringHelper::class, 'camelCase']),
+            new TwigFilter('to_plural', [StringHelper::class, 'plural']),
+            new TwigFilter('to_singular', [StringHelper::class, 'singular']),
+            new TwigFilter('is_scalar_type', [$this, 'isScalarType']),
         ];
     }
 
     public function getFunctions()
     {
         return [
-            new Twig_SimpleFunction('is_discriminated', [$this, 'isDiscriminated']),
-            new Twig_SimpleFunction('get_constant_name', [$this, 'getConstantName']),
-            new Twig_SimpleFunction('is_result_type', [$this, 'isResultType']),
+            new TwigFunction('is_discriminated', [$this, 'isDiscriminated']),
+            new TwigFunction('get_constant_name', [$this, 'getConstantName']),
+            new TwigFunction('is_result_type', [$this, 'isResultType']),
 
-            new Twig_SimpleFunction('generate_method_name', [$this, 'generateMethodName']),
-            new Twig_SimpleFunction('generate_method_arguments', [$this, 'generateMethodArguments']),
-            new Twig_SimpleFunction('generate_body', [$this, 'generateBody']),
-            new Twig_SimpleFunction('is_raw_response', [$this, 'isRawResponse']),
-            new Twig_SimpleFunction('is_stream_response', [$this, 'isStreamResponse']),
-            new Twig_SimpleFunction('get_argument_names', [$this, 'getArgumentNames']),
-            new Twig_SimpleFunction('get_method_entity_name', [$this, 'getMethodEntityName']),
-            new Twig_SimpleFunction('method_returns_result', [$this, 'methodReturnsResult']),
-            new Twig_SimpleFunction('extract_filter_from_arguments', [$this, 'extractFilterFromArguments']),
-            new Twig_SimpleFunction('method_changes_state', [$this, 'methodChangesState']),
-            new Twig_SimpleFunction('flatten_resources', [$this, 'flattenResources']),
-            new Twig_SimpleFunction('flatten_sub_resources', [$this, 'flattenSubResources']),
-            new Twig_SimpleFunction('is_type_defined', [$this, 'isTypeDefined']),
-            new Twig_SimpleFunction('get_api_base_url_parameters_with_defaults', [$this, 'getApiBaseUrlParametersWithDefaults']),
+            new TwigFunction('generate_method_name', [$this, 'generateMethodName']),
+            new TwigFunction('generate_method_arguments', [$this, 'generateMethodArguments']),
+            new TwigFunction('generate_body', [$this, 'generateBody']),
+            new TwigFunction('is_raw_response', [$this, 'isRawResponse']),
+            new TwigFunction('is_stream_response', [$this, 'isStreamResponse']),
+            new TwigFunction('get_argument_names', [$this, 'getArgumentNames']),
+            new TwigFunction('get_method_entity_name', [$this, 'getMethodEntityName']),
+            new TwigFunction('method_returns_result', [$this, 'methodReturnsResult']),
+            new TwigFunction('extract_filter_from_arguments', [$this, 'extractFilterFromArguments']),
+            new TwigFunction('method_changes_state', [$this, 'methodChangesState']),
+            new TwigFunction('flatten_resources', [$this, 'flattenResources']),
+            new TwigFunction('flatten_sub_resources', [$this, 'flattenSubResources']),
+            new TwigFunction('is_type_defined', [$this, 'isTypeDefined']),
+            new TwigFunction('get_api_base_url_parameters_with_defaults', [$this, 'getApiBaseUrlParametersWithDefaults']),
 
 
-            new Twig_SimpleFunction('get_getter_method_template', [$this, 'getGetterMethodTemplate'], ['needs_context' => true]),
-            new Twig_SimpleFunction('get_setter_method_template', [$this, 'getSetterMethodTemplate'], ['needs_context' => true]),
-            new Twig_SimpleFunction('get_method_return_type_template', [$this, 'getMethodReturnTypeTemplate'], ['needs_context' => true]),
-            new Twig_SimpleFunction('get_method_argument_type_template', [$this, 'getMethodArgumentTypeTemplate'], ['needs_context' => true]),
-            new Twig_SimpleFunction('get_method_argument_typehint_template', [$this, 'getMethodArgumentTypeHintTemplate'], ['needs_context' => true]),
-            new Twig_SimpleFunction('get_property_normalizer_template', [$this, 'getPropertyNormalizerTemplate'], ['needs_context' => true]),
-            new Twig_SimpleFunction('get_property_denormalizer_template', [$this, 'getPropertyDenormalizerTemplate'], ['needs_context' => true]),
-            new Twig_SimpleFunction('get_entity_field_template', [$this, 'getEntityFieldTemplate'], ['needs_context' => true]),
-            new Twig_SimpleFunction('get_orm_field_template', [$this, 'getOrmFieldTemplate'], ['needs_context' => true]),
+            new TwigFunction('get_getter_method_template', [$this, 'getGetterMethodTemplate'], ['needs_context' => true]),
+            new TwigFunction('get_setter_method_template', [$this, 'getSetterMethodTemplate'], ['needs_context' => true]),
+            new TwigFunction('get_method_return_type_template', [$this, 'getMethodReturnTypeTemplate'], ['needs_context' => true]),
+            new TwigFunction('get_method_argument_type_template', [$this, 'getMethodArgumentTypeTemplate'], ['needs_context' => true]),
+            new TwigFunction('get_method_argument_typehint_template', [$this, 'getMethodArgumentTypeHintTemplate'], ['needs_context' => true]),
+            new TwigFunction('get_property_normalizer_template', [$this, 'getPropertyNormalizerTemplate'], ['needs_context' => true]),
+            new TwigFunction('get_property_denormalizer_template', [$this, 'getPropertyDenormalizerTemplate'], ['needs_context' => true]),
+            new TwigFunction('get_entity_field_template', [$this, 'getEntityFieldTemplate'], ['needs_context' => true]),
+            new TwigFunction('get_orm_field_template', [$this, 'getOrmFieldTemplate'], ['needs_context' => true]),
 
-            new Twig_SimpleFunction('get_type_definition', [$this, 'getTypeDefinition']),
-            new Twig_SimpleFunction('get_parent_type_config', [$this, 'getParentTypeConfig'], ['needs_context' => true]),
-            new Twig_SimpleFunction('get_related_types_config', [$this, 'getRelatedTypesConfig'], ['needs_context' => true]),
-            new Twig_SimpleFunction('get_external_libraries', [$this, 'getExternalLibrariesConfig'], ['needs_context' => true]),
-            new Twig_SimpleFunction('get_directly_used_types', [$this, 'getDirectlyUsedTypes'], ['needs_context' => true]),
-            new Twig_SimpleFunction('get_all_used_types', [$this, 'getAllUsedTypes'], ['needs_context' => true]),
-            new Twig_SimpleFunction('get_type_configuration', [$this, 'getTypeConfiguration'], ['needs_context' => true]),
+            new TwigFunction('get_type_definition', [$this, 'getTypeDefinition']),
+            new TwigFunction('get_parent_type_config', [$this, 'getParentTypeConfig'], ['needs_context' => true]),
+            new TwigFunction('get_related_types_config', [$this, 'getRelatedTypesConfig'], ['needs_context' => true]),
+            new TwigFunction('get_external_libraries', [$this, 'getExternalLibrariesConfig'], ['needs_context' => true]),
+            new TwigFunction('get_directly_used_types', [$this, 'getDirectlyUsedTypes'], ['needs_context' => true]),
+            new TwigFunction('get_all_used_types', [$this, 'getAllUsedTypes'], ['needs_context' => true]),
+            new TwigFunction('get_type_configuration', [$this, 'getTypeConfiguration'], ['needs_context' => true]),
             new TwigFunction('get_item_type_configuration', [$this, 'getItemTypeConfiguration'], ['needs_context' => true]),
         ];
     }
@@ -127,7 +126,7 @@ class BaseExtension extends Twig_Extension
     public function getTests()
     {
         return [
-            new Twig_SimpleTest('instanceof', [$this, 'isInstanceOf']),
+            new TwigTest('instanceof', [$this, 'isInstanceOf']),
         ];
     }
 
