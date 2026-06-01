@@ -25,6 +25,7 @@ use Paysera\Component\StringHelper;
 use Raml\Body;
 use Raml\Method;
 use Raml\Resource;
+use Twig\TwigFunction;
 use Twig_Extension;
 use Twig_SimpleFilter;
 use Twig_SimpleFunction;
@@ -119,7 +120,7 @@ class BaseExtension extends Twig_Extension
             new Twig_SimpleFunction('get_directly_used_types', [$this, 'getDirectlyUsedTypes'], ['needs_context' => true]),
             new Twig_SimpleFunction('get_all_used_types', [$this, 'getAllUsedTypes'], ['needs_context' => true]),
             new Twig_SimpleFunction('get_type_configuration', [$this, 'getTypeConfiguration'], ['needs_context' => true]),
-            new Twig_SimpleFunction('get_item_type_configuration', [$this, 'getItemTypeConfiguration'], ['needs_context' => true]),
+            new TwigFunction('get_item_type_configuration', [$this, 'getItemTypeConfiguration'], ['needs_context' => true]),
         ];
     }
 

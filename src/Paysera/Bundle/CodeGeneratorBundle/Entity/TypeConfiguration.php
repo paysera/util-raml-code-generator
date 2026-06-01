@@ -90,12 +90,12 @@ class TypeConfiguration
     private $apiMethodReturnType;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $arrayItemPopulatorCode;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $arrayItemConverterCode;
 
