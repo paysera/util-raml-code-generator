@@ -99,6 +99,12 @@ class TypeConfiguration
      */
     private $arrayItemConverterCode;
 
+    public function __construct()
+    {
+        $this->arrayItemPopulatorCode = null;
+        $this->arrayItemConverterCode = null;
+    }
+
     /**
      * @return string
      */
@@ -116,12 +122,6 @@ class TypeConfiguration
     {
         $this->matchRegex = $matchRegex;
         return $this;
-    }
-
-    public function __construct()
-    {
-        $this->arrayItemPopulatorCode = null;
-        $this->arrayItemConverterCode = null;
     }
 
     /**
