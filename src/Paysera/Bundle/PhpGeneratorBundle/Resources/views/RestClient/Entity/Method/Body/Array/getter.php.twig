@@ -6,6 +6,7 @@
     {% if property.itemsType in property.simpleTypes %}
     return $this->get('{{ property.name }}');
     {% else %}
+    {%- set itemConfiguration = get_item_type_configuration(property) %}
     $items = $this->getByReference('{{ property.name }}');
         if ($items === null) {
             return [];
@@ -13,7 +14,11 @@
 
         $list = [];
         foreach($items as &$item) {
-            $list[] = (new {{ property.itemsType }}())->setDataByReference($item);
+            {%~ if itemConfiguration.arrayItemPopulatorCode is not null %}
+            $list[] = {{ itemConfiguration.arrayItemPopulatorCode|raw }};
+            {%~ else %}
+            $list[] = (new {{ property.itemsType|extract_type_name }}())->setDataByReference($item);
+            {%~ endif %}
         }
 
         return $list;

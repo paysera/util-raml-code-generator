@@ -1,8 +1,8 @@
 {% spaceless %}
     {% if property.required == false and property.itemsType in property.scalarTypes %}
-        {{ property.itemsType }}[]|null
+        {{ property.itemsType|extract_type_name }}[]|null
     {% else %}
-        {{ property.itemsType }}[]
+        {{ property.itemsType|extract_type_name }}[]
     {% endif %}
 {% endspaceless %}
 
