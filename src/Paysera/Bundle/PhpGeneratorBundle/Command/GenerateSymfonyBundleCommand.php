@@ -7,7 +7,7 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Twig_Environment;
+use Twig\Environment;
 
 class GenerateSymfonyBundleCommand extends Command
 {
@@ -18,7 +18,7 @@ class GenerateSymfonyBundleCommand extends Command
 
     public function __construct(
         CodeGenerator $codeGenerator,
-        Twig_Environment $twigEnvironment
+        Environment $twigEnvironment
     ) {
         parent::__construct();
 

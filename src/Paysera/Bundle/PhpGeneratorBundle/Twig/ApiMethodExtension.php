@@ -18,11 +18,11 @@ use Psr\Http\Message\StreamInterface;
 use Raml\Method;
 use Raml\Resource;
 use Raml\Types\ArrayType;
-use Twig_Extension;
-use Twig_SimpleFilter;
-use Twig_SimpleFunction;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFilter;
+use Twig\TwigFunction;
 
-class ApiMethodExtension extends Twig_Extension
+class ApiMethodExtension extends AbstractExtension
 {
     private $bodyResolver;
     private $baseExtension;
@@ -47,27 +47,27 @@ class ApiMethodExtension extends Twig_Extension
     public function getFunctions()
     {
         return [
-            new Twig_SimpleFunction('php_generate_uri', [$this, 'generateUri'], ['is_safe' => ['html']]),
-            new Twig_SimpleFunction('php_generate_result_populator', [$this, 'generateResultPopulator'], [
+            new TwigFunction('php_generate_uri', [$this, 'generateUri'], ['is_safe' => ['html']]),
+            new TwigFunction('php_generate_result_populator', [$this, 'generateResultPopulator'], [
                 'is_safe' => ['html'],
                 'needs_context' => true,
             ]),
-            new Twig_SimpleFunction('php_inline_arguments', [$this, 'inlineArguments']),
-            new Twig_SimpleFunction('php_inline_arguments_no_typehint', [$this, 'inlineArgumentsNoTypehint']),
-            new Twig_SimpleFunction('php_get_return_type', [$this, 'getReturnType'], ['needs_context' => true]),
-            new Twig_SimpleFunction('php_generate_method_arguments', [$this, 'generateMethodArguments'], ['needs_context' => true]),
-            new Twig_SimpleFunction('php_inline_argument_names', [$this, 'getInlineArgumentNames']),
-            new Twig_SimpleFunction('php_get_library_name', [$this, 'getLibraryName']),
-            new Twig_SimpleFunction('php_get_library_version', [$this, 'getLibraryVersion']),
-            new Twig_SimpleFunction('php_get_platform_version', [$this, 'getPlatformVersion']),
-            new Twig_SimpleFunction('php_generate_entity_converter', [$this, 'generateEntityFromArgument'], ['needs_context' => true, 'is_safe' => ['html']]),
+            new TwigFunction('php_inline_arguments', [$this, 'inlineArguments']),
+            new TwigFunction('php_inline_arguments_no_typehint', [$this, 'inlineArgumentsNoTypehint']),
+            new TwigFunction('php_get_return_type', [$this, 'getReturnType'], ['needs_context' => true]),
+            new TwigFunction('php_generate_method_arguments', [$this, 'generateMethodArguments'], ['needs_context' => true]),
+            new TwigFunction('php_inline_argument_names', [$this, 'getInlineArgumentNames']),
+            new TwigFunction('php_get_library_name', [$this, 'getLibraryName']),
+            new TwigFunction('php_get_library_version', [$this, 'getLibraryVersion']),
+            new TwigFunction('php_get_platform_version', [$this, 'getPlatformVersion']),
+            new TwigFunction('php_generate_entity_converter', [$this, 'generateEntityFromArgument'], ['needs_context' => true, 'is_safe' => ['html']]),
         ];
     }
 
     public function getFilters()
     {
         return [
-            new Twig_SimpleFilter('php_unique_arguments_by_namespace', [$this, 'getUniqueArgumentsByNamespace']),
+            new TwigFilter('php_unique_arguments_by_namespace', [$this, 'getUniqueArgumentsByNamespace']),
         ];
     }
 

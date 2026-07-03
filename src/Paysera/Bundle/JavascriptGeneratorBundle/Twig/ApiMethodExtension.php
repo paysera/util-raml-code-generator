@@ -19,10 +19,10 @@ use Paysera\Component\TypeHelper;
 use Raml\Method;
 use Raml\Resource;
 use Raml\Types\ArrayType;
-use Twig_Extension;
-use Twig_SimpleFunction;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFunction;
 
-class ApiMethodExtension extends Twig_Extension
+class ApiMethodExtension extends AbstractExtension
 {
     private $stringConverter;
     private $bodyResolver;
@@ -44,19 +44,19 @@ class ApiMethodExtension extends Twig_Extension
     public function getFunctions()
     {
         return [
-            new Twig_SimpleFunction('js_get_client_name', [$this, 'getClientName']),
-            new Twig_SimpleFunction('js_get_package_name', [$this, 'getPackageName']),
-            new Twig_SimpleFunction('js_get_package_version', [$this, 'getPackageVersion']),
-            new Twig_SimpleFunction('js_get_platform_version', [$this, 'getPlatformVersion']),
-            new Twig_SimpleFunction('js_get_angular_module_name', [$this, 'getAngularJsModuleName'], ['is_safe' => ['js']]),
-            new Twig_SimpleFunction('js_get_angular_client_factory_name', [$this, 'getAngularJsFactoryClassName']),
-            new Twig_SimpleFunction('js_generate_uri', [$this, 'generateUri'], ['is_safe' => ['html']]),
-            new Twig_SimpleFunction('js_generate_result_populator', [$this, 'generateResultPopulator'], [
+            new TwigFunction('js_get_client_name', [$this, 'getClientName']),
+            new TwigFunction('js_get_package_name', [$this, 'getPackageName']),
+            new TwigFunction('js_get_package_version', [$this, 'getPackageVersion']),
+            new TwigFunction('js_get_platform_version', [$this, 'getPlatformVersion']),
+            new TwigFunction('js_get_angular_module_name', [$this, 'getAngularJsModuleName'], ['is_safe' => ['js']]),
+            new TwigFunction('js_get_angular_client_factory_name', [$this, 'getAngularJsFactoryClassName']),
+            new TwigFunction('js_generate_uri', [$this, 'generateUri'], ['is_safe' => ['html']]),
+            new TwigFunction('js_generate_result_populator', [$this, 'generateResultPopulator'], [
                 'is_safe' => ['html'],
                 'needs_context' => true,
             ]),
-            new Twig_SimpleFunction('js_get_return_type', [$this, 'getReturnType']),
-            new Twig_SimpleFunction('js_get_related_types', [$this, 'getRelatedTypes']),
+            new TwigFunction('js_get_return_type', [$this, 'getReturnType']),
+            new TwigFunction('js_get_related_types', [$this, 'getRelatedTypes']),
         ];
     }
 

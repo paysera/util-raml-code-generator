@@ -28,11 +28,11 @@ use Raml\Method;
 use Raml\NamedParameter;
 use Raml\Resource;
 use Symfony\Component\HttpFoundation\Response;
-use Twig_Extension;
-use Twig_SimpleFilter;
-use Twig_SimpleFunction;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFilter;
+use Twig\TwigFunction;
 
-class BundleExtension extends Twig_Extension
+class BundleExtension extends AbstractExtension
 {
     private $typeConfigurationProvider;
     private $bodyResolver;
@@ -66,14 +66,14 @@ class BundleExtension extends Twig_Extension
     public function getFunctions()
     {
         return [
-            new Twig_SimpleFunction('symfony_bundle_get_normalizer_constructor_args', [$this, 'getNormalizerConstructorArguments']),
-            new Twig_SimpleFunction('symfony_bundle_type_has_collection', [$this, 'typeHasCollection']),
-            new Twig_SimpleFunction('symfony_bundle_get_return_type', [$this, 'getReturnType']),
-            new Twig_SimpleFunction('symfony_bundle_get_response_type', [$this, 'getResponseType']),
-            new Twig_SimpleFunction('symfony_bundle_get_directly_used_types_in_sub_resource', [$this, 'getDirectlyUsedTypesInSubResource']),
-            new Twig_SimpleFunction('symfony_bundle_get_controller_constructor_args', [$this, 'getControllerConstructorArgs']),
-            new Twig_SimpleFunction('symfony_bundle_generate_method_arguments', [$this, 'generateMethodArguments'], ['needs_context' => true]),
-            new Twig_SimpleFunction('symfony_bundle_get_api_base_url_parameters_with_defaults', [$this, 'getApiBaseUrlParametersWithDefaults']),
+            new TwigFunction('symfony_bundle_get_normalizer_constructor_args', [$this, 'getNormalizerConstructorArguments']),
+            new TwigFunction('symfony_bundle_type_has_collection', [$this, 'typeHasCollection']),
+            new TwigFunction('symfony_bundle_get_return_type', [$this, 'getReturnType']),
+            new TwigFunction('symfony_bundle_get_response_type', [$this, 'getResponseType']),
+            new TwigFunction('symfony_bundle_get_directly_used_types_in_sub_resource', [$this, 'getDirectlyUsedTypesInSubResource']),
+            new TwigFunction('symfony_bundle_get_controller_constructor_args', [$this, 'getControllerConstructorArgs']),
+            new TwigFunction('symfony_bundle_generate_method_arguments', [$this, 'generateMethodArguments'], ['needs_context' => true]),
+            new TwigFunction('symfony_bundle_get_api_base_url_parameters_with_defaults', [$this, 'getApiBaseUrlParametersWithDefaults']),
 
         ];
     }
@@ -81,8 +81,8 @@ class BundleExtension extends Twig_Extension
     public function getFilters()
     {
         return [
-            new Twig_SimpleFilter('symfony_bundle_unique_arguments', [$this, 'getUniqueArguments']),
-            new Twig_SimpleFilter('symfony_bundle_unique_array_types', [$this, 'getUniqueArrayTypes']),
+            new TwigFilter('symfony_bundle_unique_arguments', [$this, 'getUniqueArguments']),
+            new TwigFilter('symfony_bundle_unique_array_types', [$this, 'getUniqueArrayTypes']),
         ];
     }
 
