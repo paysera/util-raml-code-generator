@@ -20,6 +20,8 @@ class PropertyDefinitionBuilder
 
     public function buildPropertyDefinition(string $name, array $definition)
     {
+        $definition = $this->resolveNullableUnions($definition);
+
         $property = $this->getPropertyDefinition($definition);
 
         $property
@@ -58,6 +60,45 @@ class PropertyDefinitionBuilder
         }
 
         return $property;
+    }
+
+    /**
+     * `X | nil` states that a property is present but may hold no value. That is nullability, not a
+     * choice between two shapes, and every generated getter already returns null when the key is
+     * absent — so the union collapses to `X` with nothing lost.
+     *
+     * A union of two real types (`string | boolean`) is a different thing entirely: it has no single
+     * representation to generate, so it is deliberately left alone to fail loudly.
+     */
+    private function resolveNullableUnions(array $definition): array
+    {
+        if (isset($definition['type']) && is_string($definition['type'])) {
+            $definition['type'] = $this->resolveNullableUnion($definition['type']);
+        }
+
+        if (isset($definition['items']['type']) && is_string($definition['items']['type'])) {
+            $definition['items']['type'] = $this->resolveNullableUnion($definition['items']['type']);
+        }
+
+        return $definition;
+    }
+
+    private function resolveNullableUnion(string $type): string
+    {
+        if (strpos($type, '|') === false) {
+            return $type;
+        }
+
+        $members = array_map('trim', explode('|', $type));
+        $valueTypes = array_values(array_filter($members, static function (string $member) {
+            return !in_array(strtolower($member), ['nil', 'null'], true);
+        }));
+
+        if (count($valueTypes) !== 1 || count($valueTypes) === count($members)) {
+            return $type;
+        }
+
+        return $valueTypes[0];
     }
 
     private function getPropertyDefinition(array $definition)

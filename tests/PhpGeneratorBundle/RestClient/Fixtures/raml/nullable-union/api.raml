@@ -1,0 +1,27 @@
+#%RAML 1.0
+title: Nullable Union API
+version: v1
+baseUri: https://my-api.example.com/rest/v1
+mediaType: application/json
+protocols: [ HTTPS ]
+
+uses:
+  Paysera: ../__library/rest.raml
+
+types:
+  OrderLine: !include types/order-line.raml
+  Order: !include types/order.raml
+
+/orders:
+  post:
+    description: Create order
+    body:
+      application/json:
+        displayName: body
+        type: Order
+    responses:
+      200:
+        description: Item response
+        body:
+          application/json:
+            type: Order

@@ -5,6 +5,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 
+## 11.13.0
+### Added
+- Nullable union types (`X | nil`) are now generated as the underlying type instead of aborting generation, both for property types and for array item types. A union of two value types is still refused, because it has no single representation to generate
+
 ## 11.11.5
 ### Fixed
 - Fixes PHP client generation issue by fixing Money object array hydration

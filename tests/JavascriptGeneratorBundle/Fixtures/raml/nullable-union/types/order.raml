@@ -1,0 +1,32 @@
+#%RAML 1.0 DataType
+type: object
+displayName: Order object
+properties:
+  id:
+    type: string
+    required: true
+    description: Object id
+  note:
+    type: string | nil
+    required: true
+    description: Nullable union of a primitive type
+  discount:
+    type: number | nil
+    required: false
+    description: Nullable union on an optional property
+  line:
+    type: OrderLine | nil
+    required: false
+    description: Nullable union of a named type
+  tags:
+    type: array
+    items:
+      type: string | nil
+    required: false
+    description: Nullable union as an array item type
+  lines:
+    type: array
+    items:
+      type: OrderLine | nil
+    required: false
+    description: Nullable union of a named type as an array item type

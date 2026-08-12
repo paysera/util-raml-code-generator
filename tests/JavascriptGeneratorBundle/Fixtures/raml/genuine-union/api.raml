@@ -1,0 +1,26 @@
+#%RAML 1.0
+title: Genuine Union API
+version: v1
+baseUri: https://my-api.example.com/rest/v1
+mediaType: application/json
+protocols: [ HTTPS ]
+
+uses:
+  Paysera: ../__library/rest.raml
+
+types:
+  Setting: !include types/setting.raml
+
+/settings:
+  post:
+    description: Create setting
+    body:
+      application/json:
+        displayName: body
+        type: Setting
+    responses:
+      200:
+        description: Item response
+        body:
+          application/json:
+            type: Setting

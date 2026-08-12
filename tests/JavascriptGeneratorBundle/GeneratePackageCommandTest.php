@@ -3,6 +3,7 @@
 namespace Tests\JavascriptGeneratorBundle;
 
 use Doctrine\Common\Util\Inflector;
+use Paysera\Bundle\CodeGeneratorBundle\Exception\UnrecognizedTypeException;
 use Paysera\Bundle\JavascriptGeneratorBundle\Command\GeneratePackageCommand;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
@@ -90,6 +91,7 @@ class GeneratePackageCommandTest extends KernelTestCase
             ['user-info'],
             ['category'],
             ['account'],
+            ['nullable-union'],
             ['questionnaire'],
             ['issued-payment-card'],
             ['custom'],
@@ -112,6 +114,21 @@ class GeneratePackageCommandTest extends KernelTestCase
                 'platformVersion' => ">=18.0",
             ],
         ];
+    }
+
+    public function testGenerateCodeFailsForUnionOfValueTypes()
+    {
+        $apiName = 'genuine-union';
+        $this->removeTargetDir($apiName);
+
+        $this->expectException(UnrecognizedTypeException::class);
+        $this->expectExceptionMessage('Did not found defined type "string | boolean"');
+
+        $this->commandTester->execute([
+            'raml_file' => sprintf('%s/Fixtures/raml/%s/api.raml', __DIR__, $apiName),
+            'output_dir' => sprintf('%s/Fixtures/generated/%s', __DIR__, $apiName),
+            'client_name' => Inflector::classify($apiName) . 'Client',
+        ]);
     }
 
     /**
