@@ -1,0 +1,32 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="vendor_named_scalar_api.payment_manager"
+                 class="Vendor\Test\NamedScalarApiBundle\Service\PaymentManager">
+            <argument type="service" id="vendor_named_scalar_api.repository.payment"/>
+            <argument type="service" id="doctrine.orm.entity_manager"/>
+        </service>
+        <service id="vendor_named_scalar_api.voter.payment_scope"
+                 class="Vendor\Test\NamedScalarApiBundle\Voter\PaymentScopeVoter"
+                 parent="paysera_security.security.context_aware_scope_voter"
+                 public="false">
+            <tag name="security.voter"/>
+        </service>
+        <service id="vendor_named_scalar_api.currency_manager"
+                 class="Vendor\Test\NamedScalarApiBundle\Service\CurrencyManager">
+            <argument type="service" id="doctrine.orm.entity_manager"/>
+        </service>
+        <service id="vendor_named_scalar_api.voter.currency_scope"
+                 class="Vendor\Test\NamedScalarApiBundle\Voter\CurrencyScopeVoter"
+                 parent="paysera_security.security.context_aware_scope_voter"
+                 public="false">
+            <tag name="security.voter"/>
+        </service>
+        
+        
+    </services>
+</container>

@@ -90,6 +90,7 @@ class GeneratePackageCommandTest extends KernelTestCase
             ['user-info'],
             ['category'],
             ['account'],
+            ['named-scalar'],
             ['questionnaire'],
             ['issued-payment-card'],
             ['custom'],

@@ -1,0 +1,41 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="vendor_named_scalar_api.api.payment"
+                 class="Paysera\Bundle\RestBundle\RestApi">
+            <tag name="paysera_rest.api" api_key="vendor_named_scalar_api.payment"/>
+            <argument type="service" id="service_container"/>
+            <argument type="service" id="logger"/>
+                                
+
+            <call method="addRequestMapper">
+                <argument>vendor_named_scalar_api.normalizer.payment</argument>
+                <argument>vendor_named_scalar_api.controller.payment_api:createPayment</argument>
+                <argument>payment</argument>
+            </call>
+            <call method="addResponseMapper">
+                <argument>vendor_named_scalar_api.normalizer.payment</argument>
+                <argument>vendor_named_scalar_api.controller.payment_api:createPayment</argument>
+            </call>
+            
+        </service>
+        <service id="vendor_named_scalar_api.api.currency"
+                 class="Paysera\Bundle\RestBundle\RestApi">
+            <tag name="paysera_rest.api" api_key="vendor_named_scalar_api.currency"/>
+            <argument type="service" id="service_container"/>
+            <argument type="service" id="logger"/>
+                                
+
+            <call method="addResponseMapper">
+                <argument>vendor_named_scalar_api.normalizer.currency_result</argument>
+                <argument>vendor_named_scalar_api.controller.currency_api:getCurrencies</argument>
+            </call>
+            
+        </service>
+        
+    </services>
+</container>

@@ -1,0 +1,28 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="vendor_named_scalar_api.repository.payment"
+                 class="Vendor\Test\NamedScalarApiBundle\Repository\PaymentRepository"
+                 lazy="true">
+            <factory service="doctrine.orm.entity_manager" method="getRepository"/>
+            <argument>VendorNamedScalarApiBundle:Payment</argument>
+        </service>
+        <service id="vendor_named_scalar_api.repository.payment_metadata"
+                 class="Vendor\Test\NamedScalarApiBundle\Repository\PaymentMetadataRepository"
+                 lazy="true">
+            <factory service="doctrine.orm.entity_manager" method="getRepository"/>
+            <argument>VendorNamedScalarApiBundle:PaymentMetadata</argument>
+        </service>
+        <service id="vendor_named_scalar_api.repository.search_result_metadata"
+                 class="Vendor\Test\NamedScalarApiBundle\Repository\SearchResultMetadataRepository"
+                 lazy="true">
+            <factory service="doctrine.orm.entity_manager" method="getRepository"/>
+            <argument>VendorNamedScalarApiBundle:SearchResultMetadata</argument>
+        </service>
+        
+    </services>
+</container>

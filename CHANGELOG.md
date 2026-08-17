@@ -5,6 +5,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 
+## 11.12.0
+### Changed
+- Domain types whose name merely contains "metadata" are no longer discarded; only the result envelope's own `ResultMetadata` is skipped. Types such as `TransferMetadata` are generated from now on, so regenerating a client can add files
+
+### Fixed
+- Named scalar types (a RAML DataType that is a primitive plus constraints, with no properties) no longer break generation for every type referencing them, when referenced as a property, as an array item type, or as the item type of a result envelope. Their `enum` values are kept as constants on the referencing property. Named scalars used directly as a request or response body are still unsupported
+- Domain types ending in "Metadata" are no longer shaped as result envelopes when their name also contains "Result"
+
 ## 11.11.5
 ### Fixed
 - Fixes PHP client generation issue by fixing Money object array hydration

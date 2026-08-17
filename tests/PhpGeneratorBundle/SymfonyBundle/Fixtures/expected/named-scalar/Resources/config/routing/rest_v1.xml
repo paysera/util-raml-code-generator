@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<routes xmlns="http://symfony.com/schema/routing"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
+
+    <route id="vendor_named_scalar_api.create_payment" methods="POST" path="/payments">
+        <default key="_controller">vendor_named_scalar_api.controller.payment_api:createPayment</default>
+        <default key="api_key">vendor_named_scalar_api.payment</default>
+        <option key="expose">true</option>
+    </route>
+    <route id="vendor_named_scalar_api.get_currencies" methods="GET" path="/currencies">
+        <default key="_controller">vendor_named_scalar_api.controller.currency_api:getCurrencies</default>
+        <default key="api_key">vendor_named_scalar_api.currency</default>
+        <option key="expose">true</option>
+    </route>
+</routes>

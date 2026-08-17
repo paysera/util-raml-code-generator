@@ -48,6 +48,7 @@
         <service id="paysera_code_generator.type_definition_builder"
                  class="Paysera\Bundle\CodeGeneratorBundle\Service\TypeDefinitionBuilder">
             <argument type="service" id="paysera_code_generator.type_definition_builder.date_time"/>
+            <argument type="service" id="paysera_code_generator.constant_builder"/>
         </service>
 
         <service id="paysera_code_generator.method_name_builder"

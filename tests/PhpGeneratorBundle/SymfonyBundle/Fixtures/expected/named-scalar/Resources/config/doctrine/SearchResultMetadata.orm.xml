@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+    <entity repository-class="Vendor\Test\NamedScalarApiBundle\Repository\SearchResultMetadataRepository"
+            name="Vendor\Test\NamedScalarApiBundle\Entity\SearchResultMetadata" table="named_scalar_api_search_result_metadatas">
+
+        <id name="id" type="integer" column="id">
+            <generator strategy="IDENTITY"/>
+        </id>
+        <field name="source" column="source" nullable="false" type="string"/>
+        <field name="matched" column="matched" nullable="true" type="integer"/>
+        
+    </entity>
+</doctrine-mapping>

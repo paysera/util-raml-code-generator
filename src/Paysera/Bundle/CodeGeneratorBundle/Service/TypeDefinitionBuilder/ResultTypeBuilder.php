@@ -9,10 +9,18 @@ use Paysera\Bundle\CodeGeneratorBundle\Exception\InvalidDefinitionException;
 class ResultTypeBuilder implements TypeDefinitionBuilderInterface
 {
     const ANNOTATION_ENTITY = '(entity_type)';
+    const PATTERN_METADATA_SUFFIX = '/meta[\s_-]*data$/i';
 
+    /**
+     * The name is matched loosely, so a domain type ending in "Metadata" has to be excluded
+     * explicitly: it is an entity of its own, and only `ResultMetadata` is supplied by the REST
+     * client runtime. Without this, such a type is shaped as a result envelope instead.
+     */
     public function supports(string $name, array $definition): bool
     {
-        return strpos($name, 'Result') !== false && !array_key_exists(self::ANNOTATION_ENTITY, $definition);
+        return strpos($name, 'Result') !== false
+            && preg_match(self::PATTERN_METADATA_SUFFIX, $name) !== 1
+            && !array_key_exists(self::ANNOTATION_ENTITY, $definition);
     }
 
     public function buildTypeDefinition(string $name, array $definition)

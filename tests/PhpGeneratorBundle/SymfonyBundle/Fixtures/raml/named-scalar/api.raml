@@ -1,0 +1,43 @@
+#%RAML 1.0
+title: Named Scalar API
+version: v1
+baseUri: https://my-api.example.com/rest/v1
+mediaType: application/json
+protocols: [ HTTPS ]
+
+uses:
+  Paysera: ../__library/rest.raml
+
+types:
+  Currency: !include types/currency.raml
+  AccountNumber: !include types/account-number.raml
+  ScanResult: !include types/scan-result.raml
+  FilterMode: !include types/filter-mode.raml
+  PaymentMetadata: !include types/payment-metadata.raml
+  SearchResultMetadata: !include types/search-result-metadata.raml
+  Payment: !include types/payment.raml
+  CurrencyResult: !include types/currency-result.raml
+
+/payments:
+  post:
+    description: Create payment
+    body:
+      application/json:
+        displayName: body
+        type: Payment
+    responses:
+      200:
+        description: Item response
+        body:
+          application/json:
+            type: Payment
+
+/currencies:
+  get:
+    description: List currencies
+    responses:
+      200:
+        description: Collection response
+        body:
+          application/json:
+            type: CurrencyResult

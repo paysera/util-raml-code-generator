@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+    <entity repository-class="Vendor\Test\NamedScalarApiBundle\Repository\PaymentRepository"
+            name="Vendor\Test\NamedScalarApiBundle\Entity\Payment" table="named_scalar_api_payments">
+
+        <id name="id" type="integer" column="id">
+            <generator strategy="IDENTITY"/>
+        </id>
+        <field name="currency" column="currency" nullable="false" type="string"/>
+        <!--TODO: generated_code non-scalar property <field name="allowedCurrencies" column="allowed_currencies" nullable="true" type="array"/>-->
+        <field name="accountNumber" column="account_number" nullable="false" type="string"/>
+        <field name="scanResult" column="scan_result" nullable="true" type="string"/>
+        <field name="filterMode" column="filter_mode" nullable="true" type="string"/>
+        <!--TODO: generated_code <field name="metadata" column="metadata" nullable="true" type="reference"/>-->
+        <!--TODO: generated_code <field name="searchMetadata" column="search_metadata" nullable="true" type="reference"/>-->
+        
+    </entity>
+</doctrine-mapping>
