@@ -5,7 +5,7 @@
         {% set type = property.type %}
     {% endif %}
 
-    {% if property.required == false %}
+    {% if property.allowsNullValue %}
         {{ type|extract_type_name }}|null
     {% else %}
         {{ type|extract_type_name }}

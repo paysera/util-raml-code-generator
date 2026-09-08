@@ -1,0 +1,34 @@
+#%RAML 1.0
+title: Nullable Types
+version: "1.0"
+baseUri: https://example.com/nullable-types/rest/v1
+mediaType: application/json
+protocols: [ HTTPS ]
+
+types:
+  Inquiry: !include types/inquiry.raml
+  Reviewer: !include types/reviewer.raml
+
+/inquiries:
+  /{id}:
+    uriParameters:
+      id:
+        required: true
+        type: string
+    get:
+      description: Get an inquiry
+      responses:
+        200:
+          body:
+            application/json:
+              type: Inquiry
+    put:
+      description: Update an inquiry
+      body:
+        application/json:
+          type: Inquiry
+      responses:
+        200:
+          body:
+            application/json:
+              type: Inquiry

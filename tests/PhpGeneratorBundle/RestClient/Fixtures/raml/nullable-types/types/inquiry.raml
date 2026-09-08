@@ -1,0 +1,21 @@
+#%RAML 1.0 DataType
+description: Inquiry whose judgement may not have been made yet
+properties:
+  id:
+    type: string
+    required: true
+  question:
+    type: string
+    required: true
+  comment:
+    type: string
+    required: false
+  fulfilled:
+    type: boolean | nil
+    required: true
+  reviewed_at:
+    type: datetime | nil
+    required: true
+  reviewer:
+    type: Reviewer | nil
+    required: true

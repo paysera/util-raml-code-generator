@@ -61,6 +61,11 @@ class PropertyDefinition
     private $required;
 
     /**
+     * @var bool
+     */
+    private $nullable;
+
+    /**
      * @var Constant[]
      */
     private $constants;
@@ -78,6 +83,7 @@ class PropertyDefinition
     public function __construct()
     {
         $this->required = false;
+        $this->nullable = false;
         $this->constants = [];
         $this->ramlPrimitiveTypesMap = [
             PropertyDefinition::TYPE_NUMBER => PropertyDefinition::TYPE_STRING,
@@ -181,6 +187,33 @@ class PropertyDefinition
     {
         $this->required = $required;
         return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isNullable()
+    {
+        return $this->nullable;
+    }
+
+    /**
+     * @param bool $nullable
+     *
+     * @return $this
+     */
+    public function setNullable($nullable)
+    {
+        $this->nullable = $nullable;
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function allowsNullValue()
+    {
+        return $this->nullable || !$this->required;
     }
 
     /**

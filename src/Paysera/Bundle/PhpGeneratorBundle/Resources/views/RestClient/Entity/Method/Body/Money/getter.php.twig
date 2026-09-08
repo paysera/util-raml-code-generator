@@ -3,7 +3,7 @@
      */
     public function {{ php_generate_getter_name(property) }}()
     {
-    {% if property.required == false %}
+    {% if property.allowsNullValue %}
     if (!isset($this->get('{{ property.name }}')['amount']) || !isset($this->get('{{ property.name }}')['currency'])) {
             return null;
         }

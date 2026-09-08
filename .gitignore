@@ -32,3 +32,4 @@ bin/*
 box.phar
 raml-code-generator.phar
 package-lock.json
+.phpunit.result.cache

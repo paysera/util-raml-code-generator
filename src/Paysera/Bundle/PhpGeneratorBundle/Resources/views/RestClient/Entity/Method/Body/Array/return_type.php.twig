@@ -1,5 +1,5 @@
 {% spaceless %}
-    {% if property.required == false and property.itemsType in property.scalarTypes %}
+    {% if property.allowsNullValue and property.itemsType in property.scalarTypes %}
         {{ property.itemsType|extract_type_name }}[]|null
     {% else %}
         {{ property.itemsType|extract_type_name }}[]

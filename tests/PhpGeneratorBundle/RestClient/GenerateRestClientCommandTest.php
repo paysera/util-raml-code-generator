@@ -3,6 +3,7 @@
 namespace Tests\PhpGeneratorBundle\RestClient;
 
 use Doctrine\Common\Util\Inflector;
+use Paysera\Bundle\CodeGeneratorBundle\Exception\UnrecognizedTypeException;
 use Paysera\Bundle\PhpGeneratorBundle\Command\GenerateRestClientCommand;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
@@ -76,6 +77,18 @@ class GenerateRestClientCommandTest extends KernelTestCase
         $this->ensureDirectoryTreeMatches($apiName);
     }
 
+    public function testGenerateCodeRejectsUnionThatIsNotNullable()
+    {
+        $this->expectException(UnrecognizedTypeException::class);
+        $this->expectExceptionMessage('Did not found defined type "string | integer"');
+
+        $this->commandTester->execute([
+            'raml_file' => sprintf('%s/Fixtures/raml/unsupported-union/api.raml', __DIR__),
+            'output_dir' => sprintf('%s/Fixtures/generated/unsupported-union', __DIR__),
+            'namespace' => 'Paysera\\Test\\UnsupportedUnionClient',
+        ]);
+    }
+
     public function dataProviderTestGenerateCode()
     {
         return [
@@ -93,6 +106,7 @@ class GenerateRestClientCommandTest extends KernelTestCase
             ['money-collection'],
             ['issued-payment-card'],
             ['custom'],
+            ['nullable-types'],
             [
                 'apiName' => 'platform-version',
                 'libraryName' => null,

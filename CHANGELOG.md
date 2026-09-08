@@ -5,6 +5,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 
+## 11.12.0
+### Added
+- Nullable property types. A property declared `type: X | nil` now generates an accessor whose type admits `null`, independently of `required` — so a property that is always present but may hold no value can finally be expressed. Supported for scalars, the `datetime` family and references to named types. Unions of any other shape remain unsupported and are still rejected with `Did not found defined type`.
+
 ## 11.11.5
 ### Fixed
 - Fixes PHP client generation issue by fixing Money object array hydration

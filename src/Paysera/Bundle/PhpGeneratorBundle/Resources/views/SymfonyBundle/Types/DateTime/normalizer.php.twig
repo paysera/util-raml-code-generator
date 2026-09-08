@@ -1,11 +1,11 @@
 {% if php_resolve_date_type_format(property) == 'U' -%}
-{% if property.required %}
+{% if property.allowsNullValue == false %}
 '{{ property.name|to_snake_case }}' => $entity->{{ php_generate_getter_name(property) }}()->getTimestamp(),
 {% else %}
 '{{ property.name|to_snake_case }}' => $entity->{{ php_generate_getter_name(property) }}() !== null ? $entity->{{ php_generate_getter_name(property) }}()->getTimestamp() : null,
 {% endif %}
 {% else %}
-{% if property.required %}
+{% if property.allowsNullValue == false %}
 '{{ property.name|to_snake_case }}' => $entity->{{ php_generate_getter_name(property) }}()->format('{{ php_resolve_date_type_format(property) }}'),
 {% else %}
 '{{ property.name|to_snake_case }}' => $entity->{{ php_generate_getter_name(property) }}() !== null ? $entity->{{ php_generate_getter_name(property) }}()->format('{{ php_resolve_date_type_format(property) }}') : null,

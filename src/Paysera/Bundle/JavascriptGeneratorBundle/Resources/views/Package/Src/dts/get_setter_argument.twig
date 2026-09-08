@@ -15,7 +15,7 @@
         {% set argumentType = property.type %}
     {% endif %}
 
-    {% if property.required == false %}
+    {% if property.allowsNullValue %}
         {% set argumentType = argumentType|extract_type_name ~ ' | null' %}
     {% else %}
         {% set argumentType = argumentType|extract_type_name %}

@@ -93,6 +93,7 @@ class GeneratePackageCommandTest extends KernelTestCase
             ['questionnaire'],
             ['issued-payment-card'],
             ['custom'],
+            ['nullable-types'],
             [
                 'apiName' => 'package-name',
                 'libraryName' => '@vendor-name/overwritten-package-name',

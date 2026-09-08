@@ -15,7 +15,7 @@
         {% set returnType = property.type %}
     {% endif %}
 
-    {% if property.required == false %}
+    {% if property.allowsNullValue %}
         {% set returnType = (returnType|extract_type_name ~ ' | null')|raw %}
     {% else %}
         {% set returnType = returnType|extract_type_name|raw %}

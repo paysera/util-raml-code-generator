@@ -1,0 +1,23 @@
+#%RAML 1.0
+title: Unsupported Union
+version: "1.0"
+baseUri: https://example.com/unsupported-union/rest/v1
+mediaType: application/json
+protocols: [ HTTPS ]
+
+types:
+  Measurement: !include types/measurement.raml
+
+/measurements:
+  /{id}:
+    uriParameters:
+      id:
+        required: true
+        type: string
+    get:
+      description: Get a measurement
+      responses:
+        200:
+          body:
+            application/json:
+              type: Measurement

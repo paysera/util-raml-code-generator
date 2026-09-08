@@ -1,5 +1,5 @@
 {% spaceless %}
-    {% if property.required == false %}
+    {% if property.allowsNullValue %}
         Money|null
     {% else %}
         Money

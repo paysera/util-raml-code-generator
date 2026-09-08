@@ -11,6 +11,9 @@ use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\PropertyDefinition;
 
 class PropertyDefinitionBuilder
 {
+    private const RAML_TYPE_NIL = 'nil';
+    private const UNION_SEPARATOR = '|';
+
     private $constantBuilder;
 
     public function __construct(ConstantBuilder $constantBuilder)
@@ -20,6 +23,15 @@ class PropertyDefinitionBuilder
 
     public function buildPropertyDefinition(string $name, array $definition)
     {
+        $nullable = false;
+        if (isset($definition['type'])) {
+            $unwrappedType = $this->unwrapNullableType($definition['type']);
+            if ($unwrappedType !== null) {
+                $definition['type'] = $unwrappedType;
+                $nullable = true;
+            }
+        }
+
         $property = $this->getPropertyDefinition($definition);
 
         $property
@@ -27,6 +39,7 @@ class PropertyDefinitionBuilder
             ->setType(isset($definition['type']) ? $definition['type'] : null)
             ->setDescription(isset($definition['description']) ? $definition['description'] : null)
             ->setRequired(isset($definition['required']) ? $definition['required'] : false)
+            ->setNullable($nullable)
         ;
 
         if (isset($definition['type']) && strpos($definition['type'], '[]') !== false) {
@@ -58,6 +71,27 @@ class PropertyDefinitionBuilder
         }
 
         return $property;
+    }
+
+    private function unwrapNullableType(string $type)
+    {
+        if (strpos($type, self::UNION_SEPARATOR) === false) {
+            return null;
+        }
+
+        $members = array_map('trim', explode(self::UNION_SEPARATOR, $type));
+        if (count($members) !== 2) {
+            return null;
+        }
+
+        $nilPosition = array_search(self::RAML_TYPE_NIL, $members, true);
+        if ($nilPosition === false) {
+            return null;
+        }
+
+        $declaredType = $members[$nilPosition === 0 ? 1 : 0];
+
+        return $declaredType === self::RAML_TYPE_NIL || $declaredType === '' ? null : $declaredType;
     }
 
     private function getPropertyDefinition(array $definition)

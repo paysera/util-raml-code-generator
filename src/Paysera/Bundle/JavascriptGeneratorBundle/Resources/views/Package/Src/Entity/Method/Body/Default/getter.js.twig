@@ -3,7 +3,7 @@
      * @return {% include get_method_return_type_template(property) with { 'property': property } only %}
      */
     {{ js_generate_getter_name(property) }}() {
-    {% if property.required == false and property.type == constant('TYPE_REFERENCE', property) %}
+    {% if property.allowsNullValue and property.type == constant('TYPE_REFERENCE', property) %}
     if (this.get('{{ property.name }}') == null) {
             return null;
         }

@@ -1,0 +1,9 @@
+#%RAML 1.0 DataType
+description: Measurement carrying a union the generator cannot express
+properties:
+  id:
+    type: string
+    required: true
+  reading:
+    type: string | integer
+    required: true
