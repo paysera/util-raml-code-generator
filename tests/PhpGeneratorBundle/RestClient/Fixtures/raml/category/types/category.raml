@@ -27,3 +27,44 @@ properties:
     enum: ["active", "inactive"]
     required: false
     description: Category status
+  enabled:
+    type: boolean | nil
+    required: true
+    description: Always sent, null until chosen
+  updated_at:
+    type: datetime | nil
+    required: true
+  keyword:
+    type: Keyword | nil
+    required: true
+  archived:
+    type: boolean | nil
+    required: true
+  score:
+    type: integer?
+    required: true
+  nickname:
+    type: string | nil
+    required: false
+  tags:
+    type: array | nil
+    required: true
+    items:
+      type: string
+  state:
+    type: string | nil
+    required: true
+    enum: ["active", "suspended", ~]
+  payload:
+    type: object | nil
+    required: true
+  attachment:
+    type: file | nil
+    required: true
+  price:
+    type: Paysera.Money | nil
+    required: true
+  closed_at:
+    (datetime_timestamp):
+    type: integer | nil
+    required: true

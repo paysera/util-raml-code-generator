@@ -11,6 +11,18 @@
         <field name="parentId" column="parent_id" nullable="true" type="string"/>
         <!--TODO: generated_code non-scalar property <field name="titles" column="titles" nullable="false" type="array"/>-->
         <field name="status" column="status" nullable="true" type="string"/>
+        <field name="enabled" column="enabled" nullable="true" type="boolean"/>
+        <field name="updatedAt" column="updated_at" nullable="true" type="datetime"/>
+        <!--TODO: generated_code <field name="keyword" column="keyword" nullable="true" type="reference"/>-->
+        <field name="archived" column="archived" nullable="true" type="boolean"/>
+        <field name="score" column="score" nullable="true" type="integer"/>
+        <field name="nickname" column="nickname" nullable="true" type="string"/>
+        <!--TODO: generated_code non-scalar property <field name="tags" column="tags" nullable="false" type="array"/>-->
+        <field name="state" column="state" nullable="true" type="string"/>
+        <field name="payload" column="payload" nullable="true" type="object"/>
+        <field name="priceAmount" column="price_amount" nullable="true" type="decimal" precision="16" scale="6"/>
+        <field name="priceCurrency" column="price_currency" nullable="true" type="string"/>
+        <field name="closedAt" column="closed_at" nullable="true" type="datetime"/>
         
     </entity>
 </doctrine-mapping>

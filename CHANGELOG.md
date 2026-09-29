@@ -5,6 +5,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 
+## 11.12.0
+### Added
+- Nullable property types in the PHP generators. A property declared `type: X | nil` or `type: X?` (or `type: X | null`, a non-standard alias the RAML parser accepts) now generates an accessor whose type admits `null`, independently of `required` — so a property that is always present but may hold no value can finally be expressed. Supported for scalars, the `datetime` family, `object`, `file` and references to named types in both PHP generators, with the caveat that a Symfony-bundle `file` property maps to a `file` column type Doctrine does not provide, so the host application must register one; an `array` is nullable only for `integer`, `string` or `boolean` `items` and only in the REST client, the Symfony bundle keeping it a collection initialised to `[]`, every other `items` type being rejected. Setter type declarations are unchanged and remain inconsistent about `null`: those carrying a type declaration (`array`, `\DateTimeInterface`, a named class) reject it, while scalar and `object` setters accept and forward it, and the REST client `file` setter forwards it whenever the property can be null. Unions of any other shape remain unsupported and are still rejected with `Did not found defined type`, except the array shorthand `X[] | nil`, which is left as a plain array property and fails the same way a bare `X[]` does. The JavaScript generator cannot render nullable types and rejects such a contract with the same `Did not found defined type` message it already gives any other unsupported union.
+- The enum of a nullable property may list `~`, as RAML 1.0 prescribes for a nilable type; that member generates no constant. An enum listing `~` on a property whose type names no null member is rejected with an error naming the property.
+
 ## 11.11.5
 ### Fixed
 - Fixes PHP client generation issue by fixing Money object array hydration

@@ -8,6 +8,7 @@ use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\FilterTypeDefinition;
 use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\ResultTypeDefinition;
 use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\TypeDefinition;
 use Paysera\Bundle\CodeGeneratorBundle\Entity\SourceCode;
+use Paysera\Bundle\CodeGeneratorBundle\Exception\UnrecognizedTypeException;
 use Paysera\Bundle\CodeGeneratorBundle\Service\Generator\GeneratorInterface;
 use Paysera\Bundle\CodeGeneratorBundle\Service\StringConverter;
 use Paysera\Bundle\CodeGeneratorBundle\Service\TypeConfigurationProvider;
@@ -46,6 +47,8 @@ class EntityGenerator implements GeneratorInterface
                 continue;
             }
 
+            $this->rejectNullableProperties($type);
+
             if ($type instanceof ResultTypeDefinition) {
                 $template = 'PayseraJavascriptGeneratorBundle:Package/Src/Entity:Result.js.twig';
             } elseif ($type instanceof FilterTypeDefinition) {
@@ -73,6 +76,17 @@ class EntityGenerator implements GeneratorInterface
         }
 
         return $items;
+    }
+
+    private function rejectNullableProperties(TypeDefinition $type) : void
+    {
+        foreach ($type->getProperties() as $property) {
+            if ($property->isNullable()) {
+                throw new UnrecognizedTypeException(
+                    sprintf('Did not found defined type "%s"', $property->getDeclaredType())
+                );
+            }
+        }
     }
 
     private function skipTypeGeneration(TypeDefinition $type)

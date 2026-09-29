@@ -40,9 +40,14 @@
                  class="Paysera\Bundle\CodeGeneratorBundle\Service\BodyResolver">
         </service>
 
+        <service id="paysera_code_generator.property_type_resolver"
+                 class="Paysera\Bundle\CodeGeneratorBundle\Service\PropertyTypeResolver">
+        </service>
+
         <service id="paysera_code_generator.property_definition_builder"
                  class="Paysera\Bundle\CodeGeneratorBundle\Service\PropertyDefinitionBuilder">
             <argument type="service" id="paysera_code_generator.constant_builder" />
+            <argument type="service" id="paysera_code_generator.property_type_resolver" />
         </service>
 
         <service id="paysera_code_generator.type_definition_builder"

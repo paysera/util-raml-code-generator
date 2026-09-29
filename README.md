@@ -24,6 +24,7 @@ Currently this utility can:
     1. [types/category.raml](#raml/category/types/category.raml)
     1. [types/category-result.raml](#raml/category/types/category-result.raml)
     1. [traits/category-filter.raml](#raml/category/traits/category-filter.raml)
+    1. [Nullable types](#nullable-types)
 1. [Custom annotations](#custom-annotations)
     1. [`(generator_method_name_override)`](#--generator-method-name-override--)
 1. [Generate and publish clients](#generate-and-publish-clients)
@@ -184,6 +185,66 @@ properties:
     items:
       type: Category
 ```
+
+### Nullable types
+
+A property whose value may be `null` is declared as a union with `nil`. This is independent of
+`required`: `required` says whether the key must be present, `| nil` says whether its value may
+be empty.
+
+```yaml
+#%RAML 1.0 DataType
+properties:
+  enabled:
+    type: boolean | nil
+    required: true
+    description: Always sent, but null until a value has been chosen
+```
+
+The generated PHP accessor admits `null` (`boolean|null`) while the key stays mandatory. Scalars,
+the `datetime` family, `object`, `file` and references to named types are supported by both PHP
+generators. For `file` the Symfony bundle additionally emits `<field type="file"/>`, and Doctrine
+provides no such column type — the host application has to register a custom DBAL type under that
+name for the mapping to load.
+
+An `array` is nullable only when its `items` are `integer`, `string` or `boolean`, and only in the
+REST client; in the Symfony bundle an array property remains a collection initialised to `[]`.
+Every other `items` type is rejected. For `datetime`, `file` and named types that is required
+for correctness, their generated getter mapping `null` to `[]`; for `number` it is conservative,
+the return-type template emitting `|null` only for the three types above. The JavaScript generator
+does not support nullable types and rejects a contract that declares one.
+
+Three spellings are equivalent:
+
+```yaml
+type: boolean | nil
+type: boolean?
+type: boolean | null
+```
+
+`X | nil` and `X?` are the RAML 1.0 spellings, and RAML allows `?` only on scalars and named
+types. `X | null` is not standard RAML: `nil` is the only null type the specification defines, and
+`null` is accepted here only because the RAML parser this generator uses treats it as an alias.
+Other RAML tools may reject it, so prefer `nil`.
+
+Getters return `null`, and normalizers and Doctrine columns generated for the Symfony bundle treat
+the value as nullable.
+
+Setters are inconsistent about `null`, and the generator does not change that. A setter that
+carries a type declaration — `array`, `\DateTimeInterface`, or a named class — rejects `null` with
+a `TypeError`. A setter for a scalar or `object` property carries no type declaration and so
+accepts `null` and forwards it, even though its `@param` docblock names only the non-null type;
+the `file` setter forwards `null` explicitly. So a `null` value can be sent back for scalar,
+`object` and `file` properties, and cannot for the rest.
+
+Unions of any other shape — `string | integer`, three or more members, a malformed union such as
+`string |`, or a union whose non-null member cannot be expressed on its own such as `array | nil`
+without an `items` node — are rejected with `Did not found defined type`.
+
+The array shorthand is not combinable with `nil`: `string[] | nil` is left as a plain array
+property and fails the same way a bare `type: string[]` already does, rather than being rejected
+with that message.
+
 
 ## Custom annotations
 

@@ -3,6 +3,7 @@
 namespace Tests\JavascriptGeneratorBundle;
 
 use Doctrine\Common\Util\Inflector;
+use Paysera\Bundle\CodeGeneratorBundle\Exception\UnrecognizedTypeException;
 use Paysera\Bundle\JavascriptGeneratorBundle\Command\GeneratePackageCommand;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
@@ -79,6 +80,26 @@ class GeneratePackageCommandTest extends KernelTestCase
         $this->commandTester->execute($arguments);
 
         $this->ensureDirectoryTreeMatches($apiName);
+    }
+
+    public function testGenerateCodeRejectsNullableTypes()
+    {
+        $apiName = 'nullable-types';
+        $this->removeTargetDir($apiName);
+        $generatedDir = sprintf('%s/Fixtures/generated/%s', __DIR__, $apiName);
+
+        try {
+            $this->commandTester->execute([
+                'raml_file' => sprintf('%s/Fixtures/raml/%s/api.raml', __DIR__, $apiName),
+                'output_dir' => $generatedDir,
+                'client_name' => 'NullableTypesClient',
+            ]);
+            $this->fail('Expected the nullable contract to be rejected');
+        } catch (UnrecognizedTypeException $exception) {
+            $this->assertSame('Did not found defined type "string | nil"', $exception->getMessage());
+        }
+
+        $this->assertFileDoesNotExist($generatedDir);
     }
 
     public function dataProviderTestGenerateCode()

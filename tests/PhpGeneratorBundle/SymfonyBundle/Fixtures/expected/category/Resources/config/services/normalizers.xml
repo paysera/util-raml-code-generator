@@ -7,12 +7,17 @@
     <services>
         <service id="vendor_category_api.normalizer.category"
                  class="Vendor\Test\CategoryApiBundle\Normalizer\CategoryNormalizer">
+            <argument type="service" id="vendor_category_api.normalizer.keyword"/>
+            <argument type="service" id="vendor_category_api.normalizer.money"/>
         </service>
         <service id="vendor_category_api.normalizer.category_filter"
                  class="Vendor\Test\CategoryApiBundle\Normalizer\CategoryFilterNormalizer">
         </service>
         <service id="vendor_category_api.normalizer.keyword"
                  class="Vendor\Test\CategoryApiBundle\Normalizer\KeywordNormalizer">
+        </service>
+        <service id="vendor_category_api.normalizer.money"
+                 class="Evp\Component\Money\MoneyNormalizer">
         </service>
         
         

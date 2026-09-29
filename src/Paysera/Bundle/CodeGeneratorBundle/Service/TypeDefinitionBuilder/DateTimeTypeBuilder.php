@@ -3,10 +3,17 @@
 namespace Paysera\Bundle\CodeGeneratorBundle\Service\TypeDefinitionBuilder;
 
 use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\DateTimeTypeDefinition;
-use Paysera\Bundle\CodeGeneratorBundle\Entity\Definition\PropertyDefinition;
+use Paysera\Bundle\CodeGeneratorBundle\Service\PropertyTypeResolver;
 
 class DateTimeTypeBuilder implements TypeDefinitionBuilderInterface
 {
+    private $propertyTypeResolver;
+
+    public function __construct(PropertyTypeResolver $propertyTypeResolver)
+    {
+        $this->propertyTypeResolver = $propertyTypeResolver;
+    }
+
     public function supports(string $name, array $definition): bool
     {
         $fields = [];
@@ -16,17 +23,7 @@ class DateTimeTypeBuilder implements TypeDefinitionBuilderInterface
             $fields = $definition['queryParameters'];
         }
         foreach ($fields as $field) {
-            if (
-                (
-                    isset($field['type'])
-                    && in_array($field['type'], DateTimeTypeDefinition::$supportedTypes, true)
-                )
-                ||
-                (
-                    $field['type'] === PropertyDefinition::TYPE_INTEGER
-                    && array_key_exists(DateTimeTypeDefinition::ANNOTATION_TIMESTAMP, $field)
-                )
-            ) {
+            if (is_array($field) && $this->propertyTypeResolver->isDateTime($field)) {
                 return true;
             }
         }

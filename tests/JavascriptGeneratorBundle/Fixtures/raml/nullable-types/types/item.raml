@@ -1,0 +1,9 @@
+#%RAML 1.0 DataType
+description: Item with a nullable scalar
+properties:
+  id:
+    type: string
+    required: true
+  nickname:
+    type: string | nil
+    required: true
